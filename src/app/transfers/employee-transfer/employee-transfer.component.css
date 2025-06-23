@@ -1,0 +1,15 @@
+.full-width-table {
+  width: 100%;
+}
+
+.employee-card {
+  margin: 0px 5px 0px 5px;
+  position: absolute;
+  top: 0px;
+  left: 5px;
+  right: 5px;
+}
+
+mat-list-option {
+  border: 1px solid lightgray;
+}

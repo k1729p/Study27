@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<meta charset="UTF-8">
+<body>
+  <a href="https://github.com/k1729p/Study27/tree/main/docs">
+    <img alt="" src="images/ColorScheme.png" height="25" width="800" />
+  </a>
+  <h2 id="contents">Study27 README Contents</h2>
+<pre>
+This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 20.
+
+## Development server
+Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`.
+The application will automatically reload if you change any of the source files.
+
+## Build
+Run `ng build` to build the project.
+The build artifacts will be stored in the `dist/` directory.
+
+</pre>
+<a href="https://angular.dev/tools/cli">Angular CLI Overview and Command Reference</a><br>
+<a href="https://karma-runner.github.io">Karma</a><br>
+<pre>
+## Code scaffolding
+Run `ng generate component component-name` to generate a new component.
+You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
+## Running end-to-end tests
+Run `ng e2e` to execute the end-to-end tests via a platform of your choice.
+To use this command, you need to first add a package that implements end-to-end testing capabilities.
+</pre>
+<hr>
+</body>
+</html>

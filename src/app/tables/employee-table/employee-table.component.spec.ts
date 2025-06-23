@@ -1,0 +1,154 @@
+import { EmployeeTableComponent } from './employee-table.component';
+import { Employee } from '../../models/employee';
+import { waitForAsync, ComponentFixture, TestBed } from '@angular/core/testing';
+
+import { of } from 'rxjs';
+import { ActivatedRoute, Router } from '@angular/router';
+/**
+ * EmployeeTableComponent is a component that displays a table of employees.
+ * It uses Angular Material's table features to display, sort, and paginate the
+ * employee data.
+ * This component also provides methods to create, update, delete employees,
+ * and read details of a specific employee.
+ */
+describe('EmployeeTableComponent', () => {
+  let component: EmployeeTableComponent;
+  let fixture: ComponentFixture<EmployeeTableComponent>;
+  let routerSpy: jasmine.SpyObj<Router>;
+
+  /**
+   * Sets up the testing module for the EmployeeTableComponent.
+   * This includes importing necessary modules and compiling the component.
+   *
+   * @return void
+   */
+  beforeEach(async () => {
+    routerSpy = jasmine.createSpyObj('Router', ['navigate']);
+    await TestBed.configureTestingModule({
+      imports: [EmployeeTableComponent],
+      providers: [
+        { provide: Router, useValue: routerSpy },
+        {
+          provide: ActivatedRoute,
+          useValue: {
+            params: of({ departmentId: '1', departmentName: 'HR' }),
+            snapshot: {
+              paramMap: {
+                get: (key: string) => {
+                  if (key === 'departmentId') return '1';
+                  if (key === 'departmentName') return 'HR';
+                  return null;
+                },
+              },
+            },
+          },
+        },
+      ],
+    }).compileComponents();
+    fixture = TestBed.createComponent(EmployeeTableComponent);
+    component = fixture.componentInstance;
+    fixture.detectChanges();
+  });
+  /**
+   * Initializes the component and fixture before each test.
+   * This is where the component instance is created and the initial change detection is run.
+   *
+   * @return void
+   */
+  beforeEach(() => {
+    fixture = TestBed.createComponent(EmployeeTableComponent);
+    component = fixture.componentInstance;
+    fixture.detectChanges();
+  });
+  /**
+   * Tests that the EmployeeTableComponent compiles successfully.
+   * This is a basic test to ensure that the component can be created without errors.
+   *
+   * @param void
+   * @returns void
+   */
+  it('should compile', () => {
+    expect(component).toBeTruthy();
+  });
+  /**
+   * Tests that the ngAfterViewInit method sets the dataSource.sort, dataSource.paginator,
+   * and table.dataSource properties correctly.
+   * This method is expected to be called after the view has been initialized.
+   * It checks if the dataSource and table properties are set up correctly for the Angular Material table.
+   *
+   * @returns void
+   */
+  it('should set dataSource sort, paginator, and table dataSource on ngAfterViewInit', () => {
+    // Mock ViewChilds
+    const mockSort = {} as import('@angular/material/sort').MatSort;
+    const mockPaginator =
+      {} as import('@angular/material/paginator').MatPaginator;
+    // Replace 'Department' with your actual data type if different
+    const mockTable = {
+      dataSource: null,
+    } as unknown as import('@angular/material/table').MatTable<Employee>;
+    component.sort = mockSort;
+    component.paginator = mockPaginator;
+    component.table = mockTable;
+    component.ngAfterViewInit();
+    expect(component.dataSource.sort).toBe(mockSort);
+    expect(component.dataSource.paginator).toBe(mockPaginator);
+    expect(component.table.dataSource).toBe(component.dataSource);
+  });
+  /**
+   * Tests that the displayedColumns property is set correctly.
+   * This property defines the columns that will be displayed in the department table.
+   * It checks if the displayedColumns array matches the expected column names.
+   */
+  it('should have displayedColumns set correctly', () => {
+    expect(component.displayedColumns).toEqual([
+      'id',
+      'firstName',
+      'lastName',
+      'actions',
+    ]);
+  });
+  /**
+   * Tests that the createEmployee method navigates to the create employee form.
+   * This method is expected to navigate to the employee form for creating a new employee.
+   * It checks if the router's navigate method is called with the correct route and parameters.
+   *
+   * @param void
+   * @returns void
+   */
+  it('should navigate to create employee form on createEmployee', () => {
+    component.createEmployee();
+    expect(routerSpy.navigate).toHaveBeenCalledWith(
+      ['/employee-form', '1', 'CREATE', '-1'],
+      { relativeTo: jasmine.any(Object) }
+    );
+  });
+  /**
+   * Tests that the updateEmployee method navigates to the update employee form.
+   * This method is expected to navigate to the employee form for updating an existing employee.
+   * It checks if the router's navigate method is called with the correct route and parameters.
+   * @param {number} 22 - The ID of the employee to be updated.
+   * @return void
+   */
+  it('should navigate to update employee form on updateEmployee', () => {
+    component.updateEmployee(22);
+    expect(routerSpy.navigate).toHaveBeenCalledWith(
+      ['/employee-form', '1', 'UPDATE', 22],
+      { relativeTo: jasmine.any(Object) }
+    );
+  });
+  /**
+   * Tests that the readEmployee method navigates to the read employee form.
+   * This method is expected to navigate to the employee form for reading an existing employee's details.
+   * It checks if the router's navigate method is called with the correct route and parameters.
+   * @param {number} 33 - The ID of the employee to be read.
+   * @return void
+   */
+  it('should navigate to delete employee form on deleteEmployee', () => {
+    component.deleteEmployee(33);
+    expect(routerSpy.navigate).toHaveBeenCalledWith(
+      ['/employee-form', '1', 'DELETE', 33],
+      { relativeTo: jasmine.any(Object) }
+    );
+  });
+});
