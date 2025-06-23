@@ -1,9 +1,13 @@
 <!DOCTYPE html>
 <html lang="en">
-<meta charset="UTF-8">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Study27 README</title>
+</head>
 <body>
-  <a href="https://github.com/k1729p/Study27/tree/main/docs">
-    <img alt="" src="images/ColorScheme.png" height="25" width="800" />
+  <a href="https://github.com/k1729p/Study27/tree/main/docs" title="View Study27 docs on GitHub">
+    <img alt="Color scheme for Study27 project" src="images/ColorScheme.png" height="25" width="800" />
   </a>
   <h2 id="contents">Study27 README Contents</h2>
 <pre>

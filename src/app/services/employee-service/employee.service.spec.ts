@@ -1,3 +1,7 @@
+import { TestBed } from '@angular/core/testing';
+import { EmployeeService } from './employee.service';
+import { Employee } from '../../models/employee';
+import { Title } from '../../models/title';
 /**
  * Unit tests for the {@link EmployeeService}.
  *
@@ -6,11 +10,6 @@
  *
  * @group UnitTest
  */
-import { TestBed } from '@angular/core/testing';
-import { EmployeeService } from './employee.service';
-import { Employee } from '../../models/employee';
-import { Title } from '../../models/title';
-
 describe('EmployeeService', () => {
   let service: EmployeeService;
   /**
