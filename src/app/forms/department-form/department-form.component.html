@@ -27,34 +27,6 @@
           </mat-form-field>
         </div>
       </div>
-      <div class="row" class="department-datepicker">
-        <div class="col">
-          <mat-form-field [style.width.%]="20" appearance="outline">
-            <mat-label>Start Date &amp; End Date</mat-label>
-            <mat-date-range-input [rangePicker]="rangePicker" [dateFilter]="workdaysFilter">
-              <input placeholder="Start date" matStartDate formControlName="startDate">
-              <input placeholder="End date" matEndDate formControlName="endDate">
-            </mat-date-range-input>
-            <mat-hint>MM/DD/YYYY – MM/DD/YYYY</mat-hint>
-            <mat-datepicker-toggle matIconSuffix [for]="rangePicker"></mat-datepicker-toggle>
-            <mat-date-range-picker #rangePicker>
-              <mat-date-range-picker-actions>
-                <button type='button' mat-button matDateRangePickerCancel>Cancel</button>
-                <button type='button' mat-raised-button matDateRangePickerApply>Apply</button>
-              </mat-date-range-picker-actions>
-            </mat-date-range-picker>
-          </mat-form-field>
-        </div>
-      </div>
-      <div class="row">
-        <div class="col">
-          <mat-form-field class="full-width" appearance="outline">
-            <mat-label>Notes</mat-label>
-            <textarea matInput placeholder="Notes" formControlName="notes">
-            </textarea>
-          </mat-form-field>
-        </div>
-      </div>
       <div class="row">
         <div class="col">
           <mat-form-field class="full-width" appearance="outline">
@@ -77,6 +49,34 @@
               <mat-option [value]="keyword">{{keyword}}</mat-option>
               }
             </mat-autocomplete>
+          </mat-form-field>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col">
+          <mat-form-field class="full-width" appearance="outline">
+            <mat-label>Notes</mat-label>
+            <textarea matInput placeholder="Notes" formControlName="notes">
+            </textarea>
+          </mat-form-field>
+        </div>
+      </div>
+      <div class="row" class="department-datepicker">
+        <div class="col">
+          <mat-form-field [style.width.%]="20" appearance="outline">
+            <mat-label>Start Date &amp; End Date</mat-label>
+            <mat-date-range-input [rangePicker]="rangePicker" [dateFilter]="workdaysFilter">
+              <input placeholder="Start date" matStartDate formControlName="startDate">
+              <input placeholder="End date" matEndDate formControlName="endDate">
+            </mat-date-range-input>
+            <mat-hint>MM/DD/YYYY – MM/DD/YYYY</mat-hint>
+            <mat-datepicker-toggle matIconSuffix [for]="rangePicker"></mat-datepicker-toggle>
+            <mat-date-range-picker #rangePicker>
+              <mat-date-range-picker-actions>
+                <button type='button' mat-button matDateRangePickerCancel>Cancel</button>
+                <button type='button' mat-raised-button matDateRangePickerApply>Apply</button>
+              </mat-date-range-picker-actions>
+            </mat-date-range-picker>
           </mat-form-field>
         </div>
       </div>

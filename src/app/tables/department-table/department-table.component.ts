@@ -1,3 +1,5 @@
+import { Department } from '../../models/department';
+import { DepartmentDataSource } from './department-datasource';
 import { AfterViewInit, Component, ViewChild, inject } from '@angular/core';
 import { MatTableModule, MatTable } from '@angular/material/table';
 import { MatPaginatorModule, MatPaginator } from '@angular/material/paginator';
@@ -5,9 +7,6 @@ import { MatSortModule, MatSort } from '@angular/material/sort';
 import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
 import { Router, ActivatedRoute } from '@angular/router';
-
-import { Department } from '../../models/department';
-import { DepartmentDataSource } from './department-datasource';
 /**
  * DepartmentTableComponent is a component that displays a table of departments.
  * It uses Angular Material's table features to display, sort, and paginate the

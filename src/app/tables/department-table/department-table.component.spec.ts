@@ -1,7 +1,8 @@
-import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { TEST_DEPARTMENT_ID } from '../../testing/test-data';
 import { DepartmentTableComponent } from './department-table.component';
-import { ActivatedRoute, Router } from '@angular/router';
 import { Department } from '../../models/department';
+import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { ActivatedRoute, Router } from '@angular/router';
 
 /**
  * DepartmentTableComponent is a component that displays a table of departments.
@@ -38,7 +39,6 @@ describe('DepartmentTableComponent', () => {
   /**
    * Initializes the component and fixture before each test.
    * This is where the component instance is created and the initial change detection is run.
-   * @returns void
    */
   beforeEach(() => {
     fixture = TestBed.createComponent(DepartmentTableComponent);
@@ -48,7 +48,6 @@ describe('DepartmentTableComponent', () => {
   /**
    * Tests that the DepartmentTableComponent compiles successfully.
    * This is a basic test to ensure that the component can be created without errors.
-   * @return void
    */
   it('should compile', () => {
     expect(component).toBeTruthy();
@@ -57,7 +56,6 @@ describe('DepartmentTableComponent', () => {
    * Tests that the ngAfterViewInit method sets the dataSource.sort, dataSource.paginator, and table.dataSource properties correctly.
    * This method is expected to be called after the view has been initialized.
    * It checks if the dataSource and table properties are set up correctly for the Angular Material table.
-   * @returns void
    */
   it('should set dataSource.sort, dataSource.paginator, and table.dataSource in ngAfterViewInit', () => {
     // Mock ViewChilds
@@ -93,8 +91,6 @@ describe('DepartmentTableComponent', () => {
    * Tests that the createDepartment method calls router.navigate with the correct parameters.
    * This method is expected to navigate to the department form for creating a new department.
    * It checks if the router's navigate method is called with the correct route and parameters.
-   * @param {number} -1 - The ID for a new department, indicating creation.
-   * @returns void
    */
   it('should call router.navigate with correct params when createDepartment is called', () => {
     component.createDepartment();
@@ -107,13 +103,11 @@ describe('DepartmentTableComponent', () => {
    * Tests that the updateDepartment method calls router.navigate with the correct parameters.
    * This method is expected to navigate to the department form for updating an existing department.
    * It checks if the router's navigate method is called with the correct route and parameters.
-   * @param {number} 5 - The ID of the department to be updated.
-   * @returns void
    */
   it('should call router.navigate with correct params when updateDepartment is called', () => {
-    component.updateDepartment(5);
+    component.updateDepartment(TEST_DEPARTMENT_ID);
     expect(routerSpy.navigate).toHaveBeenCalledWith(
-      ['/department-form', 'UPDATE', 5],
+      ['/department-form', 'UPDATE', TEST_DEPARTMENT_ID],
       { relativeTo: TestBed.inject(ActivatedRoute) }
     );
   });
@@ -121,13 +115,11 @@ describe('DepartmentTableComponent', () => {
    * Tests that the deleteDepartment method calls router.navigate with the correct parameters.
    * This method is expected to navigate to the department form for deleting an existing department.
    * It checks if the router's navigate method is called with the correct route and parameters.
-   * @param {number} 7 - The ID of the department to be deleted.
-   * @returns void
    */
   it('should call router.navigate with correct params when deleteDepartment is called', () => {
-    component.deleteDepartment(7);
+    component.deleteDepartment(TEST_DEPARTMENT_ID);
     expect(routerSpy.navigate).toHaveBeenCalledWith(
-      ['/department-form', 'DELETE', 7],
+      ['/department-form', 'DELETE', TEST_DEPARTMENT_ID],
       { relativeTo: TestBed.inject(ActivatedRoute) }
     );
   });
@@ -135,13 +127,14 @@ describe('DepartmentTableComponent', () => {
    * Tests that the readEmployees method calls router.navigate with the correct parameters.
    * This method is expected to navigate to the employee table for a specific department.
    * It checks if the router's navigate method is called with the correct route and parameters.
-   * @param {number} 3 - The ID of the department for which to read employees.
-   * @returns void
    */
   it('should call router.navigate with correct params when readEmployees is called', () => {
-    component.readEmployees(3);
-    expect(routerSpy.navigate).toHaveBeenCalledWith(['/employee-table', 3], {
-      relativeTo: TestBed.inject(ActivatedRoute),
-    });
+    component.readEmployees(TEST_DEPARTMENT_ID);
+    expect(routerSpy.navigate).toHaveBeenCalledWith(
+      ['/employee-table', TEST_DEPARTMENT_ID],
+      {
+        relativeTo: TestBed.inject(ActivatedRoute),
+      }
+    );
   });
 });

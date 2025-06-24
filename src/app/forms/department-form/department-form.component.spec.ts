@@ -1,9 +1,12 @@
+import { TEST_DEPARTMENTS } from '../../testing/test-data';
+import { SUGGESTION_KEYWORDS } from '../../testing/test-data';
+import { TEST_DAYS } from '../../testing/test-data';
+import { DepartmentFormComponent } from './department-form.component';
 import { waitForAsync, ComponentFixture, TestBed } from '@angular/core/testing';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
-import { DepartmentFormComponent } from './department-form.component';
 import { ActivatedRoute } from '@angular/router';
 import { of } from 'rxjs';
-import { Department } from '../../models/department';
+
 /**
  * Unit tests for the DepartmentFormComponent.
  * This component is part of the forms module and is used to manage department-related forms.
@@ -73,25 +76,27 @@ describe('DepartmentFormComponent', () => {
       .departmentService;
     spyOn(departmentService, 'createDepartment');
     component.operation = 'CREATE';
-    component.departmentForm.controls['name'].setValue(TEST_DATA[0].name);
+    component.departmentForm.controls['name'].setValue(
+      TEST_DEPARTMENTS[0].name
+    );
     component.departmentForm.controls['startDate'].setValue(
-      TEST_DATA[0].startDate ?? null
+      TEST_DEPARTMENTS[0].startDate ?? null
     );
     component.departmentForm.controls['endDate'].setValue(
-      TEST_DATA[0].endDate ?? null
+      TEST_DEPARTMENTS[0].endDate ?? null
     );
     component.departmentForm.controls['notes'].setValue(
-      TEST_DATA[0].notes ?? null
+      TEST_DEPARTMENTS[0].notes ?? null
     );
-    const KEYWORD = TEST_DATA[0].keywords ?? [];
+    const KEYWORD = TEST_DEPARTMENTS[0].keywords ?? [];
     component.keywordsSignal.set(KEYWORD);
     component.onSubmit();
     expect(departmentService.createDepartment).toHaveBeenCalledWith({
       id: -1,
-      name: TEST_DATA[0].name,
-      startDate: TEST_DATA[0].startDate,
-      endDate: TEST_DATA[0].endDate,
-      notes: TEST_DATA[0].notes,
+      name: TEST_DEPARTMENTS[0].name,
+      startDate: TEST_DEPARTMENTS[0].startDate,
+      endDate: TEST_DEPARTMENTS[0].endDate,
+      notes: TEST_DEPARTMENTS[0].notes,
       keywords: KEYWORD,
     });
   });
@@ -105,26 +110,28 @@ describe('DepartmentFormComponent', () => {
       .departmentService;
     spyOn(departmentService, 'updateDepartment');
     component.operation = 'UPDATE';
-    component.id = TEST_DATA[0].id.toString();
-    component.departmentForm.controls['name'].setValue(TEST_DATA[0].name);
+    component.id = TEST_DEPARTMENTS[0].id.toString();
+    component.departmentForm.controls['name'].setValue(
+      TEST_DEPARTMENTS[0].name
+    );
     component.departmentForm.controls['startDate'].setValue(
-      TEST_DATA[0].startDate ?? null
+      TEST_DEPARTMENTS[0].startDate ?? null
     );
     component.departmentForm.controls['endDate'].setValue(
-      TEST_DATA[0].endDate ?? null
+      TEST_DEPARTMENTS[0].endDate ?? null
     );
     component.departmentForm.controls['notes'].setValue(
-      TEST_DATA[0].notes ?? null
+      TEST_DEPARTMENTS[0].notes ?? null
     );
-    const KEYWORD = TEST_DATA[0].keywords ?? [];
+    const KEYWORD = TEST_DEPARTMENTS[0].keywords ?? [];
     component.keywordsSignal.set(KEYWORD);
     component.onSubmit();
     expect(departmentService.updateDepartment).toHaveBeenCalledWith({
-      id: TEST_DATA[0].id,
-      name: TEST_DATA[0].name,
-      startDate: TEST_DATA[0].startDate,
-      endDate: TEST_DATA[0].endDate,
-      notes: TEST_DATA[0].notes,
+      id: TEST_DEPARTMENTS[0].id,
+      name: TEST_DEPARTMENTS[0].name,
+      startDate: TEST_DEPARTMENTS[0].startDate,
+      endDate: TEST_DEPARTMENTS[0].endDate,
+      notes: TEST_DEPARTMENTS[0].notes,
       keywords: KEYWORD,
     });
   });
@@ -137,10 +144,10 @@ describe('DepartmentFormComponent', () => {
       .departmentService;
     spyOn(departmentService, 'deleteDepartment');
     component.operation = 'DELETE';
-    component.id = TEST_DATA[0].id.toString();
+    component.id = TEST_DEPARTMENTS[0].id.toString();
     component.onSubmit();
     expect(departmentService.deleteDepartment).toHaveBeenCalledWith(
-      TEST_DATA[0].id
+      TEST_DEPARTMENTS[0].id
     );
   });
   /**
@@ -229,27 +236,3 @@ describe('DepartmentFormComponent', () => {
     expect(router.navigate).toHaveBeenCalled();
   });
 });
-const TEST_DAYS: Date[] = [
-  new Date('2020-01-04'),
-  new Date('2020-01-05'),
-  new Date('2020-01-06'),
-  new Date('2020-01-07'),
-];
-/**
- * Suggestion keywords for the autocomplete.
- */
-const SUGGESTION_KEYWORDS: string[] = ['Banking', 'Credit'];
-/**
- * Test department data for departments.
- * This data is used to populate the department array in tests.
- */
-const TEST_DATA: Department[] = [
-  {
-    id: 1,
-    name: 'Main Office',
-    startDate: TEST_DAYS[2],
-    endDate: TEST_DAYS[3],
-    notes: 'Main product:\n - money transfer',
-    keywords: [SUGGESTION_KEYWORDS[0]],
-  },
-];

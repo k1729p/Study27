@@ -1,10 +1,10 @@
+import { TEST_EMPLOYEES } from '../../testing/test-data';
 import { EmployeeFormComponent } from './employee-form.component';
+import { Title } from '../../models/title';
 import { waitForAsync, ComponentFixture, TestBed } from '@angular/core/testing';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { ActivatedRoute } from '@angular/router';
 import { of } from 'rxjs';
-import { Employee } from '../../models/employee';
-import { Title } from '../../models/title';
 /**
  * Unit tests for the EmployeeFormComponent.
  * This component is part of the forms module and is used to manage employee-related forms.
@@ -95,32 +95,34 @@ describe('EmployeeFormComponent', () => {
     component.operation = 'CREATE';
     component.departmentId = '1';
     component.employeeForm.controls['firstName'].setValue(
-      TEST_DATA[0].firstName
+      TEST_EMPLOYEES[0].firstName
     );
-    component.employeeForm.controls['lastName'].setValue(TEST_DATA[0].lastName);
-    component.employeeForm.controls['title'].setValue(TEST_DATA[0].title);
-    component.employeeForm.controls['phone'].setValue(TEST_DATA[0].phone);
-    component.employeeForm.controls['mail'].setValue(TEST_DATA[0].mail);
+    component.employeeForm.controls['lastName'].setValue(
+      TEST_EMPLOYEES[0].lastName
+    );
+    component.employeeForm.controls['title'].setValue(TEST_EMPLOYEES[0].title);
+    component.employeeForm.controls['phone'].setValue(TEST_EMPLOYEES[0].phone);
+    component.employeeForm.controls['mail'].setValue(TEST_EMPLOYEES[0].mail);
     component.employeeForm.controls['streetName'].setValue(
-      TEST_DATA[0].streetName ?? ''
+      TEST_EMPLOYEES[0].streetName ?? ''
     );
     component.employeeForm.controls['houseNumber'].setValue(
-      TEST_DATA[0].houseNumber ?? ''
+      TEST_EMPLOYEES[0].houseNumber ?? ''
     );
     component.employeeForm.controls['postalCode'].setValue(
-      TEST_DATA[0].postalCode ?? ''
+      TEST_EMPLOYEES[0].postalCode ?? ''
     );
     component.employeeForm.controls['locality'].setValue(
-      TEST_DATA[0].locality ?? ''
+      TEST_EMPLOYEES[0].locality ?? ''
     );
     component.employeeForm.controls['province'].setValue(
-      TEST_DATA[0].province ?? ''
+      TEST_EMPLOYEES[0].province ?? ''
     );
     component.employeeForm.controls['country'].setValue(
-      TEST_DATA[0].country ?? ''
+      TEST_EMPLOYEES[0].country ?? ''
     );
     component.onSubmit();
-    const TEST_EMPLOYEE_CREATED = { ...TEST_DATA[0], id: -1 };
+    const TEST_EMPLOYEE_CREATED = { ...TEST_EMPLOYEES[0], id: -1 };
     expect(employeeService.createEmployee).toHaveBeenCalledWith(
       +component.departmentId,
       jasmine.objectContaining(TEST_EMPLOYEE_CREATED)
@@ -140,37 +142,43 @@ describe('EmployeeFormComponent', () => {
     });
     // Mock employeeService.getEmployee
     const employeeService = component.employeeService;
-    spyOn(employeeService, 'getEmployee').and.returnValue(TEST_DATA[0]);
+    spyOn(employeeService, 'getEmployee').and.returnValue(TEST_EMPLOYEES[0]);
     component.ngOnInit();
     expect(component.operation).toBe('UPDATE');
     expect(component.formTitle).toBe('Update Employee');
     expect(component.buttonLabel).toBe('Update');
     expect(component.employeeForm.get('firstName')?.value).toBe(
-      TEST_DATA[0].firstName
+      TEST_EMPLOYEES[0].firstName
     );
     expect(component.employeeForm.get('lastName')?.value).toBe(
-      TEST_DATA[0].lastName
+      TEST_EMPLOYEES[0].lastName
     );
-    expect(component.employeeForm.get('title')?.value).toBe(TEST_DATA[0].title);
-    expect(component.employeeForm.get('phone')?.value).toBe(TEST_DATA[0].phone);
-    expect(component.employeeForm.get('mail')?.value).toBe(TEST_DATA[0].mail);
+    expect(component.employeeForm.get('title')?.value).toBe(
+      TEST_EMPLOYEES[0].title
+    );
+    expect(component.employeeForm.get('phone')?.value).toBe(
+      TEST_EMPLOYEES[0].phone
+    );
+    expect(component.employeeForm.get('mail')?.value).toBe(
+      TEST_EMPLOYEES[0].mail
+    );
     expect(component.employeeForm.get('streetName')?.value).toBe(
-      TEST_DATA[0].streetName
+      TEST_EMPLOYEES[0].streetName
     );
     expect(component.employeeForm.get('houseNumber')?.value).toBe(
-      TEST_DATA[0].houseNumber
+      TEST_EMPLOYEES[0].houseNumber
     );
     expect(component.employeeForm.get('postalCode')?.value).toBe(
-      TEST_DATA[0].postalCode
+      TEST_EMPLOYEES[0].postalCode
     );
     expect(component.employeeForm.get('locality')?.value).toBe(
-      TEST_DATA[0].locality
+      TEST_EMPLOYEES[0].locality
     );
     expect(component.employeeForm.get('province')?.value).toBe(
-      TEST_DATA[0].province
+      TEST_EMPLOYEES[0].province
     );
     expect(component.employeeForm.get('country')?.value).toBe(
-      TEST_DATA[0].country
+      TEST_EMPLOYEES[0].country
     );
   });
 
@@ -183,11 +191,11 @@ describe('EmployeeFormComponent', () => {
     component.operation = 'UPDATE';
     component.departmentId = '1';
     component.id = '1';
-    component.employeeForm.patchValue(TEST_DATA[0]);
+    component.employeeForm.patchValue(TEST_EMPLOYEES[0]);
     component.onSubmit();
     expect(employeeService.updateEmployee).toHaveBeenCalledWith(
       +component.departmentId,
-      jasmine.objectContaining(TEST_DATA[0])
+      jasmine.objectContaining(TEST_EMPLOYEES[0])
     );
   });
 
@@ -252,24 +260,3 @@ describe('EmployeeFormComponent', () => {
     expect(component.employeeForm.get('mail')?.valid).toBeTrue();
   });
 });
-/**
- * Test employee data for the application.
- * This data is used to simulate employee records for testing purposes.
- * It includes a single employee with various attributes such as id, name, title, contact information, and address.
- */
-const TEST_DATA: Employee[] = [
-  {
-    id: 1,
-    firstName: 'Emily',
-    lastName: 'Clark',
-    title: Title.Developer,
-    phone: '2025550143',
-    mail: 'emily.clark@company.com',
-    streetName: 'Maple Street',
-    houseNumber: '42B',
-    postalCode: '30301',
-    locality: 'Atlanta',
-    province: 'GA',
-    country: 'United States',
-  },
-];

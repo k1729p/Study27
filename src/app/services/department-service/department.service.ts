@@ -1,4 +1,5 @@
 import { Injectable, InjectionToken, inject } from '@angular/core';
+import { DEPARTMENTS } from '../initial-data';
 import { Department } from '../../models/department';
 import { EmployeeService } from '../employee-service/employee.service';
 /**
@@ -24,10 +25,9 @@ export class DepartmentService {
 
   /**
    * Parameterless constructor.
-   *
    */
   constructor() {
-    this.setDepartmentArray(INITIAL_DATA);
+    this.storage.setItem('departments', JSON.stringify(DEPARTMENTS));
   }
 
   /**
@@ -131,41 +131,3 @@ export class DepartmentService {
     console.log('DepartmentService.deleteDepartment(): id[%d]', id);
   }
 }
-/**
- * Initial data for departments.
- * This data is used to populate the department array when the service is first initialized.
- */
-const INITIAL_DATA: Department[] = [
-  {
-    id: 1,
-    name: '1st Front Office',
-    startDate: new Date('2020-01-03'),
-    endDate: new Date('2020-01-08'),
-    notes: 'Banking products:\n - mobile banking',
-    keywords: ['Banking'],
-  },
-  {
-    id: 2,
-    name: '2nd Front Office',
-    startDate: new Date('2019-12-30'),
-    endDate: new Date('2020-01-03'),
-    notes: 'Subscription business model',
-    keywords: ['Insurance'],
-  },
-  {
-    id: 3,
-    name: '1st Middle Office',
-  },
-  {
-    id: 4,
-    name: '2nd Middle Office',
-  },
-  {
-    id: 5,
-    name: '1st Back Office',
-  },
-  {
-    id: 6,
-    name: '2nd Back Office',
-  },
-];

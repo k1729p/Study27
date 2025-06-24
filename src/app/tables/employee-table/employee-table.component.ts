@@ -1,3 +1,6 @@
+import { Employee } from '../../models/employee';
+import { EmployeeDataSource } from './employee-datasource';
+import { DepartmentService } from '../../services/department-service/department.service';
 import {
   AfterViewInit,
   Component,
@@ -11,10 +14,6 @@ import { MatSortModule, MatSort } from '@angular/material/sort';
 import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
 import { Router, ActivatedRoute } from '@angular/router';
-
-import { Employee } from '../../models/employee';
-import { EmployeeDataSource } from './employee-datasource';
-import { DepartmentService } from '../../services/department-service/department.service';
 
 /**
  * EmployeeTableComponent is a component that displays a table of employees.

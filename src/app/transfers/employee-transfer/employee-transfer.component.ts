@@ -1,3 +1,8 @@
+import { Employee } from '../../models/employee';
+import { EmployeeTransferDataSource } from './employee-transfer-datasource';
+import { DepartmentService } from '../../services/department-service/department.service';
+import { EmployeeService } from '../../services/employee-service/employee.service';
+
 import { Component, ViewChild, inject, OnInit } from '@angular/core';
 import { SelectionModel } from '@angular/cdk/collections';
 import { ActivatedRoute } from '@angular/router';
@@ -7,11 +12,6 @@ import { MatCardModule } from '@angular/material/card';
 import { MatButtonModule } from '@angular/material/button';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatListModule, MatListOption } from '@angular/material/list';
-
-import { Employee } from '../../models/employee';
-import { EmployeeTransferDataSource } from './employee-transfer-datasource';
-import { DepartmentService } from '../../services/department-service/department.service';
-import { EmployeeService } from '../../services/employee-service/employee.service';
 /**
  * A component for transferring employees between departments.
  */
@@ -76,7 +76,8 @@ export class EmployeeTransferComponent implements OnInit {
     this.targetDataSource.setDepartmentId(+this.targetDepartmentId);
     console.log(
       'EmployeeTransferComponent.ngOnInit(): sourceDepartmentId[%s], targetDepartmentId[%s]',
-      this.sourceDepartmentId, this.targetDepartmentId
+      this.sourceDepartmentId,
+      this.targetDepartmentId
     );
 
     this.sourceEmployeesArray = [...this.sourceDataSource.employeeArr]; // !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
@@ -101,7 +102,9 @@ export class EmployeeTransferComponent implements OnInit {
         );
         console.log(
           'EmployeeTransferComponent.transferEmployees(): employee id[%d], first name[%s], last name[%s]',
-          employee.id, employee.firstName, employee.lastName
+          employee.id,
+          employee.firstName,
+          employee.lastName
         );
       }
     });
