@@ -1,12 +1,15 @@
-import { TEST_DEPARTMENTS } from '../../testing/test-data';
-import { SUGGESTION_KEYWORDS } from '../../testing/test-data';
-import { TEST_DAYS } from '../../testing/test-data';
-import { DepartmentFormComponent } from './department-form.component';
 import { waitForAsync, ComponentFixture, TestBed } from '@angular/core/testing';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { ActivatedRoute } from '@angular/router';
 import { of } from 'rxjs';
 
+import { DepartmentFormComponent } from './department-form.component';
+import {
+  TEST_DEPARTMENTS,
+  TEST_DEPARTMENT_ID,
+  SUGGESTION_KEYWORDS,
+  TEST_DAYS,
+} from '../../testing/test-data';
 /**
  * Unit tests for the DepartmentFormComponent.
  * This component is part of the forms module and is used to manage department-related forms.
@@ -55,14 +58,17 @@ describe('DepartmentFormComponent', () => {
    * when the operation is set to 'CREATE'.
    */
   it('should initialize form with default values for CREATE operation', () => {
-    // Mock ActivatedRoute for CREATE
+    // GIVEN
     const route = TestBed.inject(ActivatedRoute);
+    // Mock ActivatedRoute for CREATE
     spyOn(route.snapshot.paramMap, 'get').and.callFake((key: string) => {
       if (key === 'operation') return 'CREATE';
       if (key === 'id') return null;
       return null;
     });
+    // WHEN
     component.ngOnInit();
+    // THEN
     expect(component.formTitle).toBe('Create Department');
     expect(component.buttonLabel).toBe('Create');
     expect(component.departmentForm.value.name).toBe('');
@@ -72,6 +78,7 @@ describe('DepartmentFormComponent', () => {
    * This test checks that the createDepartment method is called with the correct parameters.
    */
   it('should call departmentService.createDepartment on CREATE submit', () => {
+    // GIVEN
     const departmentService = (component as DepartmentFormComponent)
       .departmentService;
     spyOn(departmentService, 'createDepartment');
@@ -90,7 +97,9 @@ describe('DepartmentFormComponent', () => {
     );
     const KEYWORD = TEST_DEPARTMENTS[0].keywords ?? [];
     component.keywordsSignal.set(KEYWORD);
+    // WHEN
     component.onSubmit();
+    // THEN
     expect(departmentService.createDepartment).toHaveBeenCalledWith({
       id: -1,
       name: TEST_DEPARTMENTS[0].name,
@@ -106,11 +115,12 @@ describe('DepartmentFormComponent', () => {
    * This test checks that the updateDepartment method is called with the correct parameters.
    */
   it('should call departmentService.updateDepartment on UPDATE submit', () => {
+    // GIVEN
     const departmentService = (component as DepartmentFormComponent)
       .departmentService;
     spyOn(departmentService, 'updateDepartment');
     component.operation = 'UPDATE';
-    component.id = TEST_DEPARTMENTS[0].id.toString();
+    component.id = TEST_DEPARTMENT_ID.toString();
     component.departmentForm.controls['name'].setValue(
       TEST_DEPARTMENTS[0].name
     );
@@ -125,9 +135,11 @@ describe('DepartmentFormComponent', () => {
     );
     const KEYWORD = TEST_DEPARTMENTS[0].keywords ?? [];
     component.keywordsSignal.set(KEYWORD);
+    // WHEN
     component.onSubmit();
+    // THEN
     expect(departmentService.updateDepartment).toHaveBeenCalledWith({
-      id: TEST_DEPARTMENTS[0].id,
+      id: TEST_DEPARTMENT_ID,
       name: TEST_DEPARTMENTS[0].name,
       startDate: TEST_DEPARTMENTS[0].startDate,
       endDate: TEST_DEPARTMENTS[0].endDate,
@@ -140,14 +152,17 @@ describe('DepartmentFormComponent', () => {
    * This test checks that the deleteDepartment method is called with the correct parameters.
    */
   it('should call departmentService.deleteDepartment on DELETE submit', () => {
+    // GIVEN
     const departmentService = (component as DepartmentFormComponent)
       .departmentService;
     spyOn(departmentService, 'deleteDepartment');
     component.operation = 'DELETE';
-    component.id = TEST_DEPARTMENTS[0].id.toString();
+    component.id = TEST_DEPARTMENT_ID.toString();
+    // WHEN
     component.onSubmit();
+    // THEN
     expect(departmentService.deleteDepartment).toHaveBeenCalledWith(
-      TEST_DEPARTMENTS[0].id
+      TEST_DEPARTMENT_ID
     );
   });
   /**
@@ -155,11 +170,14 @@ describe('DepartmentFormComponent', () => {
    * This test checks that a keyword is added to the keywordsSignal if it is not already present.
    */
   it('should add a keyword if not present', () => {
+    // GIVEN
     component.keywordsSignal.set([SUGGESTION_KEYWORDS[0]]);
+    // WHEN
     component.addKeyword({
       value: SUGGESTION_KEYWORDS[1],
       input: null,
     } as never);
+    // THEN
     expect(component.keywordsSignal()).toContain(SUGGESTION_KEYWORDS[1]);
   });
   /**
@@ -168,11 +186,14 @@ describe('DepartmentFormComponent', () => {
    * it is not added again.
    */
   it('should not add duplicate keywords', () => {
+    // GIVEN
     component.keywordsSignal.set([SUGGESTION_KEYWORDS[0]]);
+    // WHEN
     component.addKeyword({
       value: SUGGESTION_KEYWORDS[0],
       input: null,
     } as never);
+    // THEN
     expect(
       component.keywordsSignal().filter((k) => k === SUGGESTION_KEYWORDS[0])
         .length
@@ -184,8 +205,11 @@ describe('DepartmentFormComponent', () => {
    * It verifies that the keyword is no longer present after removal.
    */
   it('should remove a keyword', () => {
+    // GIVEN
     component.keywordsSignal.set([...SUGGESTION_KEYWORDS]);
+    // WHEN
     component.removeKeyword(SUGGESTION_KEYWORDS[0]);
+    // THEN
     expect(component.keywordsSignal()).not.toContain(SUGGESTION_KEYWORDS[0]);
     expect(component.keywordsSignal()).toContain(SUGGESTION_KEYWORDS[1]);
   });
@@ -193,6 +217,7 @@ describe('DepartmentFormComponent', () => {
    * Tests the addition of a selected keyword from autocomplete.
    */
   it('should add selected keyword from autocomplete', () => {
+    // GIVEN
     component.keywordsSignal.set([SUGGESTION_KEYWORDS[0]]);
     const event = {
       option: {
@@ -201,8 +226,9 @@ describe('DepartmentFormComponent', () => {
       },
       source: {}, // minimal mock to satisfy MatAutocompleteSelectedEvent interface
     } as unknown as import('@angular/material/autocomplete').MatAutocompleteSelectedEvent;
+    // WHEN
     component.addSelectedKeyword(event);
-    // Now both keywords should be present
+    // THEN
     expect(component.keywordsSignal()).toContain(SUGGESTION_KEYWORDS[0]);
     expect(component.keywordsSignal()).toContain(SUGGESTION_KEYWORDS[1]);
     expect(component.keywordsSignal().length).toBe(2);
@@ -225,13 +251,15 @@ describe('DepartmentFormComponent', () => {
    * navigates to the department list when the cancel button is clicked.
    */
   it('should reset form and navigate on cancel', () => {
-    // Access the router property with proper typing
+    // GIVEN
     const router: import('@angular/router').Router = (
       component as DepartmentFormComponent
     )['router'];
     spyOn(router, 'navigate');
     spyOn(component.departmentForm, 'reset');
+    // WHEN
     component.onCancel();
+    // THEN
     expect(component.departmentForm.reset).toHaveBeenCalled();
     expect(router.navigate).toHaveBeenCalled();
   });

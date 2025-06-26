@@ -3,67 +3,6 @@
     <mat-grid-tile>
       <mat-card class="employee-card" appearance="outlined">
         <mat-card-actions>
-          <button mat-stroked-button (click)="transferEmployeesALT(employeeList.selectedOptions.selected)">
-            Transfer Selected Employees ALT
-          </button>
-        </mat-card-actions>
-      </mat-card>
-    </mat-grid-tile>
-  </mat-grid-list>
-</div>
-<mat-grid-list cols="2">
-  <mat-grid-tile>
-    <mat-card class="employee-card" appearance="outlined">
-      <mat-card-header>
-        <mat-card-title>
-          <h4>Source Department “{{sourceDepartmentName}}”</h4>
-        </mat-card-title>
-      </mat-card-header>
-      <mat-card-content>
-        <div class="mat-elevation-z2">
-          <mat-selection-list #employeeList>
-            @for (emp of sourceEmployeesArray; track emp) {
-            <mat-list-option [value]="emp.id">
-              {{emp.id}} {{emp.firstName}} {{emp.lastName}}
-            </mat-list-option>
-            }
-          </mat-selection-list>
-        </div>
-      </mat-card-content>
-    </mat-card>
-  </mat-grid-tile>
-  <mat-grid-tile [colspan]="1" [rowspan]="1">
-    <mat-card class="employee-card" appearance="outlined">
-      <mat-card-header>
-        <mat-card-title>
-          <h4>Target Department “{{targetDepartmentName}}”</h4>
-        </mat-card-title>
-      </mat-card-header>
-      <mat-card-content>
-        <div class="mat-elevation-z2">
-          <mat-list>
-            @for (emp of targetEmployeesArray; track emp) {
-            <mat-list-item>
-              {{emp.id}} {{emp.firstName}} {{emp.lastName}}
-            </mat-list-item>
-            }
-          </mat-list>
-        </div>
-      </mat-card-content>
-    </mat-card>
-  </mat-grid-tile>
-</mat-grid-list>
-
-
-
-<!-- ################################################################################################################################ -->
-<!-- ################################################################################################################################ -->
-<!-- ################################################################################################################################ -->
-<div class="grid-container">
-  <mat-grid-list cols="1" rowHeight="70px">
-    <mat-grid-tile>
-      <mat-card class="employee-card" appearance="outlined">
-        <mat-card-actions>
           <button mat-stroked-button (click)="transferEmployees()" [disabled]="!selection.selected.length">
             Transfer Selected Employees
           </button>
@@ -83,40 +22,42 @@
       </mat-card-header>
       <mat-card-content>
         <div class="mat-elevation-z2">
-          <table mat-table [dataSource]="sourceDataSource" class="full-width-table" aria-label="Items">
-            <!-- Checkbox Column -->
-            <ng-container matColumnDef="select">
-              <th mat-header-cell *matHeaderCellDef>
-                <mat-checkbox (change)="$event ? toggleAllRows() : null"
-                  [checked]="selection.hasValue() && isAllSelected()"
-                  [indeterminate]="selection.hasValue() && !isAllSelected()" [aria-label]="checkboxLabel()">
-                </mat-checkbox>
-              </th>
-              <td mat-cell *matCellDef="let row">
-                <mat-checkbox (click)="$event.stopPropagation()" (change)="$event ? selection.toggle(row) : null"
-                  [checked]="selection.isSelected(row)" [aria-label]="checkboxLabel(row)">
-                </mat-checkbox>
-              </td>
-            </ng-container>
-            <!-- Id Column -->
-            <ng-container matColumnDef="id">
-              <th mat-header-cell *matHeaderCellDef>Id</th>
-              <td mat-cell *matCellDef="let row">{{row.id}}</td>
-            </ng-container>
-            <!-- First Name Column -->
-            <ng-container matColumnDef="firstName">
-              <th mat-header-cell *matHeaderCellDef>First Name</th>
-              <td mat-cell *matCellDef="let row">{{row.firstName}}</td>
-            </ng-container>
-            <!-- Last Name Column -->
-            <ng-container matColumnDef="lastName">
-              <th mat-header-cell *matHeaderCellDef>Last Name</th>
-              <td mat-cell *matCellDef="let row">{{row.lastName}}</td>
-            </ng-container>
+          <mat-card-title class="title">QWERTY</mat-card-title>
+          <div class="table-container">
+            <table mat-table [dataSource]="sourceEmployees" class="full-width-table" aria-label="Items">
+              <!-- Checkbox Column -->
+              <ng-container matColumnDef="select">
+                <th mat-header-cell *matHeaderCellDef>
+                  <mat-checkbox (change)="$event ? toggleAllRows() : null" [checked]="selection.hasValue() && isAllSelected()"
+                    [indeterminate]="selection.hasValue() && !isAllSelected()" [aria-label]="checkboxLabel()">
+                  </mat-checkbox>
+                </th>
+                <td mat-cell *matCellDef="let row">
+                  <mat-checkbox (click)="$event.stopPropagation()" (change)="$event ? selection.toggle(row) : null"
+                    [checked]="selection.isSelected(row)" [aria-label]="checkboxLabel(row)">
+                  </mat-checkbox>
+                </td>
+              </ng-container>
+              <!-- Id Column -->
+              <ng-container matColumnDef="id">
+                <th mat-header-cell *matHeaderCellDef>Id</th>
+                <td mat-cell *matCellDef="let row">{{row.id}}</td>
+              </ng-container>
+              <!-- First Name Column -->
+              <ng-container matColumnDef="firstName">
+                <th mat-header-cell *matHeaderCellDef>First Name</th>
+                <td mat-cell *matCellDef="let row">{{row.firstName}}</td>
+              </ng-container>
+              <!-- Last Name Column -->
+              <ng-container matColumnDef="lastName">
+                <th mat-header-cell *matHeaderCellDef>Last Name</th>
+                <td mat-cell *matCellDef="let row">{{row.lastName}}</td>
+              </ng-container>
 
-            <tr mat-header-row *matHeaderRowDef="srcDisplayedColumns"></tr>
-            <tr mat-row *matRowDef="let row; columns: srcDisplayedColumns;" (click)="selection.toggle(row)"></tr>
-          </table>
+              <tr mat-header-row *matHeaderRowDef="srcDisplayedColumns"></tr>
+              <tr mat-row *matRowDef="let row; columns: srcDisplayedColumns;" (click)="selection.toggle(row)"></tr>
+            </table>
+          </div>
         </div>
       </mat-card-content>
     </mat-card>
@@ -131,26 +72,28 @@
       </mat-card-header>
       <mat-card-content>
         <div class="mat-elevation-z2">
-          <table mat-table [dataSource]="targetDataSource" class="full-width-table" aria-label="Items">
-            <!-- Id Column -->
-            <ng-container matColumnDef="id">
-              <th mat-header-cell *matHeaderCellDef>Id</th>
-              <td mat-cell *matCellDef="let row">{{row.id}}</td>
-            </ng-container>
-            <!-- First Name Column -->
-            <ng-container matColumnDef="firstName">
-              <th mat-header-cell *matHeaderCellDef>First Name</th>
-              <td mat-cell *matCellDef="let row">{{row.firstName}}</td>
-            </ng-container>
-            <!-- Last Name Column -->
-            <ng-container matColumnDef="lastName">
-              <th mat-header-cell *matHeaderCellDef>Last Name</th>
-              <td mat-cell *matCellDef="let row">{{row.lastName}}</td>
-            </ng-container>
+          <div class="table-container">
+            <table mat-table [dataSource]="targetEmployees" class="full-width-table" aria-label="Items">
+              <!-- Id Column -->
+              <ng-container matColumnDef="id">
+                <th mat-header-cell *matHeaderCellDef>Id</th>
+                <td mat-cell *matCellDef="let row">{{row.id}}</td>
+              </ng-container>
+              <!-- First Name Column -->
+              <ng-container matColumnDef="firstName">
+                <th mat-header-cell *matHeaderCellDef>First Name</th>
+                <td mat-cell *matCellDef="let row">{{row.firstName}}</td>
+              </ng-container>
+              <!-- Last Name Column -->
+              <ng-container matColumnDef="lastName">
+                <th mat-header-cell *matHeaderCellDef>Last Name</th>
+                <td mat-cell *matCellDef="let row">{{row.lastName}}</td>
+              </ng-container>
 
-            <tr mat-header-row *matHeaderRowDef="trgDisplayedColumns"></tr>
-            <tr mat-row *matRowDef="let row; columns: trgDisplayedColumns;"></tr>
-          </table>
+              <tr mat-header-row *matHeaderRowDef="trgDisplayedColumns"></tr>
+              <tr mat-row *matRowDef="let row; columns: trgDisplayedColumns;"></tr>
+            </table>
+          </div>
         </div>
       </mat-card-content>
     </mat-card>

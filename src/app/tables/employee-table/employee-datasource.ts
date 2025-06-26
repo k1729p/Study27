@@ -7,7 +7,6 @@ import { map } from 'rxjs/operators';
 
 import { Employee } from '../../models/employee';
 import { EmployeeService } from '../../services/employee-service/employee.service';
-
 /**
  * Data source for the Employee Table view and Form view. This class should
  * encapsulate all logic for fetching and manipulating the displayed data
@@ -19,14 +18,6 @@ export class EmployeeDataSource extends DataSource<Employee> {
   paginator: MatPaginator | undefined;
   sort: MatSort | undefined;
   departmentId = 0;
-
-  /**
-   * Parameterless constructor.
-   *
-   */
-  constructor() {
-    super();
-  }
 
   /**
    * Sets the department id.

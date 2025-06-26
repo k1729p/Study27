@@ -1,9 +1,9 @@
-import { TEST_DEPARTMENT_ID } from '../../testing/test-data';
-import { DepartmentTableComponent } from './department-table.component';
-import { Department } from '../../models/department';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { ActivatedRoute, Router } from '@angular/router';
 
+import { DepartmentTableComponent } from './department-table.component';
+import { Department } from '../../models/department';
+import { TEST_DEPARTMENT_ID } from '../../testing/test-data';
 /**
  * DepartmentTableComponent is a component that displays a table of departments.
  * It uses Angular Material's table features to display, sort, and paginate the
@@ -58,18 +58,19 @@ describe('DepartmentTableComponent', () => {
    * It checks if the dataSource and table properties are set up correctly for the Angular Material table.
    */
   it('should set dataSource.sort, dataSource.paginator, and table.dataSource in ngAfterViewInit', () => {
-    // Mock ViewChilds
+    // GIVEN
     const mockSort = {} as import('@angular/material/sort').MatSort;
     const mockPaginator =
       {} as import('@angular/material/paginator').MatPaginator;
-    // Replace 'Department' with your actual data type if different
     const mockTable = {
       dataSource: null,
     } as unknown as import('@angular/material/table').MatTable<Department>;
     component.sort = mockSort;
     component.paginator = mockPaginator;
     component.table = mockTable;
+    // WHEN
     component.ngAfterViewInit();
+    // THEN
     expect(component.dataSource.sort).toBe(mockSort);
     expect(component.dataSource.paginator).toBe(mockPaginator);
     expect(component.table.dataSource).toBe(component.dataSource);
@@ -80,6 +81,9 @@ describe('DepartmentTableComponent', () => {
    * It checks if the displayedColumns array matches the expected column names.
    */
   it('should have displayedColumns set correctly', () => {
+    // GIVEN
+    // WHEN
+    // THEN
     expect(component.displayedColumns).toEqual([
       'id',
       'name',
@@ -93,7 +97,10 @@ describe('DepartmentTableComponent', () => {
    * It checks if the router's navigate method is called with the correct route and parameters.
    */
   it('should call router.navigate with correct params when createDepartment is called', () => {
+    // GIVEN
+    // WHEN
     component.createDepartment();
+    // THEN
     expect(routerSpy.navigate).toHaveBeenCalledWith(
       ['/department-form', 'CREATE', '-1'],
       { relativeTo: TestBed.inject(ActivatedRoute) }
@@ -105,7 +112,10 @@ describe('DepartmentTableComponent', () => {
    * It checks if the router's navigate method is called with the correct route and parameters.
    */
   it('should call router.navigate with correct params when updateDepartment is called', () => {
+    // GIVEN
+    // WHEN
     component.updateDepartment(TEST_DEPARTMENT_ID);
+    // THEN
     expect(routerSpy.navigate).toHaveBeenCalledWith(
       ['/department-form', 'UPDATE', TEST_DEPARTMENT_ID],
       { relativeTo: TestBed.inject(ActivatedRoute) }
@@ -117,7 +127,10 @@ describe('DepartmentTableComponent', () => {
    * It checks if the router's navigate method is called with the correct route and parameters.
    */
   it('should call router.navigate with correct params when deleteDepartment is called', () => {
+    // GIVEN
+    // WHEN
     component.deleteDepartment(TEST_DEPARTMENT_ID);
+    // THEN
     expect(routerSpy.navigate).toHaveBeenCalledWith(
       ['/department-form', 'DELETE', TEST_DEPARTMENT_ID],
       { relativeTo: TestBed.inject(ActivatedRoute) }
@@ -129,7 +142,10 @@ describe('DepartmentTableComponent', () => {
    * It checks if the router's navigate method is called with the correct route and parameters.
    */
   it('should call router.navigate with correct params when readEmployees is called', () => {
+    // GIVEN
+    // WHEN
     component.readEmployees(TEST_DEPARTMENT_ID);
+    // THEN
     expect(routerSpy.navigate).toHaveBeenCalledWith(
       ['/employee-table', TEST_DEPARTMENT_ID],
       {

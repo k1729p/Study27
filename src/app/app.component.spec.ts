@@ -1,7 +1,8 @@
-import { AppComponent } from './app.component';
 import { TestBed } from '@angular/core/testing';
 import { ActivatedRoute } from '@angular/router';
 import { of } from 'rxjs';
+
+import { AppComponent } from './app.component';
 /**
  * Unit tests for the AppComponent.
  * This file contains tests to ensure that the component compiles correctly,

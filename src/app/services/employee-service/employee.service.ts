@@ -1,7 +1,7 @@
-import { Employee } from '../../models/employee';
-import { EMPLOYEES } from '../initial-data';
 import { Injectable, InjectionToken, inject } from '@angular/core';
 
+import { Employee } from '../../models/employee';
+import { EMPLOYEES } from '../initial-data';
 /**
  * Injection token for browser storage.
  * This token is used to inject the browser's localStorage into services that require it.
@@ -169,6 +169,27 @@ export class EmployeeService {
     );
   }
   /**
+   * Transfers a list of employees from one department to another.
+   *
+   * @param sourceDepartmentId the source department id
+   * @param targetDepartmentId the target department id
+   * @param employee the list of the employees to transfer
+   * @return void
+   */
+  transferEmployees(
+    sourceDepartmentId: number,
+    targetDepartmentId: number,
+    employees: Employee[]
+  ) {
+    employees.forEach((employee) => {
+      this.transferEmployee(
+        sourceDepartmentId,
+        targetDepartmentId,
+        employee
+      );
+    });
+  }
+  /**
    * Transfers an employee from one department to another.
    * This method finds the employee in the source department's employee array,
    * removes it from that array,
@@ -185,14 +206,15 @@ export class EmployeeService {
     employee: Employee
   ) {
     const sourceDepIndex = sourceDepartmentId - 1;
-    const employeeArray = this.getEmployeeArray();
-    const empIndex = employeeArray[sourceDepIndex].findIndex(
-      (dep) => dep.id === employee.id
+    const tmpArray = this.getEmployeeArray();
+    const empIndex = tmpArray[sourceDepIndex].findIndex(
+      (emp) => emp.id === employee.id
     );
-    employeeArray[sourceDepIndex].splice(empIndex, 1);
+    tmpArray[sourceDepIndex].splice(empIndex, 1);
     const targetDepIndex = targetDepartmentId - 1;
-    employeeArray[targetDepIndex].push(employee);
-    this.setEmployeeArray(employeeArray);
+    tmpArray[targetDepIndex].push(employee);
+    tmpArray[targetDepIndex].sort((emp1, emp2) => emp1.id - emp2.id);
+    this.setEmployeeArray(tmpArray);
     console.log(
       'EmployeeService.transferEmployee(): source department id[%s], target department id[%s], employee id[%s]',
       sourceDepartmentId,

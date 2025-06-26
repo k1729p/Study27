@@ -1,10 +1,14 @@
-import { TEST_EMPLOYEES } from '../../testing/test-data';
-import { EmployeeFormComponent } from './employee-form.component';
-import { Title } from '../../models/title';
 import { waitForAsync, ComponentFixture, TestBed } from '@angular/core/testing';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { ActivatedRoute } from '@angular/router';
 import { of } from 'rxjs';
+
+import { EmployeeFormComponent } from './employee-form.component';
+import {
+  TEST_EMPLOYEES,
+  TEST_DEPARTMENT_ID,
+  TEST_EMPLOYEE_ID,
+} from '../../testing/test-data';
 /**
  * Unit tests for the EmployeeFormComponent.
  * This component is part of the forms module and is used to manage employee-related forms.
@@ -51,18 +55,20 @@ describe('EmployeeFormComponent', () => {
    * Test if the component initializes the form with default values for CREATE operation.
    */
   it('should initialize form with default values for CREATE operation', () => {
-    // Mock ActivatedRoute for CREATE
+    // GIVEN
     const route = TestBed.inject(ActivatedRoute);
     spyOn(route.snapshot.paramMap, 'get').and.callFake((key: string) => {
       if (key === 'operation') return 'CREATE';
-      if (key === 'departmentId') return '1';
+      if (key === 'departmentId') return TEST_DEPARTMENT_ID.toString();
       return null;
     });
+    // WHEN
     component.ngOnInit();
+    // THEN
     expect(component.operation).toBe('CREATE');
     expect(component.formTitle).toBe('Create Employee');
     expect(component.buttonLabel).toBe('Create');
-    expect(component.departmentId).toBe('1');
+    expect(component.departmentId).toBe(TEST_DEPARTMENT_ID.toString());
     expect(component.id).toBe('');
     expect(component.titles.length).toBe(3);
     expect(component.titles[0]).toBe('Manager');
@@ -89,42 +95,51 @@ describe('EmployeeFormComponent', () => {
    * Test if the component calls the createEmployee method on submit for CREATE operation.
    */
   it('should call createEmployee on submit for CREATE operation', () => {
+    // GIVEN
     const employeeService = (component as EmployeeFormComponent)
       .employeeService;
     spyOn(employeeService, 'createEmployee');
     component.operation = 'CREATE';
-    component.departmentId = '1';
+    component.departmentId = TEST_DEPARTMENT_ID.toString();
     component.employeeForm.controls['firstName'].setValue(
-      TEST_EMPLOYEES[0].firstName
+      TEST_EMPLOYEES[0][0].firstName
     );
     component.employeeForm.controls['lastName'].setValue(
-      TEST_EMPLOYEES[0].lastName
+      TEST_EMPLOYEES[0][0].lastName
     );
-    component.employeeForm.controls['title'].setValue(TEST_EMPLOYEES[0].title);
-    component.employeeForm.controls['phone'].setValue(TEST_EMPLOYEES[0].phone);
-    component.employeeForm.controls['mail'].setValue(TEST_EMPLOYEES[0].mail);
+    component.employeeForm.controls['title'].setValue(
+      TEST_EMPLOYEES[0][0].title
+    );
+    component.employeeForm.controls['phone'].setValue(
+      TEST_EMPLOYEES[0][0].phone
+    );
+    component.employeeForm.controls['mail'].setValue(
+      TEST_EMPLOYEES[0][0].mail
+    );
     component.employeeForm.controls['streetName'].setValue(
-      TEST_EMPLOYEES[0].streetName ?? ''
+      TEST_EMPLOYEES[0][0].streetName ?? ''
     );
     component.employeeForm.controls['houseNumber'].setValue(
-      TEST_EMPLOYEES[0].houseNumber ?? ''
+      TEST_EMPLOYEES[0][0].houseNumber ?? ''
     );
     component.employeeForm.controls['postalCode'].setValue(
-      TEST_EMPLOYEES[0].postalCode ?? ''
+      TEST_EMPLOYEES[0][0].postalCode ?? ''
     );
     component.employeeForm.controls['locality'].setValue(
-      TEST_EMPLOYEES[0].locality ?? ''
+      TEST_EMPLOYEES[0][0].locality ?? ''
     );
     component.employeeForm.controls['province'].setValue(
-      TEST_EMPLOYEES[0].province ?? ''
+      TEST_EMPLOYEES[0][0].province ?? ''
     );
     component.employeeForm.controls['country'].setValue(
-      TEST_EMPLOYEES[0].country ?? ''
+      TEST_EMPLOYEES[0][0].country ?? ''
     );
+    // WHEN
     component.onSubmit();
-    const TEST_EMPLOYEE_CREATED = { ...TEST_EMPLOYEES[0], id: -1 };
+    // THEN
+    const TEST_EMPLOYEE_CREATED = { ...TEST_EMPLOYEES[0][0], id: -1 };
     expect(employeeService.createEmployee).toHaveBeenCalledWith(
-      +component.departmentId,
+      TEST_DEPARTMENT_ID,
       jasmine.objectContaining(TEST_EMPLOYEE_CREATED)
     );
   });
@@ -132,53 +147,55 @@ describe('EmployeeFormComponent', () => {
    * Test if the component initializes the form with existing employee data for UPDATE operation.
    */
   it('should initialize form with employee data for UPDATE operation', () => {
-    // Mock ActivatedRoute for UPDATE
+    // GIVEN
     const route = TestBed.inject(ActivatedRoute);
     spyOn(route.snapshot.paramMap, 'get').and.callFake((key: string) => {
       if (key === 'operation') return 'UPDATE';
-      if (key === 'departmentId') return '1';
-      if (key === 'id') return '1';
+      if (key === 'departmentId') return TEST_DEPARTMENT_ID.toString();
+      if (key === 'id') return TEST_EMPLOYEE_ID.toString();
       return null;
     });
     // Mock employeeService.getEmployee
     const employeeService = component.employeeService;
-    spyOn(employeeService, 'getEmployee').and.returnValue(TEST_EMPLOYEES[0]);
+    spyOn(employeeService, 'getEmployee').and.returnValue(TEST_EMPLOYEES[0][0]);
+    // WHEN
     component.ngOnInit();
+    // THEN
     expect(component.operation).toBe('UPDATE');
     expect(component.formTitle).toBe('Update Employee');
     expect(component.buttonLabel).toBe('Update');
     expect(component.employeeForm.get('firstName')?.value).toBe(
-      TEST_EMPLOYEES[0].firstName
+      TEST_EMPLOYEES[0][0].firstName
     );
     expect(component.employeeForm.get('lastName')?.value).toBe(
-      TEST_EMPLOYEES[0].lastName
+      TEST_EMPLOYEES[0][0].lastName
     );
     expect(component.employeeForm.get('title')?.value).toBe(
-      TEST_EMPLOYEES[0].title
+      TEST_EMPLOYEES[0][0].title
     );
     expect(component.employeeForm.get('phone')?.value).toBe(
-      TEST_EMPLOYEES[0].phone
+      TEST_EMPLOYEES[0][0].phone
     );
     expect(component.employeeForm.get('mail')?.value).toBe(
-      TEST_EMPLOYEES[0].mail
+      TEST_EMPLOYEES[0][0].mail
     );
     expect(component.employeeForm.get('streetName')?.value).toBe(
-      TEST_EMPLOYEES[0].streetName
+      TEST_EMPLOYEES[0][0].streetName
     );
     expect(component.employeeForm.get('houseNumber')?.value).toBe(
-      TEST_EMPLOYEES[0].houseNumber
+      TEST_EMPLOYEES[0][0].houseNumber
     );
     expect(component.employeeForm.get('postalCode')?.value).toBe(
-      TEST_EMPLOYEES[0].postalCode
+      TEST_EMPLOYEES[0][0].postalCode
     );
     expect(component.employeeForm.get('locality')?.value).toBe(
-      TEST_EMPLOYEES[0].locality
+      TEST_EMPLOYEES[0][0].locality
     );
     expect(component.employeeForm.get('province')?.value).toBe(
-      TEST_EMPLOYEES[0].province
+      TEST_EMPLOYEES[0][0].province
     );
     expect(component.employeeForm.get('country')?.value).toBe(
-      TEST_EMPLOYEES[0].country
+      TEST_EMPLOYEES[0][0].country
     );
   });
 
@@ -186,16 +203,19 @@ describe('EmployeeFormComponent', () => {
    * Test if the component calls updateEmployee on submit for UPDATE operation.
    */
   it('should call updateEmployee on submit for UPDATE operation', () => {
+    // GIVEN
     const employeeService = component.employeeService;
     spyOn(employeeService, 'updateEmployee');
     component.operation = 'UPDATE';
-    component.departmentId = '1';
-    component.id = '1';
-    component.employeeForm.patchValue(TEST_EMPLOYEES[0]);
+    component.departmentId = TEST_DEPARTMENT_ID.toString();
+    component.id = TEST_EMPLOYEE_ID.toString();
+    component.employeeForm.patchValue(TEST_EMPLOYEES[0][0]);
+    // WHEN
     component.onSubmit();
+    // THEN
     expect(employeeService.updateEmployee).toHaveBeenCalledWith(
-      +component.departmentId,
-      jasmine.objectContaining(TEST_EMPLOYEES[0])
+      TEST_DEPARTMENT_ID,
+      jasmine.objectContaining(TEST_EMPLOYEES[0][0])
     );
   });
 
@@ -203,15 +223,18 @@ describe('EmployeeFormComponent', () => {
    * Test if the component calls deleteEmployee on submit for DELETE operation.
    */
   it('should call deleteEmployee on submit for DELETE operation', () => {
+    // GIVEN
     const employeeService = component.employeeService;
     spyOn(employeeService, 'deleteEmployee');
     component.operation = 'DELETE';
-    component.departmentId = '1';
-    component.id = '1';
+    component.departmentId = TEST_DEPARTMENT_ID.toString();
+    component.id = TEST_EMPLOYEE_ID.toString();
+    // WHEN
     component.onSubmit();
+    // THEN
     expect(employeeService.deleteEmployee).toHaveBeenCalledWith(
-      +component.departmentId,
-      +component.id
+      TEST_DEPARTMENT_ID,
+      TEST_EMPLOYEE_ID
     );
   });
 
@@ -219,44 +242,80 @@ describe('EmployeeFormComponent', () => {
    * Test if the component resets the form and navigates on cancel.
    */
   it('should reset the form and navigate on cancel', () => {
+    // GIVEN
     const router = component['router'];
     const route = TestBed.inject(ActivatedRoute);
     spyOn(component.employeeForm, 'reset');
     spyOn(router, 'navigate');
-    component.departmentId = '1';
+    component.departmentId = TEST_DEPARTMENT_ID.toString();
+    // WHEN
     component.onCancel();
+    // THEN
     expect(component.employeeForm.reset).toHaveBeenCalled();
     expect(router.navigate).toHaveBeenCalledWith(
-      ['/employee-table', component.departmentId],
+      ['/employee-table', TEST_DEPARTMENT_ID.toString()],
       { relativeTo: route }
     );
+  });
+
+  /**
+   * Test form validation: should be valid if required fields are present.
+   */
+  it('should be invalid if required fields are missing', () => {
+    // GIVEN
+    component.employeeForm.reset();
+    // WHEN
+    component.employeeForm.controls['firstName'].setValue(
+      TEST_EMPLOYEES[0][0].firstName
+    );
+    component.employeeForm.controls['lastName'].setValue(
+      TEST_EMPLOYEES[0][0].lastName
+    );
+    component.employeeForm.controls['title'].setValue(
+      TEST_EMPLOYEES[0][0].title
+    );
+    component.employeeForm.controls['phone'].setValue(
+      TEST_EMPLOYEES[0][0].phone
+    );
+    component.employeeForm.controls['mail'].setValue(TEST_EMPLOYEES[0][0].mail);
+    // THEN
+    expect(component.employeeForm.valid).toBeTrue();
   });
 
   /**
    * Test form validation: should be invalid if required fields are missing.
    */
   it('should be invalid if required fields are missing', () => {
+    // GIVEN
     component.employeeForm.reset();
-    expect(component.employeeForm.valid).toBeFalse();
-    component.employeeForm.controls['firstName'].setValue('John');
+    // WHEN
+    component.employeeForm.controls['firstName'].setValue('');
     component.employeeForm.controls['lastName'].setValue('');
-    component.employeeForm.controls['title'].setValue(Title.Developer);
+    component.employeeForm.controls['title'].setValue(null);
     component.employeeForm.controls['phone'].setValue('');
-    component.employeeForm.controls['mail'].setValue('not-an-email');
+    component.employeeForm.controls['mail'].setValue('');
+    // THEN
     expect(component.employeeForm.valid).toBeFalse();
-    component.employeeForm.controls['lastName'].setValue('Doe');
-    component.employeeForm.controls['phone'].setValue('1234567890');
-    component.employeeForm.controls['mail'].setValue('john.doe@email.com');
-    expect(component.employeeForm.valid).toBeTrue();
   });
 
+  /**
+   * Test email validation: should valid if email is valid.
+   */
+  it('should be invalid if email is not valid', () => {
+    // GIVEN
+    // WHEN
+    component.employeeForm.controls['mail'].setValue('valid@email.com');
+    // THEN
+    expect(component.employeeForm.get('mail')?.valid).toBeTrue();
+  });
   /**
    * Test email validation: should be invalid if email is not valid.
    */
   it('should be invalid if email is not valid', () => {
+    // GIVEN
+    // WHEN
     component.employeeForm.controls['mail'].setValue('invalid-email');
+    // THEN
     expect(component.employeeForm.get('mail')?.valid).toBeFalse();
-    component.employeeForm.controls['mail'].setValue('valid@email.com');
-    expect(component.employeeForm.get('mail')?.valid).toBeTrue();
   });
 });

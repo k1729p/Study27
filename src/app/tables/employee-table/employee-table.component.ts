@@ -1,6 +1,3 @@
-import { Employee } from '../../models/employee';
-import { EmployeeDataSource } from './employee-datasource';
-import { DepartmentService } from '../../services/department-service/department.service';
 import {
   AfterViewInit,
   Component,
@@ -15,6 +12,9 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
 import { Router, ActivatedRoute } from '@angular/router';
 
+import { Employee } from '../../models/employee';
+import { EmployeeDataSource } from './employee-datasource';
+import { DepartmentService } from '../../services/department-service/department.service';
 /**
  * EmployeeTableComponent is a component that displays a table of employees.
  * It uses Angular Material's table features to display, sort, and paginate the
@@ -88,7 +88,20 @@ export class EmployeeTableComponent implements AfterViewInit, OnInit {
     );
     console.log('EmployeeTableComponent.createEmployee():');
   }
-
+  /**
+   * Reads the employee.
+   * This method navigates to the employee form with the 'READ' action
+   * and the specified employee id.
+   *
+   * @param id the employee id
+   * @returns void
+   */
+  readEmployee(id: number) {
+    this.router.navigate(['/employee-form', this.departmentId, 'READ', id], {
+      relativeTo: this.route,
+    });
+    console.log('EmployeeTableComponent.readEmployee(): id[%d]', id);
+  }
   /**
    * Updates the employee.
    * This method navigates to the employee form with the 'UPDATE' action

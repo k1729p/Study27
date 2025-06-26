@@ -1,10 +1,10 @@
-import { TEST_DEPARTMENT_ID, TEST_EMPLOYEE_ID } from '../../testing/test-data';
+import { ActivatedRoute, Router } from '@angular/router';
+import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { of } from 'rxjs';
+
 import { EmployeeTableComponent } from './employee-table.component';
 import { Employee } from '../../models/employee';
-import { ComponentFixture, TestBed } from '@angular/core/testing';
-
-import { of } from 'rxjs';
-import { ActivatedRoute, Router } from '@angular/router';
+import { TEST_DEPARTMENT_ID, TEST_EMPLOYEE_ID } from '../../testing/test-data';
 /**
  * EmployeeTableComponent is a component that displays a table of employees.
  * It uses Angular Material's table features to display, sort, and paginate the
@@ -72,18 +72,19 @@ describe('EmployeeTableComponent', () => {
    * It checks if the dataSource and table properties are set up correctly for the Angular Material table.
    */
   it('should set dataSource sort, paginator, and table dataSource on ngAfterViewInit', () => {
-    // Mock ViewChilds
+    // GIVEN
     const mockSort = {} as import('@angular/material/sort').MatSort;
     const mockPaginator =
       {} as import('@angular/material/paginator').MatPaginator;
-    // Replace 'Department' with your actual data type if different
     const mockTable = {
       dataSource: null,
     } as unknown as import('@angular/material/table').MatTable<Employee>;
     component.sort = mockSort;
     component.paginator = mockPaginator;
     component.table = mockTable;
+    // WHEN
     component.ngAfterViewInit();
+    // THEN
     expect(component.dataSource.sort).toBe(mockSort);
     expect(component.dataSource.paginator).toBe(mockPaginator);
     expect(component.table.dataSource).toBe(component.dataSource);
@@ -94,6 +95,9 @@ describe('EmployeeTableComponent', () => {
    * It checks if the displayedColumns array matches the expected column names.
    */
   it('should have displayedColumns set correctly', () => {
+    // GIVEN
+    // WHEN
+    // THEN
     expect(component.displayedColumns).toEqual([
       'id',
       'firstName',
@@ -107,7 +111,10 @@ describe('EmployeeTableComponent', () => {
    * It checks if the router's navigate method is called with the correct route and parameters.
    */
   it('should navigate to create employee form on createEmployee', () => {
+    // GIVEN
+    // WHEN
     component.createEmployee();
+    // THEN
     expect(routerSpy.navigate).toHaveBeenCalledWith(
       ['/employee-form', TEST_DEPARTMENT_ID, 'CREATE', '-1'],
       { relativeTo: jasmine.any(Object) }
@@ -119,7 +126,10 @@ describe('EmployeeTableComponent', () => {
    * It checks if the router's navigate method is called with the correct route and parameters.
    */
   it('should navigate to update employee form on updateEmployee', () => {
+    // GIVEN
+    // WHEN
     component.updateEmployee(TEST_EMPLOYEE_ID);
+    // THEN
     expect(routerSpy.navigate).toHaveBeenCalledWith(
       ['/employee-form', TEST_DEPARTMENT_ID, 'UPDATE', TEST_EMPLOYEE_ID],
       { relativeTo: jasmine.any(Object) }
@@ -131,7 +141,10 @@ describe('EmployeeTableComponent', () => {
    * It checks if the router's navigate method is called with the correct route and parameters.
    */
   it('should navigate to delete employee form on deleteEmployee', () => {
+    // GIVEN
+    // WHEN
     component.deleteEmployee(TEST_EMPLOYEE_ID);
+    // THEN
     expect(routerSpy.navigate).toHaveBeenCalledWith(
       ['/employee-form', TEST_DEPARTMENT_ID, 'DELETE', TEST_EMPLOYEE_ID],
       { relativeTo: jasmine.any(Object) }

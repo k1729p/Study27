@@ -10,6 +10,25 @@
     <img alt="Color scheme for Study27 project" src="images/ColorScheme.png" height="25" width="800" />
   </a>
   <h2 id="contents">Study27 README Contents</h2>
+  <ul>
+    <li>
+      <a href="https://material.angular.io/components/categories">Angular Material categories</a><br>
+    </li>
+    <li>
+      <a href="https://material.angular.io/cdk/categories">Component Dev Kit (CDK) categories</a><br>
+    </li>
+    <li>
+      <a href="https://m3.material.io/">Material Design 3</a><br>
+    </li>
+    <li>
+      <a href="https://angular.dev/tools/cli">Angular CLI Overview and Command Reference</a><br>
+    </li>
+    <li>
+      <a href="https://karma-runner.github.io/">Karma</a><br>
+    </li>
+    <li>
+    </li>
+  </ul>
 <pre>
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 20.
 
@@ -22,8 +41,7 @@ Run `ng build` to build the project.
 The build artifacts will be stored in the `dist/` directory.
 
 </pre>
-<a href="https://angular.dev/tools/cli">Angular CLI Overview and Command Reference</a><br>
-<a href="https://karma-runner.github.io">Karma</a><br>
+<hr>
 <pre>
 ## Code scaffolding
 Run `ng generate component component-name` to generate a new component.

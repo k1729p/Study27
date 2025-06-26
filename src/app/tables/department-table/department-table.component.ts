@@ -1,5 +1,3 @@
-import { Department } from '../../models/department';
-import { DepartmentDataSource } from './department-datasource';
 import { AfterViewInit, Component, ViewChild, inject } from '@angular/core';
 import { MatTableModule, MatTable } from '@angular/material/table';
 import { MatPaginatorModule, MatPaginator } from '@angular/material/paginator';
@@ -7,6 +5,9 @@ import { MatSortModule, MatSort } from '@angular/material/sort';
 import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
 import { Router, ActivatedRoute } from '@angular/router';
+
+import { Department } from '../../models/department';
+import { DepartmentDataSource } from './department-datasource';
 /**
  * DepartmentTableComponent is a component that displays a table of departments.
  * It uses Angular Material's table features to display, sort, and paginate the
@@ -61,6 +62,20 @@ export class DepartmentTableComponent implements AfterViewInit {
       relativeTo: this.route,
     });
     console.log('DepartmentTableComponent.createDepartment():');
+  }
+  /**
+   * Reads the department.
+   * This method navigates to the department form with the 'READ' action
+   * and the specified department id.
+   *
+   * @param id the department id
+   * @returns void
+   */
+  readDepartment(id: number) {
+    this.router.navigate(['/department-form', 'READ', id], {
+      relativeTo: this.route,
+    });
+    console.log('DepartmentTableComponent.readDepartment(): id[%d]', id);
   }
   /**
    * Updates the department.

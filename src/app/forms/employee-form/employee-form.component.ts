@@ -6,6 +6,7 @@ import { MatSelectModule } from '@angular/material/select';
 import { MatCardModule } from '@angular/material/card';
 import { MatExpansionModule } from '@angular/material/expansion';
 import { Router, ActivatedRoute } from '@angular/router';
+
 import { EmployeeService } from '../../services/employee-service/employee.service';
 import { Title } from '../../models/title';
 import { Employee } from '../../models/employee';
@@ -66,6 +67,9 @@ export class EmployeeFormComponent implements OnInit {
     if (this.operation === 'CREATE') {
       this.formTitle = 'Create Employee';
       this.buttonLabel = 'Create';
+    } else if (this.operation === 'READ') {
+      this.formTitle = 'Read Employee';
+      this.buttonLabel = 'Read';
     } else if (this.operation === 'UPDATE') {
       this.formTitle = 'Update Employee';
       this.buttonLabel = 'Update';
@@ -118,6 +122,17 @@ export class EmployeeFormComponent implements OnInit {
       this.employeeService.createEmployee(+this.departmentId, employee);
       console.log(
         'EmployeeFormComponent.onSubmit(): CREATE, first name[%s], last name[%s]',
+        employee?.firstName,
+        employee?.lastName
+      );
+    } else if (this.operation === 'READ') {
+      const employee = this.employeeService.getEmployee(
+        +this.departmentId,
+        +this.id
+      );
+      console.log(
+        'EmployeeFormComponent.onSubmit(): READ, id[%d], first name[%s], last name[%s]',
+        this.id,
         employee?.firstName,
         employee?.lastName
       );

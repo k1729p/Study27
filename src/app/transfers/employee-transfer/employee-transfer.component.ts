@@ -1,8 +1,3 @@
-import { Employee } from '../../models/employee';
-import { EmployeeTransferDataSource } from './employee-transfer-datasource';
-import { DepartmentService } from '../../services/department-service/department.service';
-import { EmployeeService } from '../../services/employee-service/employee.service';
-
 import { Component, ViewChild, inject, OnInit } from '@angular/core';
 import { SelectionModel } from '@angular/cdk/collections';
 import { ActivatedRoute } from '@angular/router';
@@ -11,7 +6,11 @@ import { MatGridListModule } from '@angular/material/grid-list';
 import { MatCardModule } from '@angular/material/card';
 import { MatButtonModule } from '@angular/material/button';
 import { MatCheckboxModule } from '@angular/material/checkbox';
-import { MatListModule, MatListOption } from '@angular/material/list';
+import { MatListModule } from '@angular/material/list';
+
+import { Employee } from '../../models/employee';
+import { DepartmentService } from '../../services/department-service/department.service';
+import { EmployeeService } from '../../services/employee-service/employee.service';
 /**
  * A component for transferring employees between departments.
  */
@@ -38,14 +37,11 @@ export class EmployeeTransferComponent implements OnInit {
   sourceDepartmentName = '';
   targetDepartmentId = '';
   targetDepartmentName = '';
-  sourceDataSource = new EmployeeTransferDataSource();
-  targetDataSource = new EmployeeTransferDataSource();
+  sourceEmployees: Employee[] = [];
+  targetEmployees: Employee[] = [];
   srcDisplayedColumns = ['select', 'id', 'firstName', 'lastName'];
   trgDisplayedColumns = ['id', 'firstName', 'lastName'];
   selection = new SelectionModel<Employee>(true, []);
-
-  sourceEmployeesArray: Employee[] = [];
-  targetEmployeesArray: Employee[] = [];
 
   /**
    * ActivatedRoute injected via inject() function.
@@ -57,6 +53,7 @@ export class EmployeeTransferComponent implements OnInit {
    * Runs once after Angular has initialized all the component's inputs.
    *
    * https://angular.dev/guide/components/lifecycle#ngoninit
+   * @returns void
    */
   ngOnInit() {
     this.sourceDepartmentId =
@@ -65,7 +62,8 @@ export class EmployeeTransferComponent implements OnInit {
       +this.sourceDepartmentId
     );
     this.sourceDepartmentName = sourceDepartment?.name ?? '';
-    this.sourceDataSource.setDepartmentId(+this.sourceDepartmentId);
+    this.sourceEmployees =
+      this.employeeService.getEmployeeArray()[+this.sourceDepartmentId - 1];
 
     this.targetDepartmentId =
       this.route.snapshot.paramMap.get('targetDepartmentId') ?? '';
@@ -73,78 +71,49 @@ export class EmployeeTransferComponent implements OnInit {
       +this.targetDepartmentId
     );
     this.targetDepartmentName = targetDepartment?.name ?? '';
-    this.targetDataSource.setDepartmentId(+this.targetDepartmentId);
+    this.targetEmployees =
+      this.employeeService.getEmployeeArray()[+this.targetDepartmentId - 1];
     console.log(
       'EmployeeTransferComponent.ngOnInit(): sourceDepartmentId[%s], targetDepartmentId[%s]',
       this.sourceDepartmentId,
       this.targetDepartmentId
     );
-
-    this.sourceEmployeesArray = [...this.sourceDataSource.employeeArr]; // !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
   }
 
   /**
-   * Transfer the employees.
+   * Transfers the employees.
    *
+   * @returns void
    */
   transferEmployees() {
-    console.group(
+    this.employeeService.transferEmployees(
+      +this.sourceDepartmentId,
+      +this.targetDepartmentId,
+      this.selection.selected
+    );
+    this.selection.clear();
+    this.sourceEmployees =
+      this.employeeService.getEmployeeArray()[+this.sourceDepartmentId - 1];
+    this.targetEmployees =
+      this.employeeService.getEmployeeArray()[+this.targetDepartmentId - 1];
+    console.log(
       'transferEmployees(): source department id[%d], target department id[%d]',
       this.sourceDepartmentId,
       this.targetDepartmentId
     );
-    this.sourceDataSource.employeeArr.forEach((employee) => {
-      if (this.selection.isSelected(employee)) {
-        this.employeeService.transferEmployee(
-          +this.sourceDepartmentId,
-          +this.targetDepartmentId,
-          employee
-        );
-        console.log(
-          'EmployeeTransferComponent.transferEmployees(): employee id[%d], first name[%s], last name[%s]',
-          employee.id,
-          employee.firstName,
-          employee.lastName
-        );
-      }
-    });
-    console.groupEnd();
   }
-  /**
-   * Transfer the employees.
-   *
-   */
-  transferEmployeesALT(listOptionArr: MatListOption[]) {
-    listOptionArr.forEach((listOption) => {
-      const id = listOption.value;
-      console.log('employee id[%d]', id);
-      //this.targetEmployeesArray.push(this.sourceDataSource.employeeArr[id]);
-      //this.sourceEmployeesArray.splice(id, 1);
-    });
-  }
-
-  /**
-   * Whether the number of selected elements matches the total number of rows.
-   *
-   * @returns the flag
-   */
-  isAllSelected(): boolean {
-    const numSelected = this.selection.selected.length;
-    const numRows = this.sourceDataSource.employeeArr.length;
-    return numSelected === numRows;
-  }
-
   /**
    * Selects all rows if they are not all selected; otherwise clear selection.
+   *
+   * @returns void
    */
   toggleAllRows() {
     if (this.isAllSelected()) {
       this.selection.clear();
     } else {
-      this.selection.select(...this.sourceDataSource.employeeArr);
+      this.selection.select(...this.sourceEmployees);
     }
   }
-
   /**
    * The label for the checkbox on the passed row
    *
@@ -159,5 +128,13 @@ export class EmployeeTransferComponent implements OnInit {
         row.id + 1
       }`;
     }
+  }
+  /**
+   * Whether the number of selected elements matches the total number of rows.
+   *
+   * @returns the flag
+   */
+  isAllSelected(): boolean {
+    return this.selection.selected.length === this.sourceEmployees.length;
   }
 }

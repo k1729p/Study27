@@ -107,6 +107,9 @@ export class DepartmentFormComponent implements OnInit {
     if (this.operation === 'CREATE') {
       this.formTitle = 'Create Department';
       this.buttonLabel = 'Create';
+    } else if (this.operation === 'READ') {
+      this.formTitle = 'Read Department';
+      this.buttonLabel = 'Read';
     } else if (this.operation === 'UPDATE') {
       this.formTitle = 'Update Department';
       this.buttonLabel = 'Update';
@@ -142,6 +145,13 @@ export class DepartmentFormComponent implements OnInit {
       this.departmentService.createDepartment(department);
       console.log(
         'DepartmentFormComponent.onSubmit(): CREATE, name[%s]',
+        department?.name
+      );
+    } else if (this.operation === 'READ') {
+      const department = this.departmentService.getDepartment(+this.id);
+      console.log(
+        'DepartmentFormComponent.onSubmit(): READ, id[%d], name[%s]',
+        this.id,
         department?.name
       );
     } else if (this.operation === 'UPDATE') {

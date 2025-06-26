@@ -33,6 +33,7 @@
         <ng-container matColumnDef="actions">
           <th mat-header-cell *matHeaderCellDef mat-header>Actions</th>
           <td mat-cell *matCellDef="let row">
+            <button mat-button (click)="readDepartment(row.id)">Read</button>
             <button mat-button (click)="updateDepartment(row.id)">Update</button>
             <button mat-button (click)="deleteDepartment(row.id)">Delete</button>
           </td>

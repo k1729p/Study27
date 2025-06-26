@@ -61,7 +61,7 @@ export const DEPARTMENTS: Department[] = [
 ];
 /**
  * Initial employee data for the application.
- * This data is used to populate the employee array when the application starts.
+ * This data is used to populate the employee array when the service is first initialized.
  */
 export const EMPLOYEES: Employee[][] = [
   [
