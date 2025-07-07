@@ -48,12 +48,10 @@ export class AppComponent {
         this.router.navigate(['/department-table'], { relativeTo: this.route });
         break;
       case 2:
-        this.router.navigate(['/transfers/1/2'], {
-          relativeTo: this.route,
-        });
+        this.router.navigate(['/employee-transfer'], { relativeTo: this.route });
         break;
       case 3:
-        // FIXME not used
+        this.router.navigate(['/aaa'], { relativeTo: this.route });
         break;
       default:
         break;

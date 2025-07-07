@@ -1,101 +1,140 @@
 <div class="grid-container">
-  <mat-grid-list cols="1" rowHeight="70px">
+  <mat-grid-list cols="2">
     <mat-grid-tile>
       <mat-card class="employee-card" appearance="outlined">
+        <mat-card-header>
+          <mat-card-title>
+            <div class="row">
+              <div class="col">
+                Department
+              </div>
+              <div class="col">
+                <form [formGroup]="leftSideForm">
+                  <mat-form-field appearance="outline">
+                    <mat-select formControlName="leftSideSelect" [value]="leftSideForm.get('leftSideSelect')?.value"
+                      (selectionChange)="selectLeftSideDepartment($event.value.id)">
+                      @for (department of departmentArray; track department) {
+                      <mat-option [value]="department">{{ department.name }}</mat-option>
+                      }
+                    </mat-select>
+                  </mat-form-field>
+                </form>
+              </div>
+            </div>
+          </mat-card-title>
+        </mat-card-header>
+        <mat-card-content>
+        </mat-card-content>
         <mat-card-actions>
-          <button mat-stroked-button (click)="transferEmployees()" [disabled]="!selection.selected.length">
+          <button mat-stroked-button (click)="transferEmployees('LEFT-SIDE')"
+            [disabled]="disableTransferButton('LEFT-SIDE')">
             Transfer Selected Employees
           </button>
         </mat-card-actions>
+        <mat-card-content>
+          <div class="table-container">
+            <table mat-table [dataSource]="leftSideEmployees" class="employee-table" aria-label="Items">
+              <ng-container matColumnDef="select">
+                <th mat-header-cell *matHeaderCellDef>
+                  <mat-checkbox (change)="$event ? toggleAllRows('LEFT-SIDE') : null"
+                    [checked]="leftSideSelection.hasValue() && isAllSelected('LEFT-SIDE')"
+                    [indeterminate]="leftSideSelection.hasValue() && !isAllSelected('LEFT-SIDE')"
+                    [aria-label]="checkboxLabel('LEFT-SIDE')">
+                  </mat-checkbox>
+                </th>
+                <td mat-cell *matCellDef="let row">
+                  <mat-checkbox (click)="$event.stopPropagation()"
+                    (change)="$event ? leftSideSelection.toggle(row) : null"
+                    [checked]="leftSideSelection.isSelected(row)" [aria-label]="checkboxLabel('LEFT-SIDE', row)">
+                  </mat-checkbox>
+                </td>
+              </ng-container>
+              <ng-container matColumnDef="id">
+                <th mat-header-cell *matHeaderCellDef>Id</th>
+                <td mat-cell *matCellDef="let row">{{row.id}}</td>
+              </ng-container>
+              <ng-container matColumnDef="firstName">
+                <th mat-header-cell *matHeaderCellDef>First Name</th>
+                <td mat-cell *matCellDef="let row">{{row.firstName}}</td>
+              </ng-container>
+              <ng-container matColumnDef="lastName">
+                <th mat-header-cell *matHeaderCellDef>Last Name</th>
+                <td mat-cell *matCellDef="let row">{{row.lastName}}</td>
+              </ng-container>
+              <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+              <tr mat-row *matRowDef="let row; columns: displayedColumns;" (click)="leftSideSelection.toggle(row)"></tr>
+            </table>
+          </div>
+        </mat-card-content>
+      </mat-card>
+    </mat-grid-tile>
+
+    <mat-grid-tile [colspan]="1" [rowspan]="1">
+      <mat-card class="employee-card" appearance="outlined">
+        <mat-card-header>
+          <mat-card-title>
+            <div class="row">
+              <div class="col">
+                Department
+              </div>
+              <div class="col">
+                <form [formGroup]="rightSideForm">
+                  <mat-form-field appearance="outline">
+                    <mat-select formControlName="rightSideSelect" [value]="rightSideForm.get('rightSideSelect')?.value"
+                      (selectionChange)="selectRightSideDepartment($event.value.id)">
+                      @for (department of departmentArray; track department) {
+                      <mat-option [value]="department">{{ department.name }}</mat-option>
+                      }
+                    </mat-select>
+                  </mat-form-field>
+                </form>
+              </div>
+            </div>
+          </mat-card-title>
+        </mat-card-header>
+        <mat-card-actions>
+          <button mat-stroked-button (click)="transferEmployees('RIGHT-SIDE')"
+            [disabled]="disableTransferButton('RIGHT-SIDE')">
+            Transfer Selected Employees
+          </button>
+        </mat-card-actions>
+        <mat-card-content>
+          <div class="table-container">
+            <table mat-table [dataSource]="rightSideEmployees" class="employee-table" aria-label="Items">
+              <ng-container matColumnDef="select">
+                <th mat-header-cell *matHeaderCellDef>
+                  <mat-checkbox (change)="$event ? toggleAllRows('RIGHT-SIDE') : null"
+                    [checked]="rightSideSelection.hasValue() && isAllSelected('RIGHT-SIDE')"
+                    [indeterminate]="rightSideSelection.hasValue() && !isAllSelected('RIGHT-SIDE')"
+                    [aria-label]="checkboxLabel('RIGHT-SIDE')">
+                  </mat-checkbox>
+                </th>
+                <td mat-cell *matCellDef="let row">
+                  <mat-checkbox (click)="$event.stopPropagation()"
+                    (change)="$event ? rightSideSelection.toggle(row) : null"
+                    [checked]="rightSideSelection.isSelected(row)" [aria-label]="checkboxLabel('RIGHT-SIDE', row)">
+                  </mat-checkbox>
+                </td>
+              </ng-container>
+              <ng-container matColumnDef="id">
+                <th mat-header-cell *matHeaderCellDef>Id</th>
+                <td mat-cell *matCellDef="let row">{{row.id}}</td>
+              </ng-container>
+              <ng-container matColumnDef="firstName">
+                <th mat-header-cell *matHeaderCellDef>First Name</th>
+                <td mat-cell *matCellDef="let row">{{row.firstName}}</td>
+              </ng-container>
+              <ng-container matColumnDef="lastName">
+                <th mat-header-cell *matHeaderCellDef>Last Name</th>
+                <td mat-cell *matCellDef="let row">{{row.lastName}}</td>
+              </ng-container>
+              <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+              <tr mat-row *matRowDef="let row; columns: displayedColumns;" (click)="rightSideSelection.toggle(row)">
+              </tr>
+            </table>
+          </div>
+        </mat-card-content>
       </mat-card>
     </mat-grid-tile>
   </mat-grid-list>
 </div>
-
-<mat-grid-list cols="2">
-  <mat-grid-tile>
-    <mat-card class="employee-card" appearance="outlined">
-      <mat-card-header>
-        <mat-card-title>
-          <h4>Source Department “{{sourceDepartmentName}}”</h4>
-        </mat-card-title>
-      </mat-card-header>
-      <mat-card-content>
-        <div class="mat-elevation-z2">
-          <mat-card-title class="title">QWERTY</mat-card-title>
-          <div class="table-container">
-            <table mat-table [dataSource]="sourceEmployees" class="full-width-table" aria-label="Items">
-              <!-- Checkbox Column -->
-              <ng-container matColumnDef="select">
-                <th mat-header-cell *matHeaderCellDef>
-                  <mat-checkbox (change)="$event ? toggleAllRows() : null" [checked]="selection.hasValue() && isAllSelected()"
-                    [indeterminate]="selection.hasValue() && !isAllSelected()" [aria-label]="checkboxLabel()">
-                  </mat-checkbox>
-                </th>
-                <td mat-cell *matCellDef="let row">
-                  <mat-checkbox (click)="$event.stopPropagation()" (change)="$event ? selection.toggle(row) : null"
-                    [checked]="selection.isSelected(row)" [aria-label]="checkboxLabel(row)">
-                  </mat-checkbox>
-                </td>
-              </ng-container>
-              <!-- Id Column -->
-              <ng-container matColumnDef="id">
-                <th mat-header-cell *matHeaderCellDef>Id</th>
-                <td mat-cell *matCellDef="let row">{{row.id}}</td>
-              </ng-container>
-              <!-- First Name Column -->
-              <ng-container matColumnDef="firstName">
-                <th mat-header-cell *matHeaderCellDef>First Name</th>
-                <td mat-cell *matCellDef="let row">{{row.firstName}}</td>
-              </ng-container>
-              <!-- Last Name Column -->
-              <ng-container matColumnDef="lastName">
-                <th mat-header-cell *matHeaderCellDef>Last Name</th>
-                <td mat-cell *matCellDef="let row">{{row.lastName}}</td>
-              </ng-container>
-
-              <tr mat-header-row *matHeaderRowDef="srcDisplayedColumns"></tr>
-              <tr mat-row *matRowDef="let row; columns: srcDisplayedColumns;" (click)="selection.toggle(row)"></tr>
-            </table>
-          </div>
-        </div>
-      </mat-card-content>
-    </mat-card>
-  </mat-grid-tile>
-
-  <mat-grid-tile [colspan]="1" [rowspan]="1">
-    <mat-card class="employee-card" appearance="outlined">
-      <mat-card-header>
-        <mat-card-title>
-          <h4>Target Department “{{targetDepartmentName}}”</h4>
-        </mat-card-title>
-      </mat-card-header>
-      <mat-card-content>
-        <div class="mat-elevation-z2">
-          <div class="table-container">
-            <table mat-table [dataSource]="targetEmployees" class="full-width-table" aria-label="Items">
-              <!-- Id Column -->
-              <ng-container matColumnDef="id">
-                <th mat-header-cell *matHeaderCellDef>Id</th>
-                <td mat-cell *matCellDef="let row">{{row.id}}</td>
-              </ng-container>
-              <!-- First Name Column -->
-              <ng-container matColumnDef="firstName">
-                <th mat-header-cell *matHeaderCellDef>First Name</th>
-                <td mat-cell *matCellDef="let row">{{row.firstName}}</td>
-              </ng-container>
-              <!-- Last Name Column -->
-              <ng-container matColumnDef="lastName">
-                <th mat-header-cell *matHeaderCellDef>Last Name</th>
-                <td mat-cell *matCellDef="let row">{{row.lastName}}</td>
-              </ng-container>
-
-              <tr mat-header-row *matHeaderRowDef="trgDisplayedColumns"></tr>
-              <tr mat-row *matRowDef="let row; columns: trgDisplayedColumns;"></tr>
-            </table>
-          </div>
-        </div>
-      </mat-card-content>
-    </mat-card>
-  </mat-grid-tile>
-</mat-grid-list>

@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Study27 README</title>
+  
 </head>
 <body>
   <a href="https://github.com/k1729p/Study27/tree/main/docs" title="View Study27 docs on GitHub">
@@ -31,6 +31,7 @@
   </ul>
 <pre>
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 20.
+This Angular Material project uses Material Design 2.
 
 ## Development server
 Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`.

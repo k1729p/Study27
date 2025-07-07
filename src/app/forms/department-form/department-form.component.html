@@ -9,7 +9,7 @@
       @if ('DELETE' === this.operation) {
       <div class="row">
         <div class="col">
-          <mat-form-field class="full-width" appearance="outline">
+          <mat-form-field class="department-form-field" appearance="outline">
             <mat-label>Name</mat-label>
             <input placeholder="Name" matInput formControlName="name" readonly>
           </mat-form-field>
@@ -18,7 +18,7 @@
       } @else {
       <div class="row">
         <div class="col">
-          <mat-form-field class="full-width" appearance="outline">
+          <mat-form-field class="department-form-field" appearance="outline">
             <mat-label>Name</mat-label>
             <input placeholder="Name" matInput formControlName="name">
             @if (departmentForm.controls['name'].hasError('required')) {
@@ -29,7 +29,7 @@
       </div>
       <div class="row">
         <div class="col">
-          <mat-form-field class="full-width" appearance="outline">
+          <mat-form-field class="department-form-field" appearance="outline">
             <mat-label>Keywords</mat-label>
             <mat-chip-grid #chipGrid aria-label="Keyword selection">
               @for (keyword of keywordsSignal(); track keyword) {
@@ -54,7 +54,7 @@
       </div>
       <div class="row">
         <div class="col">
-          <mat-form-field class="full-width" appearance="outline">
+          <mat-form-field class="department-form-field" appearance="outline">
             <mat-label>Notes</mat-label>
             <textarea matInput placeholder="Notes" formControlName="notes">
             </textarea>

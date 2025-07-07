@@ -1,0 +1,22 @@
+<form [formGroup]="zzzForm">
+  <mat-form-field appearance="outline">
+    <mat-label>Label: left select 'zzz'</mat-label>
+    <mat-select formControlName="leftZzzSelect" [value]="zzzForm.get('leftZzzSelect')?.value"
+      (selectionChange)="selectLeftZzz($event.value.id)">
+      @for (zzz of zzzArr; track zzz) {
+      <mat-option [value]="zzz">{{ zzz.name }}</mat-option>
+      }
+    </mat-select>
+    <mat-hint align="end">Hint: the selected 'zzz' id[{{ zzzForm.get('leftZzzSelect')?.value?.id }}]</mat-hint>
+  </mat-form-field>
+  <mat-form-field appearance="outline">
+    <mat-label>Label: right select 'zzz'</mat-label>
+    <mat-select formControlName="rightZzzSelect" [value]="zzzForm.get('rightZzzSelect')?.value"
+      (selectionChange)="selectRightZzz($event.value.id)">
+      @for (zzz of zzzArr; track zzz) {
+      <mat-option [value]="zzz">{{ zzz.name }}</mat-option>
+      }
+    </mat-select>
+    <mat-hint align="end">Hint: the selected 'zzz' id[{{ zzzForm.get('rightZzzSelect')?.value?.id }}]</mat-hint>
+  </mat-form-field>
+</form>

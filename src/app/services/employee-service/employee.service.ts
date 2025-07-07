@@ -173,7 +173,7 @@ export class EmployeeService {
    *
    * @param sourceDepartmentId the source department id
    * @param targetDepartmentId the target department id
-   * @param employee the list of the employees to transfer
+   * @param employees the list of the employees to transfer
    * @return void
    */
   transferEmployees(
@@ -182,12 +182,11 @@ export class EmployeeService {
     employees: Employee[]
   ) {
     employees.forEach((employee) => {
-      this.transferEmployee(
-        sourceDepartmentId,
-        targetDepartmentId,
-        employee
-      );
+      this.transferEmployee(sourceDepartmentId, targetDepartmentId, employee);
     });
+    const tmpArray = this.getEmployeeArray();
+    tmpArray[targetDepartmentId - 1].sort((emp1, emp2) => emp1.id - emp2.id);
+    this.setEmployeeArray(tmpArray);
   }
   /**
    * Transfers an employee from one department to another.
@@ -205,15 +204,12 @@ export class EmployeeService {
     targetDepartmentId: number,
     employee: Employee
   ) {
-    const sourceDepIndex = sourceDepartmentId - 1;
     const tmpArray = this.getEmployeeArray();
-    const empIndex = tmpArray[sourceDepIndex].findIndex(
+    const empIndex = tmpArray[sourceDepartmentId - 1].findIndex(
       (emp) => emp.id === employee.id
     );
-    tmpArray[sourceDepIndex].splice(empIndex, 1);
-    const targetDepIndex = targetDepartmentId - 1;
-    tmpArray[targetDepIndex].push(employee);
-    tmpArray[targetDepIndex].sort((emp1, emp2) => emp1.id - emp2.id);
+    tmpArray[sourceDepartmentId - 1].splice(empIndex, 1);
+    tmpArray[targetDepartmentId - 1].push(employee);
     this.setEmployeeArray(tmpArray);
     console.log(
       'EmployeeService.transferEmployee(): source department id[%s], target department id[%s], employee id[%s]',

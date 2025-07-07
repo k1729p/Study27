@@ -1,13 +1,15 @@
 import { Component, ViewChild, inject, OnInit } from '@angular/core';
 import { SelectionModel } from '@angular/cdk/collections';
-import { ActivatedRoute } from '@angular/router';
+import { FormBuilder, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatTableModule, MatTable } from '@angular/material/table';
 import { MatGridListModule } from '@angular/material/grid-list';
 import { MatCardModule } from '@angular/material/card';
 import { MatButtonModule } from '@angular/material/button';
 import { MatCheckboxModule } from '@angular/material/checkbox';
+import { MatSelectModule } from '@angular/material/select';
 import { MatListModule } from '@angular/material/list';
 
+import { Department } from '../../models/department';
 import { Employee } from '../../models/employee';
 import { DepartmentService } from '../../services/department-service/department.service';
 import { EmployeeService } from '../../services/employee-service/employee.service';
@@ -20,12 +22,15 @@ import { EmployeeService } from '../../services/employee-service/employee.servic
   styleUrl: './employee-transfer.component.css',
   standalone: true,
   imports: [
+    FormsModule,
+    ReactiveFormsModule,
     MatTableModule,
     MatTable,
     MatGridListModule,
     MatCardModule,
     MatButtonModule,
     MatCheckboxModule,
+    MatSelectModule,
     MatListModule,
   ],
 })
@@ -33,21 +38,22 @@ export class EmployeeTransferComponent implements OnInit {
   @ViewChild(MatTable) table!: MatTable<Employee>;
   private departmentService: DepartmentService = inject(DepartmentService);
   private employeeService: EmployeeService = inject(EmployeeService);
-  sourceDepartmentId = '';
-  sourceDepartmentName = '';
-  targetDepartmentId = '';
-  targetDepartmentName = '';
-  sourceEmployees: Employee[] = [];
-  targetEmployees: Employee[] = [];
-  srcDisplayedColumns = ['select', 'id', 'firstName', 'lastName'];
-  trgDisplayedColumns = ['id', 'firstName', 'lastName'];
-  selection = new SelectionModel<Employee>(true, []);
-
-  /**
-   * ActivatedRoute injected via inject() function.
-   */
-  private route = inject(ActivatedRoute);
-
+  private formBuilder = inject(FormBuilder);
+  private emptyDepartment = { id: 0, name: '' };
+  leftSideForm = this.formBuilder.group({
+    leftSideSelect: this.emptyDepartment,
+  });
+  rightSideForm = this.formBuilder.group({
+    rightSideSelect: this.emptyDepartment,
+  });
+  leftSideDepartmentId = 0;
+  rightSideDepartmentId = 0;
+  departmentArray: Department[] = this.departmentService.getDepartmentArray();
+  leftSideEmployees: Employee[] = [];
+  rightSideEmployees: Employee[] = [];
+  displayedColumns = ['select', 'id', 'firstName', 'lastName'];
+  rightSideSelection = new SelectionModel<Employee>(true, []);
+  leftSideSelection = new SelectionModel<Employee>(true, []);
   /**
    * A component lifecycle hook method.
    * Runs once after Angular has initialized all the component's inputs.
@@ -56,85 +62,181 @@ export class EmployeeTransferComponent implements OnInit {
    * @returns void
    */
   ngOnInit() {
-    this.sourceDepartmentId =
-      this.route.snapshot.paramMap.get('sourceDepartmentId') ?? '';
-    const sourceDepartment = this.departmentService.getDepartment(
-      +this.sourceDepartmentId
-    );
-    this.sourceDepartmentName = sourceDepartment?.name ?? '';
-    this.sourceEmployees =
-      this.employeeService.getEmployeeArray()[+this.sourceDepartmentId - 1];
-
-    this.targetDepartmentId =
-      this.route.snapshot.paramMap.get('targetDepartmentId') ?? '';
-    const targetDepartment = this.departmentService.getDepartment(
-      +this.targetDepartmentId
-    );
-    this.targetDepartmentName = targetDepartment?.name ?? '';
-    this.targetEmployees =
-      this.employeeService.getEmployeeArray()[+this.targetDepartmentId - 1];
-    console.log(
-      'EmployeeTransferComponent.ngOnInit(): sourceDepartmentId[%s], targetDepartmentId[%s]',
-      this.sourceDepartmentId,
-      this.targetDepartmentId
-    );
+    this.selectLeftSideDepartment(1);
+    this.selectRightSideDepartment(2);
+    console.log('EmployeeTransferComponent.ngOnInit():');
   }
 
   /**
-   * Transfers the employees.
+   * Selects the departments on the left side and on the right side.
    *
    * @returns void
    */
-  transferEmployees() {
-    this.employeeService.transferEmployees(
-      +this.sourceDepartmentId,
-      +this.targetDepartmentId,
-      this.selection.selected
+  selectLeftSideDepartment(departmentId: number) {
+
+    if (departmentId < 1 || departmentId > this.departmentArray.length) {
+      console.error(
+        'EmployeeTransferComponent.selectLeftSideDepartment(): invalid department id[%d]',
+        departmentId
+      );
+      return;
+    }
+    this.leftSideDepartmentId = departmentId;
+    const index = this.departmentArray.findIndex(
+      (dep) => dep.id === departmentId
     );
-    this.selection.clear();
-    this.sourceEmployees =
-      this.employeeService.getEmployeeArray()[+this.sourceDepartmentId - 1];
-    this.targetEmployees =
-      this.employeeService.getEmployeeArray()[+this.targetDepartmentId - 1];
+    this.leftSideForm.controls.leftSideSelect.setValue(
+      this.departmentArray[index]
+    );
+    this.leftSideEmployees = this.employeeService.getEmployeeArray()[index];
     console.log(
-      'transferEmployees(): source department id[%d], target department id[%d]',
-      this.sourceDepartmentId,
-      this.targetDepartmentId
+      'EmployeeTransferComponent.selectLeftSideDepartment(): department id[%d]',
+      this.leftSideDepartmentId
     );
+  }
+  /**
+   * Selects the departments on the left side and on the right side.
+   *
+   * @returns void
+   */
+  selectRightSideDepartment(departmentId: number) {
+    if (departmentId < 1 || departmentId > this.departmentArray.length) {
+      console.error(
+        'EmployeeTransferComponent.selectRightSideDepartment(): invalid department id[%d]',
+        departmentId
+      );
+      return;
+    }
+    this.rightSideDepartmentId = departmentId;
+    const index = this.departmentArray.findIndex(
+      (dep) => dep.id === departmentId
+    );
+    this.rightSideForm.controls.rightSideSelect.setValue(
+      this.departmentArray[index]
+    );
+    this.rightSideEmployees = this.employeeService.getEmployeeArray()[index];
+    console.log(
+      'EmployeeTransferComponent.selectRightSideDepartment(): department id[%d]',
+      this.rightSideDepartmentId
+    );
+  }
+  /**
+   * Transfers the employees.
+   *
+   * @param side the side
+   * @returns void
+   */
+  transferEmployees(side: 'LEFT-SIDE' | 'RIGHT-SIDE') {
+    if (side === 'LEFT-SIDE') {
+      this.employeeService.transferEmployees(
+        +this.leftSideDepartmentId,
+        +this.rightSideDepartmentId,
+        this.leftSideSelection.selected
+      );
+    } else {
+      this.employeeService.transferEmployees(
+        +this.rightSideDepartmentId,
+        +this.leftSideDepartmentId,
+        this.rightSideSelection.selected
+      );
+    }
+    this.leftSideSelection.clear();
+    this.rightSideSelection.clear();
+    this.leftSideEmployees =
+      this.employeeService.getEmployeeArray()[+this.leftSideDepartmentId - 1];
+    this.rightSideEmployees =
+      this.employeeService.getEmployeeArray()[+this.rightSideDepartmentId - 1];
+    console.log(
+      'transferEmployees(): side[%s], left side department id[%d], right side department id[%d]',
+      side,
+      this.leftSideDepartmentId,
+      this.rightSideDepartmentId
+    );
+  }
+  /**
+   * Disables transfer button.
+   *
+   * @param side the side
+   * @returns the flag
+   */
+  disableTransferButton(side: 'LEFT-SIDE' | 'RIGHT-SIDE'): boolean {
+    if (side === 'LEFT-SIDE') {
+      return (
+        this.leftSideSelection.selected.length === 0 ||
+        this.leftSideDepartmentId === this.rightSideDepartmentId
+      );
+    } else {
+      return (
+        this.rightSideSelection.selected.length === 0 ||
+        this.leftSideDepartmentId === this.rightSideDepartmentId
+      );
+    }
   }
   /**
    * Selects all rows if they are not all selected; otherwise clear selection.
    *
+   * @param side the side
    * @returns void
    */
-  toggleAllRows() {
-    if (this.isAllSelected()) {
-      this.selection.clear();
+  toggleAllRows(side: 'LEFT-SIDE' | 'RIGHT-SIDE') {
+    if (side === 'LEFT-SIDE') {
+      if (this.isAllSelected('LEFT-SIDE')) {
+        this.leftSideSelection.clear();
+      } else {
+        this.leftSideSelection.select(...this.leftSideEmployees);
+      }
     } else {
-      this.selection.select(...this.sourceEmployees);
+      if (this.isAllSelected('RIGHT-SIDE')) {
+        this.rightSideSelection.clear();
+      } else {
+        this.rightSideSelection.select(...this.rightSideEmployees);
+      }
     }
   }
   /**
    * The label for the checkbox on the passed row
    *
+   * @param side the side
    * @param row the row
    * @returns the checkbox label
    */
-  checkboxLabel(row?: Employee): string {
-    if (!row) {
-      return `${this.isAllSelected() ? 'deselect' : 'select'} all`;
+  checkboxLabel(side: 'LEFT-SIDE' | 'RIGHT-SIDE', row?: Employee): string {
+    if (side === 'LEFT-SIDE') {
+      if (!row) {
+        return `${this.isAllSelected('LEFT-SIDE') ? 'deselect' : 'select'} all`;
+      } else {
+        return `${
+          this.leftSideSelection.isSelected(row) ? 'deselect' : 'select'
+        } row ${row.id + 1}`;
+      }
     } else {
-      return `${this.selection.isSelected(row) ? 'deselect' : 'select'} row ${
-        row.id + 1
-      }`;
+      if (!row) {
+        return `${
+          this.isAllSelected('RIGHT-SIDE') ? 'deselect' : 'select'
+        } all`;
+      } else {
+        return `${
+          this.rightSideSelection.isSelected(row) ? 'deselect' : 'select'
+        } row ${row.id + 1}`;
+      }
     }
   }
   /**
    * Whether the number of selected elements matches the total number of rows.
    *
+   * @param side the side
    * @returns the flag
    */
-  isAllSelected(): boolean {
-    return this.selection.selected.length === this.sourceEmployees.length;
+  isAllSelected(side: 'LEFT-SIDE' | 'RIGHT-SIDE'): boolean {
+    if (side === 'LEFT-SIDE') {
+      return (
+        this.leftSideSelection.selected.length === this.leftSideEmployees.length
+      );
+    } else {
+      return (
+        this.rightSideSelection.selected.length ===
+        this.rightSideEmployees.length
+      );
+    }
   }
 }
