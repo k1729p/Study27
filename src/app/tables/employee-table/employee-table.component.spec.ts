@@ -136,8 +136,8 @@ describe('EmployeeTableComponent', () => {
     );
   });
   /**
-   * Tests that the readEmployee method navigates to the read employee form.
-   * This method is expected to navigate to the employee form for reading an existing employee's details.
+   * Tests that the deleteEmployee method navigates to the delete employee form.
+   * This method is expected to navigate to the employee form for deleting an existing employee.
    * It checks if the router's navigate method is called with the correct route and parameters.
    */
   it('should navigate to delete employee form on deleteEmployee', () => {

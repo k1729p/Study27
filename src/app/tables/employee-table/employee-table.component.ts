@@ -89,20 +89,6 @@ export class EmployeeTableComponent implements AfterViewInit, OnInit {
     console.log('EmployeeTableComponent.createEmployee():');
   }
   /**
-   * Reads the employee.
-   * This method navigates to the employee form with the 'READ' action
-   * and the specified employee id.
-   *
-   * @param id the employee id
-   * @returns void
-   */
-  readEmployee(id: number) {
-    this.router.navigate(['/employee-form', this.departmentId, 'READ', id], {
-      relativeTo: this.route,
-    });
-    console.log('EmployeeTableComponent.readEmployee(): id[%d]', id);
-  }
-  /**
    * Updates the employee.
    * This method navigates to the employee form with the 'UPDATE' action
    * and the specified employee id.

@@ -37,17 +37,6 @@ export class EmployeeService {
    */
   getEmployeeArray(): Employee[][] {
     const json = this.storage.getItem('employees') ?? '';
-
-    // ############################################################################
-    console.log('===== GET GET GET GET GET GET GET =====');
-    const tmpArr: Employee[][] = JSON.parse(json) as Employee[][];
-    let msg = "";
-    for (const emp of tmpArr[0]) {
-      msg += emp.id + " ";
-    }
-    console.log(msg);
-    // ############################################################################
-
     return JSON.parse(json) as Employee[][];
   }
   /**

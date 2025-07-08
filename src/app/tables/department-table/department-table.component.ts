@@ -64,20 +64,6 @@ export class DepartmentTableComponent implements AfterViewInit {
     console.log('DepartmentTableComponent.createDepartment():');
   }
   /**
-   * Reads the department.
-   * This method navigates to the department form with the 'READ' action
-   * and the specified department id.
-   *
-   * @param id the department id
-   * @returns void
-   */
-  readDepartment(id: number) {
-    this.router.navigate(['/department-form', 'READ', id], {
-      relativeTo: this.route,
-    });
-    console.log('DepartmentTableComponent.readDepartment(): id[%d]', id);
-  }
-  /**
    * Updates the department.
    * This method navigates to the department form with the 'UPDATE' action
    * and the specified department id.
