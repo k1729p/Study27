@@ -1,7 +1,16 @@
 mat-list-option {
   border: 1px solid lightgray;
 }
+.align-center-vertically {
+  display: flex;
+  align-items: center;
+}
 
+.department-label {
+  padding-right: 1rem;
+  font-size: 1.6rem;
+  font-weight: 500;
+}
 .employee-card {
   height: 100%;
   min-height: 0;
@@ -14,7 +23,6 @@ mat-list-option {
 }
 
 .table-container {
-  max-height: 550px;
   overflow-y: auto;
   display: block;
 }

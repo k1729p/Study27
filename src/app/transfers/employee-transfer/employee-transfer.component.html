@@ -4,15 +4,15 @@
       <mat-card class="employee-card" appearance="outlined">
         <mat-card-header>
           <mat-card-title>
-            <div class="row">
-              <div class="col">
+            <div class="row align-center-vertically">
+              <div class="col department-label">
                 Department
               </div>
               <div class="col">
                 <form [formGroup]="leftSideForm">
                   <mat-form-field appearance="outline">
                     <mat-select formControlName="leftSideSelect" [value]="leftSideForm.get('leftSideSelect')?.value"
-                      (selectionChange)="selectLeftSideDepartment($event.value.id)">
+                      (selectionChange)="selectDepartment('LEFT-SIDE', $event.value.id)">
                       @for (department of departmentArray; track department) {
                       <mat-option [value]="department">{{ department.name }}</mat-option>
                       }
@@ -23,8 +23,6 @@
             </div>
           </mat-card-title>
         </mat-card-header>
-        <mat-card-content>
-        </mat-card-content>
         <mat-card-actions>
           <button mat-stroked-button (click)="transferEmployees('LEFT-SIDE')"
             [disabled]="disableTransferButton('LEFT-SIDE')">
@@ -72,16 +70,17 @@
     <mat-grid-tile [colspan]="1" [rowspan]="1">
       <mat-card class="employee-card" appearance="outlined">
         <mat-card-header>
+
           <mat-card-title>
-            <div class="row">
-              <div class="col">
+            <div class="row align-center-vertically">
+              <div class="col department-label">
                 Department
               </div>
               <div class="col">
                 <form [formGroup]="rightSideForm">
                   <mat-form-field appearance="outline">
                     <mat-select formControlName="rightSideSelect" [value]="rightSideForm.get('rightSideSelect')?.value"
-                      (selectionChange)="selectRightSideDepartment($event.value.id)">
+                      (selectionChange)="selectDepartment('RIGHT-SIDE', $event.value.id)">
                       @for (department of departmentArray; track department) {
                       <mat-option [value]="department">{{ department.name }}</mat-option>
                       }

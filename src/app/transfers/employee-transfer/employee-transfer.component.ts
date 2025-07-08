@@ -62,8 +62,8 @@ export class EmployeeTransferComponent implements OnInit {
    * @returns void
    */
   ngOnInit() {
-    this.selectLeftSideDepartment(1);
-    this.selectRightSideDepartment(2);
+    this.selectDepartment('LEFT-SIDE', 1);
+    this.selectDepartment('RIGHT-SIDE', 2);
     console.log('EmployeeTransferComponent.ngOnInit():');
   }
 
@@ -72,54 +72,37 @@ export class EmployeeTransferComponent implements OnInit {
    *
    * @returns void
    */
-  selectLeftSideDepartment(departmentId: number) {
-
+  selectDepartment(side: 'LEFT-SIDE' | 'RIGHT-SIDE', departmentId: number) {
     if (departmentId < 1 || departmentId > this.departmentArray.length) {
       console.error(
-        'EmployeeTransferComponent.selectLeftSideDepartment(): invalid department id[%d]',
+        'EmployeeTransferComponent.selectDepartment(): invalid department id[%d]',
         departmentId
       );
       return;
     }
-    this.leftSideDepartmentId = departmentId;
     const index = this.departmentArray.findIndex(
       (dep) => dep.id === departmentId
     );
-    this.leftSideForm.controls.leftSideSelect.setValue(
-      this.departmentArray[index]
-    );
-    this.leftSideEmployees = this.employeeService.getEmployeeArray()[index];
-    console.log(
-      'EmployeeTransferComponent.selectLeftSideDepartment(): department id[%d]',
-      this.leftSideDepartmentId
-    );
-  }
-  /**
-   * Selects the departments on the left side and on the right side.
-   *
-   * @returns void
-   */
-  selectRightSideDepartment(departmentId: number) {
-    if (departmentId < 1 || departmentId > this.departmentArray.length) {
-      console.error(
-        'EmployeeTransferComponent.selectRightSideDepartment(): invalid department id[%d]',
-        departmentId
+    if (side === 'LEFT-SIDE') {
+      this.leftSideDepartmentId = departmentId;
+      this.leftSideForm.controls.leftSideSelect.setValue(
+        this.departmentArray[index]
       );
-      return;
+      this.leftSideEmployees = this.employeeService.getEmployeeArray()[index];
+    } else {
+      this.rightSideDepartmentId = departmentId;
+      this.rightSideForm.controls.rightSideSelect.setValue(
+        this.departmentArray[index]
+      );
+      this.rightSideEmployees = this.employeeService.getEmployeeArray()[index];
     }
-    this.rightSideDepartmentId = departmentId;
-    const index = this.departmentArray.findIndex(
-      (dep) => dep.id === departmentId
-    );
-    this.rightSideForm.controls.rightSideSelect.setValue(
-      this.departmentArray[index]
-    );
-    this.rightSideEmployees = this.employeeService.getEmployeeArray()[index];
     console.log(
-      'EmployeeTransferComponent.selectRightSideDepartment(): department id[%d]',
+      'EmployeeTransferComponent.selectDepartment(): left side department id[%d], right side department id[%d]',
+      this.leftSideDepartmentId,
       this.rightSideDepartmentId
     );
   }
+
   /**
    * Transfers the employees.
    *
