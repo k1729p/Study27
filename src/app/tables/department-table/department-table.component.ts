@@ -36,7 +36,7 @@ export class DepartmentTableComponent implements AfterViewInit {
   @ViewChild(MatSort) sort!: MatSort;
   @ViewChild(MatTable) table!: MatTable<Department>;
   dataSource = new DepartmentDataSource();
-  displayedColumns = ['id', 'name', 'employees', 'actions'];
+  displayedColumns = ['id', 'name', 'actions'];
 
   /**
    * A component lifecycle hook method.
@@ -92,18 +92,18 @@ export class DepartmentTableComponent implements AfterViewInit {
     console.log('DepartmentTableComponent.deleteDepartment(): id[%d]', id);
   }
   /**
-   * Reads the employees of the department.
+   * Views the employees of the department.
    * This method navigates to the employee table with the specified department id.
    *
    * @param id the department id
    * @returns void
    */
-  readEmployees(id: number) {
+  viewEmployees(id: number) {
     this.router.navigate(['/employee-table', id], {
       relativeTo: this.route,
     });
     console.log(
-      'DepartmentTableComponent.readEmployees(): department id[%d]',
+      'DepartmentTableComponent.viewEmployees(): department id[%d]',
       id
     );
   }

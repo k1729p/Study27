@@ -137,14 +137,14 @@ describe('DepartmentTableComponent', () => {
     );
   });
   /**
-   * Tests that the readEmployees method calls router.navigate with the correct parameters.
+   * Tests that the viewEmployees method calls router.navigate with the correct parameters.
    * This method is expected to navigate to the employee table for a specific department.
    * It checks if the router's navigate method is called with the correct route and parameters.
    */
-  it('should call router.navigate with correct params when readEmployees is called', () => {
+  it('should call router.navigate with correct params when viewEmployees is called', () => {
     // GIVEN
     // WHEN
-    component.readEmployees(TEST_DEPARTMENT_ID);
+    component.viewEmployees(TEST_DEPARTMENT_ID);
     // THEN
     expect(routerSpy.navigate).toHaveBeenCalledWith(
       ['/employee-table', TEST_DEPARTMENT_ID],

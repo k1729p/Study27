@@ -13,6 +13,7 @@ import { Department } from '../../models/department';
 import { Employee } from '../../models/employee';
 import { DepartmentService } from '../../services/department-service/department.service';
 import { EmployeeService } from '../../services/employee-service/employee.service';
+import { MatIconModule } from "@angular/material/icon";
 /**
  * A component for transferring employees between departments.
  */
@@ -32,7 +33,8 @@ import { EmployeeService } from '../../services/employee-service/employee.servic
     MatCheckboxModule,
     MatSelectModule,
     MatListModule,
-  ],
+    MatIconModule
+],
 })
 export class EmployeeTransferComponent implements OnInit {
   @ViewChild(MatTable) table!: MatTable<Employee>;

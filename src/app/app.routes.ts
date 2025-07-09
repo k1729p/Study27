@@ -5,7 +5,8 @@ import { DepartmentFormComponent } from './forms/department-form/department-form
 import { EmployeeTableComponent } from './tables/employee-table/employee-table.component';
 import { EmployeeFormComponent } from './forms/employee-form/employee-form.component';
 import { EmployeeTransferComponent } from './transfers/employee-transfer/employee-transfer.component';
-import { AaaComponent } from './reports/aaa.component';
+import { DepartmentReportComponent } from './reports/department-report/department-report.component';
+
 /**
  * Application routes for the Angular application.
  * This file defines the routes for the application, including paths for
@@ -35,8 +36,8 @@ export const routes: Routes = [
     component: EmployeeTransferComponent,
   },
   {
-    path: 'aaa',
-    component: AaaComponent,
+    path: 'department-report',
+    component: DepartmentReportComponent,
   },
   // redirect to default
   {

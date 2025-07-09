@@ -24,8 +24,8 @@ import { MatFormFieldModule } from '@angular/material/form-field';
     MatFormFieldModule,
     MatInputModule,
     MatSelectModule,
-    MatDividerModule,
-  ],
+    MatDividerModule
+],
   templateUrl: `./app.component.html`,
   styleUrls: ['./app.component.css'],
 })
@@ -48,10 +48,14 @@ export class AppComponent {
         this.router.navigate(['/department-table'], { relativeTo: this.route });
         break;
       case 2:
-        this.router.navigate(['/employee-transfer'], { relativeTo: this.route });
+        this.router.navigate(['/employee-transfer'], {
+          relativeTo: this.route,
+        });
         break;
       case 3:
-        this.router.navigate(['/aaa'], { relativeTo: this.route });
+        this.router.navigate(['/department-report'], {
+          relativeTo: this.route,
+        });
         break;
       default:
         break;
