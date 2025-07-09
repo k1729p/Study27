@@ -6,6 +6,7 @@ import { EmployeeTableComponent } from './tables/employee-table/employee-table.c
 import { EmployeeFormComponent } from './forms/employee-form/employee-form.component';
 import { EmployeeTransferComponent } from './transfers/employee-transfer/employee-transfer.component';
 import { DepartmentReportComponent } from './reports/department-report/department-report.component';
+import { AppAaa } from './aaa/aaa';
 
 /**
  * Application routes for the Angular application.
@@ -38,6 +39,10 @@ export const routes: Routes = [
   {
     path: 'department-report',
     component: DepartmentReportComponent,
+  },
+  {
+    path: 'aaa',
+    component: AppAaa,
   },
   // redirect to default
   {

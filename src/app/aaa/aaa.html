@@ -1,0 +1,37 @@
+<form>
+  <mat-form-field class="example-full-width" appearance="outline">
+    <mat-label>Name</mat-label>
+    <input type="text" placeholder="Pick one" aria-label="Name" matInput [formControl]="formControl"
+      [matAutocomplete]="auto">
+    <mat-autocomplete autoActiveFirstOption #auto="matAutocomplete">
+      @for (name of filteredNames | async; track name) {
+      <mat-option [value]="name">{{name}}</mat-option>
+      }
+    </mat-autocomplete>
+  </mat-form-field>
+</form>
+
+<button mat-raised-button (click)="expandNodeByName(tree, 'abc')">Expand node by name 'abc'</button>
+<button mat-raised-button (click)="expandNodeByName(tree, 'bcd')">Expand node by name 'bcd'</button>
+<button mat-raised-button (click)="expandNodeByName(tree, 'cde')">Expand node by name 'cde'</button>
+<button mat-raised-button (click)="expandNodeByName(tree, 'def')">Expand node by name 'def'</button>
+<br>
+<button mat-raised-button (click)="tree.collapseAll()">Collapse all</button>
+<button mat-raised-button (click)="tree.expandAll()">Expand all</button>
+<br>
+<mat-tree #tree [dataSource]="dataSource" [childrenAccessor]="childrenAccessor">
+  <mat-tree-node *matTreeNodeDef="let node" matTreeNodePadding>
+    <!-- use a disabled button to provide padding for tree leaf -->
+    <button matIconButton disabled>-</button>
+    {{node.name}}
+  </mat-tree-node>
+  <mat-tree-node *matTreeNodeDef="let node;when: hasChild" matTreeNodePadding matTreeNodeToggle
+    [cdkTreeNodeTypeaheadLabel]="node.name">
+    <button matIconButton matTreeNodeToggle>
+      <mat-icon class="mat-icon-rtl-mirror">
+        {{tree.isExpanded(node) ? 'expand_more' : 'chevron_right'}}
+      </mat-icon>
+    </button>
+    {{node.name}}
+  </mat-tree-node>
+</mat-tree>

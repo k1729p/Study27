@@ -6,6 +6,7 @@ import { MatDividerModule } from '@angular/material/divider';
 import { MatSelectModule } from '@angular/material/select';
 import { MatInputModule } from '@angular/material/input';
 import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatIconModule } from "@angular/material/icon";
 /**
  * AppComponent is the root component of the application.
  * It serves as the main entry point for the application and contains the
@@ -24,7 +25,8 @@ import { MatFormFieldModule } from '@angular/material/form-field';
     MatFormFieldModule,
     MatInputModule,
     MatSelectModule,
-    MatDividerModule
+    MatDividerModule,
+    MatIconModule
 ],
   templateUrl: `./app.component.html`,
   styleUrls: ['./app.component.css'],
@@ -54,6 +56,11 @@ export class AppComponent {
         break;
       case 3:
         this.router.navigate(['/department-report'], {
+          relativeTo: this.route,
+        });
+        break;
+      case 4:
+        this.router.navigate(['/aaa'], {
           relativeTo: this.route,
         });
         break;
