@@ -1,12 +1,12 @@
 import { Routes } from '@angular/router';
 
-import { DepartmentTableComponent } from './tables/department-table/department-table.component';
-import { DepartmentFormComponent } from './forms/department-form/department-form.component';
-import { EmployeeTableComponent } from './tables/employee-table/employee-table.component';
-import { EmployeeFormComponent } from './forms/employee-form/employee-form.component';
-import { EmployeeTransferComponent } from './transfers/employee-transfer/employee-transfer.component';
-import { DepartmentReportComponent } from './reports/department-report/department-report.component';
-import { AppAaa } from './aaa/aaa';
+import { DepartmentTableComponent } from './manage/tables/department-table/department-table.component';
+import { DepartmentFormComponent } from './manage/forms/department-form/department-form.component';
+import { EmployeeTableComponent } from './manage/tables/employee-table/employee-table.component';
+import { EmployeeFormComponent } from './manage/forms/employee-form/employee-form.component';
+import { EmployeeTransferComponent } from './transfer/employee-transfer/employee-transfer.component';
+import { EmployeeLocateComponent } from './locate/employee-locate/employee-locate.component';
+import { ReportComponent } from './report/report.component';
 
 /**
  * Application routes for the Angular application.
@@ -37,12 +37,12 @@ export const routes: Routes = [
     component: EmployeeTransferComponent,
   },
   {
-    path: 'department-report',
-    component: DepartmentReportComponent,
+    path: 'employee-locate',
+    component: EmployeeLocateComponent,
   },
   {
-    path: 'aaa',
-    component: AppAaa,
+    path: 'report',
+    component: ReportComponent,
   },
   // redirect to default
   {

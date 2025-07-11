@@ -1,13 +1,25 @@
 <main class="main">
   <div class="content">
-    <button mat-button [matMenuTriggerFor]="menu">Menu</button>
+    <button mat-button [matMenuTriggerFor]="menu">
+      <mat-icon>menu</mat-icon>
+      <span>Menu</span>
+    </button>
     <mat-menu #menu="matMenu">
-      <button mat-menu-item (click)="menuHandler(1)">🟢 Departments</button>
-      <button mat-menu-item (click)="menuHandler(2)">🔴 Employee Transfer</button>
-      <button mat-menu-item (click)="menuHandler(3)">🔵 Department Report</button>
-      <button mat-menu-item (click)="menuHandler(4)">
+      <button mat-menu-item (click)="menuHandler(1)">
+        <mat-icon>edit</mat-icon>
+        <span>Manage Departments</span>
+      </button>
+      <button mat-menu-item (click)="menuHandler(2)">
         <mat-icon>swap_horiz</mat-icon>
-        <span>AAA</span>
+        <span>Transfer Employees</span>
+      </button>
+      <button mat-menu-item (click)="menuHandler(3)">
+        <mat-icon>person_search</mat-icon>
+        <span>Locate Employees</span>
+      </button>
+      <button mat-menu-item (click)="menuHandler(4)">
+        <mat-icon>article</mat-icon>
+        <span>Report</span>
       </button>
     </mat-menu>
   </div>

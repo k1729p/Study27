@@ -55,12 +55,12 @@ export class AppComponent {
         });
         break;
       case 3:
-        this.router.navigate(['/department-report'], {
+        this.router.navigate(['/employee-locate'], {
           relativeTo: this.route,
         });
         break;
       case 4:
-        this.router.navigate(['/aaa'], {
+        this.router.navigate(['/report'], {
           relativeTo: this.route,
         });
         break;
