@@ -5,8 +5,8 @@ import { MatSort } from '@angular/material/sort';
 import { Observable, of as observableOf, merge } from 'rxjs';
 import { map } from 'rxjs/operators';
 
-import { Department } from '../../../models/department';
-import { DepartmentService } from '../../../services/department-service/department.service';
+import { Department } from 'models/department';
+import { DepartmentService } from 'services/department-service/department.service';
 /**
  * Data source for the Department Table view and Form view. This class should
  * encapsulate all logic for fetching and manipulating the displayed data

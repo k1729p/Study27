@@ -1,1 +1,27 @@
-<button (click)="generatePdf('download')">P D F</button>
+
+  <p>
+    <button (click)="generatePdf('open')"
+      class="btn btn-secondary d-flex align-items-center justify-content-center mb-1">
+      <i class="material-icons">
+        picture_as_pdf
+      </i> <span>&nbsp;Open PDF</span></button>
+    </p>
+  <p>
+    <button (click)="generatePdf('print')"
+      class="btn btn-secondary d-flex align-items-center justify-content-center  mb-1">
+      <i class="material-icons">
+        print
+      </i><span>&nbsp;Print PDF</span></button>
+    </p>
+  <p>
+    <button (click)="generatePdf('download')"
+      class="btn btn-secondary d-flex align-items-center justify-content-center  mb-1">
+      <i class="material-icons">
+        cloud_download
+      </i><span>&nbsp;Download PDF</span></button>
+    </p>
+
+<hr>
+<button (click)="generatePdfAlt('open')">OPEN PDF ALT</button>
+<button (click)="generatePdfAlt('print')">PRINT PDF ALT</button>
+<button (click)="generatePdfAlt('download')">DOWNLOAD PDF ALT</button>

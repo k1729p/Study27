@@ -1,6 +1,7 @@
-import { Department } from '../models/department';
-import { Employee } from '../models/employee';
-import { Title } from '../models/title';
+import { Department } from 'models/department';
+import { Employee } from 'models/employee';
+import { Title } from 'models/title';
+
 /**
  * Initial data for departments.
  * This data is used to populate the department array when the service is first initialized.
@@ -13,6 +14,7 @@ export const DEPARTMENTS: Department[] = [
     notes: 'This office includes:\n - corporate finance\n - sales personnel',
     startDate: new Date('2020-01-20'),
     endDate: new Date('2020-02-14'),
+    image: 'images/CommercialBuilding01.jpg',
   },
   {
     id: 2,
@@ -21,6 +23,7 @@ export const DEPARTMENTS: Department[] = [
     notes: 'This office includes:\n - corporate finance\n - sales personnel',
     startDate: new Date('2020-01-20'),
     endDate: new Date('2020-02-14'),
+    image: 'images/CommercialBuilding02.jpg',
   },
   {
     id: 3,
@@ -30,6 +33,7 @@ export const DEPARTMENTS: Department[] = [
       'This office includes:\n - risk management\n - information technology',
     startDate: new Date('2020-01-20'),
     endDate: new Date('2020-02-14'),
+    image: 'images/CommercialBuilding03.jpg',
   },
   {
     id: 4,
@@ -39,6 +43,7 @@ export const DEPARTMENTS: Department[] = [
       'This office includes:\n - risk management\n - information technology',
     startDate: new Date('2020-01-20'),
     endDate: new Date('2020-02-14'),
+    image: 'images/CommercialBuilding04.jpg',
   },
   {
     id: 5,
@@ -48,6 +53,7 @@ export const DEPARTMENTS: Department[] = [
       'This office includes:\n - administrative services\n - support services',
     startDate: new Date('2020-01-20'),
     endDate: new Date('2020-02-14'),
+    image: 'images/CommercialBuilding05.jpg',
   },
   {
     id: 6,
@@ -57,6 +63,7 @@ export const DEPARTMENTS: Department[] = [
       'This office includes:\n - administrative services\n - support services',
     startDate: new Date('2020-01-20'),
     endDate: new Date('2020-02-14'),
+    image: 'images/CommercialBuilding06.jpg',
   },
 ];
 /**

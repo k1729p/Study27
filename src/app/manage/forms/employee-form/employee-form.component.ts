@@ -1,15 +1,15 @@
 import { Component, inject, OnInit } from '@angular/core';
 import { ReactiveFormsModule, FormBuilder, Validators } from '@angular/forms';
-import { MatInputModule } from '@angular/material/input';
+import { Router, ActivatedRoute } from '@angular/router';
 import { MatButtonModule } from '@angular/material/button';
-import { MatSelectModule } from '@angular/material/select';
 import { MatCardModule } from '@angular/material/card';
 import { MatExpansionModule } from '@angular/material/expansion';
-import { Router, ActivatedRoute } from '@angular/router';
+import { MatInputModule } from '@angular/material/input';
+import { MatSelectModule } from '@angular/material/select';
 
-import { EmployeeService } from '../../../services/employee-service/employee.service';
-import { Title } from '../../../models/title';
-import { Employee } from '../../../models/employee';
+import { Employee } from 'models/employee';
+import { Title } from 'models/title';
+import { EmployeeService } from 'services/employee-service/employee.service';
 /**
  * EmployeeFormComponent is an Angular component that provides a form for creating, updating, or deleting an employee.
  * It uses Angular Material components for UI elements and Reactive Forms for form handling.
@@ -21,12 +21,12 @@ import { Employee } from '../../../models/employee';
   styleUrl: './employee-form.component.css',
   standalone: true,
   imports: [
-    MatInputModule,
+    ReactiveFormsModule,
     MatButtonModule,
-    MatSelectModule,
     MatCardModule,
     MatExpansionModule,
-    ReactiveFormsModule,
+    MatInputModule,
+    MatSelectModule,
   ],
 })
 export class EmployeeFormComponent implements OnInit {

@@ -7,6 +7,10 @@
   width: 100%;
 }
 
+.department-image {
+  margin-bottom: 20px;
+}
+
 .department-datepicker {
   margin-bottom: 20px;
 }

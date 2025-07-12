@@ -1,6 +1,6 @@
-import { Department } from '../models/department';
-import { Employee } from '../models/employee';
-import { Title } from '../models/title';
+import { Department } from 'models/department';
+import { Employee } from 'models/employee';
+import { Title } from 'models/title';
 /**
  * Test days.
  */

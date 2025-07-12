@@ -14,23 +14,23 @@ import {
   ReactiveFormsModule,
   Validators,
 } from '@angular/forms';
-import { provideNativeDateAdapter } from '@angular/material/core';
-import { MatInputModule } from '@angular/material/input';
-import { MatButtonModule } from '@angular/material/button';
-import { MatSelectModule } from '@angular/material/select';
-import { MatCardModule } from '@angular/material/card';
 import { Router, ActivatedRoute } from '@angular/router';
+import { provideNativeDateAdapter } from '@angular/material/core';
 import {
   MatAutocompleteModule,
   MatAutocompleteSelectedEvent,
 } from '@angular/material/autocomplete';
+import { MatButtonModule } from '@angular/material/button';
+import { MatCardModule } from '@angular/material/card';
 import { MatChipInputEvent, MatChipsModule } from '@angular/material/chips';
-import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatDatepickerModule } from '@angular/material/datepicker';
+import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatIconModule } from '@angular/material/icon';
+import { MatInputModule } from '@angular/material/input';
+import { MatSelectModule } from '@angular/material/select';
 
-import { DepartmentService } from '../../../services/department-service/department.service';
-import { Department } from '../../../models/department';
+import { Department } from 'models/department';
+import { DepartmentService } from 'services/department-service/department.service';
 /**
  * DepartmentFormComponent is an Angular component that provides a form for creating, updating, or deleting a department.
  * It uses Angular Material components for UI elements and Reactive Forms for form handling.
@@ -43,15 +43,15 @@ import { Department } from '../../../models/department';
   imports: [
     FormsModule,
     ReactiveFormsModule,
-    MatInputModule,
+    MatAutocompleteModule,
     MatButtonModule,
-    MatSelectModule,
     MatCardModule,
-    MatFormFieldModule,
     MatChipsModule,
     MatDatepickerModule,
+    MatFormFieldModule,
     MatIconModule,
-    MatAutocompleteModule,
+    MatInputModule,
+    MatSelectModule,
   ],
   providers: [provideNativeDateAdapter()],
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -67,6 +67,7 @@ export class DepartmentFormComponent implements OnInit {
     notes: [''],
     startDate: new Date(),
     endDate: new Date(),
+    image: [''],
   });
   operation = '';
   formTitle = '';
@@ -126,6 +127,9 @@ export class DepartmentFormComponent implements OnInit {
     this.departmentForm.controls.endDate.setValue(department?.endDate ?? null);
     this.departmentForm.controls.notes.setValue(department?.notes ?? '');
     this.keywordsSignal = signal(department?.keywords ?? []);
+    this.departmentForm.controls.image.setValue(
+      department?.image ?? 'images/CommercialBuildingDefault.jpg'
+    );
   }
 
   /**

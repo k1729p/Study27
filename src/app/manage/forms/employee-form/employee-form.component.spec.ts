@@ -8,7 +8,7 @@ import {
   TEST_EMPLOYEES,
   TEST_DEPARTMENT_ID,
   TEST_EMPLOYEE_ID,
-} from '../../../testing/test-data';
+} from 'testing/test-data';
 /**
  * Unit tests for the EmployeeFormComponent.
  * This component is part of the forms module and is used to manage employee-related forms.
@@ -113,9 +113,7 @@ describe('EmployeeFormComponent', () => {
     component.employeeForm.controls['phone'].setValue(
       TEST_EMPLOYEES[0][0].phone
     );
-    component.employeeForm.controls['mail'].setValue(
-      TEST_EMPLOYEES[0][0].mail
-    );
+    component.employeeForm.controls['mail'].setValue(TEST_EMPLOYEES[0][0].mail);
     component.employeeForm.controls['streetName'].setValue(
       TEST_EMPLOYEES[0][0].streetName ?? ''
     );

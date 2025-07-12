@@ -10,15 +10,22 @@ import { FormControl, ReactiveFormsModule } from '@angular/forms';
 import { MatAutocompleteModule } from '@angular/material/autocomplete';
 import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
+import {
+  MatDialog,
+  MatDialogActions,
+  MatDialogClose,
+  MatDialogContent,
+  MatDialogTitle,
+} from '@angular/material/dialog';
 import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
 import { MatTree, MatTreeModule } from '@angular/material/tree';
 import { Observable } from 'rxjs';
 import { map, startWith } from 'rxjs/operators';
-import { Department } from '../../models/department';
-import { Employee } from '../../models/employee';
-import { DepartmentService } from '../../services/department-service/department.service';
-import { EmployeeService } from '../../services/employee-service/employee.service';
+import { Department } from 'models/department';
+import { Employee } from 'models/employee';
+import { DepartmentService } from 'services/department-service/department.service';
+import { EmployeeService } from 'services/employee-service/employee.service';
 /**
  * Node for company structure
  */
@@ -27,6 +34,21 @@ interface CompanyNode {
   type: string;
   children?: CompanyNode[];
 }
+/**
+ * Dialog displaying warning message.
+ */
+@Component({
+  template: `<h2 mat-dialog-title>Warning</h2>
+    <mat-dialog-content>
+      <p>Employee not found!</p>
+    </mat-dialog-content>
+    <mat-dialog-actions>
+      <button matButton mat-dialog-close>OK</button>
+    </mat-dialog-actions>`,
+  imports: [MatDialogActions, MatDialogClose, MatDialogContent, MatDialogTitle],
+  changeDetection: ChangeDetectionStrategy.OnPush,
+})
+class WarningMesssageDialog {}
 
 /**
  * @title Tree with flat nodes (childrenAccessor)
@@ -56,6 +78,8 @@ export class EmployeeLocateComponent implements OnInit {
   dataSource: CompanyNode[] = [];
   employeeNames: Observable<string[]> | undefined;
   formControl = new FormControl('');
+  dialog: MatDialog = inject(MatDialog);
+
   /**
    * Accessor for the children of a node.
    * This function is used by the MatTree component to retrieve the children of a node.
@@ -98,7 +122,7 @@ export class EmployeeLocateComponent implements OnInit {
       .map((department) => this.loadDepartmentData(department));
     this.employeeNames = this.loadEmployeeNames();
     console.log(
-      'TreeComponentChildrenAccessor.ngOnInit() dataSource:',
+      'EmployeeLocateComponent.ngOnInit() dataSource:',
       this.dataSource
     );
   }
@@ -110,11 +134,22 @@ export class EmployeeLocateComponent implements OnInit {
    * method to expand the corresponding node in the tree.
    * If the value is empty or not a string, it does nothing.
    */
-  protected expandSelectedNode() {
+  protected locateEmployee() {
     const name = this.formControl.value;
-    if (typeof name === 'string' && name.trim()) {
-      this.expandNodeByName(name.trim());
+    if (!this.tree || typeof name !== 'string' || !name.trim()) {
+      console.warn('EmployeeLocateComponent.locateEmployee(): empty employee name');
+      return;
     }
+    const expandedNodes = this.findPath(this.dataSource, name);
+    if (!expandedNodes) {
+      this.dialog.open(WarningMesssageDialog, { width: '250px' });
+      console.warn('EmployeeLocateComponent.locateEmployee(): employee with name[%s] not found', name);
+      return;
+    }
+    expandedNodes.forEach((node) => {
+      this.tree.expand(node);
+      console.log('EmployeeLocateComponent.locateEmployee(): employee name[%s]', node.name);
+    });
   }
 
   /**
@@ -256,27 +291,6 @@ export class EmployeeLocateComponent implements OnInit {
     return namesArray.filter((name) =>
       name.toLowerCase().includes(filterValue)
     );
-  }
-  /**
-   * Expands a node in the tree by its name.
-   * This function searches for a node with the specified name in the data source
-   * and expands it in the MatTree instance.
-   * If the node is found, it will be expanded and logged to the console.
-   * If the node is not found, a warning will be logged.
-   *
-   * @param name - The name of the node to expand.
-   */
-  private expandNodeByName(name: string) {
-    if (!this.tree) return;
-    const expandedNodes = this.findPath(this.dataSource, name);
-    if (expandedNodes) {
-      expandedNodes.forEach((node) => {
-        this.tree.expand(node);
-        console.log('expandNodeByName(): expanded node name[%s]', node.name);
-      });
-    } else {
-      console.warn('expandNodeByName(): node with name[%s] not found', name);
-    }
   }
 
   /**

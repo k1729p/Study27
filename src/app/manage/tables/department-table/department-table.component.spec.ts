@@ -2,8 +2,8 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { ActivatedRoute, Router } from '@angular/router';
 
 import { DepartmentTableComponent } from './department-table.component';
-import { Department } from '../../../models/department';
-import { TEST_DEPARTMENT_ID } from '../../../testing/test-data';
+import { Department } from 'models/department';
+import { TEST_DEPARTMENT_ID } from 'testing/test-data';
 /**
  * DepartmentTableComponent is a component that displays a table of departments.
  * It uses Angular Material's table features to display, sort, and paginate the
@@ -87,7 +87,6 @@ describe('DepartmentTableComponent', () => {
     expect(component.displayedColumns).toEqual([
       'id',
       'name',
-      'employees',
       'actions',
     ]);
   });
@@ -144,7 +143,7 @@ describe('DepartmentTableComponent', () => {
   it('should call router.navigate with correct params when viewEmployees is called', () => {
     // GIVEN
     // WHEN
-    component.viewEmployees(TEST_DEPARTMENT_ID);
+    component.manageEmployees(TEST_DEPARTMENT_ID);
     // THEN
     expect(routerSpy.navigate).toHaveBeenCalledWith(
       ['/employee-table', TEST_DEPARTMENT_ID],

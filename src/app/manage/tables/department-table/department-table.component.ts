@@ -6,7 +6,7 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
 import { Router, ActivatedRoute } from '@angular/router';
 
-import { Department } from '../../../models/department';
+import { Department } from 'models/department';
 import { DepartmentDataSource } from './department-datasource';
 /**
  * DepartmentTableComponent is a component that displays a table of departments.
@@ -92,18 +92,18 @@ export class DepartmentTableComponent implements AfterViewInit {
     console.log('DepartmentTableComponent.deleteDepartment(): id[%d]', id);
   }
   /**
-   * Views the employees of the department.
+   * Manage the employees of the department.
    * This method navigates to the employee table with the specified department id.
    *
    * @param id the department id
    * @returns void
    */
-  viewEmployees(id: number) {
+  manageEmployees(id: number) {
     this.router.navigate(['/employee-table', id], {
       relativeTo: this.route,
     });
     console.log(
-      'DepartmentTableComponent.viewEmployees(): department id[%d]',
+      'DepartmentTableComponent.manageEmployees(): department id[%d]',
       id
     );
   }

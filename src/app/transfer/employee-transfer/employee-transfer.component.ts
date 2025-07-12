@@ -4,16 +4,17 @@ import { FormBuilder, ReactiveFormsModule } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
 import { MatCheckboxModule } from '@angular/material/checkbox';
+import { MatIconModule } from "@angular/material/icon";
 import { MatGridListModule } from '@angular/material/grid-list';
 import { MatListModule } from '@angular/material/list';
 import { MatSelectModule } from '@angular/material/select';
 import { MatTableModule, MatTable } from '@angular/material/table';
 
-import { Department } from '../../models/department';
-import { Employee } from '../../models/employee';
-import { DepartmentService } from '../../services/department-service/department.service';
-import { EmployeeService } from '../../services/employee-service/employee.service';
-import { MatIconModule } from "@angular/material/icon";
+import { Department } from 'models/department';
+import { Employee } from 'models/employee';
+import { DepartmentService } from 'services/department-service/department.service';
+import { EmployeeService } from 'services/employee-service/employee.service';
+
 /**
  * A component for transferring employees between departments.
  */
@@ -24,15 +25,15 @@ import { MatIconModule } from "@angular/material/icon";
   standalone: true,
   imports: [
     ReactiveFormsModule,
-    MatTableModule,
-    MatTable,
-    MatGridListModule,
-    MatCardModule,
     MatButtonModule,
+    MatCardModule,
     MatCheckboxModule,
-    MatSelectModule,
+    MatGridListModule,
+    MatIconModule,
     MatListModule,
-    MatIconModule
+    MatSelectModule,
+    MatTable,
+    MatTableModule,
 ],
 })
 export class EmployeeTransferComponent implements OnInit {

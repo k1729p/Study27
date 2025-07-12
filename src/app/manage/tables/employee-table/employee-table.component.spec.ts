@@ -3,8 +3,8 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { of } from 'rxjs';
 
 import { EmployeeTableComponent } from './employee-table.component';
-import { Employee } from '../../../models/employee';
-import { TEST_DEPARTMENT_ID, TEST_EMPLOYEE_ID } from '../../../testing/test-data';
+import { Employee } from 'models/employee';
+import { TEST_DEPARTMENT_ID, TEST_EMPLOYEE_ID } from 'testing/test-data';
 /**
  * EmployeeTableComponent is a component that displays a table of employees.
  * It uses Angular Material's table features to display, sort, and paginate the

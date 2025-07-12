@@ -5,7 +5,7 @@ import {
   TEST_EMPLOYEES,
   TEST_DEPARTMENT_ID,
   TEST_EMPLOYEE_ID,
-} from '../../testing/test-data';
+} from 'testing/test-data';
 /**
  * Unit tests for the {@link EmployeeService}.
  *

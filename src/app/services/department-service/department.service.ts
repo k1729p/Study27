@@ -1,8 +1,8 @@
 import { Injectable, InjectionToken, inject } from '@angular/core';
 
-import { Department } from '../../models/department';
-import { EmployeeService } from '../employee-service/employee.service';
-import { DEPARTMENTS } from '../initial-data';
+import { Department } from 'models/department';
+import { EmployeeService } from 'services/employee-service/employee.service';
+import { DEPARTMENTS } from 'services/initial-data';
 /**
  * Injection token for browser storage.
  * This token is used to inject the browser's localStorage into services that require it.

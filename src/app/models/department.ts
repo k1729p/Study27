@@ -11,6 +11,7 @@
  * @property {Date} [endDate] - The date when the department was closed or will be closed.
  * @property {string} [notes] - Additional notes about the department.
  * @property {string[]} [keywords] - Keywords associated with the department.
+ * @property {string} image - The URL of the department's image.
  */
 export interface Department {
   id: number;
@@ -19,4 +20,5 @@ export interface Department {
   endDate?: Date;
   notes?: string;
   keywords?: string[];
+  image?: string;
 }

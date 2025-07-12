@@ -1,12 +1,12 @@
 import { Routes } from '@angular/router';
 
-import { DepartmentTableComponent } from './manage/tables/department-table/department-table.component';
 import { DepartmentFormComponent } from './manage/forms/department-form/department-form.component';
-import { EmployeeTableComponent } from './manage/tables/employee-table/employee-table.component';
+import { DepartmentTableComponent } from './manage/tables/department-table/department-table.component';
 import { EmployeeFormComponent } from './manage/forms/employee-form/employee-form.component';
-import { EmployeeTransferComponent } from './transfer/employee-transfer/employee-transfer.component';
+import { EmployeeTableComponent } from './manage/tables/employee-table/employee-table.component';
 import { EmployeeLocateComponent } from './locate/employee-locate/employee-locate.component';
 import { ReportComponent } from './report/report.component';
+import { EmployeeTransferComponent } from './transfer/employee-transfer/employee-transfer.component';
 
 /**
  * Application routes for the Angular application.

@@ -5,8 +5,8 @@ import { MatSort } from '@angular/material/sort';
 import { Observable, of as observableOf, merge } from 'rxjs';
 import { map } from 'rxjs/operators';
 
-import { Employee } from '../../../models/employee';
-import { EmployeeService } from '../../../services/employee-service/employee.service';
+import { Employee } from 'models/employee';
+import { EmployeeService } from 'services/employee-service/employee.service';
 /**
  * Data source for the Employee Table view and Form view. This class should
  * encapsulate all logic for fetching and manipulating the displayed data

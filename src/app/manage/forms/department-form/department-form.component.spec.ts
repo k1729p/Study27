@@ -9,7 +9,7 @@ import {
   TEST_DEPARTMENT_ID,
   SUGGESTION_KEYWORDS,
   TEST_DAYS,
-} from '../../../testing/test-data';
+} from 'testing/test-data';
 /**
  * Unit tests for the DepartmentFormComponent.
  * This component is part of the forms module and is used to manage department-related forms.

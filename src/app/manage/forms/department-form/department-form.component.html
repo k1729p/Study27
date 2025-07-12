@@ -1,9 +1,12 @@
 <form [formGroup]="departmentForm" novalidate (ngSubmit)="onSubmit()">
   <mat-card appearance="outlined" class="department-card">
     <mat-card-header>
+    <mat-card-title-group>
       <mat-card-title>
         <h4>{{formTitle}}</h4>
       </mat-card-title>
+      <img mat-card-lg-image class="department-image" [src]="departmentForm.value.image" alt="">
+    </mat-card-title-group>
     </mat-card-header>
     <mat-card-content>
       @if ('DELETE' === this.operation) {
