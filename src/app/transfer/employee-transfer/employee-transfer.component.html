@@ -6,7 +6,6 @@
           <div class="employee-card-row">
             <div class="transfer-title">
               Transfer Selected Employees
-              <mat-icon class="type-icon">east</mat-icon>
             </div>
           </div>
         </mat-card-title>
@@ -29,8 +28,9 @@
             </form>
           </div>
           <div class="employee-card-col">
-            <button mat-stroked-button (click)="transferEmployees('LEFT-SIDE')"
+            <button matFab extended (click)="transferEmployees('LEFT-SIDE')"
               [disabled]="disableTransferButton('LEFT-SIDE')">
+              <mat-icon>east</mat-icon>
               Transfer
             </button>
           </div>
@@ -79,7 +79,6 @@
         <mat-card-title>
           <div class="employee-card-row">
             <div class="transfer-title">
-              <mat-icon class="type-icon">west</mat-icon>
               Transfer Selected Employees
             </div>
           </div>
@@ -103,8 +102,9 @@
             </form>
           </div>
           <div class="employee-card-col">
-            <button mat-stroked-button (click)="transferEmployees('RIGHT-SIDE')"
+            <button matFab extended (click)="transferEmployees('RIGHT-SIDE')"
               [disabled]="disableTransferButton('RIGHT-SIDE')">
+              <mat-icon>west</mat-icon>
               Transfer
             </button>
           </div>

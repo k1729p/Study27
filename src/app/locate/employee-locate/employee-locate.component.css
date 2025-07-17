@@ -18,7 +18,7 @@
   font-weight: 500;
 }
 .tree-scroll-container {
-  max-height: 75%;
+  max-height: 68%;
   max-width: 40%;
   overflow-y: auto;
   padding-top: 0.5em;

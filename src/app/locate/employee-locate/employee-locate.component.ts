@@ -51,6 +51,7 @@ interface CompanyNode {
 class WarningMesssageDialog {}
 
 /**
+ * EmployeeLocateComponent is an Angular component that locates employees.
  * @title Tree with flat nodes (childrenAccessor)
  */
 @Component({

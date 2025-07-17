@@ -1,19 +1,23 @@
 import { inject, Component, OnInit } from '@angular/core';
 import pdfMake from 'pdfmake/build/pdfmake';
 import pdfFonts from 'pdfmake/build/vfs_fonts';
+import { MatButtonModule } from '@angular/material/button';
+import { MatCardModule } from '@angular/material/card';
+import { MatIconModule } from '@angular/material/icon';
+import { MatTabsModule } from '@angular/material/tabs';
+
 import { Department } from 'models/department';
 import { Employee } from 'models/employee';
 import { DepartmentService } from 'services/department-service/department.service';
 import { EmployeeService } from 'services/employee-service/employee.service';
-
-export class Resume {
-  abc = 'aabbcc';
-  def = 'ddeeff';
-  ghi = 'gghhii';
-}
+/**
+ * ReportComponent is an Angular component that creates reports.
+ */
 @Component({
   selector: 'app-report',
   templateUrl: 'report.component.html',
+  styleUrl: './report.component.css',
+  imports: [MatButtonModule, MatCardModule, MatIconModule, MatTabsModule],
 })
 export class ReportComponent implements OnInit {
   private departmentService: DepartmentService = inject(DepartmentService);
@@ -21,34 +25,34 @@ export class ReportComponent implements OnInit {
   departmentArr: Department[] = this.departmentService.getDepartmentArray();
   employeeArr: Employee[][] = this.employeeService.getEmployeeArray();
 
-  private readonly baseUrl = 'http://localhost:4200/images';
-  resume = new Resume();
-  ngOnInit() {
+  private readonly PORTFOLIO_URL = 'https://github.com/k1729p/Portfolio';
+  private readonly IMAGES_URL = 'http://localhost:4200/images/';
+  /**
+   * A component lifecycle hook method.
+   * Runs once after Angular has initialized all the component's inputs.
+   * @returns void
+   */
+  ngOnInit(): void {
     pdfMake.vfs = pdfFonts.vfs;
-    // pdfMake.fonts = {
-    //   Roboto: {
-    //     normal: 'Roboto-Regular.ttf',
-    //     bold: 'Roboto-Medium.ttf',
-    //     italics: 'Roboto-Italic.ttf',
-    //     bolditalics: 'Roboto-MediumItalic.ttf',
-    //   },
-    // };
-
-    this.aaaaa();
   }
-
-  aaaaa() {
-    for (const department of this.departmentArr) {
-      console.log(department.name);
-      for (const employee of this.employeeArr[department.id]) {
-        console.log(employee.lastName);
-      }
+  /**
+   * Generates the PDF file.
+   * @param content
+   * @param action
+   * @returns void
+   */
+  generatePdf(
+    content: 'DEPARTMENTS-AND-EMPLOYEES' | 'QR-AND-IMAGES',
+    action: string
+  ): void {
+    let documentDefinition;
+    if (content === 'DEPARTMENTS-AND-EMPLOYEES') {
+      documentDefinition =
+        this.createDocumentDefinitionForDepartmentsAndEmployees() as import('pdfmake/interfaces').TDocumentDefinitions;
+    } else {
+      documentDefinition =
+        this.createDocumentDefinitionforQrCodeAndImages() as import('pdfmake/interfaces').TDocumentDefinitions;
     }
-  }
-
-  generatePdf(action = 'open') {
-    const documentDefinition =
-      this.getDocumentDefinition() as import('pdfmake/interfaces').TDocumentDefinitions;
     const tCreatedPdf = pdfMake.createPdf(documentDefinition);
     switch (action) {
       case 'open':
@@ -65,172 +69,190 @@ export class ReportComponent implements OnInit {
         break;
     }
   }
-
-  getDocumentDefinition() {
+  /**
+   * Creates document definition for departments and employees.
+   * @returns TDocumentDefinitions
+   */
+  private createDocumentDefinitionForDepartmentsAndEmployees() {
     return {
       content: [
         {
-          text: 'C=O=N=T=E=N=T',
-          bold: true,
-          fontSize: 20,
+          text: 'Departments and Employees Report',
+          style: 'header',
+          margin: [0, 0, 0, 20],
           alignment: 'center',
-          margin: [0, 0, 0, 20] as [number, number, number, number],
         },
         {
+          alignment: 'justify',
           columns: [
-            [
-              {
-                text: 'A=B=C : ' + this.resume.abc,
-                style: 'abc',
+            {
+              table: {
+                body: [
+                  [
+                    {
+                      ul: this.loadDepartmentList(),
+                      fillColor: 'aliceblue',
+                    },
+                  ],
+                ],
               },
-              {
-                text: 'D=E=F : ' + this.resume.def,
-                style: 'def',
+            },
+            {
+              table: {
+                body: this.loadDepartmentTable(),
               },
-              {
-                text: 'G=H=I : ' + this.resume.ghi,
-                style: 'ghi',
-              },
-            ],
+            },
           ],
-        },
-        {
-          image: 'venn1',
-          width: 325,
-          height: 227,
-        },
-        {
-          image: 'venn2',
-          width: 200,
-          height: 100,
-        },
-        {
-          image: 'venn3',
-          width: 300,
-          height: 240,
         },
       ],
       info: {
-        title: 'T=I=T=L=E',
-        author: 'A=U=T=H=O=R',
-        subject: 'S=U=B=J=E=C=T',
-        keywords: 'K=E=Y=W=O=R=D=1, k=e=y=w=o=r=d=2',
+        title: 'Departments and Employees Report',
+        author: 'k1729p',
+        subject: 'Departments and Employees',
+        keywords: 'report',
       },
       styles: {
         header: {
-          fontSize: 18,
+          fontSize: 20,
           bold: true,
-          margin: [0, 20, 0, 10] as [number, number, number, number],
-          decoration: 'underline',
-        },
-        abc: {
-          fontSize: 18,
-          bold: true,
-        },
-        def: {
-          fontSize: 14,
-          bold: true,
-          italics: true,
-        },
-        ghi: {
-          fontSize: 10,
-        },
-        sign: {
-          margin: [0, 50, 0, 10] as [number, number, number, number],
-          alignment: 'right',
-          italics: true,
         },
         tableHeader: {
           bold: true,
         },
       },
-      images: {
-        venn1: 'http://localhost:4200/images/VennDiagram01.jpg',
-        venn2: 'http://localhost:4200/images/VennDiagram02.jpg',
-        venn3: 'http://localhost:4200/images/VennDiagram03.jpg',
-        //        vennAlt:
-        //          'https://raw.githubusercontent.com/k1729p/Study27/refs/heads/main/public/images/VennDiagram01.jpg',
-      },
     };
   }
-  //###############################################################################################
-  //###############################################################################################
-  //###############################################################################################
-  generatePdfAlt(action = 'open') {
-    const documentDefinition =
-      this.getDocumentDefinitionAlt() as import('pdfmake/interfaces').TDocumentDefinitions;
-    switch (action) {
-      case 'open':
-        pdfMake.createPdf(documentDefinition).open();
-        break;
-      case 'print':
-        pdfMake.createPdf(documentDefinition).print();
-        break;
-      case 'download':
-        pdfMake.createPdf(documentDefinition).download();
-        break;
-      default:
-        pdfMake.createPdf(documentDefinition).open();
-        break;
+  /**
+   * Loads the list with the deparments
+   * @returns deparmentList
+   */
+  private loadDepartmentList(): (string | { ol: string[] })[] {
+    const deparmentList: (string | { ol: string[] })[] = [];
+    for (const department of this.departmentArr) {
+      deparmentList.push(department.name);
+      const tmpArr = this.employeeArr[department.id - 1] || [];
+      const employeeOrderedList: string[] = tmpArr.map(
+        (employee) => `${employee.firstName} ${employee.lastName}`
+      );
+      if (employeeOrderedList.length > 0) {
+        deparmentList.push({ ol: employeeOrderedList });
+      }
     }
+    return deparmentList;
   }
-
-  getDocumentDefinitionAlt() {
+  /**
+   * Loads the table with the deparments
+   * @returns deparmentTable
+   */
+  private loadDepartmentTable(): (
+    | string
+    | number
+    | boolean
+    | Record<string, unknown>
+  )[][] {
+    type TableCell = string | number | boolean | Record<string, unknown>;
+    const deparmentTable: TableCell[][] = [];
+    deparmentTable.push([
+      {
+        text: 'Department',
+        style: 'tableHeader',
+        alignment: 'center',
+        fillColor: 'lavenderblush',
+      },
+      {
+        text: 'Employee',
+        style: 'tableHeader',
+        alignment: 'center',
+        fillColor: 'lightcyan',
+      },
+    ]);
+    for (const department of this.departmentArr) {
+      const employees = this.employeeArr[department.id - 1] || [];
+      if (employees.length === 0) {
+        deparmentTable.push([{ text: department.name }, { text: '-' }]);
+      } else {
+        employees.forEach((employee, idx) => {
+          if (idx === 0) {
+            deparmentTable.push([
+              {
+                text: department.name,
+                rowSpan: employees.length,
+              },
+              `${employee.firstName} ${employee.lastName}`,
+            ]);
+          } else {
+            deparmentTable.push([
+              '',
+              `${employee.firstName} ${employee.lastName}`,
+            ]);
+          }
+        });
+      }
+    }
+    return deparmentTable;
+  }
+  /**
+   * Creates document definition for departments and employees.
+   * @returns TDocumentDefinitions
+   */
+  private createDocumentDefinitionforQrCodeAndImages() {
     const docDefinition = {
       content: [
         {
-          layout: 'lightHorizontalLines', // optional
-          table: {
-            // headers are automatically repeated if the table spans over multiple pages you can declare how many rows should be treated as headers
-            headerRows: 1,
-            widths: ['*', 'auto', 100, '*'],
-            body: [
-              ['First', 'Second', 'Third', 'The last one'],
-              ['Value 1', 'Value 2', 'Value 3', 'Value 4'],
-              [{ text: 'Bold value', bold: true }, 'Val 2', 'Val 3', 'Val 4'],
-            ],
-          },
+          text: 'Comprehensive Report',
+          style: 'header',
+          margin: [0, 0, 0, 10],
         },
         {
-          // for numbered lists set the ol key
-          ol: ['Item 1', 'Item 2', 'Item 3'],
+          text: 'Direct Access QR Code to Java Technologies Portfolio',
+          style: 'subHeader',
+          margin: [0, 0, 0, 10],
         },
         {
-          // to treat a paragraph as a bulleted list, set an array of items under the ul key
-          ul: ['Item 1', 'Item 2', 'Item 3', { text: 'Item 4', bold: true }],
+          qr: this.PORTFOLIO_URL,
         },
-        'This paragraph fills full width, as there are no columns. Next paragraph however consists of three columns',
+        {
+          text: 'Visual Representation: Four-Ellipse Venn Diagrams',
+          style: 'subHeader',
+          margin: [0, 30, 0, 10],
+        },
         {
           columns: [
             {
-              // auto-sized columns have their widths based on their content
-              width: 'auto',
-              text: 'First column',
+              image: 'venn01',
+              width: 325,
+              height: 227,
+              margin: [0, 0, 0, 3],
             },
             {
-              // star-sized columns fill the remaining space if there's more than one star-column, available width is divided equally
-              width: '*',
-              text: 'Second column',
+              image: 'venn02',
+              width: 200,
+              height: 100,
+              margin: [3, 0, 0, 0],
             },
-            {
-              // fixed width
-              width: 100,
-              text: 'Third column',
-            },
-            {
-              // % width
-              width: '20%',
-              text: 'Fourth column',
-            },
-          ], // optional space between columns
-          columnGap: 10,
-          pageBreak: 'after',
-        },
-        {
-          qr: 'https://github.com/k1729p/Portfolio',
-          pageBreak: 'after',
+          ],
         },
       ],
+      images: {
+        venn01: this.IMAGES_URL + 'VennDiagram01.jpg',
+        venn02: this.IMAGES_URL + 'VennDiagram02.jpg',
+      },
+      info: {
+        title: 'Comprehensive Report',
+        author: 'k1729p',
+        subject: 'QR Code and Visual Representation',
+        keywords: 'qr-code,venn-diagram',
+      },
+      styles: {
+        header: {
+          fontSize: 20,
+          bold: true,
+        },
+        subHeader: {
+          fontSize: 15,
+          bold: true,
+        },
+      },
     };
     return docDefinition;
   }

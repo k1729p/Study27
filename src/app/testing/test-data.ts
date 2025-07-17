@@ -31,6 +31,14 @@ export const TEST_DEPARTMENTS: Department[] = [
     notes: 'Main product:\n - money transfer',
     keywords: [SUGGESTION_KEYWORDS[0]],
   },
+  {
+    id: 2,
+    name: 'Back Office',
+    startDate: TEST_DAYS[2],
+    endDate: TEST_DAYS[3],
+    notes: 'Main product:\n - credit',
+    keywords: [SUGGESTION_KEYWORDS[1]],
+  },
 ];
 /**
  * Test employee id.
@@ -57,5 +65,28 @@ export const TEST_EMPLOYEES: Employee[][] = [
       country: 'United States',
     },
   ],
+  [
+    {
+      id: 2,
+      firstName: 'Thomas',
+      lastName: 'Ferguson',
+      title: Title.Developer,
+      phone: '+41 21 613 12 12',
+      mail: 'Thomas.Ferguson@example.com',
+      streetName: 'Rue de Bourg',
+      houseNumber: '20',
+      postalCode: '1003',
+      locality: 'Lausanne',
+      province: '',
+      country: 'Switzerland',
+    },
+  ],
+];
+export const TEST_EMPLOYEES_TRANSFERRED_TO_LEFT: Employee[][] = [
+  [],
+  [TEST_EMPLOYEES[0][0], TEST_EMPLOYEES[1][0]],
+];
+export const TEST_EMPLOYEES_TRANSFERRED_TO_RIGHT: Employee[][] = [
+  [TEST_EMPLOYEES[0][0], TEST_EMPLOYEES[1][0]],
   [],
 ];

@@ -41,8 +41,6 @@ export class DepartmentTableComponent implements AfterViewInit {
   /**
    * A component lifecycle hook method.
    * Runs once after the component's view has been initialized.
-   *
-   * https://angular.dev/guide/components/lifecycle#ngafterviewinit
    */
   ngAfterViewInit(): void {
     this.dataSource.sort = this.sort;

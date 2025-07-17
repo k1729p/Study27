@@ -51,8 +51,6 @@ export class EmployeeTableComponent implements AfterViewInit, OnInit {
   /**
    * A component lifecycle hook method.
    * Runs once after Angular has initialized all the component's inputs.
-   *
-   * https://angular.dev/guide/components/lifecycle#ngoninit
    */
   ngOnInit() {
     this.departmentId = this.route.snapshot.paramMap.get('departmentId') ?? '';

@@ -4,7 +4,7 @@ import { FormBuilder, ReactiveFormsModule } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
 import { MatCheckboxModule } from '@angular/material/checkbox';
-import { MatIconModule } from "@angular/material/icon";
+import { MatIconModule } from '@angular/material/icon';
 import { MatGridListModule } from '@angular/material/grid-list';
 import { MatListModule } from '@angular/material/list';
 import { MatSelectModule } from '@angular/material/select';
@@ -34,7 +34,7 @@ import { EmployeeService } from 'services/employee-service/employee.service';
     MatSelectModule,
     MatTable,
     MatTableModule,
-],
+  ],
 })
 export class EmployeeTransferComponent implements OnInit {
   @ViewChild(MatTable) table!: MatTable<Employee>;
@@ -104,7 +104,6 @@ export class EmployeeTransferComponent implements OnInit {
       this.rightSideDepartmentId
     );
   }
-
   /**
    * Transfers the employees.
    *

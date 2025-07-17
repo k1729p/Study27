@@ -64,6 +64,11 @@ export class AppComponent {
           relativeTo: this.route,
         });
         break;
+      case 5:
+        this.router.navigate(['/settings'], {
+          relativeTo: this.route,
+        });
+        break;
       default:
         break;
     }
