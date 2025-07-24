@@ -135,7 +135,7 @@ export class EmployeeLocateComponent implements OnInit {
    * method to expand the corresponding node in the tree.
    * If the value is empty or not a string, it does nothing.
    */
-  protected locateEmployee() {
+  locateEmployee() {
     const name = this.formControl.value;
     if (!this.tree || typeof name !== 'string' || !name.trim()) {
       console.warn('EmployeeLocateComponent.locateEmployee(): empty employee name');
@@ -200,7 +200,7 @@ export class EmployeeLocateComponent implements OnInit {
    * This function transforms the groupedByTitle object into an array of CompanyNode objects.
    * @returns An array of CompanyNode objects.
    */
-  private groupByTitle(
+  groupByTitle(
     groupedByTitle: Record<string, Employee[]>
   ): CompanyNode[] {
     const customOrder = ['Manager', 'Analyst', 'Developer'];
@@ -245,7 +245,7 @@ export class EmployeeLocateComponent implements OnInit {
     const namesArray: string[] = this.collectEmployeeNames(this.dataSource);
     return this.formControl.valueChanges.pipe(
       startWith(''),
-      map((value) => this._filter(namesArray, value || ''))
+      map((value) => this.filterNames(namesArray, value || ''))
     );
   }
   /**
@@ -257,7 +257,7 @@ export class EmployeeLocateComponent implements OnInit {
    * @param acc - The accumulator array to collect names.
    * @returns An array of names of all person nodes.
    */
-  private collectEmployeeNames(
+  collectEmployeeNames(
     nodes: CompanyNode[],
     acc: string[] = []
   ): string[] {
@@ -284,7 +284,7 @@ export class EmployeeLocateComponent implements OnInit {
    * @param value - The input value to filter the names.
    * @returns An array of names that match the filter criteria.
    */
-  private _filter(namesArray: string[], value: string): string[] {
+  filterNames(namesArray: string[], value: string): string[] {
     const filterValue = value.toLowerCase();
     if (filterValue.length < 2) {
       return [];
@@ -308,7 +308,7 @@ export class EmployeeLocateComponent implements OnInit {
    * @param path - The current path being traversed.
    * @returns The path to the found node or null if not found.
    */
-  private findPath(
+  findPath(
     nodes: CompanyNode[],
     name: string,
     path: CompanyNode[] = []

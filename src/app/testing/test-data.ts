@@ -41,10 +41,6 @@ export const TEST_DEPARTMENTS: Department[] = [
   },
 ];
 /**
- * Test employee id.
- */
-export const TEST_EMPLOYEE_ID = 1;
-/**
  * Test employee data for the application.
  * This data is used to simulate employee records for testing purposes.
  */
@@ -82,10 +78,24 @@ export const TEST_EMPLOYEES: Employee[][] = [
     },
   ],
 ];
+/**
+ * Test employee id.
+ */
+export const TEST_EMPLOYEE_ID = TEST_EMPLOYEES[0][0].id;
+/**
+ * Test employee full name.
+ */
+export const TEST_EMPLOYEE_FULL_NAME = `${TEST_EMPLOYEES[0][0].firstName} ${TEST_EMPLOYEES[0][0].lastName}`;
+/**
+ * Test employees transferred to the left.
+ */
 export const TEST_EMPLOYEES_TRANSFERRED_TO_LEFT: Employee[][] = [
   [],
   [TEST_EMPLOYEES[0][0], TEST_EMPLOYEES[1][0]],
 ];
+/**
+ * Test employees transferred to the right.
+ */
 export const TEST_EMPLOYEES_TRANSFERRED_TO_RIGHT: Employee[][] = [
   [TEST_EMPLOYEES[0][0], TEST_EMPLOYEES[1][0]],
   [],

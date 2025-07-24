@@ -1,7 +1,7 @@
 @echo off
 cd ..
 goto :serve
-goto :build
+goto :build_and_start
 
 ng version
 ng lint
@@ -12,8 +12,9 @@ call ng serve
 pause
 goto :eof
 
-:build
+:build_and_start
 call ng build
-pause
-start "Study 27" /MAX http-server ./dist/Study27
+::pause
+cd dist\Study27\browser
+start "Study 27" /MAX http-server . -p 8080
 pause
