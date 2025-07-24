@@ -8,6 +8,8 @@
 </head>
 
 <body>
+  <img alt="" src="images/WORK-IN-PROGRESS.png"/>
+
   <a href="https://github.com/k1729p/Study27/tree/main/docs" title="View Study27 docs on GitHub">
     <img alt="Color scheme for Study27 project" src="images/ColorScheme.png" height="25" width="800" />
   </a>
