@@ -32,29 +32,39 @@
         Menu</a></li>
     <li><a href="https://github.com/k1729p/Study27/blob/main/docs/images/ScreenshotManageDepartments.jpg">
         Manage Departments</a></li>
-    <li><a href="https://github.com/k1729p/Study27/blob/main/docs/images/ScreenshotCreateDepartment.jpg">
-        Create Department</a></li>
-    <li><a href="https://github.com/k1729p/Study27/blob/main/docs/images/ScreenshotUpdateDepartment.jpg">
-        Update Department</a></li>
-    <li><a href="https://github.com/k1729p/Study27/blob/main/docs/images/ScreenshotDeleteDepartment.jpg">
-        Delete Department</a></li>
-    <li><a href="https://github.com/k1729p/Study27/blob/main/docs/images/ScreenshotManageEmployees.jpg">
-        Manage Employees</a></li>
-    <li><a href="https://github.com/k1729p/Study27/blob/main/docs/images/ScreenshotCreateEmployee.jpg">
-        Create Employee</a></li>
-    <li><a href="https://github.com/k1729p/Study27/blob/main/docs/images/ScreenshotUpdateEmployee.jpg">
-        Update Employee</a></li>
-    <li><a href="https://github.com/k1729p/Study27/blob/main/docs/images/ScreenshotDeleteEmployee.jpg">
-        Delete Employee</a></li>
-    <li><a href="https://github.com/k1729p/Study27/blob/main/docs/images/ScreenshotTransferEmployees.jpg">
-        Transfer Employees</a></li>
-    <li><a href="https://github.com/k1729p/Study27/blob/main/docs/images/ScreenshotLocateEmployees.jpg">
-        Locate Employees</a></li>
-    <li><a href="https://github.com/k1729p/Study27/blob/main/docs/images/ScreenshotCreatePDFReports.jpg">
-        Create PDF Reports</a></li>
-  </ul>
-  <hr>
-  <pre>
+    <li>
+      <ul>
+        <li>
+          <ul>
+            <li><a href="https://github.com/k1729p/Study27/blob/main/docs/images/ScreenshotCreateDepartment.jpg">
+                Create Department</a></li>
+            <li><a href="https://github.com/k1729p/Study27/blob/main/docs/images/ScreenshotUpdateDepartment.jpg">
+                Update Department</a></li>
+            <li><a href="https://github.com/k1729p/Study27/blob/main/docs/images/ScreenshotDeleteDepartment.jpg">
+                Delete Department</a></li>
+            <li><a href="https://github.com/k1729p/Study27/blob/main/docs/images/ScreenshotManageEmployees.jpg">
+                Manage Employees</a></li>
+            <li>
+              <ul>
+                <li><a href="https://github.com/k1729p/Study27/blob/main/docs/images/ScreenshotCreateEmployee.jpg">
+                    Create Employee</a></li>
+                <li><a href="https://github.com/k1729p/Study27/blob/main/docs/images/ScreenshotUpdateEmployee.jpg">
+                    Update Employee</a></li>
+                <li><a href="https://github.com/k1729p/Study27/blob/main/docs/images/ScreenshotDeleteEmployee.jpg">
+                    Delete Employee</a></li>
+              </ul>
+            </li>
+          </ul>
+        </li>
+        <li><a href="https://github.com/k1729p/Study27/blob/main/docs/images/ScreenshotTransferEmployees.jpg">
+            Transfer Employees</a></li>
+        <li><a href="https://github.com/k1729p/Study27/blob/main/docs/images/ScreenshotLocateEmployees.jpg">
+            Locate Employees</a></li>
+        <li><a href="https://github.com/k1729p/Study27/blob/main/docs/images/ScreenshotCreatePDFReports.jpg">
+            Create PDF Reports</a></li>
+      </ul>
+      <hr>
+      <pre>
 This Angular Material project uses Material Design 2.
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 pdfmake
@@ -65,135 +75,142 @@ npm install pdfmake
 Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`.
 ## Build
 Run `ng build` to build the project.
-</pre>
-  <hr>
-  <h3>Dictionary</h3>
-  <table>
-    <tbody>
-      <tr>
-        <td>
-          <a href="https://material.angular.io/components/categories">Angular Material categories</a>
-        </td>
-        <td>
-          -
-        </td>
-      </tr>
-      <tr>
-        <td>
-          <a href="https://material.angular.io/cdk/categories">Component Dev Kit (CDK) categories</a>
-        </td>
-        <td>
-          -
-        </td>
-      </tr>
-      <tr>
-        <td>
-          <a href="https://fonts.google.com/icons?icon.size=24&icon.color=%231f1f1f">Google Icons</a>
-        </td>
-        <td>
-          -
-        </td>
-      </tr>
-      <tr>
-        <td>
-          <a href="https://pdfmake.github.io/docs/0.1/">pdfmake</a>
-        </td>
-        <td>
-          -
-        </td>
-      </tr>
-      <tr>
-        <td>
-          <a href="http://pdfmake.org/playground.html">pdfmake playground</a>
-        </td>
-        <td>
-          -
-        </td>
-      </tr>
-      <tr>
-        <td>
-          <a href="https://m3.material.io/">Material Design 3</a>
-        </td>
-        <td>
-          -
-        </td>
-      </tr>
-      <tr>
-        <td>
-          <a href="https://angular.dev/tools/cli">Angular CLI Overview and Command Reference</a>
-        </td>
-        <td>
-          -
-        </td>
-      </tr>
-      <tr>
-        <td>
-          <a href="https://angular.dev/ecosystem/rxjs-interop">RxJS in Angular</a>
-        </td>
-        <td>
-          -
-        </td>
-      </tr>
-      <tr>
-        <td>
-          <a href="https://karma-runner.github.io/">Karma</a>
-        </td>
-        <td>
-          -
-        </td>
-      </tr>
-      <tr>
-        <td>
-          <a href="https://github.com/bitnami/containers">Bitnami Images</a>
-        </td>
-        <td>
-          The Bitnami Containers Library is used as a source of Kubernetes images
-        </td>
-      </tr>
-    </tbody>
-  </table>
 
-  <h3>Acronyms</h3>
-  <table>
-    <tbody>
-      <tr>
-        <td>ARIA</td>
-        <td>Accessible Rich Internet Applications</td>
-      </tr>
-      <tr>
-        <td>CDK</td>
-        <td>Component Dev Kit</td>
-      </tr>
-      <tr>
-        <td>CSR</td>
-        <td>Client-side Rendering</td>
-      </tr>
-      <tr>
-        <td>ESM</td>
-        <td>ECMAScript Module</td>
-      </tr>
-      <tr>
-        <td>PWA</td>
-        <td>Progressive Web Application</td>
-      </tr>
-      <tr>
-        <td>SPA</td>
-        <td>Single Page Application</td>
-      </tr>
-      <tr>
-        <td>SSG</td>
-        <td>Static Site Generation</td>
-      </tr>
-      <tr>
-        <td>SSR</td>
-        <td>Server-Side Rendering</td>
-      </tr>
-      <tr>
-        <td>
-        <td> </td>
-      </tr>
-    </tbody>
-  </table>
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+OK
+http://localhost:8080/     http://127.0.0.1:8080/    http://192.168.1.15:8080/    http://172.17.0.1:8080/
+
+Error code: 404 Not Found
+http://localhost:8080/department-table   http://127.0.0.1:8080/department-table
+</pre>
+      <hr>
+      <h3>Dictionary</h3>
+      <table>
+        <tbody>
+          <tr>
+            <td>
+              <a href="https://material.angular.io/components/categories">Angular Material categories</a>
+            </td>
+            <td>
+              -
+            </td>
+          </tr>
+          <tr>
+            <td>
+              <a href="https://material.angular.io/cdk/categories">Component Dev Kit (CDK) categories</a>
+            </td>
+            <td>
+              -
+            </td>
+          </tr>
+          <tr>
+            <td>
+              <a href="https://fonts.google.com/icons?icon.size=24&icon.color=%231f1f1f">Google Icons</a>
+            </td>
+            <td>
+              -
+            </td>
+          </tr>
+          <tr>
+            <td>
+              <a href="https://pdfmake.github.io/docs/0.1/">pdfmake</a>
+            </td>
+            <td>
+              -
+            </td>
+          </tr>
+          <tr>
+            <td>
+              <a href="http://pdfmake.org/playground.html">pdfmake playground</a>
+            </td>
+            <td>
+              -
+            </td>
+          </tr>
+          <tr>
+            <td>
+              <a href="https://m3.material.io/">Material Design 3</a>
+            </td>
+            <td>
+              -
+            </td>
+          </tr>
+          <tr>
+            <td>
+              <a href="https://angular.dev/tools/cli">Angular CLI Overview and Command Reference</a>
+            </td>
+            <td>
+              -
+            </td>
+          </tr>
+          <tr>
+            <td>
+              <a href="https://angular.dev/ecosystem/rxjs-interop">RxJS in Angular</a>
+            </td>
+            <td>
+              -
+            </td>
+          </tr>
+          <tr>
+            <td>
+              <a href="https://karma-runner.github.io/">Karma</a>
+            </td>
+            <td>
+              -
+            </td>
+          </tr>
+          <tr>
+            <td>
+              <a href="https://github.com/bitnami/containers">Bitnami Images</a>
+            </td>
+            <td>
+              The Bitnami Containers Library is used as a source of Kubernetes images
+            </td>
+          </tr>
+        </tbody>
+      </table>
+
+      <h3>Acronyms</h3>
+      <table>
+        <tbody>
+          <tr>
+            <td>ARIA</td>
+            <td>Accessible Rich Internet Applications</td>
+          </tr>
+          <tr>
+            <td>CDK</td>
+            <td>Component Dev Kit</td>
+          </tr>
+          <tr>
+            <td>CSR</td>
+            <td>Client-side Rendering</td>
+          </tr>
+          <tr>
+            <td>ESM</td>
+            <td>ECMAScript Module</td>
+          </tr>
+          <tr>
+            <td>PWA</td>
+            <td>Progressive Web Application</td>
+          </tr>
+          <tr>
+            <td>SPA</td>
+            <td>Single Page Application</td>
+          </tr>
+          <tr>
+            <td>SSG</td>
+            <td>Static Site Generation</td>
+          </tr>
+          <tr>
+            <td>SSR</td>
+            <td>Server-Side Rendering</td>
+          </tr>
+          <tr>
+            <td>
+            <td> </td>
+          </tr>
+        </tbody>
+      </table>
 </body>
 
 </html>

@@ -1,6 +1,6 @@
 @echo off
 cd ..
-goto :serve
+::goto :serve
 goto :build_and_start
 
 ng version
