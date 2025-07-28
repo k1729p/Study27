@@ -26,38 +26,31 @@
     <a href="https://github.com/k1729p/Study27/blob/main/docs/mermaid/flowchart.md">Application Menu Diagram</a>
   </h3>
   <hr>
-  <h3>𝓢𝓒𝓡𝓔𝓔𝓝𝓢𝓗𝓞𝓣𝓢</h3>
+  <h2>𝓢 𝓒 𝓡 𝓔 𝓔 𝓝 𝓢 𝓗 𝓞 𝓣 𝓢</h2>
+  <a href="https://github.com/k1729p/Study27/blob/main/docs/images/ScreenshotMenu.jpg">
+        Menu</a>
+  <br>
   <ul>
-    <li><a href="https://github.com/k1729p/Study27/blob/main/docs/images/ScreenshotMenu.jpg">
-        Menu</a></li>
     <li><a href="https://github.com/k1729p/Study27/blob/main/docs/images/ScreenshotManageDepartments.jpg">
         Manage Departments</a></li>
-    <li>
+    <ul>
+      <li><a href="https://github.com/k1729p/Study27/blob/main/docs/images/ScreenshotCreateDepartment.jpg">
+          Create Department</a></li>
+      <li><a href="https://github.com/k1729p/Study27/blob/main/docs/images/ScreenshotUpdateDepartment.jpg">
+          Update Department</a></li>
+      <li><a href="https://github.com/k1729p/Study27/blob/main/docs/images/ScreenshotDeleteDepartment.jpg">
+          Delete Department</a></li>
+      <li><a href="https://github.com/k1729p/Study27/blob/main/docs/images/ScreenshotManageEmployees.jpg">
+          Manage Employees</a></li>
       <ul>
-        <li>
-          <ul>
-            <li><a href="https://github.com/k1729p/Study27/blob/main/docs/images/ScreenshotCreateDepartment.jpg">
-                Create Department</a></li>
-            <li><a href="https://github.com/k1729p/Study27/blob/main/docs/images/ScreenshotUpdateDepartment.jpg">
-                Update Department</a></li>
-            <li><a href="https://github.com/k1729p/Study27/blob/main/docs/images/ScreenshotDeleteDepartment.jpg">
-                Delete Department</a></li>
-            <li><a href="https://github.com/k1729p/Study27/blob/main/docs/images/ScreenshotManageEmployees.jpg">
-                Manage Employees</a></li>
-            <li>
-              <ul>
-                <li><a href="https://github.com/k1729p/Study27/blob/main/docs/images/ScreenshotCreateEmployee.jpg">
-                    Create Employee</a></li>
-                <li><a href="https://github.com/k1729p/Study27/blob/main/docs/images/ScreenshotUpdateEmployee.jpg">
-                    Update Employee</a></li>
-                <li><a href="https://github.com/k1729p/Study27/blob/main/docs/images/ScreenshotDeleteEmployee.jpg">
-                    Delete Employee</a></li>
-              </ul>
-            </li>
-          </ul>
-        </li>
+        <li><a href="https://github.com/k1729p/Study27/blob/main/docs/images/ScreenshotCreateEmployee.jpg">
+            Create Employee</a></li>
+        <li><a href="https://github.com/k1729p/Study27/blob/main/docs/images/ScreenshotUpdateEmployee.jpg">
+            Update Employee</a></li>
+        <li><a href="https://github.com/k1729p/Study27/blob/main/docs/images/ScreenshotDeleteEmployee.jpg">
+            Delete Employee</a></li>
       </ul>
-    </li>
+    </ul>
     <li><a href="https://github.com/k1729p/Study27/blob/main/docs/images/ScreenshotTransferEmployees.jpg">
         Transfer Employees</a></li>
     <li><a href="https://github.com/k1729p/Study27/blob/main/docs/images/ScreenshotLocateEmployees.jpg">
