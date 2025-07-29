@@ -23,42 +23,9 @@
   <h2 id="contents">Study27 README Contents</h2>
 
   <h3>
-    <a href="https://github.com/k1729p/Study27/blob/main/docs/mermaid/flowchart.md">Business Logic Diagram with Links to Screenshots</a>
+    <a href="https://github.com/k1729p/Study27/blob/main/docs/mermaid/flowchart.md">Business Logic Diagram</a>
   </h3>
-  <hr>
-  <h2>𝓢 𝓒 𝓡 𝓔 𝓔 𝓝 𝓢 𝓗 𝓞 𝓣 𝓢</h2>
-  <a href="https://github.com/k1729p/Study27/blob/main/docs/images/ScreenshotMenu.jpg">
-        Menu</a>
-  <br>
-  <ul>
-    <li><a href="https://github.com/k1729p/Study27/blob/main/docs/images/ScreenshotManageDepartments.jpg">
-        Manage Departments</a></li>
-    <ul>
-      <li><a href="https://github.com/k1729p/Study27/blob/main/docs/images/ScreenshotCreateDepartment.jpg">
-          Create Department</a></li>
-      <li><a href="https://github.com/k1729p/Study27/blob/main/docs/images/ScreenshotUpdateDepartment.jpg">
-          Update Department</a></li>
-      <li><a href="https://github.com/k1729p/Study27/blob/main/docs/images/ScreenshotDeleteDepartment.jpg">
-          Delete Department</a></li>
-      <li><a href="https://github.com/k1729p/Study27/blob/main/docs/images/ScreenshotManageEmployees.jpg">
-          Manage Employees</a></li>
-      <ul>
-        <li><a href="https://github.com/k1729p/Study27/blob/main/docs/images/ScreenshotCreateEmployee.jpg">
-            Create Employee</a></li>
-        <li><a href="https://github.com/k1729p/Study27/blob/main/docs/images/ScreenshotUpdateEmployee.jpg">
-            Update Employee</a></li>
-        <li><a href="https://github.com/k1729p/Study27/blob/main/docs/images/ScreenshotDeleteEmployee.jpg">
-            Delete Employee</a></li>
-      </ul>
-    </ul>
-    <li><a href="https://github.com/k1729p/Study27/blob/main/docs/images/ScreenshotTransferEmployees.jpg">
-        Transfer Employees</a></li>
-    <li><a href="https://github.com/k1729p/Study27/blob/main/docs/images/ScreenshotLocateEmployees.jpg">
-        Locate Employees</a></li>
-    <li><a href="https://github.com/k1729p/Study27/blob/main/docs/images/ScreenshotCreatePDFReports.jpg">
-        Create PDF Reports</a></li>
-  </ul>
-  <hr>
+  <p>This diagram contains the links to page screenshots.</p>
   <pre>
 This Angular Material project uses Material Design 2.
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~

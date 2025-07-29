@@ -31,17 +31,18 @@ flowchart LR
   MENU --> PDF
   MENU --> SET
 %% Links
-  click M_DEP href "https://github.com/k1729p/Study27/blob/main/docs/images/ScreenshotManageDepartments.jpg" _self
-  click M_DEP_CR href "https://github.com/k1729p/Study27/blob/main/docs/images/ScreenshotCreateDepartment.jpg" _parent
-  click M_DEP_UP href "https://github.com/k1729p/Study27/blob/main/docs/images/ScreenshotUpdateDepartment.jpg" _top
-  click M_DEP_DL href "https://github.com/k1729p/Study27/blob/main/docs/images/ScreenshotDeleteDepartment.jpg" _blank
-  click M_EMP "https://github.com/k1729p/Study27/blob/main/docs/images/ScreenshotManageEmployees.jpg" _blank
-  click M_EMP_CR "https://github.com/k1729p/Study27/blob/main/docs/images/ScreenshotCreateEmployee.jpg" _blank
-  click M_EMP_UP "https://github.com/k1729p/Study27/blob/main/docs/images/ScreenshotUpdateEmployee.jpg" _blank
-  click M_EMP_DL "https://github.com/k1729p/Study27/blob/main/docs/images/ScreenshotDeleteEmployee.jpg" _blank
-  click TRA_EMP "https://github.com/k1729p/Study27/blob/main/docs/images/ScreenshotTransferEmployees.jpg" _blank
-  click LOC_EMP "https://github.com/k1729p/Study27/blob/main/docs/images/ScreenshotLocateEmployees.jpg" _blank
-  click PDF "https://github.com/k1729p/Study27/blob/main/docs/images/ScreenshotCreatePDFReports.jpg" _blank
+  click MENU "https://raw.githubusercontent.com/k1729p/Study27/refs/heads/main/docs/images/ScreenshotMenu.jpg" _blank
+  click M_DEP href "https://raw.githubusercontent.com/k1729p/Study27/refs/heads/main/docs/images/ScreenshotManageDepartments.jpg" _self
+  click M_DEP_CR href "https://raw.githubusercontent.com/k1729p/Study27/refs/heads/main/docs/images/ScreenshotCreateDepartment.jpg" _parent
+  click M_DEP_UP href "https://raw.githubusercontent.com/k1729p/Study27/refs/heads/main/docs/images/ScreenshotUpdateDepartment.jpg" _top
+  click M_DEP_DL href "https://raw.githubusercontent.com/k1729p/Study27/refs/heads/main/docs/images/ScreenshotDeleteDepartment.jpg" _blank
+  click M_EMP "https://raw.githubusercontent.com/k1729p/Study27/refs/heads/main/docs/images/ScreenshotManageEmployees.jpg" _blank
+  click M_EMP_CR "https://raw.githubusercontent.com/k1729p/Study27/refs/heads/main/docs/images/ScreenshotCreateEmployee.jpg" _blank
+  click M_EMP_UP "https://raw.githubusercontent.com/k1729p/Study27/refs/heads/main/docs/images/ScreenshotUpdateEmployee.jpg" _blank
+  click M_EMP_DL "https://raw.githubusercontent.com/k1729p/Study27/refs/heads/main/docs/images/ScreenshotDeleteEmployee.jpg" _blank
+  click TRA_EMP "https://raw.githubusercontent.com/k1729p/Study27/refs/heads/main/docs/images/ScreenshotTransferEmployees.jpg" _blank
+  click LOC_EMP "https://raw.githubusercontent.com/k1729p/Study27/refs/heads/main/docs/images/ScreenshotLocateEmployees.jpg" _blank
+  click PDF "https://raw.githubusercontent.com/k1729p/Study27/refs/heads/main/docs/images/ScreenshotCreatePDFReports.jpg" _blank
 %% Style Definitions
   classDef redBox fill: #ff6666, stroke: #000, stroke-width: 2px
   classDef redStroke stroke: #ff6666
