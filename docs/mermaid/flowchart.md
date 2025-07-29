@@ -15,26 +15,26 @@ flowchart LR
   SET(Settings):::orangeBox
 %% Flows
   MENU --> M_DEP
-  subgraph Manage Departments
+  subgraph " "
     M_DEP --> M_DEP_CR
     M_DEP --> M_DEP_UP
     M_DEP --> M_DEP_DL
     M_DEP --> M_EMP
-    subgraph Manage Employees
+    subgraph " "
       M_EMP --> M_EMP_CR
       M_EMP --> M_EMP_UP
       M_EMP --> M_EMP_DL
     end
   end
   MENU --> TRA_EMP
-  MENU --> LOC
+  MENU --> LOC_EMP
   MENU --> PDF
   MENU --> SET
 %% Links
-  click M_DEP "https://github.com/k1729p/Study27/blob/main/docs/images/ScreenshotManageDepartments.jpg" _self
-  click M_DEP_CR "https://github.com/k1729p/Study27/blob/main/docs/images/ScreenshotCreateDepartment.jpg" _parent
-  click M_DEP_UP "https://github.com/k1729p/Study27/blob/main/docs/images/ScreenshotUpdateDepartment.jpg" _top
-  click M_DEP_DL "https://github.com/k1729p/Study27/blob/main/docs/images/ScreenshotDeleteDepartment.jpg" _blank
+  click M_DEP href "https://github.com/k1729p/Study27/blob/main/docs/images/ScreenshotManageDepartments.jpg" _self
+  click M_DEP_CR href "https://github.com/k1729p/Study27/blob/main/docs/images/ScreenshotCreateDepartment.jpg" _parent
+  click M_DEP_UP href "https://github.com/k1729p/Study27/blob/main/docs/images/ScreenshotUpdateDepartment.jpg" _top
+  click M_DEP_DL href "https://github.com/k1729p/Study27/blob/main/docs/images/ScreenshotDeleteDepartment.jpg" _blank
   click M_EMP "https://github.com/k1729p/Study27/blob/main/docs/images/ScreenshotManageEmployees.jpg" _blank
   click M_EMP_CR "https://github.com/k1729p/Study27/blob/main/docs/images/ScreenshotCreateEmployee.jpg" _blank
   click M_EMP_UP "https://github.com/k1729p/Study27/blob/main/docs/images/ScreenshotUpdateEmployee.jpg" _blank
