@@ -26,6 +26,8 @@
     <a href="https://github.com/k1729p/Study27/blob/main/docs/mermaid/flowchart.md">Business Logic Diagram</a>
   </h3>
   <p>This diagram contains the links to page screenshots.</p>
+  <hr>
+  <hr>
   <pre>
 This Angular Material project uses Material Design 2.
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -40,11 +42,12 @@ Run `ng build` to build the project.
 
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 OK
-http://localhost:8080/     http://127.0.0.1:8080/    http://192.168.1.15:8080/    http://172.17.0.1:8080/
-
+  h t t p : / / localhost:8080/  ,   h t t p : / / 127.0.0.1:8080/  ,  h t t p : / / 192.168.1.15:8080/  ,  h t t p : / / 172.17.0.1:8080/
 Error code: 404 Not Found
-http://localhost:8080/department-table   http://127.0.0.1:8080/department-table
-</pre>
+  h t t p : / / localhost:8080/department-table  , h t t p : / / 127.0.0.1:8080/department-table
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+  </pre>
   <hr>
   <h3>Dictionary</h3>
   <table>
