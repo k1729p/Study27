@@ -25,29 +25,7 @@
   <h3>
     <a href="https://github.com/k1729p/Study27/blob/main/docs/mermaid/flowchart.md">Business Logic Diagram</a>
   </h3>
-  <p>This diagram contains the links to page screenshots.</p>
-  <hr>
-  <hr>
-  <pre>
-This Angular Material project uses Material Design 2.
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-pdfmake
-Client/server side PDF printing in pure JavaScript http://pdfmake.org
-npm install pdfmake
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-## Development server
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`.
-## Build
-Run `ng build` to build the project.
-
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-OK
-  h t t p : / / localhost:8080/  ,   h t t p : / / 127.0.0.1:8080/  ,  h t t p : / / 192.168.1.15:8080/  ,  h t t p : / / 172.17.0.1:8080/
-Error code: 404 Not Found
-  h t t p : / / localhost:8080/department-table  , h t t p : / / 127.0.0.1:8080/department-table
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
-  </pre>
+  <p>This diagram contains the links to screenshots.</p>
   <hr>
   <h3>Dictionary</h3>
   <table>
@@ -176,6 +154,30 @@ Error code: 404 Not Found
       </tr>
     </tbody>
   </table>
+  <hr>
+  <pre>
+Work-In-Progress temporary notes, fixes, and todos:
+
+This Angular Material project uses Material Design 2.
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+pdfmake
+Client/server side PDF printing in pure JavaScript http://pdfmake.org
+npm install pdfmake
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+## Development server
+Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`.
+## Build
+Run `ng build` to build the project.
+
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+OK
+  h t t p : / / localhost:8080/  ,   h t t p : / / 127.0.0.1:8080/  ,  h t t p : / / 192.168.1.15:8080/  ,  h t t p : / / 172.17.0.1:8080/
+Error code: 404 Not Found
+  h t t p : / / localhost:8080/department-table  , h t t p : / / 127.0.0.1:8080/department-table
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+  </pre>
+  <hr>
 </body>
 
 </html>
