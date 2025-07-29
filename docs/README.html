@@ -23,7 +23,7 @@
   <h2 id="contents">Study27 README Contents</h2>
 
   <h3>
-    <a href="https://github.com/k1729p/Study27/blob/main/docs/mermaid/flowchart.md">Application Menu Diagram</a>
+    <a href="https://github.com/k1729p/Study27/blob/main/docs/mermaid/flowchart.md">Business Logic Diagram with Links to Screenshots</a>
   </h3>
   <hr>
   <h2>𝓢 𝓒 𝓡 𝓔 𝓔 𝓝 𝓢 𝓗 𝓞 𝓣 𝓢</h2>
