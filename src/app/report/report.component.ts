@@ -1,7 +1,7 @@
 import { inject, Component, OnInit } from '@angular/core';
 import pdfMake from 'pdfmake/build/pdfmake';
 import pdfFonts from 'pdfmake/build/vfs_fonts';
-import { MatButtonModule } from '@angular/material/button';
+import { MatButtonModule, MatFabButton } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
 import { MatIconModule } from '@angular/material/icon';
 import { MatTabsModule } from '@angular/material/tabs';
@@ -17,7 +17,7 @@ import { EmployeeService } from 'services/employee-service/employee.service';
   selector: 'app-report',
   templateUrl: 'report.component.html',
   styleUrl: './report.component.css',
-  imports: [MatButtonModule, MatCardModule, MatIconModule, MatTabsModule],
+  imports: [MatButtonModule, MatFabButton, MatCardModule, MatIconModule, MatTabsModule],
 })
 export class ReportComponent implements OnInit {
   private departmentService: DepartmentService = inject(DepartmentService);

@@ -170,6 +170,12 @@ Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`.
 Run `ng build` to build the project.
 
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+=== HTTP client service ===
+https://angular.dev/guide/http
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+===  Dockerize Angular Application  ===
+https://docs.docker.com/guides/angular/containerize/
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 OK
   h t t p : / / localhost:8080/  ,   h t t p : / / 127.0.0.1:8080/  ,  h t t p : / / 192.168.1.15:8080/  ,  h t t p : / / 172.17.0.1:8080/
 Error code: 404 Not Found

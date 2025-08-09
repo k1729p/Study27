@@ -1,0 +1,14 @@
+services:
+  study27:
+    container_name: study27
+    image: eeengcs/study27:1.0.0-SNAPSHOT
+    ports:
+      - "8027:8027"
+    networks:
+      - app-net
+      #- frontend <--- ALTERNATIVE WITH TWO NETWORKS
+      #- backend  <--- ALTERNATIVE WITH TWO NETWORKS
+    restart: always
+networks:
+  app-net:
+    driver: bridge

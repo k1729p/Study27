@@ -14,7 +14,6 @@ goto :eof
 
 :build_and_start
 call ng build
-::pause
 cd dist\Study27\browser
-start "Study 27" /MAX http-server . -p 8080
+start "Study 27" /MAX http-server . -p 8027
 pause
