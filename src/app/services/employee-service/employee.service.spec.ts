@@ -1,8 +1,10 @@
+
 import { TestBed } from '@angular/core/testing';
 
+import { DepartmentService } from '../department-service/department.service';
 import { EmployeeService } from './employee.service';
 import {
-  TEST_EMPLOYEES,
+  TEST_DEPARTMENTS,
   TEST_DEPARTMENT_ID,
   TEST_EMPLOYEE_ID,
 } from 'testing/test-data';
@@ -13,7 +15,7 @@ import {
  * that the {@link EmployeeService} can be instantiated and functions correctly.
  */
 describe('EmployeeService', () => {
-  let service: EmployeeService;
+  let employeeService: EmployeeService;
 
   /**
    * Sets up the testing module for EmployeeService.
@@ -21,16 +23,18 @@ describe('EmployeeService', () => {
    */
   beforeEach(() => {
     TestBed.configureTestingModule({});
-    service = TestBed.inject(EmployeeService);
     // reseting data for tests
-    service.setEmployeeArray([[]]);
+    const departmentService = TestBed.inject(DepartmentService);
+    departmentService.setDepartments(TEST_DEPARTMENTS);
+    employeeService = TestBed.inject(EmployeeService);
+    employeeService.setEmployees(TEST_DEPARTMENT_ID, []);
   });
 
   /**
    * Checks that the EmployeeService is instantiated successfully.
    */
   it('should be created', () => {
-    expect(service).toBeTruthy();
+    expect(employeeService).toBeTruthy();
   });
 
   /**
@@ -39,13 +43,13 @@ describe('EmployeeService', () => {
    */
   it('should return initial employee array', () => {
     // GIVEN
-    service.setEmployeeArray(TEST_EMPLOYEES);
+    employeeService.setEmployees(TEST_DEPARTMENT_ID, TEST_DEPARTMENTS[0].employees);
     // WHEN
-    const actualEmployees = service.getEmployeeArray();
+    const actualEmployees = employeeService.getEmployees(TEST_DEPARTMENT_ID);
     // THEN
     expect(Array.isArray(actualEmployees)).toBeTrue();
     expect(actualEmployees.length).toBeGreaterThan(0);
-    expect(actualEmployees).toEqual(TEST_EMPLOYEES);
+    expect(actualEmployees).toEqual(TEST_DEPARTMENTS[0].employees);
   });
 
   /**
@@ -54,13 +58,13 @@ describe('EmployeeService', () => {
    */
   it('should get employees for a specific department', () => {
     // GIVEN
-    service.setEmployeeArray(TEST_EMPLOYEES);
+    employeeService.setEmployees(TEST_DEPARTMENT_ID, TEST_DEPARTMENTS[0].employees);
     // WHEN
-    const actualEmployees = service.getEmployees(TEST_DEPARTMENT_ID);
+    const actualEmployees = employeeService.getEmployees(TEST_DEPARTMENT_ID);
     // THEN
     expect(Array.isArray(actualEmployees)).toBeTrue();
     expect(actualEmployees.length).toBeGreaterThan(0);
-    expect(actualEmployees).toEqual(TEST_EMPLOYEES[0]);
+    expect(actualEmployees).toEqual(TEST_DEPARTMENTS[0].employees);
   });
 
   /**
@@ -69,15 +73,15 @@ describe('EmployeeService', () => {
    */
   it('should get a specific employee by id', () => {
     // GIVEN
-    service.setEmployeeArray(TEST_EMPLOYEES);
+    employeeService.setEmployees(TEST_DEPARTMENT_ID, TEST_DEPARTMENTS[0].employees);
     // WHEN
-    const actualEmployee = service.getEmployee(
+    const actualEmployee = employeeService.getEmployee(
       TEST_DEPARTMENT_ID,
       TEST_EMPLOYEE_ID
     );
     // THEN
     expect(actualEmployee).toBeTruthy();
-    expect(actualEmployee).toEqual(TEST_EMPLOYEES[0][0]);
+    expect(actualEmployee).toEqual(TEST_DEPARTMENTS[0].employees[0]);
   });
 
   /**
@@ -87,14 +91,14 @@ describe('EmployeeService', () => {
   it('should create a new employee in a department', () => {
     // GIVEN
     // WHEN
-    service.createEmployee(TEST_DEPARTMENT_ID, { ...TEST_EMPLOYEES[0][0] });
+    employeeService.createEmployee(TEST_DEPARTMENT_ID, { ...TEST_DEPARTMENTS[0].employees[0] });
     // THEN
-    const actualEmployees = service.getEmployees(TEST_DEPARTMENT_ID);
+    const actualEmployees = employeeService.getEmployees(TEST_DEPARTMENT_ID);
     const actualEmployee = actualEmployees.find(
-      (emp) => emp.lastName === TEST_EMPLOYEES[0][0].lastName
+      (emp) => emp.lastName === TEST_DEPARTMENTS[0].employees[0].lastName
     );
     expect(actualEmployee?.id).toBeGreaterThan(0);
-    const expectedEmployee = { ...TEST_EMPLOYEES[0][0] };
+    const expectedEmployee = { ...TEST_DEPARTMENTS[0].employees[0] };
     expectedEmployee.id = actualEmployee?.id ?? -1;
     expect(actualEmployee).toEqual(expectedEmployee);
   });
@@ -105,15 +109,15 @@ describe('EmployeeService', () => {
    */
   it('should update an employee', () => {
     // GIVEN
-    service.setEmployeeArray(TEST_EMPLOYEES);
+    employeeService.setEmployees(TEST_DEPARTMENT_ID, TEST_DEPARTMENTS[0].employees);
     const updatedEmployee = {
-      ...TEST_EMPLOYEES[0][0],
+      ...TEST_DEPARTMENTS[0].employees[0],
       firstName: 'UpdatedName',
     };
     // WHEN
-    service.updateEmployee(TEST_DEPARTMENT_ID, updatedEmployee);
+    employeeService.updateEmployee(TEST_DEPARTMENT_ID, updatedEmployee);
     // THEN
-    const actualEmployee = service.getEmployee(
+    const actualEmployee = employeeService.getEmployee(
       TEST_DEPARTMENT_ID,
       TEST_EMPLOYEE_ID
     );
@@ -126,11 +130,11 @@ describe('EmployeeService', () => {
    */
   it('should delete an employee', () => {
     // GIVEN
-    service.setEmployeeArray(TEST_EMPLOYEES);
+    employeeService.setEmployees(TEST_DEPARTMENT_ID, TEST_DEPARTMENTS[0].employees);
     // WHEN
-    service.deleteEmployee(TEST_DEPARTMENT_ID, TEST_EMPLOYEE_ID);
+    employeeService.deleteEmployee(TEST_DEPARTMENT_ID, TEST_EMPLOYEE_ID);
     // THEN
-    const actualEmployee = service.getEmployee(
+    const actualEmployee = employeeService.getEmployee(
       TEST_DEPARTMENT_ID,
       TEST_EMPLOYEE_ID
     );
@@ -143,26 +147,26 @@ describe('EmployeeService', () => {
    */
   it('should transfer an employee between departments', () => {
     // GIVEN
-    service.setEmployeeArray(TEST_EMPLOYEES);
+    employeeService.setEmployees(TEST_DEPARTMENT_ID, TEST_DEPARTMENTS[0].employees);
     const sourceDepartmentId = TEST_DEPARTMENT_ID;
     const targetDepartmentId = TEST_DEPARTMENT_ID + 1;
-    const transferedEmployee = TEST_EMPLOYEES[0][0];
+    const transferedEmployees = TEST_DEPARTMENTS[0].employees;
     // WHEN
-    service.transferEmployee(
+    employeeService.transferEmployees(
       sourceDepartmentId,
       targetDepartmentId,
-      transferedEmployee
+      transferedEmployees
     );
     // THEN
-    const actualInSource = service.getEmployee(
+    const actualInSource = employeeService.getEmployee(
       sourceDepartmentId,
-      transferedEmployee.id
+      transferedEmployees[0].id
     );
     expect(actualInSource).toBeUndefined();
-    const actualInTarget = service.getEmployee(
+    const actualInTarget = employeeService.getEmployee(
       targetDepartmentId,
-      transferedEmployee.id
+      transferedEmployees[0].id
     );
-    expect(actualInTarget).toEqual(transferedEmployee);
+    expect(actualInTarget).toEqual(transferedEmployees[0]);
   });
 });

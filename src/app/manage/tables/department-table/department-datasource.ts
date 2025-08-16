@@ -14,7 +14,7 @@ import { DepartmentService } from 'services/department-service/department.servic
  */
 export class DepartmentDataSource extends DataSource<Department> {
   private departmentService: DepartmentService = inject(DepartmentService);
-  departmentArr: Department[] = this.departmentService.getDepartmentArray();
+  departments: Department[] = this.departmentService.getDepartments();
   paginator: MatPaginator | undefined;
   sort: MatSort | undefined;
   /**
@@ -32,11 +32,11 @@ export class DepartmentDataSource extends DataSource<Department> {
     // Combine everything that affects the rendered data into one update
     // stream for the data-table to consume.
     return merge(
-      observableOf(this.departmentArr),
+      observableOf(this.departments),
       this.paginator.page,
       this.sort.sortChange
     ).pipe(
-      map(() => this.getPagedData(this.getSortedData([...this.departmentArr])))
+      map(() => this.getPagedData(this.getSortedData([...this.departments])))
     );
   }
 
@@ -54,29 +54,29 @@ export class DepartmentDataSource extends DataSource<Department> {
    * Paginate the data (client-side). If you're using server-side pagination,
    * this would be replaced by requesting the appropriate data from the server.
    *
-   * @param departmentArr The array of departments to be paginated.
+   * @param departments The array of departments to be paginated.
    * @returns The paginated array of departments.
    */
-  private getPagedData(departmentArr: Department[]): Department[] {
+  private getPagedData(departments: Department[]): Department[] {
     if (!this.paginator) {
-      return departmentArr;
+      return departments;
     }
     const startIndex = this.paginator.pageIndex * this.paginator.pageSize;
-    return departmentArr.splice(startIndex, this.paginator.pageSize);
+    return departments.splice(startIndex, this.paginator.pageSize);
   }
 
   /**
    * Sort the data (client-side). If you're using server-side sorting,
    * this would be replaced by requesting the appropriate data from the server.
    *
-   * @param departmentArr The array of departments to be sorted.
+   * @param departments The array of departments to be sorted.
    * @returns The sorted array of departments.
    */
-  private getSortedData(departmentArr: Department[]): Department[] {
+  private getSortedData(departments: Department[]): Department[] {
     if (!this.sort || !this.sort.active || this.sort.direction === '') {
-      return departmentArr;
+      return departments;
     }
-    return departmentArr.sort((a, b) => {
+    return departments.sort((a, b) => {
       const isAsc = this.sort?.direction === 'asc';
       switch (this.sort?.active) {
         case 'name':

@@ -4,9 +4,10 @@ import { DepartmentFormComponent } from './manage/forms/department-form/departme
 import { DepartmentTableComponent } from './manage/tables/department-table/department-table.component';
 import { EmployeeFormComponent } from './manage/forms/employee-form/employee-form.component';
 import { EmployeeTableComponent } from './manage/tables/employee-table/employee-table.component';
+import { EmployeeTransferComponent } from './transfer/employee-transfer/employee-transfer.component';
 import { EmployeeLocateComponent } from './locate/employee-locate/employee-locate.component';
 import { ReportComponent } from './report/report.component';
-import { EmployeeTransferComponent } from './transfer/employee-transfer/employee-transfer.component';
+import { SettingsComponent } from 'settings/settings.component';
 
 /**
  * Application routes for the Angular application.
@@ -43,6 +44,10 @@ export const routes: Routes = [
   {
     path: 'report',
     component: ReportComponent,
+  },
+  {
+    path: 'settings',
+    component: SettingsComponent,
   },
   // redirect to default
   {

@@ -50,12 +50,12 @@ export class EmployeeTransferComponent implements OnInit {
   });
   leftSideDepartmentId = 0;
   rightSideDepartmentId = 0;
-  departmentArray: Department[] = this.departmentService.getDepartmentArray();
+  departments: Department[] = [];
   leftSideEmployees: Employee[] = [];
   rightSideEmployees: Employee[] = [];
   displayedColumns = ['select', 'id', 'firstName', 'lastName'];
-  rightSideSelection = new SelectionModel<Employee>(true, []);
   leftSideSelection = new SelectionModel<Employee>(true, []);
+  rightSideSelection = new SelectionModel<Employee>(true, []);
   /**
    * A component lifecycle hook method.
    * Runs once after Angular has initialized all the component's inputs.
@@ -64,8 +64,13 @@ export class EmployeeTransferComponent implements OnInit {
    * @returns void
    */
   ngOnInit() {
-    this.selectDepartment('LEFT-SIDE', 1);
-    this.selectDepartment('RIGHT-SIDE', 2);
+    this.departments = this.departmentService.getDepartments();
+    if (this.departments.length > 0) {
+      this.selectDepartment('LEFT-SIDE', this.departments[0].id);
+    }
+    if (this.departments.length > 1) {
+      this.selectDepartment('RIGHT-SIDE', this.departments[1].id);
+    }
     console.log('EmployeeTransferComponent.ngOnInit():');
   }
 
@@ -75,28 +80,26 @@ export class EmployeeTransferComponent implements OnInit {
    * @returns void
    */
   selectDepartment(side: 'LEFT-SIDE' | 'RIGHT-SIDE', departmentId: number) {
-    if (departmentId < 1 || departmentId > this.departmentArray.length) {
+    if (departmentId < 1 || departmentId > this.departments.length) {
       console.error(
         'EmployeeTransferComponent.selectDepartment(): invalid department id[%d]',
         departmentId
       );
       return;
     }
-    const index = this.departmentArray.findIndex(
-      (dep) => dep.id === departmentId
-    );
+    const index = this.departments.findIndex(dep => dep.id === departmentId);
     if (side === 'LEFT-SIDE') {
       this.leftSideDepartmentId = departmentId;
       this.leftSideForm.controls.leftSideSelect.setValue(
-        this.departmentArray[index]
+        this.departments[index]
       );
-      this.leftSideEmployees = this.employeeService.getEmployeeArray()[index];
+      this.leftSideEmployees = this.employeeService.getEmployees(departmentId);
     } else {
       this.rightSideDepartmentId = departmentId;
       this.rightSideForm.controls.rightSideSelect.setValue(
-        this.departmentArray[index]
+        this.departments[index]
       );
-      this.rightSideEmployees = this.employeeService.getEmployeeArray()[index];
+      this.rightSideEmployees = this.employeeService.getEmployees(departmentId);
     }
     console.log(
       'EmployeeTransferComponent.selectDepartment(): left side department id[%d], right side department id[%d]',
@@ -127,9 +130,9 @@ export class EmployeeTransferComponent implements OnInit {
     this.leftSideSelection.clear();
     this.rightSideSelection.clear();
     this.leftSideEmployees =
-      this.employeeService.getEmployeeArray()[+this.leftSideDepartmentId - 1];
+      this.employeeService.getEmployees(+this.leftSideDepartmentId);
     this.rightSideEmployees =
-      this.employeeService.getEmployeeArray()[+this.rightSideDepartmentId - 1];
+      this.employeeService.getEmployees(+this.rightSideDepartmentId);
     console.log(
       'transferEmployees(): side[%s], left side department id[%d], right side department id[%d]',
       side,
@@ -189,19 +192,16 @@ export class EmployeeTransferComponent implements OnInit {
       if (!row) {
         return `${this.isAllSelected('LEFT-SIDE') ? 'deselect' : 'select'} all`;
       } else {
-        return `${
-          this.leftSideSelection.isSelected(row) ? 'deselect' : 'select'
-        } row ${row.id + 1}`;
+        return `${this.leftSideSelection.isSelected(row) ? 'deselect' : 'select'
+          } row ${row.id + 1}`;
       }
     } else {
       if (!row) {
-        return `${
-          this.isAllSelected('RIGHT-SIDE') ? 'deselect' : 'select'
-        } all`;
+        return `${this.isAllSelected('RIGHT-SIDE') ? 'deselect' : 'select'
+          } all`;
       } else {
-        return `${
-          this.rightSideSelection.isSelected(row) ? 'deselect' : 'select'
-        } row ${row.id + 1}`;
+        return `${this.rightSideSelection.isSelected(row) ? 'deselect' : 'select'
+          } row ${row.id + 1}`;
       }
     }
   }

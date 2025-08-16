@@ -22,8 +22,7 @@ import { EmployeeService } from 'services/employee-service/employee.service';
 export class ReportComponent implements OnInit {
   private departmentService: DepartmentService = inject(DepartmentService);
   private employeeService: EmployeeService = inject(EmployeeService);
-  departmentArr: Department[] = this.departmentService.getDepartmentArray();
-  employeeArr: Employee[][] = this.employeeService.getEmployeeArray();
+  departmentArr: Department[] = this.departmentService.getDepartments();
 
   private readonly PORTFOLIO_URL = 'https://github.com/k1729p/Portfolio';
   private readonly IMAGES_URL = 'http://localhost:4200/images/';
@@ -130,10 +129,8 @@ export class ReportComponent implements OnInit {
     const deparmentList: (string | { ol: string[] })[] = [];
     for (const department of this.departmentArr) {
       deparmentList.push(department.name);
-      const tmpArr = this.employeeArr[department.id - 1] || [];
-      const employeeOrderedList: string[] = tmpArr.map(
-        (employee) => `${employee.firstName} ${employee.lastName}`
-      );
+      const employeeOrderedList: string[] = this.employeeService.getEmployees(department.id)
+        .map((employee) => `${employee.firstName} ${employee.lastName}`);
       if (employeeOrderedList.length > 0) {
         deparmentList.push({ ol: employeeOrderedList });
       }
@@ -167,7 +164,7 @@ export class ReportComponent implements OnInit {
       },
     ]);
     for (const department of this.departmentArr) {
-      const employees = this.employeeArr[department.id - 1] || [];
+      const employees = this.employeeService.getEmployees(department.id);
       if (employees.length === 0) {
         deparmentTable.push([{ text: department.name }, { text: '-' }]);
       } else {

@@ -1,7 +1,8 @@
 import { Injectable, InjectionToken, inject } from '@angular/core';
 
 import { Employee } from 'models/employee';
-import { EMPLOYEES } from 'services/initial-data';
+import { Department } from 'models/department';
+
 /**
  * Injection token for browser storage.
  * This token is used to inject the browser's localStorage into services that require it.
@@ -22,24 +23,6 @@ export class EmployeeService {
   storage = inject<Storage>(BROWSER_STORAGE);
 
   /**
-   * Parameterized constructor.
-   */
-  constructor() {
-    this.storage.setItem('employees', JSON.stringify(EMPLOYEES));
-  }
-
-  /**
-   * Gets the employee array.
-   * This method retrieves the employee data from the storage,
-   * parses it from JSON format, and returns it as an array of employees.
-   *
-   * @returns the employee array
-   */
-  getEmployeeArray(): Employee[][] {
-    const json = this.storage.getItem('employees') ?? '';
-    return JSON.parse(json) as Employee[][];
-  }
-  /**
    * Sets the employee array.
    * This method takes an array of employees,
    * converts it to JSON format, and stores it in the storage.
@@ -47,9 +30,16 @@ export class EmployeeService {
    * @param employeeArray the employee array
    * @returns void
    */
-  setEmployeeArray(employeeArray: Employee[][]) {
-    const json = JSON.stringify(employeeArray) ?? '';
-    this.storage.setItem('employees', json);
+  setEmployees(departmentId: number, employees: Employee[]) {
+    let json = this.storage.getItem('departments') ?? '';
+    const departments = JSON.parse(json) as Department[];
+    const department = departments.find(dep => dep.id === departmentId);
+    if (department) {
+      department.employees = employees;
+    }
+    json = JSON.stringify(departments) ?? '';
+    console.log('EmployeeService.getEmployees(): department id[%s]', departmentId);
+    this.storage.setItem('departments', json);
   }
   /**
    * Gets the employees for a specific department.
@@ -59,13 +49,12 @@ export class EmployeeService {
    * @returns an array of employees for the specified department
    */
   getEmployees(departmentId: number): Employee[] {
-    const depIndex = departmentId - 1;
-    const employeeArray = this.getEmployeeArray();
-    console.log(
-      'EmployeeService.getEmployees(): department id[%s]',
-      departmentId
-    );
-    return employeeArray[depIndex] ?? [];
+    const json = this.storage.getItem('departments') ?? '';
+    const departments = JSON.parse(json) as Department[];
+    const department = departments.find(dep => dep.id === departmentId);
+    const employees = department ? department.employees : [];
+    console.log('EmployeeService.getEmployees(): department id[%s]', departmentId);
+    return employees;
   }
   /**
    * Gets a specific employee by id from a department.
@@ -74,16 +63,16 @@ export class EmployeeService {
    * and returns it.
    *
    * @param departmentId the department id
-   * @param id the employee id
+   * @param employeeId the employee id
    * @return the employee with the specified id, or undefined if not found
    */
-  getEmployee(departmentId: number, id: number): Employee | undefined {
-    const employeeArray = this.getEmployeeArray();
-    const depIndex = departmentId - 1;
-    if (depIndex < 0 || depIndex >= employeeArray.length) {
-      return undefined;
-    }
-    return employeeArray[depIndex].find((employee) => employee.id === id);
+  getEmployee(departmentId: number, employeeId: number): Employee | undefined {
+    const employee = this.getEmployees(departmentId).find(emp => emp.id === employeeId);
+    console.log('EmployeeService.getEmployee(): , department id[%s], employee id[%s]',
+      departmentId,
+      employeeId
+    );
+    return employee;
   }
   /**
    * Creates a new employee in the specified department.
@@ -96,15 +85,11 @@ export class EmployeeService {
    * @return void
    */
   createEmployee(departmentId: number, employee: Employee) {
-    const depIndex = departmentId - 1;
-    const employeeArray = this.getEmployeeArray();
-    if (
-      employeeArray[depIndex] === undefined ||
-      employeeArray[depIndex].length === 0
-    ) {
+    const employees = this.getEmployees(departmentId);
+    if (employees === undefined || employees.length === 0) {
       employee.id = 1;
-      employeeArray[depIndex].push(employee);
-      this.setEmployeeArray(employeeArray);
+      employees.push(employee);
+      this.setEmployees(departmentId, employees);
       console.log(
         'EmployeeService.createEmployee(): 1st employee, department id[%s], employee id[%s]',
         departmentId,
@@ -112,12 +97,11 @@ export class EmployeeService {
       );
       return;
     }
-    employee.id =
-      employeeArray[depIndex]
-        .map((dep) => dep?.id ?? 0)
-        .reduce((id1, id2) => Math.max(id1, id2)) + 1;
-    employeeArray[depIndex].push(employee);
-    this.setEmployeeArray(employeeArray);
+    employee.id = employees
+      .map(dep => dep?.id ?? 0)
+      .reduce((id1, id2) => Math.max(id1, id2)) + 1;
+    employees.push(employee);
+    this.setEmployees(departmentId, employees);
     console.log(
       'EmployeeService.createEmployee(): department id[%s], employee id[%s]',
       departmentId,
@@ -134,17 +118,15 @@ export class EmployeeService {
    * @return void
    */
   updateEmployee(departmentId: number, employee: Employee) {
-    const depIndex = departmentId - 1;
-    const employeeArray = this.getEmployeeArray();
-    const empIndex = employeeArray[depIndex].findIndex(
-      (dep) => dep.id === employee.id
-    );
-    employeeArray[depIndex][empIndex] = employee;
-    this.setEmployeeArray(employeeArray);
+    const employees = this.getEmployees(departmentId);
+    const empIndex = employees.findIndex(emp => emp.id === employee.id);
+    if (empIndex !== -1) {
+      employees[empIndex] = employee;
+    }
+    this.setEmployees(departmentId, employees);
     console.log(
       'EmployeeService.updateEmployee(): department id[%s], employee id[%s]',
-      departmentId,
-      employee.id
+      departmentId, employee.id
     );
   }
   /**
@@ -153,19 +135,19 @@ export class EmployeeService {
    * and removes it from the array.
    *
    * @param departmentId the department id
-   * @param id the employee id
+   * @param employeeId the employee id
    * @return void
    */
-  deleteEmployee(departmentId: number, id: number) {
-    const depIndex = departmentId - 1;
-    const employeeArray = this.getEmployeeArray();
-    const empIndex = employeeArray[depIndex].findIndex((dep) => dep.id === id);
-    employeeArray[depIndex].splice(empIndex, 1);
-    this.setEmployeeArray(employeeArray);
+  deleteEmployee(departmentId: number, employeeId: number) {
+    const employees = this.getEmployees(departmentId);
+    const empIndex = employees.findIndex(emp => emp.id === employeeId);
+    if (empIndex !== -1) {
+      employees.splice(empIndex, 1);
+    }
+    this.setEmployees(departmentId, employees);
     console.log(
       'EmployeeService.deleteEmployee(): department id[%s], employee id[%s]',
-      departmentId,
-      id
+      departmentId, employeeId
     );
   }
   /**
@@ -181,41 +163,20 @@ export class EmployeeService {
     targetDepartmentId: number,
     employees: Employee[]
   ) {
-    employees.forEach((employee) => {
-      this.transferEmployee(sourceDepartmentId, targetDepartmentId, employee);
+    const sourceEmployees = this.getEmployees(sourceDepartmentId);
+    const targetEmployees = this.getEmployees(targetDepartmentId);
+    employees.forEach(employee => {
+      const empIndex = sourceEmployees.findIndex(emp => emp.id === employee.id);
+      if (empIndex !== -1) {
+        sourceEmployees.splice(empIndex, 1);
+        targetEmployees.push(employee);
+      }
     });
-    const tmpArray = this.getEmployeeArray();
-    tmpArray[targetDepartmentId - 1].sort((emp1, emp2) => emp1.id - emp2.id);
-    this.setEmployeeArray(tmpArray);
-  }
-  /**
-   * Transfers an employee from one department to another.
-   * This method finds the employee in the source department's employee array,
-   * removes it from that array,
-   * and adds it to the target department's employee array.
-   *
-   * @param sourceDepartmentId the source department id
-   * @param targetDepartmentId the target department id
-   * @param employee the employee to transfer
-   * @return void
-   */
-  transferEmployee(
-    sourceDepartmentId: number,
-    targetDepartmentId: number,
-    employee: Employee
-  ) {
-    const tmpArray = this.getEmployeeArray();
-    const empIndex = tmpArray[sourceDepartmentId - 1].findIndex(
-      (emp) => emp.id === employee.id
-    );
-    tmpArray[sourceDepartmentId - 1].splice(empIndex, 1);
-    tmpArray[targetDepartmentId - 1].push(employee);
-    this.setEmployeeArray(tmpArray);
+    this.setEmployees(sourceDepartmentId, sourceEmployees);
+    this.setEmployees(targetDepartmentId, targetEmployees);
     console.log(
       'EmployeeService.transferEmployee(): source department id[%s], target department id[%s], employee id[%s]',
-      sourceDepartmentId,
-      targetDepartmentId,
-      employee.id
+      sourceDepartmentId, targetDepartmentId
     );
   }
 }

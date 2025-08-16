@@ -8,7 +8,6 @@ import { EmployeeService } from 'services/employee-service/employee.service';
 import { EmployeeLocateComponent } from './employee-locate.component';
 import {
   TEST_DEPARTMENTS,
-  TEST_EMPLOYEES,
   TEST_EMPLOYEE_FULL_NAME,
 } from 'testing/test-data';
 
@@ -29,20 +28,22 @@ describe('EmployeeLocateComponent', () => {
    */
   beforeEach(() => {
     mockDepartmentService = {
-      getDepartmentArray: () => TEST_DEPARTMENTS,
+      getDepartments: () => TEST_DEPARTMENTS,
     };
     mockEmployeeService = {
-      getEmployeeArray: () => TEST_EMPLOYEES,
       getEmployees: (departmentId: number) => {
         const depIndex = departmentId - 1;
-        return TEST_EMPLOYEES[depIndex] ?? [];
+        if (depIndex < 0 || depIndex >= TEST_DEPARTMENTS.length) {
+          return [];
+        }
+        return TEST_DEPARTMENTS[departmentId - 1].employees;
       },
-      getEmployee: (departmentId: number, id: number) => {
+      getEmployee: (departmentId: number, employeeId: number) => {
         const depIndex = departmentId - 1;
-        if (depIndex < 0 || depIndex >= TEST_EMPLOYEES.length) {
+        if (depIndex < 0 || depIndex >= TEST_DEPARTMENTS.length) {
           return undefined;
         }
-        return TEST_EMPLOYEES[depIndex].find((employee) => employee.id === id);
+        return TEST_DEPARTMENTS[departmentId - 1].employees[employeeId];
       },
     };
     mockDialog = {
@@ -146,8 +147,8 @@ describe('EmployeeLocateComponent', () => {
    */
   it('should return filtered names with filterNames', () => {
     // GIVEN
-    const namesArray = TEST_EMPLOYEES.flat().map(
-      (e) => `${e.firstName} ${e.lastName}`
+    const namesArray = TEST_DEPARTMENTS.map(dep => dep.employees).flat().map(
+      emp => `${emp.firstName} ${emp.lastName}`
     );
     // WHEN
     const filtered = component.filterNames(namesArray, 'em');
@@ -200,9 +201,9 @@ describe('EmployeeLocateComponent', () => {
     // WHEN
     const names = component.collectEmployeeNames(component.dataSource, []);
     // THEN
-    const expectedNames = TEST_EMPLOYEES.flat().map(
-      (emp) => `${emp.firstName} ${emp.lastName}`
+    const expectedNames = TEST_DEPARTMENTS.map(dep => dep.employees).flat().map(
+      emp => `${emp.firstName} ${emp.lastName}`
     );
-    expectedNames.forEach((name) => expect(names).toContain(name));
+    expectedNames.forEach(name => expect(names).toContain(name));
   });
 });

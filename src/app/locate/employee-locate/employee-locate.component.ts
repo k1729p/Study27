@@ -48,7 +48,7 @@ interface CompanyNode {
   imports: [MatDialogActions, MatDialogClose, MatDialogContent, MatDialogTitle],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-class WarningMesssageDialog {}
+class WarningMesssageDialog { }
 
 /**
  * EmployeeLocateComponent is an Angular component that locates employees.
@@ -118,9 +118,8 @@ export class EmployeeLocateComponent implements OnInit {
    * and sets up the employeeNames observable for the autocomplete functionality.
    */
   ngOnInit() {
-    this.dataSource = this.departmentService
-      .getDepartmentArray()
-      .map((department) => this.loadDepartmentData(department));
+    this.dataSource = this.departmentService.getDepartments()
+      .map(department => this.loadDepartmentData(department));
     this.employeeNames = this.loadEmployeeNames();
     console.log(
       'EmployeeLocateComponent.ngOnInit() dataSource:',
@@ -147,9 +146,9 @@ export class EmployeeLocateComponent implements OnInit {
       console.warn('EmployeeLocateComponent.locateEmployee(): employee with name[%s] not found', name);
       return;
     }
-    expandedNodes.forEach((node) => {
+    expandedNodes.forEach(node => {
       this.tree.expand(node);
-      console.log('EmployeeLocateComponent.locateEmployee(): employee name[%s]', node.name);
+      console.log('EmployeeLocateComponent.locateEmployee(): node type[%s], node name[%s]', node.type, node.name);
     });
   }
 
@@ -160,7 +159,7 @@ export class EmployeeLocateComponent implements OnInit {
    * representing the department's employees.
    * Each employee is represented as a 'person' node with their full name,
    * and has children nodes for their phone and email.
-   * The top-level node represents the department itself with a type of 'business'.
+   * The top-level node represents the department itself.
    * It returns an object of type CompanyNode that represents the department
    * and its employees, structured in a way that can be used by the MatTree component
    * to display the hierarchy.
@@ -169,10 +168,9 @@ export class EmployeeLocateComponent implements OnInit {
    * @returns {CompanyNode} An object representing the department and its employees.
    */
   private loadDepartmentData(department: Department) {
-    const employeeArray: Employee[] =
-      this.employeeService.getEmployeeArray()[department.id - 1] || [];
+    const employees = this.employeeService.getEmployees(department.id);
     const groupedByTitle: Record<string, Employee[]> = {};
-    for (const employee of employeeArray) {
+    for (const employee of employees) {
       const title = employee.title ?? 'Unknown';
       if (!groupedByTitle[title]) groupedByTitle[title] = [];
       groupedByTitle[title].push(employee);
@@ -181,7 +179,7 @@ export class EmployeeLocateComponent implements OnInit {
       this.groupByTitle(groupedByTitle);
     return {
       name: department.name,
-      type: 'account_balance',
+      type: 'department-name',
       children: groupedByTitleNodes,
     };
   }
@@ -218,13 +216,13 @@ export class EmployeeLocateComponent implements OnInit {
       })
       .map(([title, employees]) => ({
         name: title + 's',
-        type: 'group',
+        type: 'employee-title',
         children: employees.map((employee) => ({
           name: employee.firstName + ' ' + employee.lastName,
-          type: 'person',
+          type: 'employee-name',
           children: [
-            { name: employee.phone, type: 'call' },
-            { name: employee.mail, type: 'alternate_email' },
+            { name: employee.phone, type: 'employee-phone' },
+            { name: employee.mail, type: 'employee-mail' },
           ],
         })),
       }));
@@ -249,9 +247,9 @@ export class EmployeeLocateComponent implements OnInit {
     );
   }
   /**
-   * Collects the names of all person nodes in the tree.
+   * Collects the names of all employee nodes in the tree.
    * This function traverses the tree recursively and collects the names
-   * of all nodes that are of type 'person'.
+   * of all nodes that are of type 'employee-name'.
    *
    * @param nodes - The array of nodes to search.
    * @param acc - The accumulator array to collect names.
@@ -262,7 +260,7 @@ export class EmployeeLocateComponent implements OnInit {
     acc: string[] = []
   ): string[] {
     for (const node of nodes) {
-      if (node.type === 'person' && node.name) {
+      if (node.type === 'employee-name' && node.name) {
         acc.push(node.name);
       }
       if (node.children) {

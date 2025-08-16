@@ -31,6 +31,7 @@ import { MatSelectModule } from '@angular/material/select';
 
 import { Department } from 'models/department';
 import { DepartmentService } from 'services/department-service/department.service';
+
 /**
  * DepartmentFormComponent is an Angular component that provides a form for creating, updating, or deleting a department.
  * It uses Angular Material components for UI elements and Reactive Forms for form handling.
@@ -139,6 +140,7 @@ export class DepartmentFormComponent implements OnInit {
       const department: Department = {
         id: -1,
         name: this.departmentForm.get('name')?.value ?? '',
+        employees: [],
         startDate: this.departmentForm.get('startDate')?.value ?? undefined,
         endDate: this.departmentForm.get('endDate')?.value ?? undefined,
         notes: this.departmentForm.get('notes')?.value ?? '',
@@ -160,6 +162,7 @@ export class DepartmentFormComponent implements OnInit {
       const department: Department = {
         id: +this.id,
         name: this.departmentForm.get('name')?.value ?? '',
+        employees: [],
         startDate: this.departmentForm.get('startDate')?.value ?? undefined,
         endDate: this.departmentForm.get('endDate')?.value ?? undefined,
         notes: this.departmentForm.get('notes')?.value ?? '',

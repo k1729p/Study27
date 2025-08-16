@@ -103,6 +103,7 @@ describe('DepartmentFormComponent', () => {
     expect(departmentService.createDepartment).toHaveBeenCalledWith({
       id: -1,
       name: TEST_DEPARTMENTS[0].name,
+      employees: [],
       startDate: TEST_DEPARTMENTS[0].startDate,
       endDate: TEST_DEPARTMENTS[0].endDate,
       notes: TEST_DEPARTMENTS[0].notes,
@@ -141,6 +142,7 @@ describe('DepartmentFormComponent', () => {
     expect(departmentService.updateDepartment).toHaveBeenCalledWith({
       id: TEST_DEPARTMENT_ID,
       name: TEST_DEPARTMENTS[0].name,
+      employees: [],
       startDate: TEST_DEPARTMENTS[0].startDate,
       endDate: TEST_DEPARTMENTS[0].endDate,
       notes: TEST_DEPARTMENTS[0].notes,

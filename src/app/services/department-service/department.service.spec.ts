@@ -10,16 +10,16 @@ import { DepartmentService } from './department.service';
  * that the {@link DepartmentService} can be instantiated and functions correctly.
  */
 describe('DepartmentService', () => {
-  let service: DepartmentService;
+  let departmentService: DepartmentService;
   /**
    * Sets up the testing module for the DepartmentService.
    * This is necessary to provide the service and any dependencies it may have.
    */
   beforeEach(() => {
     TestBed.configureTestingModule({});
-    service = TestBed.inject(DepartmentService);
+    departmentService = TestBed.inject(DepartmentService);
     // reseting data for tests
-    service.setDepartmentArray([]);
+    departmentService.setDepartments([]);
   });
   /**
    * Tests the creation of the DepartmentService.
@@ -27,7 +27,7 @@ describe('DepartmentService', () => {
    * and is available for use in the application.
    */
   it('should be created', () => {
-    expect(service).toBeTruthy();
+    expect(departmentService).toBeTruthy();
   });
   /**
    * Tests the retrieval of the initial department array.
@@ -36,9 +36,9 @@ describe('DepartmentService', () => {
    */
   it('should return initial departments on getDepartmentArray()', () => {
     // GIVEN
-    service.setDepartmentArray(TEST_DEPARTMENTS);
+    departmentService.setDepartments(TEST_DEPARTMENTS);
     // WHEN
-    const actualDepartments = service.getDepartmentArray();
+    const actualDepartments = departmentService.getDepartments();
     // THEN
     checkDepartments(actualDepartments);
   });
@@ -49,9 +49,9 @@ describe('DepartmentService', () => {
    */
   it('should get a department by id', () => {
     // GIVEN
-    service.setDepartmentArray(TEST_DEPARTMENTS);
+    departmentService.setDepartments(TEST_DEPARTMENTS);
     // WHEN
-    const department = service.getDepartment(TEST_DEPARTMENT_ID);
+    const department = departmentService.getDepartment(TEST_DEPARTMENT_ID);
     // THEN
     expect(department).toBeDefined();
     expect(department?.id).toBe(TEST_DEPARTMENT_ID);
@@ -65,9 +65,9 @@ describe('DepartmentService', () => {
   it('should create a new department', () => {
     // GIVEN
     // WHEN
-    service.createDepartment(TEST_DEPARTMENTS[0]);
+    departmentService.createDepartment(TEST_DEPARTMENTS[0]);
     // THEN
-    checkDepartments(service.getDepartmentArray());
+    checkDepartments(departmentService.getDepartments());
   });
   /**
    * Tests the update functionality of an existing department.
@@ -76,12 +76,12 @@ describe('DepartmentService', () => {
    */
   it('should update an existing department', () => {
     // GIVEN
-    service.setDepartmentArray(TEST_DEPARTMENTS);
+    departmentService.setDepartments(TEST_DEPARTMENTS);
     const updatedDepartment = { ...TEST_DEPARTMENTS[0], name: 'Updated Name' };
     // WHEN
-    service.updateDepartment(updatedDepartment);
+    departmentService.updateDepartment(updatedDepartment);
     // THEN
-    const actualUpdated = service.getDepartment(TEST_DEPARTMENT_ID);
+    const actualUpdated = departmentService.getDepartment(TEST_DEPARTMENT_ID);
     expect(actualUpdated?.name).toBe('Updated Name');
   });
   /**
@@ -92,11 +92,11 @@ describe('DepartmentService', () => {
    */
   it('should delete a department', () => {
     // GIVEN
-    service.setDepartmentArray(TEST_DEPARTMENTS);
+    departmentService.setDepartments(TEST_DEPARTMENTS);
     // WHEN
-    service.deleteDepartment(TEST_DEPARTMENT_ID);
+    departmentService.deleteDepartment(TEST_DEPARTMENT_ID);
     // THEN
-    const actualDepartment = service.getDepartment(TEST_DEPARTMENT_ID);
+    const actualDepartment = departmentService.getDepartment(TEST_DEPARTMENT_ID);
     expect(actualDepartment).toBeUndefined();
   });
   /**

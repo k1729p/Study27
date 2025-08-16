@@ -1,8 +1,10 @@
 import { Injectable, InjectionToken, inject } from '@angular/core';
+// !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! import { HttpClient } from '@angular/common/http';
 
 import { Department } from 'models/department';
-import { EmployeeService } from 'services/employee-service/employee.service';
-import { DEPARTMENTS } from 'services/initial-data';
+import { Employee } from 'models/employee';
+import { RepositoryType, ENDPOINTS } from 'services/backend-endpoints.constants';
+import { BACKEND_INITIAL_DATA } from 'services/backend-initial-data';
 /**
  * Injection token for browser storage.
  * This token is used to inject the browser's localStorage into services that require it.
@@ -22,13 +24,14 @@ export const BROWSER_STORAGE = new InjectionToken<Storage>('Browser Storage', {
 })
 export class DepartmentService {
   storage = inject<Storage>(BROWSER_STORAGE);
-  private employeeService = inject(EmployeeService);
+// !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!   http = inject(HttpClient);
 
   /**
    * Parameterless constructor.
    */
   constructor() {
-    this.storage.setItem('departments', JSON.stringify(DEPARTMENTS));
+    this.storage.setItem('departments', JSON.stringify(BACKEND_INITIAL_DATA.departments));
+    this.storage.setItem('repositoryType', RepositoryType.WebStorage);
   }
 
   /**
@@ -40,7 +43,10 @@ export class DepartmentService {
    *
    * @returns an array of Department objects
    */
-  getDepartmentArray(): Department[] {
+  getDepartments(): Department[] {
+
+    //this.aaaaa();// ####################################################################################
+
     const json = this.storage.getItem('departments') ?? '';
     return JSON.parse(json) as Department[];
   }
@@ -48,11 +54,11 @@ export class DepartmentService {
    * Sets the department array.
    * Converts an array of departments to a JSON string and puts it in the storage.
    *
-   * @param departmentArray the array of departments to be stored
+   * @param departments the array of departments to be stored
    * @returns void
    */
-  setDepartmentArray(departmentArray: Department[]) {
-    const json = JSON.stringify(departmentArray) ?? '';
+  setDepartments(departments: Department[]) {
+    const json = JSON.stringify(departments) ?? '';
     this.storage.setItem('departments', json);
   }
   /**
@@ -64,9 +70,9 @@ export class DepartmentService {
    * @returns the Department object if found, otherwise undefined
    */
   getDepartment(id: number): Department | undefined {
-    const departmentArray = this.getDepartmentArray();
+    const departments = this.getDepartments();
     console.log('DepartmentService.getDepartment(): id[%d]', id);
-    return departmentArray.find((department) => department.id === id);
+    return departments.find((department) => department.id === id);
   }
   /**
    * Creates a new department.
@@ -77,23 +83,21 @@ export class DepartmentService {
    * @return void
    */
   createDepartment(department: Department) {
-    const departmentArray = this.getDepartmentArray();
-    if (departmentArray.length === 0) {
+    const departments = this.getDepartments();
+    if (departments.length === 0) {
       department.id = 1;
-      this.setDepartmentArray([department]);
+      this.setDepartments([department]);
       console.log(
         'DepartmentService.createDepartment(): id[%d]',
         department.id
       );
       return;
     }
-    department.id =
-      departmentArray
-        .map((dep) => dep?.id ?? 0)
-        .reduce((id1, id2) => Math.max(id1, id2)) + 1;
-    departmentArray.push(department);
+    department.id = departments.map(dep => dep?.id ?? 0)
+      .reduce((id1, id2) => Math.max(id1, id2)) + 1;
+    departments.push(department);
     console.log('DepartmentService.createDepartment(): id[%d]', department.id);
-    this.setDepartmentArray(departmentArray);
+    this.setDepartments(departments);
   }
   /**
    * Updates an existing department.
@@ -103,11 +107,12 @@ export class DepartmentService {
    * @returns void
    */
   updateDepartment(department: Department) {
-    const departmentArray = this.getDepartmentArray();
-    const index = departmentArray.findIndex((dep) => dep.id === department.id);
-    departmentArray[index] = department;
+    const departments = this.getDepartments();
+    const index = departments.findIndex(dep => dep.id === department.id);
+    department.employees = departments[index].employees;
+    departments[index] = department;
     console.log('DepartmentService.updateDepartment(): id[%d]', department.id);
-    this.setDepartmentArray(departmentArray);
+    this.setDepartments(departments);
   }
   /**
    * Deletes a department by its id.
@@ -118,17 +123,189 @@ export class DepartmentService {
    * @returns void
    */
   deleteDepartment(id: number) {
-    const departmentArray = this.getDepartmentArray();
-    const index = departmentArray.findIndex((dep) => dep.id === id);
-    departmentArray.splice(index, 1);
-    this.setDepartmentArray(departmentArray);
-
-    const employeeArray = this.employeeService.getEmployeeArray()[index];
-    for (const employee of employeeArray.values()) {
-      if (employee) {
-        this.employeeService.deleteEmployee(id, employee.id);
-      }
-    }
+    const departments = this.getDepartments();
+    const index = departments.findIndex((dep) => dep.id === id);
+    departments.splice(index, 1);
+    this.setDepartments(departments);
     console.log('DepartmentService.deleteDepartment(): id[%d]', id);
   }
+
+
+  // private async aaaaa() {
+  //   const repositoryType = RepositoryType.PostgreSQL;
+  //   this.http.get<Department[]>(ENDPOINTS.getDepartments(repositoryType)).subscribe(
+  //     {
+  //       next: departments => {
+  //         console.log('2. getting departments, array length[%s]', departments.length);
+  //       },
+  //       error: err => {
+  //         console.log('Error occurred while reading:', err);
+  //       }
+  //     }
+  //   );
+  //   await this.delay(100);
+  //   let departmentId = 1;
+  //   this.http.get<Department>(ENDPOINTS.getDepartmentById(departmentId, repositoryType)).subscribe(
+  //     {
+  //       next: department => {
+  //         console.log('3. getting department[%s]', JSON.stringify(department));
+  //       },
+  //       error: err => {
+  //         console.log('Error occurred while reading:', err);
+  //       }
+  //     }
+  //   );
+  //   await this.delay(100);
+  //   this.http.get<Employee[]>(ENDPOINTS.getEmployees(repositoryType)).subscribe(
+  //     {
+  //       next: employees => {
+  //         console.log('4. getting employees, array length[%s]', employees.length);
+  //       },
+  //       error: err => {
+  //         console.log('Error occurred while reading:', err);
+  //       }
+  //     }
+  //   );
+  //   await this.delay(100);
+  //   let employeeId = 1;
+  //   this.http.get<Employee>(ENDPOINTS.getEmployeeById(employeeId, repositoryType)).subscribe(
+  //     {
+  //       next: employee => {
+  //         console.log('5. getting employee[%s]', JSON.stringify(employee));
+  //       },
+  //       error: err => {
+  //         console.log('Error occurred while reading:', err);
+  //       }
+  //     }
+  //   );
+  //   await this.delay(100);
+  //   this.http.post(ENDPOINTS.createDepartment(repositoryType), CREATED_DEPARTMENT).subscribe(
+  //     {
+  //       next: () => {
+  //         console.log('6. creating department:');
+  //       },
+  //       error: err => {
+  //         console.log('Error occurred while creating department:', err);
+  //       }
+  //     }
+  //   );
+  //   await this.delay(100);
+  //   this.http.post(ENDPOINTS.createEmployee(repositoryType), CREATED_EMPLOYEE).subscribe(
+  //     {
+  //       next: () => {
+  //         console.log('7. creating employee:');
+  //       },
+  //       error: err => {
+  //         console.log('Error occurred while creating employee:', err);
+  //       }
+  //     }
+  //   );
+  //   await this.delay(100);
+  //   departmentId = 12345;
+  //   this.http.patch(ENDPOINTS.updateDepartment(departmentId, repositoryType), UPDATED_DEPARTMENT).subscribe(
+  //     {
+  //       next: () => {
+  //         console.log('8. updating department:');
+  //       },
+  //       error: err => {
+  //         console.log('Error occurred while updating department:', err);
+  //       }
+  //     }
+  //   );
+  //   await this.delay(100);
+  //   employeeId = 67890;
+  //   this.http.patch(ENDPOINTS.updateEmployee(employeeId, repositoryType), UPDATED_EMPLOYEE).subscribe(
+  //     {
+  //       next: () => {
+  //         console.log('9. updating employee:');
+  //       },
+  //       error: err => {
+  //         console.log('Error occurred while updating employee:', err);
+  //       }
+  //     }
+  //   );
+  //   await this.delay(100);
+  //   this.http.delete(ENDPOINTS.deleteEmployee(employeeId, repositoryType)).subscribe(
+  //     {
+  //       next: () => {
+  //         console.log('10. deleting employee:');
+  //       },
+  //       error: err => {
+  //         console.log('Error occurred while deleting employee:', err);
+  //       }
+  //     }
+  //   );
+  //   await this.delay(100);
+  //   this.http.delete(ENDPOINTS.deleteDepartment(departmentId, repositoryType)).subscribe(
+  //     {
+  //       next: () => {
+  //         console.log('11. deleting department:');
+  //       },
+  //       error: err => {
+  //         console.log('Error occurred while deleting department:', err);
+  //       }
+  //     }
+  //   );
+  // }
+  /**
+   * This function creates a delay for a specified time.
+   * @param time - The time in milliseconds to delay.
+   * @returns A promise that resolves after the specified delay.
+   */
+  private delay(time: number) {
+    return new Promise(resolve => setTimeout(resolve, time));
+  }
 }
+
+const CREATED_DEPARTMENT = {
+  "id": 12345,
+  "name": "D-Name-CREATE",
+  "keywords": [
+    "Banking"
+  ],
+  "notes": "Test note",
+  "startDate": "2020-01-20T00:00:00.000Z",
+  "endDate": "2020-02-14T00:00:00.000Z",
+  "image": "images/building.jpg"
+};
+const UPDATED_DEPARTMENT = {
+  "id": 12345,
+  "name": "D-Name-UPDATE",
+  "keywords": [
+    "Banking"
+  ],
+  "notes": "Test note",
+  "startDate": "2020-01-20T00:00:00.000Z",
+  "endDate": "2020-02-14T00:00:00.000Z",
+  "image": "images/building.jpg"
+};
+const CREATED_EMPLOYEE = {
+  "id": 67890,
+  "departmentId": 12345,
+  "firstName": "EF-Name-CREATE",
+  "lastName": "EL-Name-CREATE",
+  "title": "Manager",
+  "phone": "+1 123-456-7890",
+  "mail": "user@example.com",
+  "streetName": "Main Street",
+  "houseNumber": "1",
+  "postalCode": "20500",
+  "locality": "Washington",
+  "province": "DC",
+  "country": "United States"
+};
+const UPDATED_EMPLOYEE = {
+  "id": 67890,
+  "departmentId": 12345,
+  "firstName": "EF-Name-UPDATE",
+  "lastName": "EL-Name-UPDATE",
+  "title": "Manager",
+  "phone": "+1 123-456-7890",
+  "mail": "user@example.com",
+  "streetName": "Main Street",
+  "houseNumber": "1",
+  "postalCode": "20500",
+  "locality": "Washington",
+  "province": "DC",
+  "country": "United States"
+};

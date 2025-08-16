@@ -30,7 +30,7 @@
         <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
         <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
       </table>
-      <mat-paginator #paginator [length]="dataSource.employeeArr.length" [pageIndex]="0" [pageSize]="5"
+      <mat-paginator #paginator [length]="dataSource.employees.length" [pageIndex]="0" [pageSize]="5"
         [pageSizeOptions]="[5, 10, 20]" aria-label="Select page">
       </mat-paginator>
     </div>

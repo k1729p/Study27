@@ -3,9 +3,10 @@ import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { ActivatedRoute } from '@angular/router';
 import { of } from 'rxjs';
 
+import { DepartmentService } from 'services/department-service/department.service';
 import { EmployeeFormComponent } from './employee-form.component';
 import {
-  TEST_EMPLOYEES,
+  TEST_DEPARTMENTS,
   TEST_DEPARTMENT_ID,
   TEST_EMPLOYEE_ID,
 } from 'testing/test-data';
@@ -40,6 +41,10 @@ describe('EmployeeFormComponent', () => {
    * Initializes the component and its dependencies before each test.
    */
   beforeEach(() => {
+    // reseting data for tests
+    const departmentService = TestBed.inject(DepartmentService);
+    departmentService.setDepartments(TEST_DEPARTMENTS);
+
     fixture = TestBed.createComponent(EmployeeFormComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
@@ -101,41 +106,22 @@ describe('EmployeeFormComponent', () => {
     spyOn(employeeService, 'createEmployee');
     component.operation = 'CREATE';
     component.departmentId = TEST_DEPARTMENT_ID.toString();
-    component.employeeForm.controls['firstName'].setValue(
-      TEST_EMPLOYEES[0][0].firstName
-    );
-    component.employeeForm.controls['lastName'].setValue(
-      TEST_EMPLOYEES[0][0].lastName
-    );
-    component.employeeForm.controls['title'].setValue(
-      TEST_EMPLOYEES[0][0].title
-    );
-    component.employeeForm.controls['phone'].setValue(
-      TEST_EMPLOYEES[0][0].phone
-    );
-    component.employeeForm.controls['mail'].setValue(TEST_EMPLOYEES[0][0].mail);
-    component.employeeForm.controls['streetName'].setValue(
-      TEST_EMPLOYEES[0][0].streetName ?? ''
-    );
-    component.employeeForm.controls['houseNumber'].setValue(
-      TEST_EMPLOYEES[0][0].houseNumber ?? ''
-    );
-    component.employeeForm.controls['postalCode'].setValue(
-      TEST_EMPLOYEES[0][0].postalCode ?? ''
-    );
-    component.employeeForm.controls['locality'].setValue(
-      TEST_EMPLOYEES[0][0].locality ?? ''
-    );
-    component.employeeForm.controls['province'].setValue(
-      TEST_EMPLOYEES[0][0].province ?? ''
-    );
-    component.employeeForm.controls['country'].setValue(
-      TEST_EMPLOYEES[0][0].country ?? ''
-    );
+    const testEmployee = TEST_DEPARTMENTS[0].employees[0];
+    component.employeeForm.controls['firstName'].setValue(testEmployee.firstName);
+    component.employeeForm.controls['lastName'].setValue(testEmployee.lastName);
+    component.employeeForm.controls['title'].setValue(testEmployee.title);
+    component.employeeForm.controls['phone'].setValue(testEmployee.phone);
+    component.employeeForm.controls['mail'].setValue(testEmployee.mail);
+    component.employeeForm.controls['streetName'].setValue(testEmployee.streetName ?? '');
+    component.employeeForm.controls['houseNumber'].setValue(testEmployee.houseNumber ?? '');
+    component.employeeForm.controls['postalCode'].setValue(testEmployee.postalCode ?? '');
+    component.employeeForm.controls['locality'].setValue(testEmployee.locality ?? '');
+    component.employeeForm.controls['province'].setValue(testEmployee.province ?? '');
+    component.employeeForm.controls['country'].setValue(testEmployee.country ?? '');
     // WHEN
     component.onSubmit();
     // THEN
-    const TEST_EMPLOYEE_CREATED = { ...TEST_EMPLOYEES[0][0], id: -1 };
+    const TEST_EMPLOYEE_CREATED = { ...testEmployee, id: -1 };
     expect(employeeService.createEmployee).toHaveBeenCalledWith(
       TEST_DEPARTMENT_ID,
       jasmine.objectContaining(TEST_EMPLOYEE_CREATED)
@@ -155,46 +141,25 @@ describe('EmployeeFormComponent', () => {
     });
     // Mock employeeService.getEmployee
     const employeeService = component.employeeService;
-    spyOn(employeeService, 'getEmployee').and.returnValue(TEST_EMPLOYEES[0][0]);
+    const testEmployee = TEST_DEPARTMENTS[0].employees[0];
+    spyOn(employeeService, 'getEmployee').and.returnValue(testEmployee);
     // WHEN
     component.ngOnInit();
     // THEN
     expect(component.operation).toBe('UPDATE');
     expect(component.formTitle).toBe('Update Employee');
     expect(component.buttonLabel).toBe('Update');
-    expect(component.employeeForm.get('firstName')?.value).toBe(
-      TEST_EMPLOYEES[0][0].firstName
-    );
-    expect(component.employeeForm.get('lastName')?.value).toBe(
-      TEST_EMPLOYEES[0][0].lastName
-    );
-    expect(component.employeeForm.get('title')?.value).toBe(
-      TEST_EMPLOYEES[0][0].title
-    );
-    expect(component.employeeForm.get('phone')?.value).toBe(
-      TEST_EMPLOYEES[0][0].phone
-    );
-    expect(component.employeeForm.get('mail')?.value).toBe(
-      TEST_EMPLOYEES[0][0].mail
-    );
-    expect(component.employeeForm.get('streetName')?.value).toBe(
-      TEST_EMPLOYEES[0][0].streetName
-    );
-    expect(component.employeeForm.get('houseNumber')?.value).toBe(
-      TEST_EMPLOYEES[0][0].houseNumber
-    );
-    expect(component.employeeForm.get('postalCode')?.value).toBe(
-      TEST_EMPLOYEES[0][0].postalCode
-    );
-    expect(component.employeeForm.get('locality')?.value).toBe(
-      TEST_EMPLOYEES[0][0].locality
-    );
-    expect(component.employeeForm.get('province')?.value).toBe(
-      TEST_EMPLOYEES[0][0].province
-    );
-    expect(component.employeeForm.get('country')?.value).toBe(
-      TEST_EMPLOYEES[0][0].country
-    );
+    expect(component.employeeForm.get('firstName')?.value).toBe(testEmployee.firstName);
+    expect(component.employeeForm.get('lastName')?.value).toBe(testEmployee.lastName);
+    expect(component.employeeForm.get('title')?.value).toBe(testEmployee.title);
+    expect(component.employeeForm.get('phone')?.value).toBe(testEmployee.phone);
+    expect(component.employeeForm.get('mail')?.value).toBe(testEmployee.mail);
+    expect(component.employeeForm.get('streetName')?.value).toBe(testEmployee.streetName);
+    expect(component.employeeForm.get('houseNumber')?.value).toBe(testEmployee.houseNumber);
+    expect(component.employeeForm.get('postalCode')?.value).toBe(testEmployee.postalCode);
+    expect(component.employeeForm.get('locality')?.value).toBe(testEmployee.locality);
+    expect(component.employeeForm.get('province')?.value).toBe(testEmployee.province);
+    expect(component.employeeForm.get('country')?.value).toBe(testEmployee.country);
   });
 
   /**
@@ -207,13 +172,25 @@ describe('EmployeeFormComponent', () => {
     component.operation = 'UPDATE';
     component.departmentId = TEST_DEPARTMENT_ID.toString();
     component.id = TEST_EMPLOYEE_ID.toString();
-    component.employeeForm.patchValue(TEST_EMPLOYEES[0][0]);
+    const testEmployee = TEST_DEPARTMENTS[0].employees[0];
+    component.employeeForm.controls.departmentId.setValue(testEmployee.departmentId.toString());
+    component.employeeForm.controls.firstName.setValue(testEmployee.firstName);
+    component.employeeForm.controls.lastName.setValue(testEmployee.lastName);
+    component.employeeForm.controls.title.setValue(testEmployee.title);
+    component.employeeForm.controls.phone.setValue(testEmployee.phone);
+    component.employeeForm.controls.mail.setValue(testEmployee.mail);
+    component.employeeForm.controls.streetName.setValue(testEmployee.streetName ? testEmployee.streetName : '');
+    component.employeeForm.controls.houseNumber.setValue(testEmployee.houseNumber ? testEmployee.houseNumber : '');
+    component.employeeForm.controls.postalCode.setValue(testEmployee.postalCode ? testEmployee.postalCode : '');
+    component.employeeForm.controls.locality.setValue(testEmployee.locality ? testEmployee.locality : '');
+    component.employeeForm.controls.province.setValue(testEmployee.province ? testEmployee.province : '');
+    component.employeeForm.controls.country.setValue(testEmployee.country ? testEmployee.country : '');
     // WHEN
     component.onSubmit();
     // THEN
     expect(employeeService.updateEmployee).toHaveBeenCalledWith(
       TEST_DEPARTMENT_ID,
-      jasmine.objectContaining(TEST_EMPLOYEES[0][0])
+      jasmine.objectContaining(testEmployee)
     );
   });
 
@@ -263,19 +240,12 @@ describe('EmployeeFormComponent', () => {
     // GIVEN
     component.employeeForm.reset();
     // WHEN
-    component.employeeForm.controls['firstName'].setValue(
-      TEST_EMPLOYEES[0][0].firstName
-    );
-    component.employeeForm.controls['lastName'].setValue(
-      TEST_EMPLOYEES[0][0].lastName
-    );
-    component.employeeForm.controls['title'].setValue(
-      TEST_EMPLOYEES[0][0].title
-    );
-    component.employeeForm.controls['phone'].setValue(
-      TEST_EMPLOYEES[0][0].phone
-    );
-    component.employeeForm.controls['mail'].setValue(TEST_EMPLOYEES[0][0].mail);
+    const testEmployee = TEST_DEPARTMENTS[0].employees[0];
+    component.employeeForm.controls['firstName'].setValue(testEmployee.firstName);
+    component.employeeForm.controls['lastName'].setValue(testEmployee.lastName);
+    component.employeeForm.controls['title'].setValue(testEmployee.title);
+    component.employeeForm.controls['phone'].setValue(testEmployee.phone);
+    component.employeeForm.controls['mail'].setValue(testEmployee.mail);
     // THEN
     expect(component.employeeForm.valid).toBeTrue();
   });

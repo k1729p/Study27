@@ -14,7 +14,7 @@ import { EmployeeService } from 'services/employee-service/employee.service';
  */
 export class EmployeeDataSource extends DataSource<Employee> {
   private employeeService: EmployeeService = inject(EmployeeService);
-  employeeArr: Employee[] = [];
+  employees: Employee[] = [];
   paginator: MatPaginator | undefined;
   sort: MatSort | undefined;
   departmentId = 0;
@@ -26,8 +26,7 @@ export class EmployeeDataSource extends DataSource<Employee> {
    */
   setDepartmentId(departmentId: number) {
     this.departmentId = departmentId;
-    this.employeeArr =
-      this.employeeService.getEmployeeArray()[departmentId - 1];
+    this.employees = this.employeeService.getEmployees(departmentId);
   }
 
   /**
@@ -49,11 +48,11 @@ export class EmployeeDataSource extends DataSource<Employee> {
     // Combine everything that affects the rendered data into one update
     // stream for the data-table to consume.
     return merge(
-      observableOf(this.employeeArr),
+      observableOf(this.employees),
       this.paginator.page,
       this.sort.sortChange
     ).pipe(
-      map(() => this.getPagedData(this.getSortedData([...this.employeeArr])))
+      map(() => this.getPagedData(this.getSortedData([...this.employees])))
     );
   }
 
@@ -72,29 +71,29 @@ export class EmployeeDataSource extends DataSource<Employee> {
    * Paginates the data (client-side). If you're using server-side pagination,
    * this would be replaced by requesting the appropriate data from the server.
    *
-   * @param employeeArr The array of employees to be paginated.
+   * @param employees The array of employees to be paginated.
    * @returns The paginated array of employees.
    */
-  private getPagedData(employeeArr: Employee[]): Employee[] {
+  private getPagedData(employees: Employee[]): Employee[] {
     if (!this.paginator) {
-      return employeeArr;
+      return employees;
     }
     const startIndex = this.paginator.pageIndex * this.paginator.pageSize;
-    return employeeArr.splice(startIndex, this.paginator.pageSize);
+    return employees.splice(startIndex, this.paginator.pageSize);
   }
 
   /**
    * Sorts the data (client-side). If you're using server-side sorting,
    * this would be replaced by requesting the appropriate data from the server.
    *
-   * @param employeeArr The array of employees to be sorted.
+   * @param employees The array of employees to be sorted.
    * @returns The sorted array of employees.
    */
-  private getSortedData(employeeArr: Employee[]): Employee[] {
+  private getSortedData(employees: Employee[]): Employee[] {
     if (!this.sort || !this.sort.active || this.sort.direction === '') {
-      return employeeArr;
+      return employees;
     }
-    return employeeArr.sort((a, b) => {
+    return employees.sort((a, b) => {
       const isAsc = this.sort?.direction === 'asc';
       switch (this.sort?.active) {
         case 'id':

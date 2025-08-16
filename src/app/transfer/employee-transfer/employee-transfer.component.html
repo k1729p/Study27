@@ -20,7 +20,7 @@
               <mat-form-field appearance="outline">
                 <mat-select formControlName="leftSideSelect" [value]="leftSideForm.get('leftSideSelect')?.value"
                   (selectionChange)="selectDepartment('LEFT-SIDE', $event.value.id)">
-                  @for (department of departmentArray; track department) {
+                  @for (department of departments; track department) {
                   <mat-option [value]="department">{{ department.name }}</mat-option>
                   }
                 </mat-select>
@@ -94,7 +94,7 @@
               <mat-form-field appearance="outline">
                 <mat-select formControlName="rightSideSelect" [value]="rightSideForm.get('rightSideSelect')?.value"
                   (selectionChange)="selectDepartment('RIGHT-SIDE', $event.value.id)">
-                  @for (department of departmentArray; track department) {
+                  @for (department of departments; track department) {
                   <mat-option [value]="department">{{ department.name }}</mat-option>
                   }
                 </mat-select>
