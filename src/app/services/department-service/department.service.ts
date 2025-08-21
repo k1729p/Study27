@@ -1,5 +1,8 @@
-import { Injectable, InjectionToken, inject } from '@angular/core';
-// !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! import { HttpClient } from '@angular/common/http';
+import { Injectable, InjectionToken, inject, Signal } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
+import { Observable, of as observableOf, interval } from 'rxjs';
+import { toSignal } from '@angular/core/rxjs-interop';
+import { catchError, finalize, map, startWith } from 'rxjs/operators';
 
 import { Department } from 'models/department';
 import { Employee } from 'models/employee';
@@ -23,8 +26,36 @@ export const BROWSER_STORAGE = new InjectionToken<Storage>('Browser Storage', {
   providedIn: 'root',
 })
 export class DepartmentService {
+
+  // ###################################################################################################### REMOVE THAT
+  // vvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvv
+  // ######################################################################################################
+  getDepartments(): Department[] {
+    const repositoryType = this.storage.getItem('repositoryType') as RepositoryType;
+    if (RepositoryType.WebStorage == repositoryType) {
+      const json = this.storage.getItem('departments') ?? '';
+      console.log('DepartmentService.getDepartments(): RepositoryType WebStorage');
+      return JSON.parse(json) as Department[];
+    }
+    this.http.get<Department[]>(ENDPOINTS.getDepartments(repositoryType)).subscribe(
+      {
+        next: deps => {
+          console.log('DepartmentService.getDepartments(): repositoryType[%s]', repositoryType);
+        },
+        error: err => {
+          console.log('DepartmentService.getDepartments(): repositoryType[%s], error[%s]', repositoryType, err);
+        }
+      }
+    );
+    return [];
+  }
+  // ######################################################################################################
+  // ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  // ######################################################################################################
+
+
   storage = inject<Storage>(BROWSER_STORAGE);
-// !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!   http = inject(HttpClient);
+  http = inject(HttpClient);
 
   /**
    * Parameterless constructor.
@@ -35,21 +66,25 @@ export class DepartmentService {
   }
 
   /**
-   * Gets the department array.
-   * Retrieves the department array from local storage,
-   * parses it from JSON format,
-   * and returns it as an array of Department objects.
-   * If the storage is empty, it returns an empty array.
+   * Gets the signal with the department array.
    *
-   * @returns an array of Department objects
+   * @returns a signal with an array of Department objects
    */
-  getDepartments(): Department[] {
-
-    //this.aaaaa();// ####################################################################################
-
-    const json = this.storage.getItem('departments') ?? '';
-    return JSON.parse(json) as Department[];
+  getDepartmentsSignal(): Signal<Department[] | undefined> {
+    const repositoryType: RepositoryType = RepositoryType.PostgreSQL; // <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<< !!!!!!!!!!
+    // const repositoryType = this.storage.getItem('repositoryType') as RepositoryType; // <<<<<<<<<<<<<<<<<<<< !!!!!!!!!!
+    const departmentsObservable: Observable<Department[]> = this.http.get<Department[]>(ENDPOINTS.getDepartments(repositoryType))
+      .pipe(
+        catchError(err => {
+          console.log('DepartmentService.getDepartmentsSignal(): repositoryType[%s], error[%s]', repositoryType, err);
+          return observableOf([]); // fallback to empty array
+        }),
+        finalize(() => console.log('🔵 HTTP Client Finalize'))
+      );
+    console.log('DepartmentService.getDepartmentsSignal(): repositoryType[%s]', repositoryType);
+    return toSignal(departmentsObservable, { initialValue: [] });
   }
+
   /**
    * Sets the department array.
    * Converts an array of departments to a JSON string and puts it in the storage.
@@ -58,8 +93,14 @@ export class DepartmentService {
    * @returns void
    */
   setDepartments(departments: Department[]) {
-    const json = JSON.stringify(departments) ?? '';
-    this.storage.setItem('departments', json);
+    const repositoryType = this.storage.getItem('repositoryType') as RepositoryType;
+    if (RepositoryType.WebStorage == repositoryType) {
+      const json = JSON.stringify(departments) ?? '';
+      this.storage.setItem('departments', json);
+      console.log('DepartmentService.setDepartments(): RepositoryType WebStorage');
+      return;
+    }
+    console.log('DepartmentService.setDepartments(): repositoryType[%s]', repositoryType);
   }
   /**
    * Gets the department by id.

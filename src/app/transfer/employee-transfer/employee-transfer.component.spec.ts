@@ -22,42 +22,31 @@ import { DepartmentService } from 'services/department-service/department.servic
 import { EmployeeService } from 'services/employee-service/employee.service';
 import { EmployeeTransferComponent } from './employee-transfer.component';
 import * as testData from 'testing/test-data';
-/**
- * The mock department service.
- */
+
 class MockDepartmentService {
   getDepartments(): Department[] {
-    return testData.TEST_DEPARTMENTS;
+    return [...testData.TEST_DEPARTMENTS];
   }
 }
-/**
- * The mock employee service.
- */
 class MockEmployeeService {
   getEmployees(departmentId: number): Employee[] {
     if (doneTransferFromLeftToRight) {
-      console.log(
-        "MockEmployeeService.getEmployees(): done left to right, departmentId:", departmentId);
-      if(departmentId == testData.TEST_DEPARTMENTS[0].id) {
+      if (departmentId == testData.TEST_DEPARTMENTS[0].id) {
         return [];
       } else {
         return testData.TEST_EMPLOYEES_TRANSFERRED;
       }
     } else if (doneTransferFromRightToLeft) {
-      console.log(
-        "MockEmployeeService.getEmployees(): done right to left, departmentId:", departmentId);
-      if(departmentId == testData.TEST_DEPARTMENTS[0].id) {
+      if (departmentId == testData.TEST_DEPARTMENTS[0].id) {
         return testData.TEST_EMPLOYEES_TRANSFERRED;
       } else {
         return [];
       }
     } else {
-      console.log(
-        "MockEmployeeService.getEmployees(): before transfer,  departmentId:", departmentId);
-      if(departmentId == testData.TEST_DEPARTMENTS[0].id) {
-        return testData.TEST_DEPARTMENTS[0].employees;
+      if (departmentId == testData.TEST_DEPARTMENTS[0].id) {
+        return [...testData.TEST_DEPARTMENTS[0].employees];
       } else {
-        return testData.TEST_DEPARTMENTS[1].employees;
+        return [...testData.TEST_DEPARTMENTS[1].employees];
       }
     }
   }
@@ -66,26 +55,20 @@ class MockEmployeeService {
     targetDepartmentId: number,
     employees: Employee[]
   ) {
-    console.debug("MockEmployeeService.transferEmployees():");
+    console.debug(sourceDepartmentId, targetDepartmentId, employees?.length);
   }
 }
 let doneTransferFromLeftToRight = false;
 let doneTransferFromRightToLeft = false;
-
 /**
- * Unit tests for the EmployeeTransferComponent.
- * This component is used to manage reports.
+ * The tests of the EmployeeTransferComponent.
  */
 describe('EmployeeTransferComponent', () => {
   let component: EmployeeTransferComponent;
   let fixture: ComponentFixture<EmployeeTransferComponent>;
   let departmentService: MockDepartmentService;
   let employeeService: MockEmployeeService;
-  /**
-   * Initializes the component and fixture before each test.
-   * This is necessary to ensure that the component is ready
-   * for testing and that any changes are detected
-   */
+
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       imports: [
@@ -116,372 +99,306 @@ describe('EmployeeTransferComponent', () => {
       })
       .compileComponents();
 
+    doneTransferFromLeftToRight = false;
+    doneTransferFromRightToLeft = false;
     fixture = TestBed.createComponent(EmployeeTransferComponent);
     component = fixture.componentInstance;
-    // inject mocks
     departmentService = TestBed.inject(DepartmentService);
     employeeService = TestBed.inject(EmployeeService);
     fixture.detectChanges();
-    doneTransferFromLeftToRight = false;
-    doneTransferFromRightToLeft = false;
+    await fixture.whenStable();
   });
-  /**
-   * Tests that the component is created successfully.
-   * This is a basic test to ensure that the component can be instantiated without errors.
-   */
+
   it('should compile', () => {
     // GIVEN
     // WHEN
     // THEN
     expect(component).toBeTruthy();
-    console.log('should compile');
+    console.log('compile');
   });
-  /**
-   * Tests department dropdowns.
-   */
-  it('should populate department dropdowns', () => {
+
+  it('should populate department dropdowns', async () => {
     // GIVEN
     fixture.detectChanges();
+    await fixture.whenStable();
     // WHEN
     const matSelects = fixture.debugElement.queryAll(By.css('mat-select'));
     // THEN
     expect(matSelects.length).toBe(2, 'Should have 2 department selects');
-    // GIVEN
-    // Open left select to check options
     matSelects[0].nativeElement.click();
     fixture.detectChanges();
-    // WHEN
+    await fixture.whenStable();
     const options = fixture.debugElement.queryAll(By.css('mat-option'));
-    // THEN
     expect(options.length).toBe(testData.TEST_DEPARTMENTS.length);
     expect(options[0].nativeElement.textContent).toContain(
       testData.TEST_DEPARTMENTS[0].name
     );
     console.log('should populate department dropdowns');
   });
-  /**
-   * Tests left employee tables.
-   */
-  it('should render left employee tables', () => {
-    // GIVEN
-    fixture.detectChanges();
-    // WHEN
-    const tables = fixture.debugElement.queryAll(
-      By.css('table.employee-table')
-    );
-    // THEN
-    expect(tables.length).toBe(2);
-    // GIVEN
-    // WHEN
-    const leftRows = tables[0].queryAll(By.css('td'));
-    expect(leftRows.length).toBe(4);
-    const testEmployee = testData.TEST_DEPARTMENTS[0].employees[0];
-    expect(leftRows[1].nativeElement.textContent).toContain(testEmployee.id);
-    expect(leftRows[2].nativeElement.textContent).toContain(testEmployee.firstName);
-    expect(leftRows[3].nativeElement.textContent).toContain(testEmployee.lastName);
-    console.log('should render left employee tables');
-  });
-  /**
-   * Tests right employee tables.
-   */
-  it('should render right employee tables', () => {
-    // GIVEN
-    fixture.detectChanges();
-    // WHEN
-    const tables = fixture.debugElement.queryAll(
-      By.css('table.employee-table')
-    );
-    // THEN
-    expect(tables.length).toBe(2);
-    // GIVEN
-    // WHEN
-    const rightRows = tables[1].queryAll(By.css('td'));
-    // THEN
-    expect(rightRows.length).toBe(4);
-    const testEmployee = testData.TEST_DEPARTMENTS[1].employees[0];
-    expect(rightRows[1].nativeElement.textContent).toContain(testEmployee.id);
-    expect(rightRows[2].nativeElement.textContent).toContain(testEmployee.firstName);
-    expect(rightRows[3].nativeElement.textContent).toContain(testEmployee.lastName);
-    console.log('should render right employee tables');
-  });
-  /**
-   * Tests selection for a row in the left side table.
-   */
-  it('should toggle selection for a left side row and update checkbox', () => {
-    // GIVEN
-    fixture.detectChanges();
-    const tables = fixture.debugElement.queryAll(
-      By.css('table.employee-table')
-    );
-    // WHEN
-    const checkbox = tables[0].query(By.css('td'));
-    // THEN
-    expect(component.leftSideSelection.selected.length).toBe(0);
-    // WHEN
-    checkbox.nativeElement.click();
-    // THEN
-    fixture.detectChanges();
-    expect(component.leftSideSelection.selected.length).toBe(1);
-    // WHEN
-    // Unselect
-    checkbox.nativeElement.click();
-    // THEN
-    fixture.detectChanges();
-    expect(component.leftSideSelection.selected.length).toBe(0);
-    console.log('should toggle selection for a left side row and update checkbox');
-  });
-  /**
-   * Tests selection for a row in the right side table.
-   */
-  it('should toggle selection for a right side row and update checkbox', () => {
-    // GIVEN
-    fixture.detectChanges();
-    const tables = fixture.debugElement.queryAll(
-      By.css('table.employee-table')
-    );
-    // THEN
-    fixture.detectChanges();
-    expect(component.rightSideSelection.selected.length).toBe(0);
-    // WHEN
-    const checkbox = tables[1].query(By.css('td'));
-    // THEN
-    expect(component.rightSideSelection.selected.length).toBe(0);
-    // WHEN
-    checkbox.nativeElement.click();
-    // THEN
-    fixture.detectChanges();
-    expect(component.rightSideSelection.selected.length).toBe(1);
-    // WHEN
-    // Unselect
-    checkbox.nativeElement.click();
-    // THEN
-    fixture.detectChanges();
-    expect(component.rightSideSelection.selected.length).toBe(0);
-    console.log('should toggle selection for a right side row and update checkbox');
-  });
-  /**
-   * Tests selection for all rows on the left side .
-   */
-  it('should toggle all rows on the left side when header checkbox is clicked', () => {
-    // GIVEN
-    fixture.detectChanges();
-    const tables = fixture.debugElement.queryAll(
-      By.css('table.employee-table')
-    );
-    // WHEN
-    const headerCheckbox = tables[0].query(By.css('th'));
-    headerCheckbox.nativeElement.click();
-    // THEN
-    fixture.detectChanges();
-    expect(component.leftSideSelection.selected.length).toBe(0);
-    // WHEN
-    // Unselect all
-    headerCheckbox.nativeElement.click();
-    // THEN
-    fixture.detectChanges();
-    expect(component.leftSideSelection.selected.length).toBe(0);
-    console.log('should toggle all rows on the left side when header checkbox is clicked');
-  });
-  /**
-   * Tests selection for all rows on the right side .
-   */
-  it('should toggle all rows on the right side when header checkbox is clicked', () => {
-    // GIVEN
-    fixture.detectChanges();
-    const tables = fixture.debugElement.queryAll(
-      By.css('table.employee-table')
-    );
-    // WHEN
-    const headerCheckbox = tables[1].query(By.css('th'));
-    headerCheckbox.nativeElement.click();
-    // THEN
-    fixture.detectChanges();
-    expect(component.rightSideSelection.selected.length).toBe(0);
-    // WHEN
-    // Unselect all
-    headerCheckbox.nativeElement.click();
-    // THEN
-    fixture.detectChanges();
-    expect(component.rightSideSelection.selected.length).toBe(0);
-    console.log('should toggle all rows on the right side when header checkbox is clicked');
-  });
-  /**
-   * Tests transfer button enabling.
-   */
-  it('should enable transfer button only when selection and different departments', () => {
-    // GIVEN
-    fixture.detectChanges();
-    // WHEN
-    // Select a row
-    component.leftSideSelection.select(testData.TEST_DEPARTMENTS[0].employees[0]);
-    // THEN
-    fixture.detectChanges();
-    // WHEN
-    // Button should be enabled
-    const leftButton = fixture.debugElement.queryAll(
-      By.css('button[matFab]')
-    )[0];
-    // THEN
-    expect(leftButton.nativeElement.disabled).toBeFalse();
-    // WHEN
-    // Set both departments the same
-    component.rightSideDepartmentId = component.leftSideDepartmentId;
-    // THEN
-    fixture.detectChanges();
-    expect(component.disableTransferButton('LEFT-SIDE')).toBeTrue();
-    console.log('should enable transfer button only when selection and different departments');
-  });
-  /**
-   * Tests employee transfer from left to right.
-   */
-  it('should transfer employee from left to right', () => {
-    // GIVEN
-    fixture.detectChanges();
-    const testEmployee = testData.TEST_DEPARTMENTS[0].employees[0];
-    // WHEN
-    component.leftSideSelection.select(testEmployee);
-    // THEN
-    fixture.detectChanges();
-    // GIVEN
-    doneTransferFromLeftToRight = true;
-    // WHEN
-    component.transferEmployees('LEFT-SIDE');
-    // THEN
-    fixture.detectChanges();
-    expect(
-      component.leftSideEmployees.find(emp => emp.id === testEmployee.id)
-    ).toBeUndefined();
-    expect(
-      component.rightSideEmployees.find(emp => emp.id === testEmployee.id)
-    ).toBeDefined();
-    console.log('should transfer employee from left to right');
-  });
-  /**
-   * Tests employee transfer from right to left.
-   */
-  it('should transfer employee from right to left', () => {
-    // GIVEN
-    fixture.detectChanges();
-    const testEmployee = testData.TEST_DEPARTMENTS[0].employees[0];
-    // WHEN
-    component.rightSideSelection.select(testEmployee);
-    // THEN
-    fixture.detectChanges();
-    // GIVEN
-    doneTransferFromRightToLeft = true;
-    // WHEN
-    component.transferEmployees('RIGHT-SIDE');
-    // THEN
-    fixture.detectChanges();
-    expect(
-      component.leftSideEmployees.find(emp => emp.id === testEmployee.id)
-    ).toBeDefined();
-    expect(
-      component.rightSideEmployees.find(emp => emp.id === testEmployee.id)
-    ).toBeUndefined();
-    console.log('should transfer employee from right to left');
-  });
-  /**
-   * Tests checkbox labels on the left side.
-   */
-  it('should provide correct checkbox labels on the left side', () => {
-    // GIVEN
-    fixture.detectChanges();
-    const testEmployee = testData.TEST_DEPARTMENTS[0].employees[0];
-    expect(component.checkboxLabel('LEFT-SIDE')).toContain('select');
-    // WHEN
-    component.leftSideSelection.select(testEmployee);
-    // THEN
-    expect(component.checkboxLabel('LEFT-SIDE', testEmployee)).toContain(
-      'deselect'
-    );
-    component.leftSideSelection.clear();
-    // THEN
-    expect(component.checkboxLabel('LEFT-SIDE', testEmployee)).toContain('select');
-    console.log('should provide correct checkbox labels on the left side');
-  });
-  /**
-   * Tests checkbox labels on the right side.
-   */
-  it('should provide correct checkbox labels on the right side', () => {
-    // GIVEN
-    fixture.detectChanges();
-    const testEmployee = testData.TEST_DEPARTMENTS[0].employees[0];
-    expect(component.checkboxLabel('RIGHT-SIDE')).toContain('select');
-    // WHEN
-    component.rightSideSelection.select(testEmployee);
-    // THEN
-    expect(component.checkboxLabel('RIGHT-SIDE', testEmployee)).toContain(
-      'deselect'
-    );
-    // WHEN
-    component.rightSideSelection.clear();
-    // THEN
-    expect(component.checkboxLabel('RIGHT-SIDE', testEmployee)).toContain('select');
-    console.log('should provide correct checkbox labels on the right side');
-  });
-  /**
-   * Tests all rows selection on the left side.
-   */
-  it('should correctly report if all rows are selected on the left side', () => {
-    // GIVEN
-    fixture.detectChanges();
-    expect(component.isAllSelected('LEFT-SIDE')).toBeFalse();
-    // WHEN
-    testData.TEST_DEPARTMENTS[0].employees.forEach(emp => component.leftSideSelection.select(emp));
-    // THEN
-    expect(component.isAllSelected('LEFT-SIDE')).toBeTrue();
-    console.log('should correctly report if all rows are selected on the left side');
-  });
-  /**
-   * Tests all rows selection on the right side.
-   */
-  it('should correctly report if all rows are selected on the right side', () => {
-    // GIVEN
-    fixture.detectChanges();
-    expect(component.isAllSelected('RIGHT-SIDE')).toBeFalse();
-    // WHEN
-    testData.TEST_DEPARTMENTS[1].employees.forEach(emp => component.rightSideSelection.select(emp));
-    // THEN
-    expect(component.isAllSelected('RIGHT-SIDE')).toBeTrue();
-    console.log('should correctly report if all rows are selected on the right side');
-  });
-  /**
-   * Tests employees update for changed department on the left side.
-   */
- xit('should update employees when department selection changes on the left side', fakeAsync(() => {
-    // GIVEN
-    fixture.detectChanges();
-    const testEmployeeBefore = testData.TEST_DEPARTMENTS[0].employees[0];
-    expect(component.leftSideEmployees[0].id).toBe(testEmployeeBefore.id);
-    // WHEN
-    component.selectDepartment('LEFT-SIDE', testData.TEST_DEPARTMENTS[1].id);
-    // THEN
-    fixture.detectChanges();
-    tick();
-    expect(component.leftSideEmployees.length).toBe(1);
-    const testEmployeeAfter = testData.TEST_DEPARTMENTS[1].employees[0];
-    expect(component.leftSideEmployees[0].id).toBe(testEmployeeAfter.id);
-    expect(component.leftSideEmployees[0].lastName).toBe(testEmployeeAfter.lastName);
-    console.log('should update employees when department selection changes on the left side');
-  }));
-  /**
-   * Tests employees update for changed department on the right side.
-   */
-  xit('should update employees when department selection changes on the right side', fakeAsync(() => {
-    // GIVEN
-    fixture.detectChanges();
-    const testEmployeeBefore = testData.TEST_DEPARTMENTS[1].employees[0];
-    expect(component.rightSideEmployees[0].id).toBe(testEmployeeBefore.id);
-    // WHEN
-    component.selectDepartment('RIGHT-SIDE',  testData.TEST_DEPARTMENTS[0].id);
-    // THEN
-    fixture.detectChanges();
-    tick();
-    expect(component.rightSideEmployees.length).toBe(1);
-    const testEmployeeAfter = testData.TEST_DEPARTMENTS[0].employees[0];
-    expect(component.rightSideEmployees[0].id).toBe(testEmployeeAfter.id);
-    expect(component.rightSideEmployees[0].lastName).toBe(testEmployeeAfter.lastName);
-    console.log('should update employees when department selection changes on the right side');
-  }));
+
+  // --- Parameterized tests ---
+  // 1. Should render employee tables for left and right sides
+  [
+    {
+      testName: 'should render left employee tables',
+      tableIndex: 0,
+      getEmployees: () => testData.TEST_DEPARTMENTS[0].employees,
+    },
+    {
+      testName: 'should render right employee tables',
+      tableIndex: 1,
+      getEmployees: () => testData.TEST_DEPARTMENTS[1].employees,
+    },
+  ].forEach(({ testName, tableIndex, getEmployees }) =>
+    it(testName, async () => {
+      // GIVEN
+      fixture.detectChanges();
+      await fixture.whenStable();
+      // WHEN
+      const tables = fixture.debugElement.queryAll(By.css('table.employee-table'));
+      // THEN
+      expect(tables.length).toBe(2);
+      // WHEN
+      const rows = tables[tableIndex].queryAll(By.css('td'));
+      // THEN
+      expect(rows.length).toBe(4);
+      const testEmployee = getEmployees()[0];
+      expect(rows[1].nativeElement.textContent).toContain(testEmployee.id);
+      expect(rows[2].nativeElement.textContent).toContain(testEmployee.firstName);
+      expect(rows[3].nativeElement.textContent).toContain(testEmployee.lastName);
+      console.log(testName);
+    })
+  );
+
+  // 2. Should toggle selection for a row and update checkbox
+  [
+    {
+      testName: 'should toggle selection for a left side row and update checkbox',
+      tableIndex: 0,
+      getSelection: (component: EmployeeTransferComponent) => component.leftSideSelection,
+    },
+    {
+      testName: 'should toggle selection for a right side row and update checkbox',
+      tableIndex: 1,
+      getSelection: (component: EmployeeTransferComponent) => component.rightSideSelection,
+    },
+  ].forEach(({ testName, tableIndex, getSelection }) =>
+    it(testName, async () => {
+      // GIVEN
+      fixture.detectChanges();
+      await fixture.whenStable();
+      // WHEN
+      const tables = fixture.debugElement.queryAll(By.css('table.employee-table'));
+      const checkbox = tables[tableIndex].query(By.css('td'));
+      const selection = getSelection(component);
+      // THEN
+      expect(selection.selected.length).toBe(0);
+      // WHEN
+      checkbox.nativeElement.click();
+      fixture.detectChanges();
+      await fixture.whenStable();
+      // THEN
+      expect(selection.selected.length).toBe(1);
+      // WHEN
+      checkbox.nativeElement.click();
+      fixture.detectChanges();
+      await fixture.whenStable();
+      // THEN
+      expect(selection.selected.length).toBe(0);
+      console.log(testName);
+    })
+  );
+
+  // 3. Should toggle all rows when header checkbox is clicked
+  [
+    {
+      testName: 'should toggle all rows on the left side when header checkbox is clicked',
+      tableIndex: 0,
+      getSelection: (component: EmployeeTransferComponent) => component.leftSideSelection,
+    },
+    {
+      testName: 'should toggle all rows on the right side when header checkbox is clicked',
+      tableIndex: 1,
+      getSelection: (component: EmployeeTransferComponent) => component.rightSideSelection,
+    },
+  ].forEach(({ testName, tableIndex, getSelection }) =>
+    it(testName, async () => {
+      // GIVEN
+      fixture.detectChanges();
+      await fixture.whenStable();
+      // WHEN
+      const tables = fixture.debugElement.queryAll(By.css('table.employee-table'));
+      const headerCheckbox = tables[tableIndex].query(By.css('th'));
+      const selection = getSelection(component);
+      headerCheckbox.nativeElement.click();
+      fixture.detectChanges();
+      await fixture.whenStable();
+      // THEN
+      expect(selection.selected.length).toBe(0);
+      // WHEN
+      headerCheckbox.nativeElement.click();
+      fixture.detectChanges();
+      await fixture.whenStable();
+      // THEN
+      expect(selection.selected.length).toBe(0);
+      console.log(testName);
+    })
+  );
+
+  // 4. Should transfer employee from left to right and right to left
+  [
+    {
+      testName: 'should transfer employee from left to right',
+      setTransferDoneFlag: () => { doneTransferFromLeftToRight = true; },
+      selectEmployee: (component: EmployeeTransferComponent, emp: Employee) => component.leftSideSelection.select(emp),
+      transfer: (component: EmployeeTransferComponent) => component.transferEmployees('LEFT-SIDE'),
+      sourceEmployees: (component: EmployeeTransferComponent) => component.leftSideEmployees,
+      targetEmployees: (component: EmployeeTransferComponent) => component.rightSideEmployees,
+    },
+    {
+      testName: 'should transfer employee from right to left',
+      setTransferDoneFlag: () => { doneTransferFromRightToLeft = true; },
+      selectEmployee: (component: EmployeeTransferComponent, emp: Employee) => component.rightSideSelection.select(emp),
+      transfer: (component: EmployeeTransferComponent) => component.transferEmployees('RIGHT-SIDE'),
+      sourceEmployees: (component: EmployeeTransferComponent) => component.rightSideEmployees,
+      targetEmployees: (component: EmployeeTransferComponent) => component.leftSideEmployees,
+    },
+  ].forEach(
+    ({
+      testName,
+      setTransferDoneFlag,
+      selectEmployee,
+      transfer,
+      sourceEmployees,
+      targetEmployees,
+    }) =>
+      it(testName, async () => {
+        // GIVEN
+        fixture.detectChanges();
+        await fixture.whenStable();
+        const employee = testData.TEST_DEPARTMENTS[0].employees[0];
+        selectEmployee(component, employee);
+        fixture.detectChanges();
+        await fixture.whenStable();
+        setTransferDoneFlag();
+        // WHEN
+        transfer(component);
+        // THEN
+        fixture.detectChanges();
+        await fixture.whenStable();
+        expect(sourceEmployees(component).find(emp => emp.id === employee.id)).toBeUndefined();
+        expect(targetEmployees(component).find(emp => emp.id === employee.id)).toBeDefined();
+        console.log(testName);
+      })
+  );
+
+  // 5. Should provide correct checkbox labels
+  [
+    {
+      testName: 'should provide correct checkbox labels on the left side',
+      side: 'LEFT-SIDE',
+      getSelection: (component: EmployeeTransferComponent) => component.leftSideSelection,
+    },
+    {
+      testName: 'should provide correct checkbox labels on the right side',
+      side: 'RIGHT-SIDE',
+      getSelection: (component: EmployeeTransferComponent) => component.rightSideSelection,
+    },
+  ].forEach(({ testName, side, getSelection }) =>
+    it(testName, async () => {
+      // GIVEN
+      fixture.detectChanges();
+      await fixture.whenStable();
+      const employee = testData.TEST_DEPARTMENTS[0].employees[0]
+      expect(component.checkboxLabel(side === 'LEFT-SIDE' ? 'LEFT-SIDE' : 'RIGHT-SIDE')).toContain('select');
+      // WHEN
+      getSelection(component).select(employee);
+      // THEN
+      expect(component.checkboxLabel(side === 'LEFT-SIDE' ? 'LEFT-SIDE' : 'RIGHT-SIDE', employee)).toContain('deselect');
+      // WHEN
+      getSelection(component).clear();
+      // THEN
+      expect(component.checkboxLabel(side === 'LEFT-SIDE' ? 'LEFT-SIDE' : 'RIGHT-SIDE', employee)).toContain('select');
+      console.log(testName);
+    })
+  );
+
+  // 6. Should correctly report if all rows are selected
+  [
+    {
+      testName: 'should correctly report if all rows are selected on the left side',
+      side: 'LEFT-SIDE',
+      getSelection: (component: EmployeeTransferComponent) => component.leftSideSelection,
+      getEmployees: () => testData.TEST_DEPARTMENTS[0].employees,
+    },
+    {
+      testName: 'should correctly report if all rows are selected on the right side',
+      side: 'RIGHT-SIDE',
+      getSelection: (component: EmployeeTransferComponent) => component.rightSideSelection,
+      getEmployees: () => testData.TEST_DEPARTMENTS[1].employees,
+    },
+  ].forEach(({ side, testName, getSelection, getEmployees }) =>
+    it(testName, async () => {
+      // GIVEN
+      fixture.detectChanges();
+      await fixture.whenStable();
+      // WHEN
+      // THEN
+      expect(component.isAllSelected(side === 'LEFT-SIDE' ? 'LEFT-SIDE' : 'RIGHT-SIDE')).toBeFalse();
+      // WHEN
+      getEmployees().forEach(emp => getSelection(component).select(emp));
+      // THEN
+      expect(component.isAllSelected(side === 'LEFT-SIDE' ? 'LEFT-SIDE' : 'RIGHT-SIDE')).toBeTrue();
+      console.log(testName);
+    })
+  );
+
+  // 7. Should update employees when department selection changes (left/right)
+  [
+    {
+      testName: 'should update employees when department selection changes on the left side',
+      side: 'LEFT-SIDE',
+      selectDepartmentId: testData.TEST_DEPARTMENTS[1].id,
+      getEmployees: () => testData.TEST_DEPARTMENTS[1].employees,
+      getEmployeesBefore: () => testData.TEST_DEPARTMENTS[0].employees,
+      targetProp: (component: EmployeeTransferComponent) => component.leftSideEmployees,
+    },
+    {
+      testName: 'should update employees when department selection changes on the right side',
+      side: 'RIGHT-SIDE',
+      selectDepartmentId: testData.TEST_DEPARTMENTS[0].id,
+      getEmployees: () => testData.TEST_DEPARTMENTS[0].employees,
+      getEmployeesBefore: () => testData.TEST_DEPARTMENTS[1].employees,
+      targetProp: (component: EmployeeTransferComponent) => component.rightSideEmployees,
+    },
+  ].forEach(
+    ({
+      testName,
+      side,
+      selectDepartmentId,
+      getEmployees,
+      getEmployeesBefore,
+      targetProp,
+    }) =>
+      it(testName, fakeAsync(async () => {
+        // GIVEN
+        fixture.detectChanges();
+        await fixture.whenStable();
+        const beforeEmployee = getEmployeesBefore()[0];
+        // WHEN
+        // THEN
+        expect(targetProp(component)[0].id).toBe(beforeEmployee.id);
+        component.selectDepartment(side === 'LEFT-SIDE' ? 'LEFT-SIDE' : 'RIGHT-SIDE', selectDepartmentId);
+        fixture.detectChanges();
+        await fixture.whenStable();
+        // WHEN
+        tick();
+        // THEN
+        expect(targetProp(component).length).toBe(1);
+        const afterEmployee = getEmployees()[0];
+        expect(targetProp(component)[0].id).toBe(afterEmployee.id);
+        expect(targetProp(component)[0].lastName).toBe(afterEmployee.lastName);
+        console.log(testName);
+      }))
+  );
 });

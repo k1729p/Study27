@@ -23,11 +23,10 @@ import { InitializationService } from 'services/initialization-service/initializ
 })
 export class SettingsComponent implements OnInit {
     private initializationService = inject(InitializationService);
-    repositoryType = RepositoryType.PostgreSQL;
     repositoryTypeArray = Object.values(RepositoryType);
     private formBuilder = inject(FormBuilder);
     settingsForm = this.formBuilder.group({
-        repositoryTypeSelect: this.repositoryType,
+        repositoryTypeSelect: RepositoryType.WebStorage,
     });
 
     /**
@@ -38,26 +37,17 @@ export class SettingsComponent implements OnInit {
      * @returns void
      */
     ngOnInit() {
-        this.settingsForm.controls.repositoryTypeSelect.setValue(this.repositoryType);
+        this.settingsForm.controls.repositoryTypeSelect.setValue(RepositoryType.WebStorage);// ????????????????
         console.log('SettingsComponent.ngOnInit():');
     }
     /**
-     * Gets the repository type.
+     * Sets the repository type.
      *
      * @returns void
      */
-    getRepositoryType() {
-        console.log('SettingsComponent.getRepositoryType(): repositoryType[%s]', this.repositoryType);
-        return this.repositoryType;
-    }
-    /**
-     * Selects the repository type.
-     *
-     * @returns void
-     */
-    selectRepositoryType(repositoryType: RepositoryType) {
-        this.repositoryType = repositoryType;
-        console.log('SettingsComponent.selectRepositoryType(): repositoryType[%s]', this.repositoryType);
+    setRepositoryType(repositoryType: RepositoryType) {
+        this.initializationService.setRepositoryType(repositoryType);
+        console.log('SettingsComponent.selectRepositoryType(): repositoryType[%s]', repositoryType);
     }
     /**
      * Initialises the selected repository.
@@ -65,8 +55,8 @@ export class SettingsComponent implements OnInit {
      * @returns void
      */
     initialiseRepository() {
-        this.initializationService.loadInitialData(this.repositoryType);
-        console.log('SettingsComponent.initialiseRepository(): repositoryType[%s]', this.repositoryType);
+        this.initializationService.loadInitialData();
+        console.log('SettingsComponent.initialiseRepository():');
     }
 
 }

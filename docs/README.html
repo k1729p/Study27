@@ -159,6 +159,13 @@
 Work-In-Progress temporary notes, fixes, and todos:
 
 This Angular Material project uses Material Design 2.
+
+
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Copilot says: Observable Approach (Angular way)
+
+Use observables and signals. Don't use promises. 
+    const departmentsPromise: Promise<Department[]> = firstValueFrom(departmentsObservable);
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 pdfmake
 Client/server side PDF printing in pure JavaScript http://pdfmake.org
@@ -170,13 +177,12 @@ Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`.
 Run `ng build` to build the project.
 
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-=== HTTP client service ===
+=== Angular HTTP Client ===
 https://angular.dev/guide/http
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 ===  Dockerize Angular Application  ===
 https://docs.docker.com/guides/angular/containerize/
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-HTTP Client testing : https://angular.dev/guide/http/testing
 
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 	- presentation layer   (aka user interface layer)

@@ -3,9 +3,10 @@ cd ..
 ::goto :serve
 goto :build_and_start
 
-ng version
-ng lint
-goto :eof
+call ng version
+call ng lint
+start /MAX ng test
+pause
 
 :serve
 call ng serve

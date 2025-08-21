@@ -28,21 +28,14 @@ export class InitializationService {
    * @param repositoryType 
    */
   setRepositoryType(repositoryType: RepositoryType) {
-// CALL IT FROM SETTINGS COMPONENTE !!!!!!!!!!!!
-// CALL IT FROM SETTINGS COMPONENTE !!!!!!!!!!!!
-// CALL IT FROM SETTINGS COMPONENTE !!!!!!!!!!!!
-// CALL IT FROM SETTINGS COMPONENTE !!!!!!!!!!!!
-// CALL IT FROM SETTINGS COMPONENTE !!!!!!!!!!!!
-// CALL IT FROM SETTINGS COMPONENTE !!!!!!!!!!!!
-// CALL IT FROM SETTINGS COMPONENTE !!!!!!!!!!!!
-
     this.storage.setItem('repositoryType', repositoryType);
+    console.log('InitializationService.setRepositoryType(): repositoryType[%s]', repositoryType);
   }
   /**
    * Loads initial data.
    * @param repositoryType 
    */
-  loadInitialData(repositoryType: RepositoryType) {
+  loadInitialData() {
 
     const json = this.storage.getItem('departments') ?? '';
     const departments = JSON.parse(json) as Department[];
@@ -50,10 +43,15 @@ export class InitializationService {
     console.log(JSON.stringify(departments));
     console.log('##############################');
 
+    const repositoryType = this.storage.getItem('repositoryType') as RepositoryType;
+    if(RepositoryType.WebStorage === repositoryType ) {
+      console.log('InitializationService.loadInitialData(): no loading for RepositoryType WebStorage');
+      return;
+    }
     this.http.post(ENDPOINTS.loadInitialData(repositoryType), BACKEND_INITIAL_DATA).subscribe(
       {
         next: () => {
-          console.log('InitializationService.loadInitialData(): --------------------- 1. loading initial data:');
+          console.log('InitializationService.loadInitialData(): repositoryType[%s]', repositoryType);
         },
         error: err => {
           console.log('Error occurred while loading initial data:', err);

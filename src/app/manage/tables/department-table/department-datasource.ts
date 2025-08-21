@@ -1,8 +1,9 @@
-import { inject } from '@angular/core';
+import { inject, signal, computed, Signal, effect } from '@angular/core';
 import { DataSource } from '@angular/cdk/collections';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { Observable, of as observableOf, merge } from 'rxjs';
+import { toObservable } from '@angular/core/rxjs-interop';
 import { map } from 'rxjs/operators';
 
 import { Department } from 'models/department';
@@ -14,9 +15,10 @@ import { DepartmentService } from 'services/department-service/department.servic
  */
 export class DepartmentDataSource extends DataSource<Department> {
   private departmentService: DepartmentService = inject(DepartmentService);
-  departments: Department[] = this.departmentService.getDepartments();
+  departmentsSignal: Signal<Department[] | undefined> = this.departmentService.getDepartmentsSignal();
   paginator: MatPaginator | undefined;
   sort: MatSort | undefined;
+
   /**
    * Connect this data source to the table. The table will only update when
    * the returned stream emits new items.
@@ -29,16 +31,24 @@ export class DepartmentDataSource extends DataSource<Department> {
         'Please set the paginator and sort on the data before connecting.'
       );
     }
-    // Combine everything that affects the rendered data into one update
-    // stream for the data-table to consume.
+    // Convert the signal to observable for the table
     return merge(
-      observableOf(this.departments),
+      observableOf(this.departmentsSignal),
+      // ########################################################  CAUSES ERRORS IN BROWSER toObservable(this.departmentsSignal),
       this.paginator.page,
       this.sort.sortChange
     ).pipe(
-      map(() => this.getPagedData(this.getSortedData([...this.departments])))
+      map(() => {
+        const departments = this.departmentsSignal() ?? [];
+        console.log("🟢 Datasource Converter - departments array size: " + departments.length); // #### !!!!!!!
+        return this.getPagedData(this.getSortedData([...departments]));
+      })
     );
   }
+  private loggingEffect = effect(() => {// ################################################### !!!!!!!!!!!
+    const deps = this.departmentsSignal() ?? [];
+    console.log("🔴 Effect - departments array size: " + deps.length);
+  });// ################################################### !!!!!!!!!!!
 
   /**
    * Called when the table is being destroyed. Use this function, to clean up
@@ -49,10 +59,10 @@ export class DepartmentDataSource extends DataSource<Department> {
   disconnect(): void {
     // No resources to clean up in this implementation.
   }
-
   /**
-   * Paginate the data (client-side). If you're using server-side pagination,
-   * this would be replaced by requesting the appropriate data from the server.
+   * Paginate the data (client-side). This method slices the data array based on the current
+   * page index and page size. If you switch to using server-side pagination, this method
+   * should be replaced with a call to the server to fetch the appropriate page of data.
    *
    * @param departments The array of departments to be paginated.
    * @returns The paginated array of departments.
@@ -62,12 +72,13 @@ export class DepartmentDataSource extends DataSource<Department> {
       return departments;
     }
     const startIndex = this.paginator.pageIndex * this.paginator.pageSize;
-    return departments.splice(startIndex, this.paginator.pageSize);
+    return departments.slice(startIndex, startIndex + this.paginator.pageSize);
   }
 
   /**
-   * Sort the data (client-side). If you're using server-side sorting,
-   * this would be replaced by requesting the appropriate data from the server.
+   * Sort the data (client-side). This method sorts the data array based on the active
+   * sort field and direction. If you switch to using server-side sorting, this method
+   * should be replaced with a call to the server to fetch the appropriately sorted data.
    *
    * @param departments The array of departments to be sorted.
    * @returns The sorted array of departments.
@@ -89,7 +100,6 @@ export class DepartmentDataSource extends DataSource<Department> {
     });
   }
 }
-
 /**
  * Compare two values and return a number indicating their relative order.
  * This function is used for sorting the data in the table.

@@ -1,0 +1,47 @@
+import { of } from 'rxjs';
+import { ActivatedRoute } from '@angular/router';
+import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { provideHttpClient } from '@angular/common/http';
+//import { provideHttpClientTesting, HttpTestingController } from '@angular/common/http/testing';
+
+import { SettingsComponent } from './settings.component';
+/**
+ * Unit tests for the SettingsComponent.
+ * This file contains tests to ensure that the component compiles correctly.
+ */
+describe('SettingsComponent', () => {
+  let component: SettingsComponent;
+  let fixture: ComponentFixture<SettingsComponent>;
+  //const httpTesting = TestBed.inject(HttpTestingController);
+
+  /**
+   * Set up the testing module for SettingsComponent.
+   * This function initializes the testing environment and compiles the component.
+   */
+  beforeEach(() => {
+    TestBed.configureTestingModule({
+      providers: [
+        provideHttpClient(),
+        //provideHttpClientTesting(),
+        {
+          provide: ActivatedRoute,
+          useValue: {
+            params: of({ id: 1 }),
+            snapshot: { paramMap: { get: () => 1 } },
+          },
+        },
+      ],
+    }).compileComponents();
+    fixture = TestBed.createComponent(SettingsComponent);
+    component = fixture.componentInstance;
+    fixture.detectChanges();
+  });
+
+  /**
+   * Test to check if the SettingsComponent compiles successfully.
+   * This test ensures that the component can be instantiated without errors.
+   */
+  it('should compile', () => {
+    expect(component).toBeTruthy();
+  });
+});

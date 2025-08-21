@@ -5,6 +5,7 @@ import { MatSortModule, MatSort } from '@angular/material/sort';
 import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
 import { Router, ActivatedRoute } from '@angular/router';
+import {  } from '@angular/core';
 
 import { Department } from 'models/department';
 import { DepartmentDataSource } from './department-datasource';
@@ -46,7 +47,23 @@ export class DepartmentTableComponent implements AfterViewInit {
     this.dataSource.sort = this.sort;
     this.dataSource.paginator = this.paginator;
     this.table.dataSource = this.dataSource;
+    this.simulateSortById();
   }
+
+  // ###################################################################################################### DUMMY
+  async simulateSortById() {
+    await new Promise(resolve => setTimeout(resolve, 1000));
+    if (this.sort) {
+      this.sort.active = 'id';
+      this.sort.direction = this.sort.direction === 'asc' ? 'desc' : 'asc';
+      this.sort.sortChange.emit({ active: this.sort.active, direction: this.sort.direction });
+      console.log('🔵🔵🔵🔵🔵 sort');
+    }
+  }
+  // ###################################################################################################### DUMMY
+
+
+
   /**
    * Creates a new department.
    * This method navigates to the department form with the 'CREATE' action
@@ -104,5 +121,11 @@ export class DepartmentTableComponent implements AfterViewInit {
       'DepartmentTableComponent.manageEmployees(): department id[%d]',
       id
     );
+  }
+  /**
+   * Gets the length of the departments array.
+   */
+  get departmentsLength(): number {
+    return this.dataSource.departmentsSignal()?.length ?? 0;
   }
 }
