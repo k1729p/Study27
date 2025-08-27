@@ -36,24 +36,15 @@ export class EmployeeDataSource extends DataSource<Employee> {
    * @returns A stream of the items to be rendered.
    */
   connect(): Observable<Employee[]> {
-    console.log(
-      'EmployeeDataSource.connect(): departmentId[%d]',
-      this.departmentId
-    );
     if (!this.paginator || !this.sort) {
-      throw Error(
-        'Please set the paginator and sort on the data before connecting.'
-      );
+      const msg = 'Please set the paginator and sort on the data before connecting.';
+      console.log('EmployeeDataSource.connect(): departmentId[%d], ', this.departmentId, msg);
+      throw Error(msg);
     }
-    // Combine everything that affects the rendered data into one update
-    // stream for the data-table to consume.
-    return merge(
-      observableOf(this.employees),
-      this.paginator.page,
-      this.sort.sortChange
-    ).pipe(
-      map(() => this.getPagedData(this.getSortedData([...this.employees])))
-    );
+    return merge(observableOf(this.employees), this.paginator.page, this.sort.sortChange)
+      .pipe(
+        map(() => this.getPagedData(this.getSortedData([...this.employees])))
+      );
   }
 
   /**
@@ -97,26 +88,25 @@ export class EmployeeDataSource extends DataSource<Employee> {
       const isAsc = this.sort?.direction === 'asc';
       switch (this.sort?.active) {
         case 'id':
-          return compare(+a.id, +b.id, isAsc);
+          return this.compare(+a.id, +b.id, isAsc);
         case 'firstName':
-          return compare(a.firstName, b.firstName, isAsc);
+          return this.compare(a.firstName, b.firstName, isAsc);
         case 'lastName':
-          return compare(a.lastName, b.lastName, isAsc);
+          return this.compare(a.lastName, b.lastName, isAsc);
         default:
           return 0;
       }
     });
   }
-}
-
-/**
- * Compares two values and returns a number indicating their relative order.
- * This function is used for sorting the data in the table.
- */
-function compare(
-  a: string | number,
-  b: string | number,
-  isAsc: boolean
-): number {
-  return (a < b ? -1 : 1) * (isAsc ? 1 : -1);
+  /**
+   * Compares two values and returns a number indicating their relative order.
+   * This function is used for sorting the data in the table.
+   */
+  private compare(
+    a: string | number,
+    b: string | number,
+    isAsc: boolean
+  ): number {
+    return (a < b ? -1 : 1) * (isAsc ? 1 : -1);
+  }
 }

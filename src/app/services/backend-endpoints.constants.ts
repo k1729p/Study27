@@ -1,18 +1,9 @@
-/**
- * Enumeration for selecting the repository type.
- */
-export enum RepositoryType {  
-    WebStorage = 'web-storage',
-    PostgreSQL = 'postgresql',
-    MongoDB = 'mongodb',
-    MySQL = 'mysql',
-}
 const SITE = 'http://localhost:8028/api';
 /**
  * API endpoints for the backend application.
  */
 export const ENDPOINTS = {
-  loadInitialData: (repositoryType: RepositoryType) =>
+  loadInitialData: (repositoryType: string) =>
     `${SITE}/load?repositoryType=${repositoryType}`,
 
   getDepartments: (repositoryType: string) =>

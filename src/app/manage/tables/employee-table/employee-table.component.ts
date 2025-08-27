@@ -1,16 +1,10 @@
-import {
-  AfterViewInit,
-  Component,
-  ViewChild,
-  inject,
-  OnInit,
-} from '@angular/core';
-import { MatTableModule, MatTable } from '@angular/material/table';
-import { MatPaginatorModule, MatPaginator } from '@angular/material/paginator';
-import { MatSortModule, MatSort } from '@angular/material/sort';
+import { AfterViewInit, Component, ViewChild, inject, OnInit } from '@angular/core';
+import { Router, ActivatedRoute } from '@angular/router';
 import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
-import { Router, ActivatedRoute } from '@angular/router';
+import { MatPaginatorModule, MatPaginator } from '@angular/material/paginator';
+import { MatSortModule, MatSort } from '@angular/material/sort';
+import { MatTableModule, MatTable } from '@angular/material/table';
 
 import { Employee } from 'models/employee';
 import { EmployeeDataSource } from './employee-datasource';
@@ -68,6 +62,7 @@ export class EmployeeTableComponent implements AfterViewInit, OnInit {
     this.dataSource.sort = this.sort;
     this.dataSource.paginator = this.paginator;
     this.table.dataSource = this.dataSource;
+    console.log('🟩EmployeeTableComponent.ngAfterViewInit():');
   }
   /**
    * Creates a new employee.
@@ -84,7 +79,7 @@ export class EmployeeTableComponent implements AfterViewInit, OnInit {
         relativeTo: this.route,
       }
     );
-    console.log('EmployeeTableComponent.createEmployee():');
+    console.log('🟩EmployeeTableComponent.createEmployee():');
   }
   /**
    * Updates the employee.
@@ -98,7 +93,7 @@ export class EmployeeTableComponent implements AfterViewInit, OnInit {
     this.router.navigate(['/employee-form', this.departmentId, 'UPDATE', id], {
       relativeTo: this.route,
     });
-    console.log('EmployeeTableComponent.updateEmployee(): id[%d]', id);
+    console.log('🟩EmployeeTableComponent.updateEmployee(): id[%d]', id);
   }
   /**
    * Deletes the employee.
@@ -112,6 +107,6 @@ export class EmployeeTableComponent implements AfterViewInit, OnInit {
     this.router.navigate(['/employee-form', this.departmentId, 'DELETE', id], {
       relativeTo: this.route,
     });
-    console.log('EmployeeTableComponent.deleteEmployee(): id[%d]', id);
+    console.log('🟩EmployeeTableComponent.deleteEmployee(): id[%d]', id);
   }
 }

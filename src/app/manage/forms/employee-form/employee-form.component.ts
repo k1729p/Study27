@@ -97,6 +97,7 @@ export class EmployeeFormComponent implements OnInit {
     this.employeeForm.controls.locality.setValue(employee?.locality ?? '');
     this.employeeForm.controls.province.setValue(employee?.province ?? '');
     this.employeeForm.controls.country.setValue(employee?.country ?? '');
+    console.log('🟢EmployeeFormComponent.ngOnInit():');
   }
 
   /**
@@ -122,7 +123,7 @@ export class EmployeeFormComponent implements OnInit {
       };
       this.employeeService.createEmployee(+this.departmentId, employee);
       console.log(
-        'EmployeeFormComponent.onSubmit(): CREATE, departmentId[%d], first name[%s], last name[%s]',
+        '🟢EmployeeFormComponent.onSubmit(): CREATE, departmentId[%d], first name[%s], last name[%s]',
         this.departmentId,
         employee?.firstName,
         employee?.lastName
@@ -133,7 +134,7 @@ export class EmployeeFormComponent implements OnInit {
         +this.id
       );
       console.log(
-        'EmployeeFormComponent.onSubmit(): READ, id[%d], departmentId[%d], first name[%s], last name[%s]',
+        '🟢EmployeeFormComponent.onSubmit(): READ, id[%d], departmentId[%d], first name[%s], last name[%s]',
         this.id,
         this.departmentId,
         employee?.firstName,
@@ -157,7 +158,7 @@ export class EmployeeFormComponent implements OnInit {
       };
       this.employeeService.updateEmployee(+this.departmentId, employee);
       console.log(
-        'EmployeeFormComponent.onSubmit(): UPDATE, id[%d], departmentId[%d], first name[%s], last name[%s]',
+        '🟢EmployeeFormComponent.onSubmit(): UPDATE, id[%d], departmentId[%d], first name[%s], last name[%s]',
         this.id,
         this.departmentId,
         employee?.firstName,
@@ -165,7 +166,7 @@ export class EmployeeFormComponent implements OnInit {
       );
     } else if (this.operation === 'DELETE') {
       this.employeeService.deleteEmployee(+this.departmentId, +this.id);
-      console.log('EmployeeFormComponent.onSubmit(): DELETE, id[%s], departmentId[%d]',
+      console.log('🟢EmployeeFormComponent.onSubmit(): DELETE, id[%s], departmentId[%d]',
         this.id, this.departmentId);
     }
     this.router.navigate(['/employee-table', this.departmentId], {
@@ -179,7 +180,7 @@ export class EmployeeFormComponent implements OnInit {
    */
   onCancel() {
     this.employeeForm.reset();
-    console.log('EmployeeFormComponent.onCancel():');
+    console.log('🟢EmployeeFormComponent.onCancel():');
     this.router.navigate(['/employee-table', this.departmentId], {
       relativeTo: this.route,
     });

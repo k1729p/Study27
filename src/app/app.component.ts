@@ -47,25 +47,27 @@ export class AppComponent {
   menuHandler(id: number) {
     switch (id) {
       case 1:
-        this.router.navigate(['/department-table'], { relativeTo: this.route });
+        this.router.navigate(['/home'], {
+          relativeTo: this.route,
+        });
         break;
       case 2:
+        this.router.navigate(['/department-table'], { 
+          relativeTo: this.route
+        });
+        break;
+      case 3:
         this.router.navigate(['/employee-transfer'], {
           relativeTo: this.route,
         });
         break;
-      case 3:
+      case 4:
         this.router.navigate(['/employee-locate'], {
           relativeTo: this.route,
         });
         break;
-      case 4:
-        this.router.navigate(['/report'], {
-          relativeTo: this.route,
-        });
-        break;
       case 5:
-        this.router.navigate(['/settings'], {
+        this.router.navigate(['/report'], {
           relativeTo: this.route,
         });
         break;

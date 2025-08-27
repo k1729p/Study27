@@ -1,21 +1,20 @@
-import { of } from 'rxjs';
 import { ActivatedRoute } from '@angular/router';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { provideHttpClient } from '@angular/common/http';
-//import { provideHttpClientTesting, HttpTestingController } from '@angular/common/http/testing';
+import { of } from 'rxjs';
 
-import { SettingsComponent } from './settings.component';
+import { HomeComponent } from './home.component';
 /**
- * Unit tests for the SettingsComponent.
+ * Unit tests for the HomeComponent.
  * This file contains tests to ensure that the component compiles correctly.
  */
-describe('SettingsComponent', () => {
-  let component: SettingsComponent;
-  let fixture: ComponentFixture<SettingsComponent>;
+describe('HomeComponent', () => {
+  let component: HomeComponent;
+  let fixture: ComponentFixture<HomeComponent>;
   //const httpTesting = TestBed.inject(HttpTestingController);
 
   /**
-   * Set up the testing module for SettingsComponent.
+   * Set up the testing module for HomeComponent.
    * This function initializes the testing environment and compiles the component.
    */
   beforeEach(() => {
@@ -32,13 +31,13 @@ describe('SettingsComponent', () => {
         },
       ],
     }).compileComponents();
-    fixture = TestBed.createComponent(SettingsComponent);
+    fixture = TestBed.createComponent(HomeComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });
 
   /**
-   * Test to check if the SettingsComponent compiles successfully.
+   * Test to check if the HomeComponent compiles successfully.
    * This test ensures that the component can be instantiated without errors.
    */
   it('should compile', () => {

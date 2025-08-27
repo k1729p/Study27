@@ -121,10 +121,7 @@ export class EmployeeLocateComponent implements OnInit {
     this.dataSource = this.departmentService.getDepartments()
       .map(department => this.loadDepartmentData(department));
     this.employeeNames = this.loadEmployeeNames();
-    console.log(
-      'EmployeeLocateComponent.ngOnInit() dataSource:',
-      this.dataSource
-    );
+    console.log('🟪EmployeeLocateComponent.ngOnInit():');
   }
   /**
    * Handler for the expand button.
@@ -150,6 +147,7 @@ export class EmployeeLocateComponent implements OnInit {
       this.tree.expand(node);
       console.log('EmployeeLocateComponent.locateEmployee(): node type[%s], node name[%s]', node.type, node.name);
     });
+    console.log('🟪EmployeeLocateComponent.locateEmployee():');
   }
 
   /**

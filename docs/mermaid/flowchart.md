@@ -1,6 +1,6 @@
 ```mermaid
 flowchart LR
-  MENU([Menu])
+  HOME(Home):::orangeBox
   M_DEP(Manage Departments):::redBox
   M_DEP_CR(Create Department):::redStroke
   M_DEP_UP(Update Department):::redStroke
@@ -12,9 +12,8 @@ flowchart LR
   TRA_EMP(Transfer Employees):::greenBox
   LOC_EMP(Locate Employees):::cyanBox
   PDF(Create PDF Reports):::yellowBox
-  SET(Settings):::orangeBox
 %% Flows
-  MENU --> M_DEP
+  HOME --> M_DEP
   subgraph " "
     M_DEP --> M_DEP_CR
     M_DEP --> M_DEP_UP
@@ -26,12 +25,11 @@ flowchart LR
       M_EMP --> M_EMP_DL
     end
   end
-  MENU --> TRA_EMP
-  MENU --> LOC_EMP
-  MENU --> PDF
-  MENU --> SET
+  HOME --> TRA_EMP
+  HOME --> LOC_EMP
+  HOME --> PDF
 %% Links Definitions
-  click MENU "https://raw.githubusercontent.com/k1729p/Study27/refs/heads/main/docs/images/ScreenshotMenu.jpg" _blank
+  click HOME "https://raw.githubusercontent.com/k1729p/Study27/refs/heads/main/docs/images/ScreenshotHome.jpg" _blank
   click M_DEP "https://raw.githubusercontent.com/k1729p/Study27/refs/heads/main/docs/images/ScreenshotManageDepartments.jpg" _blank
   click M_DEP_CR "https://raw.githubusercontent.com/k1729p/Study27/refs/heads/main/docs/images/ScreenshotCreateDepartment.jpg" _blank
   click M_DEP_UP "https://raw.githubusercontent.com/k1729p/Study27/refs/heads/main/docs/images/ScreenshotUpdateDepartment.jpg" _blank

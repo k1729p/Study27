@@ -1,13 +1,12 @@
 import { inject, Component, OnInit } from '@angular/core';
-import pdfMake from 'pdfmake/build/pdfmake';
-import pdfFonts from 'pdfmake/build/vfs_fonts';
 import { MatButtonModule, MatFabButton } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
 import { MatIconModule } from '@angular/material/icon';
 import { MatTabsModule } from '@angular/material/tabs';
+import pdfMake from 'pdfmake/build/pdfmake';
+import pdfFonts from 'pdfmake/build/vfs_fonts';
 
 import { Department } from 'models/department';
-import { Employee } from 'models/employee';
 import { DepartmentService } from 'services/department-service/department.service';
 import { EmployeeService } from 'services/employee-service/employee.service';
 /**
@@ -22,17 +21,19 @@ import { EmployeeService } from 'services/employee-service/employee.service';
 export class ReportComponent implements OnInit {
   private departmentService: DepartmentService = inject(DepartmentService);
   private employeeService: EmployeeService = inject(EmployeeService);
-  departmentArr: Department[] = this.departmentService.getDepartments();
+  departments: Department[] = [];
 
   private readonly PORTFOLIO_URL = 'https://github.com/k1729p/Portfolio';
-  private readonly IMAGES_URL = 'http://localhost:4200/images/';
+  private readonly IMAGES_URL = 'http://localhost:8027/images/';
   /**
    * A component lifecycle hook method.
    * Runs once after Angular has initialized all the component's inputs.
    * @returns void
    */
   ngOnInit(): void {
+    this.departments = this.departmentService.getDepartments();
     pdfMake.vfs = pdfFonts.vfs;
+    console.log('🟨ReportComponent.ngOnInit():');
   }
   /**
    * Generates the PDF file.
@@ -67,6 +68,7 @@ export class ReportComponent implements OnInit {
         tCreatedPdf.open();
         break;
     }
+    console.log('🟨ReportComponent.generatePdf(): action[%s]', action);
   }
   /**
    * Creates document definition for departments and employees.
@@ -127,7 +129,7 @@ export class ReportComponent implements OnInit {
    */
   private loadDepartmentList(): (string | { ol: string[] })[] {
     const deparmentList: (string | { ol: string[] })[] = [];
-    for (const department of this.departmentArr) {
+    for (const department of this.departments) {
       deparmentList.push(department.name);
       const employeeOrderedList: string[] = this.employeeService.getEmployees(department.id)
         .map((employee) => `${employee.firstName} ${employee.lastName}`);
@@ -163,7 +165,7 @@ export class ReportComponent implements OnInit {
         fillColor: 'lightcyan',
       },
     ]);
-    for (const department of this.departmentArr) {
+    for (const department of this.departments) {
       const employees = this.employeeService.getEmployees(department.id);
       if (employees.length === 0) {
         deparmentTable.push([{ text: department.name }, { text: '-' }]);

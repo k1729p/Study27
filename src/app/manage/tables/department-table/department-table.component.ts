@@ -1,14 +1,14 @@
 import { AfterViewInit, Component, ViewChild, inject } from '@angular/core';
-import { MatTableModule, MatTable } from '@angular/material/table';
-import { MatPaginatorModule, MatPaginator } from '@angular/material/paginator';
-import { MatSortModule, MatSort } from '@angular/material/sort';
+import { Router, ActivatedRoute } from '@angular/router';
 import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
-import { Router, ActivatedRoute } from '@angular/router';
-import {  } from '@angular/core';
+import { MatPaginatorModule, MatPaginator } from '@angular/material/paginator';
+import { MatSortModule, MatSort } from '@angular/material/sort';
+import { MatTableModule, MatTable } from '@angular/material/table';
 
 import { Department } from 'models/department';
 import { DepartmentDataSource } from './department-datasource';
+
 /**
  * DepartmentTableComponent is a component that displays a table of departments.
  * It uses Angular Material's table features to display, sort, and paginate the
@@ -47,36 +47,21 @@ export class DepartmentTableComponent implements AfterViewInit {
     this.dataSource.sort = this.sort;
     this.dataSource.paginator = this.paginator;
     this.table.dataSource = this.dataSource;
-    this.simulateSortById();
+    console.log('🟩DepartmentTableComponent.ngAfterViewInit():');
   }
-
-  // ###################################################################################################### DUMMY
-  async simulateSortById() {
-    await new Promise(resolve => setTimeout(resolve, 1000));
-    if (this.sort) {
-      this.sort.active = 'id';
-      this.sort.direction = this.sort.direction === 'asc' ? 'desc' : 'asc';
-      this.sort.sortChange.emit({ active: this.sort.active, direction: this.sort.direction });
-      console.log('🔵🔵🔵🔵🔵 sort');
-    }
-  }
-  // ###################################################################################################### DUMMY
-
-
 
   /**
    * Creates a new department.
    * This method navigates to the department form with the 'CREATE' action
    * and a placeholder id of '-1'.
    *
-   * @param void
    * @returns void
    */
   createDepartment() {
     this.router.navigate(['/department-form', 'CREATE', '-1'], {
       relativeTo: this.route,
     });
-    console.log('DepartmentTableComponent.createDepartment():');
+    console.log('🟩DepartmentTableComponent.createDepartment():');
   }
   /**
    * Updates the department.
@@ -90,7 +75,7 @@ export class DepartmentTableComponent implements AfterViewInit {
     this.router.navigate(['/department-form', 'UPDATE', id], {
       relativeTo: this.route,
     });
-    console.log('DepartmentTableComponent.updateDepartment(): id[%d]', id);
+    console.log('🟩DepartmentTableComponent.updateDepartment(): id[%d]', id);
   }
   /**
    * Deletes the department.
@@ -104,7 +89,7 @@ export class DepartmentTableComponent implements AfterViewInit {
     this.router.navigate(['/department-form', 'DELETE', id], {
       relativeTo: this.route,
     });
-    console.log('DepartmentTableComponent.deleteDepartment(): id[%d]', id);
+    console.log('🟩DepartmentTableComponent.deleteDepartment(): id[%d]', id);
   }
   /**
    * Manage the employees of the department.
@@ -117,15 +102,13 @@ export class DepartmentTableComponent implements AfterViewInit {
     this.router.navigate(['/employee-table', id], {
       relativeTo: this.route,
     });
-    console.log(
-      'DepartmentTableComponent.manageEmployees(): department id[%d]',
-      id
-    );
+    console.log('🟩DepartmentTableComponent.manageEmployees(): department id[%d]', id);
   }
+
   /**
    * Gets the length of the departments array.
    */
   get departmentsLength(): number {
-    return this.dataSource.departmentsSignal()?.length ?? 0;
+    return this.dataSource.departments?.length ?? 0;
   }
 }

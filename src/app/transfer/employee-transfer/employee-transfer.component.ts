@@ -4,8 +4,8 @@ import { FormBuilder, ReactiveFormsModule } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
 import { MatCheckboxModule } from '@angular/material/checkbox';
-import { MatIconModule } from '@angular/material/icon';
 import { MatGridListModule } from '@angular/material/grid-list';
+import { MatIconModule } from '@angular/material/icon';
 import { MatListModule } from '@angular/material/list';
 import { MatSelectModule } from '@angular/material/select';
 import { MatTableModule, MatTable } from '@angular/material/table';
@@ -65,47 +65,33 @@ export class EmployeeTransferComponent implements OnInit {
    */
   ngOnInit() {
     this.departments = this.departmentService.getDepartments();
-    if (this.departments.length > 0) {
-      this.selectDepartment('LEFT-SIDE', this.departments[0].id);
-    }
     if (this.departments.length > 1) {
+      this.selectDepartment('LEFT-SIDE', this.departments[0].id);
       this.selectDepartment('RIGHT-SIDE', this.departments[1].id);
     }
-    console.log('EmployeeTransferComponent.ngOnInit():');
+    console.log('🟦EmployeeTransferComponent.ngOnInit():');
   }
-
   /**
    * Selects the departments on the left side and on the right side.
    *
+   * @param side the side
+   * @param departmentId the department id
    * @returns void
    */
   selectDepartment(side: 'LEFT-SIDE' | 'RIGHT-SIDE', departmentId: number) {
-    if (departmentId < 1 || departmentId > this.departments.length) {
-      console.error(
-        'EmployeeTransferComponent.selectDepartment(): invalid department id[%d]',
-        departmentId
-      );
-      return;
-    }
     const index = this.departments.findIndex(dep => dep.id === departmentId);
     if (side === 'LEFT-SIDE') {
       this.leftSideDepartmentId = departmentId;
-      this.leftSideForm.controls.leftSideSelect.setValue(
-        this.departments[index]
-      );
+      this.leftSideForm.controls.leftSideSelect.setValue(this.departments[index]);
       this.leftSideEmployees = this.employeeService.getEmployees(departmentId);
     } else {
       this.rightSideDepartmentId = departmentId;
-      this.rightSideForm.controls.rightSideSelect.setValue(
-        this.departments[index]
-      );
+      this.rightSideForm.controls.rightSideSelect.setValue(this.departments[index]);
       this.rightSideEmployees = this.employeeService.getEmployees(departmentId);
     }
     console.log(
-      'EmployeeTransferComponent.selectDepartment(): left side department id[%d], right side department id[%d]',
-      this.leftSideDepartmentId,
-      this.rightSideDepartmentId
-    );
+      '🟦EmployeeTransferComponent.selectDepartment(): left side department id[%d], right side department id[%d]',
+      this.leftSideDepartmentId, this.rightSideDepartmentId);
   }
   /**
    * Transfers the employees.
@@ -134,7 +120,7 @@ export class EmployeeTransferComponent implements OnInit {
     this.rightSideEmployees =
       this.employeeService.getEmployees(+this.rightSideDepartmentId);
     console.log(
-      'transferEmployees(): side[%s], left side department id[%d], right side department id[%d]',
+      '🟦EmployeeTransferComponent.transferEmployees(): side[%s], left side department id[%d], right side department id[%d]',
       side,
       this.leftSideDepartmentId,
       this.rightSideDepartmentId

@@ -1,9 +1,8 @@
-import { inject, signal, computed, Signal, effect } from '@angular/core';
+import { inject } from '@angular/core';
 import { DataSource } from '@angular/cdk/collections';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { Observable, of as observableOf, merge } from 'rxjs';
-import { toObservable } from '@angular/core/rxjs-interop';
 import { map } from 'rxjs/operators';
 
 import { Department } from 'models/department';
@@ -15,10 +14,9 @@ import { DepartmentService } from 'services/department-service/department.servic
  */
 export class DepartmentDataSource extends DataSource<Department> {
   private departmentService: DepartmentService = inject(DepartmentService);
-  departmentsSignal: Signal<Department[] | undefined> = this.departmentService.getDepartmentsSignal();
+  departments: Department[] = [];
   paginator: MatPaginator | undefined;
   sort: MatSort | undefined;
-
   /**
    * Connect this data source to the table. The table will only update when
    * the returned stream emits new items.
@@ -27,29 +25,16 @@ export class DepartmentDataSource extends DataSource<Department> {
    */
   connect(): Observable<Department[]> {
     if (!this.paginator || !this.sort) {
-      throw Error(
-        'Please set the paginator and sort on the data before connecting.'
-      );
+      const msg = 'Please set the paginator and sort on the data before connecting.';
+      console.log('DepartmentDataSource.connect(): %s', msg);
+      throw Error(msg);
     }
-    // Convert the signal to observable for the table
-    return merge(
-      observableOf(this.departmentsSignal),
-      // ########################################################  CAUSES ERRORS IN BROWSER toObservable(this.departmentsSignal),
-      this.paginator.page,
-      this.sort.sortChange
-    ).pipe(
-      map(() => {
-        const departments = this.departmentsSignal() ?? [];
-        console.log("🟢 Datasource Converter - departments array size: " + departments.length); // #### !!!!!!!
-        return this.getPagedData(this.getSortedData([...departments]));
-      })
-    );
+    this.departments = this.departmentService.getDepartments();
+    return merge(observableOf(this.departments), this.paginator.page, this.sort.sortChange)
+      .pipe(
+        map(() => this.getPagedData(this.getSortedData([...this.departments])))
+      );
   }
-  private loggingEffect = effect(() => {// ################################################### !!!!!!!!!!!
-    const deps = this.departmentsSignal() ?? [];
-    console.log("🔴 Effect - departments array size: " + deps.length);
-  });// ################################################### !!!!!!!!!!!
-
   /**
    * Called when the table is being destroyed. Use this function, to clean up
    * any open connections or free any held resources that were set up during connect.
@@ -74,7 +59,6 @@ export class DepartmentDataSource extends DataSource<Department> {
     const startIndex = this.paginator.pageIndex * this.paginator.pageSize;
     return departments.slice(startIndex, startIndex + this.paginator.pageSize);
   }
-
   /**
    * Sort the data (client-side). This method sorts the data array based on the active
    * sort field and direction. If you switch to using server-side sorting, this method
@@ -91,23 +75,23 @@ export class DepartmentDataSource extends DataSource<Department> {
       const isAsc = this.sort?.direction === 'asc';
       switch (this.sort?.active) {
         case 'name':
-          return compare(a.name, b.name, isAsc);
+          return this.compare(a.name, b.name, isAsc);
         case 'id':
-          return compare(+a.id, +b.id, isAsc);
+          return this.compare(+a.id, +b.id, isAsc);
         default:
           return 0;
       }
     });
   }
-}
-/**
- * Compare two values and return a number indicating their relative order.
- * This function is used for sorting the data in the table.
- */
-function compare(
-  a: string | number,
-  b: string | number,
-  isAsc: boolean
-): number {
-  return (a < b ? -1 : 1) * (isAsc ? 1 : -1);
+  /**
+   * Compare two values and return a number indicating their relative order.
+   * This function is used for sorting the data in the table.
+   */
+  private compare(
+    a: string | number,
+    b: string | number,
+    isAsc: boolean
+  ): number {
+    return (a < b ? -1 : 1) * (isAsc ? 1 : -1);
+  }
 }

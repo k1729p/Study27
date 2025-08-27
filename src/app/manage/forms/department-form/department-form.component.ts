@@ -92,8 +92,8 @@ export class DepartmentFormComponent implements OnInit {
     const currentKeyword = this.currentKeyword().toLowerCase();
     return currentKeyword
       ? this.suggestionKeywords.filter((keyword) =>
-          keyword.toLowerCase().includes(currentKeyword)
-        )
+        keyword.toLowerCase().includes(currentKeyword)
+      )
       : this.suggestionKeywords.slice();
   });
   readonly separatorKeysCodes: number[] = [ENTER, COMMA];
@@ -129,6 +129,7 @@ export class DepartmentFormComponent implements OnInit {
     this.departmentForm.controls.image.setValue(
       department?.image ?? 'images/CommercialBuildingDefault.jpg'
     );
+    console.log('🟢DepartmentFormComponent.ngOnInit():');
   }
 
   /**
@@ -148,13 +149,13 @@ export class DepartmentFormComponent implements OnInit {
       };
       this.departmentService.createDepartment(department);
       console.log(
-        'DepartmentFormComponent.onSubmit(): CREATE, name[%s]',
+        '🟢DepartmentFormComponent.onSubmit(): CREATE, name[%s]',
         department?.name
       );
     } else if (this.operation === 'READ') {
       const department = this.departmentService.getDepartment(+this.id);
       console.log(
-        'DepartmentFormComponent.onSubmit(): READ, id[%d], name[%s]',
+        '🟢DepartmentFormComponent.onSubmit(): READ, id[%d], name[%s]',
         this.id,
         department?.name
       );
@@ -170,16 +171,13 @@ export class DepartmentFormComponent implements OnInit {
       };
       this.departmentService.updateDepartment(department);
       console.log(
-        'DepartmentFormComponent.onSubmit(): UPDATE, id[%d], name[%s]',
+        '🟢DepartmentFormComponent.onSubmit(): UPDATE, id[%d], name[%s]',
         this.id,
         department?.name
       );
     } else if (this.operation === 'DELETE') {
       this.departmentService.deleteDepartment(+this.id);
-      console.log(
-        'DepartmentFormComponent.onSubmit(): DELETE, id[%s]',
-        this.id
-      );
+      console.log('🟢DepartmentFormComponent.onSubmit(): DELETE, id[%s]', this.id);
     }
     this.router.navigate(['/department-table'], { relativeTo: this.route });
   }
@@ -190,7 +188,7 @@ export class DepartmentFormComponent implements OnInit {
    */
   onCancel() {
     this.departmentForm.reset();
-    console.log('DepartmentFormComponent.onCancel():');
+    console.log('🟢DepartmentFormComponent.onCancel():');
     this.router.navigate(['/department-table'], { relativeTo: this.route });
   }
 
