@@ -97,7 +97,6 @@ export class DepartmentFormComponent implements OnInit {
       : this.suggestionKeywords.slice();
   });
   readonly separatorKeysCodes: number[] = [ENTER, COMMA];
-
   /**
    * A component lifecycle hook method.
    * Runs once after Angular has initialized all the component's inputs.
@@ -131,7 +130,6 @@ export class DepartmentFormComponent implements OnInit {
     );
     console.log('🟢DepartmentFormComponent.ngOnInit():');
   }
-
   /**
    * The submit action handler.
    * It creates, updates, or deletes a department based on the operation type.
@@ -181,7 +179,6 @@ export class DepartmentFormComponent implements OnInit {
     }
     this.router.navigate(['/department-table'], { relativeTo: this.route });
   }
-
   /**
    * The cancel action handler.
    * It resets the form and navigates back to the department table.
@@ -191,7 +188,6 @@ export class DepartmentFormComponent implements OnInit {
     console.log('🟢DepartmentFormComponent.onCancel():');
     this.router.navigate(['/department-table'], { relativeTo: this.route });
   }
-
   /**
    * A filter function for the datepicker to only allow workdays (Monday to Friday).
    * This function prevents Saturday and Sunday from being selected.
@@ -213,7 +209,6 @@ export class DepartmentFormComponent implements OnInit {
     );
     this.currentKeyword.set('');
   }
-
   /**
    * Removes a keyword from the list.
    * This method updates the keywords array by removing the specified keyword if it exists.
@@ -230,7 +225,6 @@ export class DepartmentFormComponent implements OnInit {
       return [...keywordArray];
     });
   }
-
   /**
    * Adds a selected keyword from the autocomplete dropdown.
    * This method updates the keywords array with the selected keyword
@@ -246,7 +240,6 @@ export class DepartmentFormComponent implements OnInit {
     this.currentKeyword.set('');
     event.option.deselect();
   }
-
   /**
    * Updates the keyword array by adding a new keyword if it does not already exist.
    * This method ensures that duplicate keywords are not added to the array.

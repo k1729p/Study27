@@ -5,7 +5,6 @@ import { Employee } from 'models/employee';
 import { Department } from 'models/department';
 import { RepositoryType } from 'home/repository-type';
 import { ENDPOINTS } from 'services/backend-endpoints.constants';
-
 /**
  * Injection token for browser storage.
  * This token is used to inject the browser's localStorage into services that require it.
@@ -71,13 +70,9 @@ export class EmployeeService {
    */
   getEmployee(departmentId: number, employeeId: number): Employee | undefined {
     const employee = this.getEmployees(departmentId).find(emp => emp.id === employeeId);
-    console.log('EmployeeService.getEmployee(): department id[%s], employee id[%s]',
-      departmentId,
-      employeeId
-    );
+    console.log('EmployeeService.getEmployee(): department id[%s], employee id[%s]', departmentId, employeeId);
     return employee;
   }
-
   /**
    * Creates a new employee in the specified department.
    * This method generates a new employee ID based on the existing employees in the department,
@@ -89,29 +84,22 @@ export class EmployeeService {
    * @return void
    */
   createEmployee(departmentId: number, employee: Employee) {
+    employee.id = this.getNextEmployeeId();
     const employees = this.getEmployees(departmentId);
-    if (employees === undefined || employees.length === 0) {
-      employee.id = 1;
-    } else {
-      employee.id = employees.map(dep => dep?.id ?? 0)
-        .reduce((id1, id2) => Math.max(id1, id2)) + 1;
-    }
     employees.push(employee);
     this.setEmployees(departmentId, employees);
     const repositoryType = this.storage.getItem('repositoryType') as RepositoryType;
     if (repositoryType !== RepositoryType.WebStorage) {
       this.http.post(ENDPOINTS.createEmployee(repositoryType), employee)
         .subscribe({
-          next: () => { console.log('💛💛💛💛💛Creating employee:'); },// #############################################################
-          error: err => {
-            console.log('EmployeeService.createEmployee(): error[%s]', err);
-          }
-        }
-        );
+          next: () => {
+            console.log(
+              'EmployeeService.createEmployee(): repositoryType[%s], department id[%s], employee id[%s]',
+              repositoryType, departmentId, employee.id);
+          },
+          error: err => console.log('EmployeeService.createEmployee(): error[%s]', err)
+        });
     }
-    console.log(
-      'EmployeeService.createEmployee(): repositoryType[%s], department id[%s], employee id[%s]',
-      repositoryType, departmentId, employee.id);
   }
   /**
    * Updates the employee.
@@ -133,16 +121,14 @@ export class EmployeeService {
     if (repositoryType !== RepositoryType.WebStorage) {
       this.http.patch(ENDPOINTS.updateEmployee(employee.id, repositoryType), employee)
         .subscribe({
-          next: () => { console.log('💜💜💜💜💜updating employee:'); },// #############################################################
-          error: err => {
-            console.log('EmployeeService.updateEmployee(): error[%s]', err);
-          }
-        }
-        );
+          next: () => {
+            console.log(
+              'EmployeeService.updateEmployee(): repositoryType[%s], department id[%s], employee id[%s]',
+              repositoryType, departmentId, employee.id);
+          },
+          error: err => console.log('EmployeeService.updateEmployee(): error[%s]', err)
+        });
     }
-    console.log(
-      'EmployeeService.updateEmployee(): repositoryType[%s], department id[%s], employee id[%s]',
-      repositoryType, departmentId, employee.id);
   }
   /**
    * Deletes the employee from the specified department.
@@ -164,49 +150,26 @@ export class EmployeeService {
     if (repositoryType !== RepositoryType.WebStorage) {
       this.http.delete(ENDPOINTS.deleteEmployee(employeeId, repositoryType))
         .subscribe({
-          next: () => { console.log('🤎🤎🤎🤎🤎deleting employee:'); },// #############################################################
-          error: err => {
-            console.log('EmployeeService.deleteEmployee(): error[%s]', err);
-          }
-        }
-        );
+          next: () => {
+            console.log(
+              'EmployeeService.deleteEmployee(): repositoryType[%s], department id[%s], employee id[%s]',
+              repositoryType, departmentId, employeeId);
+          },
+          error: err => console.log('EmployeeService.deleteEmployee(): error[%s]', err)
+        });
     }
-    console.log(
-      'EmployeeService.deleteEmployee(): repositoryType[%s], department id[%s], employee id[%s]',
-      repositoryType, departmentId, employeeId);
   }
   /**
-   * Transfers a list of employees from one department to another.
-   *
-   * @param sourceDepartmentId the source department id
-   * @param targetDepartmentId the target department id
-   * @param employees the list of the employees to transfer
-   * @return void
+   * Returns the next available employee id:
+   * (maximum id found in all departments' employees) + 1.
+   * If there are no employees, returns 1.
+   * @return id
    */
-  transferEmployees(
-    sourceDepartmentId: number,
-    targetDepartmentId: number,
-    employees: Employee[]
-  ) {
-    const sourceEmployees = this.getEmployees(sourceDepartmentId);
-    const targetEmployees = this.getEmployees(targetDepartmentId);
-    employees.forEach(employee => {
-      const empIndex = sourceEmployees.findIndex(emp => emp.id === employee.id);
-      if (empIndex !== -1) {
-        sourceEmployees.splice(empIndex, 1);
-        targetEmployees.push(employee);
-      }
-    });
-    this.setEmployees(sourceDepartmentId, sourceEmployees);
-    this.setEmployees(targetDepartmentId, targetEmployees);
-    const repositoryType = this.storage.getItem('repositoryType') as RepositoryType;
-    if (repositoryType !== RepositoryType.WebStorage) {
-      // TODO ### TODO ### TODO ### TODO ### TODO ### TODO ### TODO ### TODO ### TODO ### 
-      // TODO ### TODO ### TODO ### TODO ### TODO ### TODO ### TODO ### TODO ### TODO ### 
-      // TODO ### TODO ### TODO ### TODO ### TODO ### TODO ### TODO ### TODO ### TODO ### 
-    }
-    console.log(
-      'EmployeeService.transferEmployee(): repositoryType[%s], source department id[%s], target department id[%s], employee id[%s]',
-      repositoryType, sourceDepartmentId, targetDepartmentId);
-  }
+  private getNextEmployeeId(): number {
+    const json = this.storage.getItem('departments') ?? '';
+    const departments = JSON.parse(json) as Department[];
+    const employeeIds = departments.flatMap(dep => dep.employees).map(emp => emp.id);
+    return employeeIds.length > 0 ? Math.max(...employeeIds) + 1 : 1;
+  };
+
 }

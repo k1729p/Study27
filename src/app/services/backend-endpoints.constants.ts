@@ -35,4 +35,7 @@ export const ENDPOINTS = {
 
   deleteEmployee: (id: number | string, repositoryType: string) =>
     `${SITE}/employees/${id}?repositoryType=${repositoryType}`,
+
+  transferEmployees: (repositoryType: string) =>
+    `${SITE}/transfers/?repositoryType=${repositoryType}`,
 };

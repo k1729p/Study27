@@ -100,6 +100,30 @@ describe('DepartmentService', () => {
     expect(actualDepartment).toBeUndefined();
   });
   /**
+   * Tests transferring an employee between departments.
+   * Ensures the employee is removed from the source department and added to the target department.
+   */
+  it('should transfer an employee between departments', () => {
+    // GIVEN
+    departmentService.setDepartments(TEST_DEPARTMENTS);
+    const sourceDepartmentId = TEST_DEPARTMENT_ID;
+    const targetDepartmentId = TEST_DEPARTMENT_ID + 1;
+    const transferedEmployees = TEST_DEPARTMENTS[0].employees;
+    // WHEN
+    departmentService.transferEmployees(
+      sourceDepartmentId,
+      targetDepartmentId,
+      transferedEmployees
+    );
+    // THEN
+    const actualSourceDepartment = departmentService.getDepartment(sourceDepartmentId);
+    const actualInSource = actualSourceDepartment?.employees[0];
+    expect(actualInSource).toBeUndefined();
+    const actualTargetDepartment = departmentService.getDepartment(targetDepartmentId);
+    const actualInTarget = actualTargetDepartment?.employees[0];
+    expect(actualInTarget).toEqual(transferedEmployees[0]);
+  });
+  /**
    * Checks that the first department in actualDepartments matches the first in TEST_DEPARTMENTS.
    * Used for test assertions.
    */

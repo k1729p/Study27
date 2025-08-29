@@ -8,7 +8,6 @@ import { EmployeeTableComponent } from './manage/tables/employee-table/employee-
 import { EmployeeLocateComponent } from './locate/employee-locate/employee-locate.component';
 import { EmployeeTransferComponent } from './transfer/employee-transfer/employee-transfer.component';
 import { ReportComponent } from './report/report.component';
-
 /**
  * Application routes for the Angular application.
  * This file defines the routes for the application, including paths for

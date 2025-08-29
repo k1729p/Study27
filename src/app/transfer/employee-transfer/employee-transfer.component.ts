@@ -101,13 +101,13 @@ export class EmployeeTransferComponent implements OnInit {
    */
   transferEmployees(side: 'LEFT-SIDE' | 'RIGHT-SIDE') {
     if (side === 'LEFT-SIDE') {
-      this.employeeService.transferEmployees(
+      this.departmentService.transferEmployees(
         +this.leftSideDepartmentId,
         +this.rightSideDepartmentId,
         this.leftSideSelection.selected
       );
     } else {
-      this.employeeService.transferEmployees(
+      this.departmentService.transferEmployees(
         +this.rightSideDepartmentId,
         +this.leftSideDepartmentId,
         this.rightSideSelection.selected

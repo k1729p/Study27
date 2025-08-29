@@ -55,7 +55,6 @@ export class EmployeeFormComponent implements OnInit {
   formTitle = '';
   buttonLabel = '';
   id = '';
-
   /**
    * A component lifecycle hook method.
    * Runs once after Angular has initialized all the component's inputs.
@@ -99,7 +98,6 @@ export class EmployeeFormComponent implements OnInit {
     this.employeeForm.controls.country.setValue(employee?.country ?? '');
     console.log('🟢EmployeeFormComponent.ngOnInit():');
   }
-
   /**
    * The submit action handler.
    * It creates, updates, or deletes an employee based on the operation type.
@@ -173,7 +171,6 @@ export class EmployeeFormComponent implements OnInit {
       relativeTo: this.route,
     });
   }
-
   /**
    * The cancel action handler.
    * It resets the form and navigates back to the employee table.

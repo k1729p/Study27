@@ -1,9 +1,10 @@
 import { Injectable, InjectionToken, inject } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 
+import { Department } from 'models/department';
 import { RepositoryType } from 'home/repository-type';
 import { ENDPOINTS } from 'services/backend-endpoints.constants';
-
+import { INITIAL_DATA } from 'home/initial-data';
 /**
  * Injection token for browser storage.
  * This token is used to inject the browser's localStorage into services that require it.
@@ -22,19 +23,35 @@ export class InitializationService {
   storage = inject<Storage>(BROWSER_STORAGE);
   private http = inject(HttpClient);
   /**
-   * Loads initial data.
-   * @param repositoryType 
+   * Posts initial data to the backend server.
    */
-  loadInitialData() {
+  postInitialDataToBackend() {
     const repositoryType = this.storage.getItem('repositoryType') as RepositoryType;
-    const json = this.storage.getItem('departments') ?? '';
-    this.http.post(ENDPOINTS.loadInitialData(repositoryType), json).subscribe({
+    this.http.post(ENDPOINTS.loadInitialData(repositoryType), INITIAL_DATA).subscribe({
       next: () => {
-        console.log('InitializationService.loadInitialData(): repositoryType[%s]', repositoryType);
+        console.log('InitializationService.postInitialDataToBackend(): repositoryType[%s]', repositoryType);
       },
       error: err => {
-        console.log('InitializationService.loadInitialData(): error ', err);
+        console.log('InitializationService.postInitialDataToBackend(): error ', err);
       }
     });
+  }
+  /**
+   * Loads the department array from the backend server.
+   */
+  loadDepartmentsFromBackend() {
+    const repositoryType = this.storage.getItem('repositoryType') as RepositoryType;
+    this.http.get<Department[]>(ENDPOINTS.getDepartments(repositoryType))
+      .subscribe({
+        next: departments => {
+          this.storage.setItem('departments', JSON.stringify(departments));
+          console.log('InitializationService.loadDepartmentsFromBackend(): repositoryType[%s]',
+            repositoryType);
+        },
+        error: err => {
+          this.storage.setItem('departments', JSON.stringify([]));
+          console.log('InitializationService.loadDepartmentsFromBackend(): error[%s]', err)
+        }
+      });
   }
 }

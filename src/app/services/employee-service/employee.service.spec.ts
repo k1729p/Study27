@@ -140,33 +140,4 @@ describe('EmployeeService', () => {
     );
     expect(actualEmployee).toBeUndefined();
   });
-
-  /**
-   * Tests transferring an employee between departments.
-   * Ensures the employee is removed from the source department and added to the target department.
-   */
-  it('should transfer an employee between departments', () => {
-    // GIVEN
-    employeeService.setEmployees(TEST_DEPARTMENT_ID, TEST_DEPARTMENTS[0].employees);
-    const sourceDepartmentId = TEST_DEPARTMENT_ID;
-    const targetDepartmentId = TEST_DEPARTMENT_ID + 1;
-    const transferedEmployees = TEST_DEPARTMENTS[0].employees;
-    // WHEN
-    employeeService.transferEmployees(
-      sourceDepartmentId,
-      targetDepartmentId,
-      transferedEmployees
-    );
-    // THEN
-    const actualInSource = employeeService.getEmployee(
-      sourceDepartmentId,
-      transferedEmployees[0].id
-    );
-    expect(actualInSource).toBeUndefined();
-    const actualInTarget = employeeService.getEmployee(
-      targetDepartmentId,
-      transferedEmployees[0].id
-    );
-    expect(actualInTarget).toEqual(transferedEmployees[0]);
-  });
 });

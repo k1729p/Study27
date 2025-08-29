@@ -22,16 +22,18 @@ export class ReportComponent implements OnInit {
   private departmentService: DepartmentService = inject(DepartmentService);
   private employeeService: EmployeeService = inject(EmployeeService);
   departments: Department[] = [];
-
+  venn01DataUrl: any;
+  venn02DataUrl: any;
   private readonly PORTFOLIO_URL = 'https://github.com/k1729p/Portfolio';
-  private readonly IMAGES_URL = 'http://localhost:8027/images/';
   /**
    * A component lifecycle hook method.
    * Runs once after Angular has initialized all the component's inputs.
    * @returns void
    */
-  ngOnInit(): void {
+  async ngOnInit() {
     this.departments = this.departmentService.getDepartments();
+    this.venn01DataUrl = await this.getBase64Image('/images/VennDiagram01.jpg');
+    this.venn02DataUrl = await this.getBase64Image('/images/VennDiagram02.jpg');
     pdfMake.vfs = pdfFonts.vfs;
     console.log('🟨ReportComponent.ngOnInit():');
   }
@@ -233,8 +235,8 @@ export class ReportComponent implements OnInit {
         },
       ],
       images: {
-        venn01: this.IMAGES_URL + 'VennDiagram01.jpg',
-        venn02: this.IMAGES_URL + 'VennDiagram02.jpg',
+        venn01: this.venn01DataUrl,
+        venn02: this.venn02DataUrl,
       },
       info: {
         title: 'Comprehensive Report',
@@ -254,5 +256,27 @@ export class ReportComponent implements OnInit {
       },
     };
     return docDefinition;
+  }
+  /**
+   * Loads the image file and converts it into a dataURL (base64 string).
+   * @param imagePath the image path
+   * @returns the image
+   */
+  private getBase64Image(imagePath: string): Promise<string> {
+    return new Promise((resolve, reject) => {
+      const image = new Image();
+      image.crossOrigin = 'Anonymous';
+      image.src = imagePath;
+      image.onload = () => {
+        const canvas = document.createElement('canvas');
+        canvas.width = image.width;
+        canvas.height = image.height;
+        const context = canvas.getContext('2d');
+        context?.drawImage(image, 0, 0);
+        const dataURL = canvas.toDataURL('image/jpeg');
+        resolve(dataURL);
+      };
+      image.onerror = error => reject(error);
+    });
   }
 }

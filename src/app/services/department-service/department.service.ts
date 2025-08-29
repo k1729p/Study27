@@ -1,9 +1,8 @@
 import { Injectable, InjectionToken, inject } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Observable, of as observableOf } from 'rxjs';
-import { catchError } from 'rxjs/operators';
 
 import { Department } from 'models/department';
+import { Employee } from 'models/employee';
 import { RepositoryType } from 'home/repository-type';
 import { ENDPOINTS } from 'services/backend-endpoints.constants';
 /**
@@ -26,24 +25,6 @@ export const BROWSER_STORAGE = new InjectionToken<Storage>('Browser Storage', {
 export class DepartmentService {
   storage = inject<Storage>(BROWSER_STORAGE);
   http = inject(HttpClient);
-  /**
-   * Gets the department array from the backend server.
-   *
-   * @returns an observable with an array of Department objects
-   */
-  getDepartmentsFromBackend(): Observable<Department[] | undefined> {
-    const repositoryType = this.storage.getItem('repositoryType') as RepositoryType;
-    const departmentsObservable: Observable<Department[]> =
-      this.http.get<Department[]>(ENDPOINTS.getDepartments(repositoryType))
-        .pipe(
-          catchError(err => {
-            console.log('DepartmentService.getDepartmentsFromBackend(): repositoryType[%s], error[%s]', repositoryType, err);
-            return observableOf([]); // fallback to empty array
-          })
-        );
-    console.log('DepartmentService.getDepartmentsFromBackend(): repositoryType[%s]', repositoryType);
-    return departmentsObservable;
-  }
   /**
    * Gets the department array.
    * Retrieves the department array from local storage,
@@ -105,14 +86,13 @@ export class DepartmentService {
     if (repositoryType !== RepositoryType.WebStorage) {
       this.http.post(ENDPOINTS.createDepartment(repositoryType), department)
         .subscribe({
-          next: () => { console.log('💛💛💛💛💛Creating department:'); },// #############################################################
-          error: err => {
-            console.log('DepartmentService.createDepartment(): error[%s]', err);
-          }
+          next: () => {
+            console.log('DepartmentService.createDepartment(): repositoryType[%s], id[%d]',
+              repositoryType, department.id);
+          },
+          error: err => console.log('DepartmentService.createDepartment(): error[%s]', err)
         });
     }
-    console.log('DepartmentService.createDepartment(): repositoryType[%s], id[%d]',
-      repositoryType, department.id);
   }
   /**
    * Updates an existing department.
@@ -131,14 +111,13 @@ export class DepartmentService {
     if (repositoryType !== RepositoryType.WebStorage) {
       this.http.patch(ENDPOINTS.updateDepartment(department.id, repositoryType), department)
         .subscribe({
-          next: () => { console.log('💜💜💜💜💜updating department:'); },// #############################################################
-          error: err => {
-            console.log('DepartmentService.updateDepartment(): error[%s]', err);
-          }
+          next: () => {
+            console.log('DepartmentService.updateDepartment(): repositoryType[%s], id[%d]',
+              repositoryType, department.id);
+          },
+          error: err => console.log('DepartmentService.updateDepartment(): error[%s]', err)
         });
     }
-    console.log('DepartmentService.updateDepartment(): repositoryType[%s], id[%d]',
-      repositoryType, department.id);
   }
   /**
    * Deletes a department by its id.
@@ -157,13 +136,58 @@ export class DepartmentService {
     if (repositoryType !== RepositoryType.WebStorage) {
       this.http.delete(ENDPOINTS.deleteDepartment(id, repositoryType))
         .subscribe({
-          next: () => { console.log('🤎🤎🤎🤎🤎deleting department:'); },// #############################################################
-          error: err => {
-            console.log('DepartmentService.deleteDepartment(): error[%s]', err);
-          }
+          next: () => {
+            console.log('DepartmentService.deleteDepartment(): repositoryType[%s], id[%d]',
+              repositoryType, id);
+          },
+          error: err => console.log('DepartmentService.deleteDepartment(): error[%s]', err)
         });
     }
-    console.log('DepartmentService.deleteDepartment(): repositoryType[%s], id[%d]',
-      repositoryType, id);
+  }
+  /**
+   * Transfers a list of employees from one department to another.
+   *
+   * @param sourceDepartmentId the source department id
+   * @param targetDepartmentId the target department id
+   * @param employees the list of the employees to transfer
+   * @return void
+   */
+  transferEmployees(
+    sourceDepartmentId: number,
+    targetDepartmentId: number,
+    employees: Employee[]
+  ) {
+    const departments = this.getDepartments();
+    const sourceDepartment = departments.find(dep => dep.id === sourceDepartmentId);
+    const targetDepartment = departments.find(dep => dep.id === targetDepartmentId);
+    if (!sourceDepartment || !targetDepartment) {
+      console.log('DepartmentService.transferEmployees(): error - source department or target department is undefined');
+      return;
+    }
+    employees.forEach(employee => {
+      employee.departmentId = targetDepartmentId;
+      const empIndex = sourceDepartment.employees.findIndex(emp => emp.id === employee.id);
+      if (empIndex !== -1) {
+        sourceDepartment.employees.splice(empIndex, 1);
+        targetDepartment.employees.push(employee);
+      }
+    });
+    this.setDepartments(departments);
+    const repositoryType = this.storage.getItem('repositoryType') as RepositoryType;
+    if (repositoryType !== RepositoryType.WebStorage) {
+      const employeeIds: number[] = employees.map(emp => emp.id);
+      const transferData = {
+        'sourceDepartmentId': sourceDepartmentId,
+        'targetDepartmentId': targetDepartmentId,
+        'employeeIds': employeeIds
+      };
+      this.http.post(ENDPOINTS.transferEmployees(repositoryType), transferData)
+        .subscribe({
+          error: err => console.log('DepartmentService.transferEmployees(): error[%s]', err)
+        });
+    }
+    console.log(
+      'DepartmentService.transferEmployees(): repositoryType[%s], source department id[%s], target department id[%s]',
+      repositoryType, sourceDepartmentId, targetDepartmentId);
   }
 }

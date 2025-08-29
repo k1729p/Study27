@@ -8,7 +8,6 @@ import { MatTableModule, MatTable } from '@angular/material/table';
 
 import { Department } from 'models/department';
 import { DepartmentDataSource } from './department-datasource';
-
 /**
  * DepartmentTableComponent is a component that displays a table of departments.
  * It uses Angular Material's table features to display, sort, and paginate the
@@ -38,7 +37,6 @@ export class DepartmentTableComponent implements AfterViewInit {
   @ViewChild(MatTable) table!: MatTable<Department>;
   dataSource = new DepartmentDataSource();
   displayedColumns = ['id', 'name', 'actions'];
-
   /**
    * A component lifecycle hook method.
    * Runs once after the component's view has been initialized.
@@ -49,7 +47,6 @@ export class DepartmentTableComponent implements AfterViewInit {
     this.table.dataSource = this.dataSource;
     console.log('🟩DepartmentTableComponent.ngAfterViewInit():');
   }
-
   /**
    * Creates a new department.
    * This method navigates to the department form with the 'CREATE' action
@@ -104,7 +101,6 @@ export class DepartmentTableComponent implements AfterViewInit {
     });
     console.log('🟩DepartmentTableComponent.manageEmployees(): department id[%d]', id);
   }
-
   /**
    * Gets the length of the departments array.
    */

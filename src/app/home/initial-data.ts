@@ -1,7 +1,7 @@
 /**
- * Initial data for backend repositories.
+ * Initial data for backend repositories and web local storage.
  */
-export const BACKEND_INITIAL_DATA = {
+export const INITIAL_DATA = {
   'departments': [
     {
       'id': 1,

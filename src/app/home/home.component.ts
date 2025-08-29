@@ -2,16 +2,12 @@ import { InjectionToken, inject, OnInit, Component } from '@angular/core';
 import { FormBuilder, ReactiveFormsModule } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
-import {MatRadioModule} from '@angular/material/radio';
+import { MatRadioModule } from '@angular/material/radio';
 import { MatSelectModule } from '@angular/material/select';
-import { Observable } from 'rxjs';
 
-import { Department } from 'models/department';
-import { DepartmentService } from 'services/department-service/department.service';
 import { InitializationService } from 'services/initialization-service/initialization-service';
 import { RepositoryType } from 'home/repository-type';
-import { BACKEND_INITIAL_DATA } from './backend-initial-data';
-
+import { INITIAL_DATA } from './initial-data';
 /**
  * Injection token for browser storage.
  * This token is used to inject the browser's localStorage into services that require it.
@@ -44,8 +40,6 @@ export class HomeComponent implements OnInit {
   homeForm = this.formBuilder.group({
     repositoryTypeSelect: RepositoryType.WebStorage,
   });
-  private departmentService: DepartmentService = inject(DepartmentService);
-
   /**
    * A component lifecycle hook method.
    * Runs once after Angular has initialized all the component's inputs.
@@ -58,13 +52,14 @@ export class HomeComponent implements OnInit {
     if (!repositoryType) {
       repositoryType = RepositoryType.WebStorage;
       this.storage.setItem('repositoryType', repositoryType);
-      this.storage.setItem('departments', JSON.stringify(BACKEND_INITIAL_DATA.departments));
+      this.storage.setItem('departments', JSON.stringify(INITIAL_DATA.departments));
     }
     this.homeForm.controls.repositoryTypeSelect.setValue(repositoryType);
-    this.selectActiveRepository(repositoryType);
+    if (repositoryType !== RepositoryType.WebStorage) {
+      this.initializationService.loadDepartmentsFromBackend();
+    }
     console.log('🟧HomeComponent.ngOnInit(): repositoryType[%s]', repositoryType);
   }
-
   /**
    * Sets the repository type.
    *
@@ -73,7 +68,9 @@ export class HomeComponent implements OnInit {
    */
   setRepositoryType(repositoryType: RepositoryType) {
     this.storage.setItem('repositoryType', repositoryType);
-    this.selectActiveRepository(repositoryType);
+    if (repositoryType !== RepositoryType.WebStorage) {
+      this.initializationService.loadDepartmentsFromBackend();
+    }
     console.log('🟧HomeComponent.selectRepositoryType(): repositoryType[%s]', repositoryType);
   }
   /**
@@ -82,32 +79,29 @@ export class HomeComponent implements OnInit {
    * @returns void
    */
   initialiseRepository() {
-    this.storage.setItem('departments', JSON.stringify(BACKEND_INITIAL_DATA.departments));
+    this.storage.setItem('departments', JSON.stringify(INITIAL_DATA.departments));
     const repositoryType = this.storage.getItem('repositoryType') as RepositoryType;
     if (RepositoryType.WebStorage !== repositoryType) {
-      this.initializationService.loadInitialData();
+      this.initializationService.postInitialDataToBackend();
     }
     console.log('🟧HomeComponent.initialiseRepository(): repositoryType[%s]', repositoryType);
   }
-
   /**
-   * Selects the repository used in application.
+   * Describes the repository type.
    *
    * @param repositoryType 
    * @returns void
    */
-  private selectActiveRepository(repositoryType: RepositoryType) {
-    if (repositoryType === RepositoryType.WebStorage) {
-      return;
+  describeRepositoryType(repositoryType: RepositoryType) {
+    switch (repositoryType) {
+      case RepositoryType.PostgreSQL:
+        return 'PostgreSQL database';
+      case RepositoryType.MongoDB:
+        return 'MongoDB database';
+      case RepositoryType.MySQL:
+        return 'MySQL database';
+      default: //RepositoryType.WebStorage:
+        return 'Only local web storage';
     }
-    const departments$: Observable<Department[] | undefined> = this.departmentService.getDepartmentsFromBackend();
-    departments$.subscribe(departments => {
-      this.storage.setItem('departments', JSON.stringify(departments));
-
-      console.log("❤️❤️❤️ Datasource Converter - departments array size: " + departments?.length);
-
-
-    });
   }
-
 }
