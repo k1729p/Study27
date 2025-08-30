@@ -1,5 +1,6 @@
 ```mermaid
 flowchart LR
+  MENU((Menu))
   HOME(Home):::orangeBox
   M_DEP(Manage Departments):::redBox
   M_DEP_CR(Create Department):::redStroke
@@ -13,6 +14,7 @@ flowchart LR
   LOC_EMP(Locate Employees):::cyanBox
   PDF(Create PDF Reports):::yellowBox
 %% Flows
+  MENU ~~~ HOME
   HOME --> M_DEP
   subgraph " "
     M_DEP --> M_DEP_CR
@@ -29,6 +31,7 @@ flowchart LR
   HOME --> LOC_EMP
   HOME --> PDF
 %% Links Definitions
+  click MENU "https://raw.githubusercontent.com/k1729p/Study27/refs/heads/main/docs/images/ScreenshotMenu.jpg" _blank
   click HOME "https://raw.githubusercontent.com/k1729p/Study27/refs/heads/main/docs/images/ScreenshotHome.jpg" _blank
   click M_DEP "https://raw.githubusercontent.com/k1729p/Study27/refs/heads/main/docs/images/ScreenshotManageDepartments.jpg" _blank
   click M_DEP_CR "https://raw.githubusercontent.com/k1729p/Study27/refs/heads/main/docs/images/ScreenshotCreateDepartment.jpg" _blank

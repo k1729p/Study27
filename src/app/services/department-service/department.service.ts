@@ -161,7 +161,8 @@ export class DepartmentService {
     const sourceDepartment = departments.find(dep => dep.id === sourceDepartmentId);
     const targetDepartment = departments.find(dep => dep.id === targetDepartmentId);
     if (!sourceDepartment || !targetDepartment) {
-      console.log('DepartmentService.transferEmployees(): error - source department or target department is undefined');
+      console.log('DepartmentService.transferEmployees(): ' +
+        'error - source department or target department is undefined');
       return;
     }
     employees.forEach(employee => {
@@ -186,8 +187,8 @@ export class DepartmentService {
           error: err => console.log('DepartmentService.transferEmployees(): error[%s]', err)
         });
     }
-    console.log(
-      'DepartmentService.transferEmployees(): repositoryType[%s], source department id[%s], target department id[%s]',
+    console.log('DepartmentService.transferEmployees(): ' +
+       'repositoryType[%s], source department id[%s], target department id[%s]',
       repositoryType, sourceDepartmentId, targetDepartmentId);
   }
 }
