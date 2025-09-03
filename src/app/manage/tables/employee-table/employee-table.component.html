@@ -1,8 +1,10 @@
 <mat-card appearance="outlined">
   <mat-card-header>
     <mat-card-title>
-      <h4>Employees</h4>
-      <p>Department “{{departmentName}}”</p>
+      <h4>
+        <button mat-button (click)="navigateToDepartments()">Departments</button>
+        &nbsp;⏵&nbsp;Department “{{departmentName}}”&nbsp;⏵&nbsp;Employees
+      </h4>
     </mat-card-title>
   </mat-card-header>
   <mat-card-content>

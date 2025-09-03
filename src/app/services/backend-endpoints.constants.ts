@@ -9,15 +9,6 @@ export const ENDPOINTS = {
   getDepartments: (repositoryType: string) =>
     `${SITE}/departments?repositoryType=${repositoryType}`,
 
-  getDepartmentById: (id: number | string, repositoryType: string) =>
-    `${SITE}/departments/${id}?repositoryType=${repositoryType}`,
-
-  getEmployees: (repositoryType: string) =>
-    `${SITE}/employees?repositoryType=${repositoryType}`,
-
-  getEmployeeById: (id: number | string, repositoryType: string) =>
-    `${SITE}/employees/${id}?repositoryType=${repositoryType}`,
-
   createDepartment: (repositoryType: string) =>
     `${SITE}/departments?repositoryType=${repositoryType}`,
 

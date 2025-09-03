@@ -109,4 +109,14 @@ export class EmployeeTableComponent implements AfterViewInit, OnInit {
     });
     console.log('🟩EmployeeTableComponent.deleteEmployee(): id[%d]', id);
   }
+  /**
+   * Navigates to the departments table.
+   *
+   * @returns void
+   */
+  navigateToDepartments() {
+    this.router.navigate(['/department-table'], { 
+      relativeTo: this.route
+    });
+  }
 }
