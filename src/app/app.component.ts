@@ -1,4 +1,4 @@
-import { Component, inject } from '@angular/core';
+import { Component, InjectionToken, inject } from '@angular/core';
 import { RouterOutlet, Router, ActivatedRoute } from '@angular/router';
 import { MatMenuModule } from '@angular/material/menu';
 import { MatButtonModule } from '@angular/material/button';
@@ -7,6 +7,14 @@ import { MatSelectModule } from '@angular/material/select';
 import { MatInputModule } from '@angular/material/input';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatIconModule } from "@angular/material/icon";
+/**
+ * Injection token for browser storage.
+ * This token is used to inject the browser's localStorage into services that require it.
+ */
+export const BROWSER_STORAGE = new InjectionToken<Storage>('Browser Storage', {
+  providedIn: 'root',
+  factory: () => localStorage,
+});
 /**
  * AppComponent is the root component of the application.
  * It serves as the main entry point for the application and contains the
@@ -27,11 +35,13 @@ import { MatIconModule } from "@angular/material/icon";
     MatSelectModule,
     MatDividerModule,
     MatIconModule
-],
+  ],
   templateUrl: `./app.component.html`,
   styleUrls: ['./app.component.css'],
 })
 export class AppComponent {
+  storage = inject<Storage>(BROWSER_STORAGE);
+  repositoryTypeName: string | null = null;
   title = 'Study27';
   /**
    * ActivatedRoute and Router injected using inject() function.
@@ -45,6 +55,8 @@ export class AppComponent {
    * @param id - The ID of the menu item that was clicked.
    */
   menuHandler(id: number) {
+    this.repositoryTypeName = id === 1 ? null : this.storage.getItem('repositoryType');
+
     switch (id) {
       case 1:
         this.router.navigate(['/home'], {
@@ -52,7 +64,7 @@ export class AppComponent {
         });
         break;
       case 2:
-        this.router.navigate(['/department-table'], { 
+        this.router.navigate(['/department-table'], {
           relativeTo: this.route
         });
         break;

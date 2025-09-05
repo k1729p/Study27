@@ -4,6 +4,7 @@
       <mat-icon>menu</mat-icon>
       <span>Menu</span>
     </button>
+
     <mat-menu #menu="matMenu">
       <button mat-menu-item (click)="menuHandler(1)">
         <mat-icon>home</mat-icon>
@@ -34,5 +35,7 @@
       </button>
     </mat-menu>
   </div>
+
+  <div class="repository-type-name">{{repositoryTypeName}}</div>
 </main>
 <router-outlet />

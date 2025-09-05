@@ -14,7 +14,7 @@
         <div class="col">
           <mat-form-field class="department-form-field" appearance="outline">
             <mat-label>Name</mat-label>
-            <input placeholder="Name" matInput formControlName="name" readonly>
+            <input placeholder="name" matInput formControlName="name" readonly>
           </mat-form-field>
         </div>
       </div>
@@ -23,7 +23,7 @@
         <div class="col">
           <mat-form-field class="department-form-field" appearance="outline">
             <mat-label>Name</mat-label>
-            <input placeholder="Name" matInput formControlName="name">
+            <input placeholder="name" matInput formControlName="name">
             @if (departmentForm.controls['name'].hasError('required')) {
             <mat-error>Name is <strong>required</strong></mat-error>
             }
@@ -44,7 +44,7 @@
               </mat-chip-row>
               }
             </mat-chip-grid>
-            <input name="currentKeyword" placeholder="New keyword..." #keywordInput [(ngModel)]="currentKeyword"
+            <input name="currentKeyword" placeholder="new keyword..." #keywordInput [(ngModel)]="currentKeyword"
               [ngModelOptions]="{standalone: true}" [matChipInputFor]="chipGrid" [matAutocomplete]="auto"
               [matChipInputSeparatorKeyCodes]="separatorKeysCodes" (matChipInputTokenEnd)="addKeyword($event)" />
             <mat-autocomplete #auto="matAutocomplete" (optionSelected)="addSelectedKeyword($event)">

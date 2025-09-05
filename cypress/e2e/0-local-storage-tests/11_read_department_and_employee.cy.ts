@@ -1,0 +1,56 @@
+import { REPOSITORY_TYPES } from './constants';
+import {
+  DEPARTMENT_READ_NAME,
+  EMPLOYEE_READ_FIRST_NAME,
+  EMPLOYEE_READ_LAST_NAME,
+} from './constants';
+
+/**
+ * Cypress End-to-End Tests for Study27.
+ */
+describe('Read department and employee', () => {
+  REPOSITORY_TYPES.forEach(repository_type => {
+    it(`should read department and employee using ${repository_type.name} repository`, () => {
+      /*
+       * Page "Home"
+       */
+      cy.visit('/');
+      cy.contains('Home').should('be.visible');
+      cy.contains(repository_type.label).click();
+      cy.contains('Initialise Selected Repository').click();
+      cy.visit('/');
+      cy.get('button').contains('Menu').click();
+      cy.get('button').contains('⏵⏵⏵').click();
+      cy.get('button').contains('Manage Departments').click();
+      /*
+       * Page "Manage Departments"
+       * It should read department name.
+       */
+      cy.contains(repository_type.name).should('be.visible');
+      cy.contains('Departments').should('be.visible');
+      cy.get('table').within(() => {
+        cy.get('tr').contains(DEPARTMENT_READ_NAME).parent().contains('Manage Employees').click();
+      });
+      /*
+       * Page "Manage Employees"
+       * It should read employee first name  and last name.
+       */
+      cy.contains(repository_type.name).should('be.visible');
+      cy.contains('Departments').should('be.visible');
+      cy.contains(DEPARTMENT_READ_NAME).should('be.visible');
+      cy.contains('Employees').should('be.visible');
+      cy.get('table').within(() => {
+        cy.get('tr').contains(EMPLOYEE_READ_FIRST_NAME).should('be.visible');
+        cy.get('tr').contains(EMPLOYEE_READ_LAST_NAME).should('be.visible');
+      });
+      /*
+       * Page "Home".
+       * It should navigate back to Home and verify radio selection.
+       */
+      cy.get('button').contains('Menu').click();
+      cy.get('button').contains('Home').click();
+      cy.contains('Home').should('be.visible');
+      cy.get(`input[type="radio"][value="${repository_type.name}"]`).should('be.checked');
+    });
+  })
+});

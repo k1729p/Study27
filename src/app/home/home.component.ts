@@ -1,4 +1,4 @@
-import { InjectionToken, inject, OnInit, Component } from '@angular/core';
+import { Component, InjectionToken, inject, OnInit } from '@angular/core';
 import { FormBuilder, ReactiveFormsModule } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';

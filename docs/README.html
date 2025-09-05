@@ -177,6 +177,20 @@ Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`.
 Run `ng build` to build the project.
 
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+=== Front end testing tool Cypress ===
+npm install cypress --save-dev
+
+npx cypress open
+npx cypress open --browser chrome --e2e
+
+Runs Cypress tests to completion. By default, cypress run will run all tests headlessly.
+npx cypress run --browser chrome
+npx cypress run --browser chrome --spec "cypress/e2e/0-local-storage-tests/12_create_department_and_employee.cy.ts"
+
+npx cypress run --browser chrome --spec "cypress/e2e/0-local-storage-tests/spec_01.cy.ts,cypress/e2e/0-local-storage-tests/spec_02.cy.ts"
+npx cypress run --browser chrome --headed --no-exit
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
 === Angular HTTP Client ===
 https://angular.dev/guide/http
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
