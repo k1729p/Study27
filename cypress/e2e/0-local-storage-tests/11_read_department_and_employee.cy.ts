@@ -1,8 +1,10 @@
-import { REPOSITORY_TYPES } from './constants';
 import {
+  REPOSITORY_TYPES,
   DEPARTMENT_READ_NAME,
   EMPLOYEE_READ_FIRST_NAME,
   EMPLOYEE_READ_LAST_NAME,
+  DEPARTMENTS_NUMBER,
+  EMPLOYEES_NUMBER,
 } from './constants';
 
 /**
@@ -18,7 +20,6 @@ describe('Read department and employee', () => {
       cy.contains('Home').should('be.visible');
       cy.contains(repository_type.label).click();
       cy.contains('Initialise Selected Repository').click();
-      cy.visit('/');
       cy.get('button').contains('Menu').click();
       cy.get('button').contains('⏵⏵⏵').click();
       cy.get('button').contains('Manage Departments').click();
@@ -28,6 +29,7 @@ describe('Read department and employee', () => {
        */
       cy.contains(repository_type.name).should('be.visible');
       cy.contains('Departments').should('be.visible');
+      cy.get('table tbody tr').should('have.length', DEPARTMENTS_NUMBER);
       cy.get('table').within(() => {
         cy.get('tr').contains(DEPARTMENT_READ_NAME).parent().contains('Manage Employees').click();
       });
@@ -39,6 +41,7 @@ describe('Read department and employee', () => {
       cy.contains('Departments').should('be.visible');
       cy.contains(DEPARTMENT_READ_NAME).should('be.visible');
       cy.contains('Employees').should('be.visible');
+      cy.get('table tbody tr').should('have.length', EMPLOYEES_NUMBER);
       cy.get('table').within(() => {
         cy.get('tr').contains(EMPLOYEE_READ_FIRST_NAME).should('be.visible');
         cy.get('tr').contains(EMPLOYEE_READ_LAST_NAME).should('be.visible');

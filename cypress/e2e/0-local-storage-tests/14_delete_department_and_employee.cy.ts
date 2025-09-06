@@ -1,8 +1,10 @@
-import { REPOSITORY_TYPES } from './constants';
 import {
+  REPOSITORY_TYPES,
   DEPARTMENT_READ_NAME,
   EMPLOYEE_READ_FIRST_NAME,
   EMPLOYEE_READ_LAST_NAME,
+  DEPARTMENTS_NUMBER,
+  EMPLOYEES_NUMBER,
 } from './constants';
 /**
  * Cypress End-to-End Tests for Study27.
@@ -17,7 +19,6 @@ describe('Delete department and employee', () => {
       cy.contains('Home').should('be.visible');
       cy.contains(repository_type.label).click();
       cy.contains('Initialise Selected Repository').click();
-      cy.visit('/');
       cy.get('button').contains('Menu').click();
       cy.get('button').contains('⏵⏵⏵').click();
       cy.get('button').contains('Manage Departments').click();
@@ -26,6 +27,7 @@ describe('Delete department and employee', () => {
        */
       cy.contains(repository_type.name).should('be.visible');
       cy.contains('Departments').should('be.visible');
+      cy.get('table tbody tr').should('have.length', DEPARTMENTS_NUMBER);
       cy.get('table').within(() => {
         cy.get('tr').contains(DEPARTMENT_READ_NAME).parent().contains('Manage Employees').click();
       });
@@ -36,6 +38,7 @@ describe('Delete department and employee', () => {
       cy.contains('Departments').should('be.visible');
       cy.contains(DEPARTMENT_READ_NAME).should('be.visible');
       cy.contains('Employees').should('be.visible');
+      cy.get('table tbody tr').should('have.length', EMPLOYEES_NUMBER);
       cy.get('table').within(() => {
         cy.get('tr').each(($tr) => {
           const firstNameMatch = $tr.text().includes(EMPLOYEE_READ_FIRST_NAME);
@@ -55,10 +58,11 @@ describe('Delete department and employee', () => {
         .and('have.value', EMPLOYEE_READ_LAST_NAME);
       cy.get('button').contains('Delete').click();
       /*
-       * Page "Manage Departments"
+       * Page "Manage Employees"
        */
       cy.contains(repository_type.name).should('be.visible');
-      cy.contains('Departments').should('be.visible');
+      cy.contains('Employees').should('be.visible');
+      cy.get('table tbody tr').should('have.length', EMPLOYEES_NUMBER - 1);
       cy.get('table').within(() => {
         cy.get('tr').each(($tr) => {
           const text = $tr.text();
@@ -71,6 +75,9 @@ describe('Delete department and employee', () => {
        * It should delete department.
        */
       cy.get('tr').contains(DEPARTMENT_READ_NAME).parent().contains('Delete').click();
+      /*
+       * Page "Manage Departments"
+       */
       cy.get('input[formcontrolname="name"]').should('be.visible')
         .and('have.value', DEPARTMENT_READ_NAME);
       cy.get('button').contains('Delete').click();
@@ -79,6 +86,7 @@ describe('Delete department and employee', () => {
        */
       cy.contains(repository_type.name).should('be.visible');
       cy.contains('Departments').should('be.visible');
+      cy.get('table tbody tr').should('have.length', DEPARTMENTS_NUMBER - 1);
       cy.get('table').within(() => {
         cy.get('tr').contains(DEPARTMENT_READ_NAME).should('not.exist');
       });
@@ -90,6 +98,8 @@ describe('Delete department and employee', () => {
       cy.get('button').contains('Home').click();
       cy.contains('Home').should('be.visible');
       cy.get(`input[type="radio"][value="${repository_type.name}"]`).should('be.checked');
-    });
+         // reset test data in database
+      cy.contains('Initialise Selected Repository').click();
+ });
   });
 });

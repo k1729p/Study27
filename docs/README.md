@@ -189,6 +189,8 @@ npx cypress run --browser chrome --spec "cypress/e2e/0-local-storage-tests/12_cr
 
 npx cypress run --browser chrome --spec "cypress/e2e/0-local-storage-tests/spec_01.cy.ts,cypress/e2e/0-local-storage-tests/spec_02.cy.ts"
 npx cypress run --browser chrome --headed --no-exit
+
+https://docs.cypress.io/app/guides/screenshots-and-videos
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 === Angular HTTP Client ===

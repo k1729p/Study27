@@ -1,10 +1,12 @@
-import { REPOSITORY_TYPES } from './constants';
 import {
+  REPOSITORY_TYPES,
   DEPARTMENT_READ_NAME,
   DEPARTMENT_UPDATED_NAME,
   EMPLOYEE_READ_LAST_NAME,
   EMPLOYEE_UPDATED_FIRST_NAME,
   EMPLOYEE_UPDATED_LAST_NAME,
+  DEPARTMENTS_NUMBER,
+  EMPLOYEES_NUMBER,
 } from './constants';
 /**
  * Cypress End-to-End Tests for Study27.
@@ -19,7 +21,6 @@ describe('Update department and employee', () => {
       cy.contains('Home').should('be.visible');
       cy.contains(repository_type.label).click();
       cy.contains('Initialise Selected Repository').click();
-      cy.visit('/');
       cy.get('button').contains('Menu').click();
       cy.get('button').contains('⏵⏵⏵').click();
       cy.get('button').contains('Manage Departments').click();
@@ -28,6 +29,7 @@ describe('Update department and employee', () => {
        */
       cy.contains(repository_type.name).should('be.visible');
       cy.contains('Departments').should('be.visible');
+      cy.get('table tbody tr').should('have.length', DEPARTMENTS_NUMBER);
       cy.get('table').within(() => {
         cy.get('tr').contains(DEPARTMENT_READ_NAME).parent().within(() => {
           cy.contains('Update').click();
@@ -57,6 +59,7 @@ describe('Update department and employee', () => {
       cy.contains(repository_type.name).should('be.visible');
       cy.contains('Departments').should('be.visible');
       cy.contains(DEPARTMENT_UPDATED_NAME).should('be.visible');
+      cy.get('table tbody tr').should('have.length', EMPLOYEES_NUMBER);
       cy.get('table').within(() => {
         cy.get('tr').contains(EMPLOYEE_READ_LAST_NAME).parent().contains('Update').click();
       });
@@ -86,6 +89,8 @@ describe('Update department and employee', () => {
       cy.get('button').contains('Home').click();
       cy.contains('Home').should('be.visible');
       cy.get(`input[type="radio"][value="${repository_type.name}"]`).should('be.checked');
+      // reset test data in database
+      cy.contains('Initialise Selected Repository').click();
     });
   })
 });

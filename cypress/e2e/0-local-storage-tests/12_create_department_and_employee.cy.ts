@@ -1,10 +1,11 @@
-import { REPOSITORY_TYPES } from './constants';
 import {
+  REPOSITORY_TYPES,
   DEPARTMENT_CREATED_NAME,
   EMPLOYEE_CREATED_FIRST_NAME,
   EMPLOYEE_CREATED_LAST_NAME,
   EMPLOYEE_CREATED_PHONE,
   EMPLOYEE_CREATED_MAIL,
+  DEPARTMENTS_NUMBER,
 } from './constants';
 
 /**
@@ -20,7 +21,6 @@ describe('Create department and employee', () => {
       cy.contains('Home').should('be.visible');
       cy.contains(repository_type.label).click();
       cy.contains('Initialise Selected Repository').click();
-      cy.visit('/');
       cy.get('button').contains('Menu').click();
       cy.get('button').contains('⏵⏵⏵').click();
       cy.get('button').contains('Manage Departments').click();
@@ -29,6 +29,8 @@ describe('Create department and employee', () => {
        */
       cy.contains(repository_type.name).should('be.visible');
       cy.contains('Departments').should('be.visible');
+      cy.get('table tbody tr').should('have.length', DEPARTMENTS_NUMBER);
+      cy.screenshot(`${repository_type.name}/1_list_departments`);
       cy.contains('Create Department').click();
       /*
        * Page "Create Department"
@@ -36,12 +38,14 @@ describe('Create department and employee', () => {
        */
       cy.contains('Create Department').should('be.visible');
       cy.get('input[formcontrolname="name"]').clear().type(DEPARTMENT_CREATED_NAME);
+      cy.screenshot(`${repository_type.name}/2_create_department`);
       cy.get('button').contains('Create').click();
       /*
        * Page "Manage Departments"
        */
       cy.contains(repository_type.name).should('be.visible');
       cy.contains('Departments').should('be.visible');
+      cy.screenshot(`${repository_type.name}/3_list_departments`);
       cy.get('table').within(() => {
         cy.get('tr').contains(DEPARTMENT_CREATED_NAME).parent().contains('Manage Employees').click();
       });
@@ -51,6 +55,7 @@ describe('Create department and employee', () => {
       cy.contains(repository_type.name).should('be.visible');
       cy.contains('Departments').should('be.visible');
       cy.contains(DEPARTMENT_CREATED_NAME).should('be.visible');
+      cy.screenshot(`${repository_type.name}/4_list_employees`);
       cy.get('button').contains('Create').click();
       /*
        * Page "Create Employee"
@@ -60,6 +65,7 @@ describe('Create department and employee', () => {
       cy.get('input[formcontrolname="lastName"]').clear().type(EMPLOYEE_CREATED_LAST_NAME);
       cy.get('input[formcontrolname="phone"]').clear().type(EMPLOYEE_CREATED_PHONE);
       cy.get('input[formcontrolname="mail"]').clear().type(EMPLOYEE_CREATED_MAIL);
+      cy.screenshot(`${repository_type.name}/5_create_employee`);
       cy.get('button').contains('Create').click();
       /*
        * Page "Manage Employees"
@@ -67,11 +73,13 @@ describe('Create department and employee', () => {
       cy.contains(repository_type.name).should('be.visible');
       cy.contains('Departments').should('be.visible');
       cy.contains(DEPARTMENT_CREATED_NAME).should('be.visible');
+      cy.get('table tbody tr').should('have.length', 1);
       cy.contains('Employees').should('be.visible');
       cy.get('table').within(() => {
         cy.get('tr').contains(EMPLOYEE_CREATED_FIRST_NAME).should('be.visible');
         cy.get('tr').contains(EMPLOYEE_CREATED_LAST_NAME).should('be.visible');
       });
+      cy.screenshot(`${repository_type.name}/6_list_employees`);
       /*
        * Page "Home".
        * It should navigate back to Home and verify radio selection.
@@ -80,6 +88,8 @@ describe('Create department and employee', () => {
       cy.get('button').contains('Home').click();
       cy.contains('Home').should('be.visible');
       cy.get(`input[type="radio"][value="${repository_type.name}"]`).should('be.checked');
+      // reset test data in database
+      cy.contains('Initialise Selected Repository').click();
     });
   })
 });

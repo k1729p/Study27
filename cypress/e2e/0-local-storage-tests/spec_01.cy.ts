@@ -14,7 +14,6 @@ import {
 describe('Study27 End-to-End Tests', () => {
   beforeEach(() => {
     cy.visit('/');
-    cy.log('I run before every test in every spec file!!!!!!')
   });
 
   it('should display Home page and initialise local storage repository', () => {
