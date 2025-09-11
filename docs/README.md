@@ -284,7 +284,7 @@
       </tr>
       <tr>
         <td>
-          <a href="https://www.cypress.io/">Karma</a>
+          <a href="https://www.cypress.io/">Cypress</a>
         </td>
         <td>
           The front end testing tool
