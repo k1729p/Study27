@@ -1,0 +1,90 @@
+import { Component, InjectionToken, inject } from '@angular/core';
+import { RouterOutlet, Router, ActivatedRoute } from '@angular/router';
+import { MatMenuModule } from '@angular/material/menu';
+import { MatButtonModule } from '@angular/material/button';
+import { MatDividerModule } from '@angular/material/divider';
+import { MatSelectModule } from '@angular/material/select';
+import { MatInputModule } from '@angular/material/input';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatIconModule } from "@angular/material/icon";
+/**
+ * Injection token for browser storage.
+ * This token is used to inject the browser's localStorage into services that require it.
+ */
+export const BROWSER_STORAGE = new InjectionToken<Storage>('Browser Storage', {
+  providedIn: 'root',
+  factory: () => localStorage,
+});
+/**
+ * AppComponent is the root component of the application.
+ * It serves as the main entry point for the application and contains the
+ * navigation menu for the application.
+ * This component uses Angular Material for styling and layout.
+ * It includes a menu with options to navigate to different parts of the application,
+ * such as the department table and employee transfers.
+ */
+@Component({
+  selector: 'app-root',
+  standalone: true,
+  imports: [
+    RouterOutlet,
+    MatButtonModule,
+    MatMenuModule,
+    MatFormFieldModule,
+    MatInputModule,
+    MatSelectModule,
+    MatDividerModule,
+    MatIconModule
+  ],
+  templateUrl: `./app.component.html`,
+  styleUrls: ['./app.component.css'],
+})
+export class AppComponent {
+  storage = inject<Storage>(BROWSER_STORAGE);
+  repositoryTypeName: string | null = null;
+  title = 'Study27';
+  /**
+   * ActivatedRoute and Router injected using inject() function.
+   */
+  private route = inject(ActivatedRoute);
+  private router = inject(Router);
+  /**
+   * Handles menu item selection and navigation.
+   * This function is called when a menu item is clicked.
+   *
+   * @param id - The ID of the menu item that was clicked.
+   */
+  menuHandler(id: number) {
+    this.repositoryTypeName = id === 1 ? null : this.storage.getItem('repositoryType');
+
+    switch (id) {
+      case 1:
+        this.router.navigate(['/home'], {
+          relativeTo: this.route,
+        });
+        break;
+      case 2:
+        this.router.navigate(['/department-table'], {
+          relativeTo: this.route
+        });
+        break;
+      case 3:
+        this.router.navigate(['/employee-transfer'], {
+          relativeTo: this.route,
+        });
+        break;
+      case 4:
+        this.router.navigate(['/employee-locate'], {
+          relativeTo: this.route,
+        });
+        break;
+      case 5:
+        this.router.navigate(['/report'], {
+          relativeTo: this.route,
+        });
+        break;
+      default:
+        break;
+    }
+  }
+}

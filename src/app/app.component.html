@@ -1,0 +1,41 @@
+<main class="main">
+  <div class="content">
+    <button mat-button [matMenuTriggerFor]="menu">
+      <mat-icon>menu</mat-icon>
+      <span>Menu</span>
+    </button>
+
+    <mat-menu #menu="matMenu">
+      <button mat-menu-item (click)="menuHandler(1)">
+        <mat-icon>home</mat-icon>
+        <span>Home</span>
+      </button>
+      <button mat-menu-item [matMenuTriggerFor]="childsMenu">
+        <mat-icon>menu</mat-icon>
+        <span>⏵⏵⏵</span>
+      </button>
+    </mat-menu>
+
+    <mat-menu #childsMenu="matMenu">
+      <button mat-menu-item (click)="menuHandler(2)">
+        <mat-icon>edit</mat-icon>
+        <span>Manage Departments</span>
+      </button>
+      <button mat-menu-item (click)="menuHandler(3)">
+        <mat-icon>swap_horiz</mat-icon>
+        <span>Transfer Employees</span>
+      </button>
+      <button mat-menu-item (click)="menuHandler(4)">
+        <mat-icon>person_search</mat-icon>
+        <span>Locate Employees</span>
+      </button>
+      <button mat-menu-item (click)="menuHandler(5)">
+        <mat-icon>article</mat-icon>
+        <span>Create PDF Reports</span>
+      </button>
+    </mat-menu>
+  </div>
+
+  <div class="repository-type-name">{{repositoryTypeName}}</div>
+</main>
+<router-outlet />
