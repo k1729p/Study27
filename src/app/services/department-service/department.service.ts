@@ -188,7 +188,7 @@ export class DepartmentService {
         });
     }
     console.log('DepartmentService.transferEmployees(): ' +
-       'repositoryType[%s], source department id[%s], target department id[%s]',
+      'repositoryType[%s], source department id[%s], target department id[%s]',
       repositoryType, sourceDepartmentId, targetDepartmentId);
   }
 }

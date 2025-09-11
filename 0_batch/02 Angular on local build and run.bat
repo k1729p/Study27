@@ -1,7 +1,7 @@
 @echo off
 cd ..
 ::goto :serve
-goto :build_and_start
+::goto :build_and_start
 
 call ng version
 call ng lint

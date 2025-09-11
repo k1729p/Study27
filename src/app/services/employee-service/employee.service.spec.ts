@@ -1,13 +1,10 @@
-
 import { TestBed } from '@angular/core/testing';
+import { provideHttpClient } from '@angular/common/http';
+import { provideHttpClientTesting } from '@angular/common/http/testing';
 
 import { DepartmentService } from '../department-service/department.service';
 import { EmployeeService } from './employee.service';
-import {
-  TEST_DEPARTMENTS,
-  TEST_DEPARTMENT_ID,
-  TEST_EMPLOYEE_ID,
-} from 'testing/test-data';
+import { TEST_DEPARTMENTS, TEST_DEPARTMENT_ID, TEST_EMPLOYEE_ID } from 'testing/test-data';
 /**
  * Unit tests for the {@link EmployeeService}.
  *
@@ -16,13 +13,17 @@ import {
  */
 describe('EmployeeService', () => {
   let employeeService: EmployeeService;
-
   /**
    * Sets up the testing module for EmployeeService.
    * This function is called before each test to ensure a fresh instance of the service.
    */
   beforeEach(() => {
-    TestBed.configureTestingModule({});
+    TestBed.configureTestingModule({
+      providers: [
+        provideHttpClient(),
+        provideHttpClientTesting(),
+      ]
+    });
     // reseting data for tests
     const departmentService = TestBed.inject(DepartmentService);
     departmentService.setDepartments(TEST_DEPARTMENTS);

@@ -1,4 +1,6 @@
 import { TestBed } from '@angular/core/testing';
+import { provideHttpClient } from '@angular/common/http';
+import { provideHttpClientTesting } from '@angular/common/http/testing';
 
 import { TEST_DEPARTMENTS, TEST_DEPARTMENT_ID } from 'testing/test-data';
 import { Department } from 'models/department';
@@ -16,7 +18,12 @@ describe('DepartmentService', () => {
    * This is necessary to provide the service and any dependencies it may have.
    */
   beforeEach(() => {
-    TestBed.configureTestingModule({});
+    TestBed.configureTestingModule({
+      providers: [
+        provideHttpClient(),
+        provideHttpClientTesting(),
+      ]
+    });
     departmentService = TestBed.inject(DepartmentService);
     // reseting data for tests
     departmentService.setDepartments([]);
@@ -117,11 +124,13 @@ describe('DepartmentService', () => {
     );
     // THEN
     const actualSourceDepartment = departmentService.getDepartment(sourceDepartmentId);
-    const actualInSource = actualSourceDepartment?.employees[0];
-    expect(actualInSource).toBeUndefined();
+    transferedEmployees.forEach(employee => {
+      expect(actualSourceDepartment?.employees.find(emp => emp.id === employee.id)).toBeUndefined();
+    });
     const actualTargetDepartment = departmentService.getDepartment(targetDepartmentId);
-    const actualInTarget = actualTargetDepartment?.employees[0];
-    expect(actualInTarget).toEqual(transferedEmployees[0]);
+    transferedEmployees.forEach(employee => {
+      expect(actualTargetDepartment?.employees.find(emp => emp.id === employee.id)).toBeDefined();
+    });
   });
   /**
    * Checks that the first department in actualDepartments matches the first in TEST_DEPARTMENTS.
