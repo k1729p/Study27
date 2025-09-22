@@ -3,7 +3,14 @@ import { ActivatedRoute, Router } from '@angular/router';
 
 import { DepartmentTableComponent } from './department-table.component';
 import { Department } from 'models/department';
-import { TEST_DEPARTMENT_ID } from 'testing/test-data';
+import { DepartmentService } from 'services/department-service/department.service';
+import * as testData from 'testing/test-data';
+
+const departmentServiceSpy = jasmine.createSpyObj('DepartmentService', ['getDepartments']);
+departmentServiceSpy.getDepartments.and
+  .callFake((): Department[] => {
+    return [...testData.TEST_DEPARTMENTS];
+  });
 /**
  * DepartmentTableComponent is a component that displays a table of departments.
  * It uses Angular Material's table features to display, sort, and paginate the
@@ -30,17 +37,11 @@ describe('DepartmentTableComponent', () => {
       providers: [
         { provide: Router, useValue: routerSpy },
         { provide: ActivatedRoute, useValue: routeStub },
+        { provide: DepartmentService, useValue: departmentServiceSpy },
       ],
-    }).compileComponents();
-    fixture = TestBed.createComponent(DepartmentTableComponent);
-    component = fixture.componentInstance;
-    fixture.detectChanges();
-  });
-  /**
-   * Initializes the component and fixture before each test.
-   * This is where the component instance is created and the initial change detection is run.
-   */
-  beforeEach(() => {
+    })
+      .compileComponents();
+
     fixture = TestBed.createComponent(DepartmentTableComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
@@ -113,10 +114,10 @@ describe('DepartmentTableComponent', () => {
   it('should call router.navigate with correct params when updateDepartment is called', () => {
     // GIVEN
     // WHEN
-    component.updateDepartment(TEST_DEPARTMENT_ID);
+    component.updateDepartment(testData.TEST_DEPARTMENT_ID);
     // THEN
     expect(routerSpy.navigate).toHaveBeenCalledWith(
-      ['/department-form', 'UPDATE', TEST_DEPARTMENT_ID],
+      ['/department-form', 'UPDATE', testData.TEST_DEPARTMENT_ID],
       { relativeTo: TestBed.inject(ActivatedRoute) }
     );
   });
@@ -128,10 +129,10 @@ describe('DepartmentTableComponent', () => {
   it('should call router.navigate with correct params when deleteDepartment is called', () => {
     // GIVEN
     // WHEN
-    component.deleteDepartment(TEST_DEPARTMENT_ID);
+    component.deleteDepartment(testData.TEST_DEPARTMENT_ID);
     // THEN
     expect(routerSpy.navigate).toHaveBeenCalledWith(
-      ['/department-form', 'DELETE', TEST_DEPARTMENT_ID],
+      ['/department-form', 'DELETE', testData.TEST_DEPARTMENT_ID],
       { relativeTo: TestBed.inject(ActivatedRoute) }
     );
   });
@@ -143,10 +144,10 @@ describe('DepartmentTableComponent', () => {
   it('should call router.navigate with correct params when viewEmployees is called', () => {
     // GIVEN
     // WHEN
-    component.manageEmployees(TEST_DEPARTMENT_ID);
+    component.manageEmployees(testData.TEST_DEPARTMENT_ID);
     // THEN
     expect(routerSpy.navigate).toHaveBeenCalledWith(
-      ['/employee-table', TEST_DEPARTMENT_ID],
+      ['/employee-table', testData.TEST_DEPARTMENT_ID],
       {
         relativeTo: TestBed.inject(ActivatedRoute),
       }

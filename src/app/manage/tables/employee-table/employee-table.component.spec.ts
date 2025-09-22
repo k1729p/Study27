@@ -3,8 +3,23 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { of } from 'rxjs';
 
 import { EmployeeTableComponent } from './employee-table.component';
+import { Department } from 'models/department';
 import { Employee } from 'models/employee';
-import { TEST_DEPARTMENT_ID, TEST_EMPLOYEE_ID } from 'testing/test-data';
+import { DepartmentService } from 'services/department-service/department.service';
+import { EmployeeService } from 'services/employee-service/employee.service';
+import * as testData from 'testing/test-data';
+
+const departmentServiceSpy = jasmine.createSpyObj('DepartmentService', ['getDepartment']);
+departmentServiceSpy.getDepartment.and
+  .callFake((id: number): Department | undefined => {
+    return testData.TEST_DEPARTMENTS.find(dep => dep.id === id);
+  });
+const employeeServiceSpy = jasmine.createSpyObj('EmployeeService', ['getEmployees']);
+employeeServiceSpy.getEmployees.and
+  .callFake((departmentId: number): Employee[] => {
+    const department = testData.TEST_DEPARTMENTS.find(dep => dep.id === departmentId);
+    return department ? department.employees : [];
+  });
 /**
  * EmployeeTableComponent is a component that displays a table of employees.
  * It uses Angular Material's table features to display, sort, and paginate the
@@ -27,16 +42,18 @@ describe('EmployeeTableComponent', () => {
       imports: [EmployeeTableComponent],
       providers: [
         { provide: Router, useValue: routerSpy },
+        { provide: DepartmentService, useValue: departmentServiceSpy },
+        { provide: EmployeeService, useValue: employeeServiceSpy },
         {
           provide: ActivatedRoute,
           useValue: {
             params: of({
-              departmentId: TEST_DEPARTMENT_ID,
+              departmentId: testData.TEST_DEPARTMENT_ID,
             }),
             snapshot: {
               paramMap: {
                 get: (key: string) => {
-                  if (key === 'departmentId') return TEST_DEPARTMENT_ID;
+                  if (key === 'departmentId') return testData.TEST_DEPARTMENT_ID;
                   return null;
                 },
               },
@@ -44,16 +61,9 @@ describe('EmployeeTableComponent', () => {
           },
         },
       ],
-    }).compileComponents();
-    fixture = TestBed.createComponent(EmployeeTableComponent);
-    component = fixture.componentInstance;
-    fixture.detectChanges();
-  });
-  /**
-   * Initializes the component and fixture before each test.
-   * This is where the component instance is created and the initial change detection is run.
-   */
-  beforeEach(() => {
+    })
+      .compileComponents();
+
     fixture = TestBed.createComponent(EmployeeTableComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
@@ -116,7 +126,7 @@ describe('EmployeeTableComponent', () => {
     component.createEmployee();
     // THEN
     expect(routerSpy.navigate).toHaveBeenCalledWith(
-      ['/employee-form', TEST_DEPARTMENT_ID, 'CREATE', '-1'],
+      ['/employee-form', testData.TEST_DEPARTMENT_ID, 'CREATE', '-1'],
       { relativeTo: jasmine.any(Object) }
     );
   });
@@ -128,10 +138,10 @@ describe('EmployeeTableComponent', () => {
   it('should navigate to update employee form on updateEmployee', () => {
     // GIVEN
     // WHEN
-    component.updateEmployee(TEST_EMPLOYEE_ID);
+    component.updateEmployee(testData.TEST_EMPLOYEE_ID);
     // THEN
     expect(routerSpy.navigate).toHaveBeenCalledWith(
-      ['/employee-form', TEST_DEPARTMENT_ID, 'UPDATE', TEST_EMPLOYEE_ID],
+      ['/employee-form', testData.TEST_DEPARTMENT_ID, 'UPDATE', testData.TEST_EMPLOYEE_ID],
       { relativeTo: jasmine.any(Object) }
     );
   });
@@ -143,10 +153,10 @@ describe('EmployeeTableComponent', () => {
   it('should navigate to delete employee form on deleteEmployee', () => {
     // GIVEN
     // WHEN
-    component.deleteEmployee(TEST_EMPLOYEE_ID);
+    component.deleteEmployee(testData.TEST_EMPLOYEE_ID);
     // THEN
     expect(routerSpy.navigate).toHaveBeenCalledWith(
-      ['/employee-form', TEST_DEPARTMENT_ID, 'DELETE', TEST_EMPLOYEE_ID],
+      ['/employee-form', testData.TEST_DEPARTMENT_ID, 'DELETE', testData.TEST_EMPLOYEE_ID],
       { relativeTo: jasmine.any(Object) }
     );
   });

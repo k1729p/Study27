@@ -14,14 +14,6 @@ export const TEST_DAYS: Date[] = [
  * Suggestion keywords for the autocomplete.
  */
 export const SUGGESTION_KEYWORDS: string[] = ['Banking', 'Credit'];
-/**
- * Test department id.
- */
-export const TEST_DEPARTMENT_ID = 1;
-/**
- * Test employee id.
- */
-export const TEST_EMPLOYEE_ID = 1;
 
 /**
  * Test department data for departments.
@@ -75,6 +67,14 @@ export const TEST_DEPARTMENTS: Department[] = [
     keywords: [SUGGESTION_KEYWORDS[1]],
   },
 ];
+/**
+ * Test department id.
+ */
+export const TEST_DEPARTMENT_ID = TEST_DEPARTMENTS[0].id;
+/**
+ * Test employee id.
+ */
+export const TEST_EMPLOYEE_ID = TEST_DEPARTMENTS[0].employees[0].id;
 /**
  * Test employee full name.
  */

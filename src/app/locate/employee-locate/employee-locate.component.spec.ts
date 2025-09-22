@@ -3,14 +3,29 @@ import { ActivatedRoute } from '@angular/router';
 import { MatDialog } from '@angular/material/dialog';
 import { of, skip, take } from 'rxjs';
 
+import { Department } from 'models/department';
+import { Employee } from 'models/employee';
 import { DepartmentService } from 'services/department-service/department.service';
 import { EmployeeService } from 'services/employee-service/employee.service';
 import { EmployeeLocateComponent } from './employee-locate.component';
-import {
-  TEST_DEPARTMENTS,
-  TEST_EMPLOYEE_FULL_NAME,
-} from 'testing/test-data';
+import * as testData from 'testing/test-data';
 
+const departmentServiceSpy = jasmine.createSpyObj('DepartmentService', ['getDepartments']);
+departmentServiceSpy.getDepartments.and
+  .callFake((): Department[] => {
+    return [...testData.TEST_DEPARTMENTS];
+  });
+const employeeServiceSpy = jasmine.createSpyObj('EmployeeService', ['getEmployees', 'getEmployee']);
+employeeServiceSpy.getEmployees.and
+  .callFake((departmentId: number): Employee[] => {
+    const department = testData.TEST_DEPARTMENTS.find(dep => dep.id === departmentId);
+    return department ? department.employees : [];
+  });
+employeeServiceSpy.getEmployee.and
+  .callFake((departmentId: number, employeeId: number): Employee | undefined => {
+    return employeeServiceSpy.getEmployees(departmentId)
+      .find((emp: { id: number; }) => emp.id === employeeId);
+  });
 /**
  * Unit tests for the EmployeeLocateComponent.
  * This file contains tests to ensure that the component compiles correctly.
@@ -18,8 +33,6 @@ import {
 describe('EmployeeLocateComponent', () => {
   let component: EmployeeLocateComponent;
   let fixture: ComponentFixture<EmployeeLocateComponent>;
-  let mockDepartmentService: Partial<DepartmentService>;
-  let mockEmployeeService: Partial<EmployeeService>;
   let mockDialog: Partial<MatDialog>;
 
   /**
@@ -27,25 +40,6 @@ describe('EmployeeLocateComponent', () => {
    * This function initializes the testing environment and compiles the component.
    */
   beforeEach(() => {
-    mockDepartmentService = {
-      getDepartments: () => TEST_DEPARTMENTS,
-    };
-    mockEmployeeService = {
-      getEmployees: (departmentId: number) => {
-        const depIndex = departmentId - 1;
-        if (depIndex < 0 || depIndex >= TEST_DEPARTMENTS.length) {
-          return [];
-        }
-        return TEST_DEPARTMENTS[departmentId - 1].employees;
-      },
-      getEmployee: (departmentId: number, employeeId: number) => {
-        const depIndex = departmentId - 1;
-        if (depIndex < 0 || depIndex >= TEST_DEPARTMENTS.length) {
-          return undefined;
-        }
-        return TEST_DEPARTMENTS[departmentId - 1].employees[employeeId];
-      },
-    };
     mockDialog = {
       open: jasmine.createSpy('open'),
     };
@@ -58,8 +52,8 @@ describe('EmployeeLocateComponent', () => {
             snapshot: { paramMap: { get: () => 1 } },
           },
         },
-        { provide: DepartmentService, useValue: mockDepartmentService },
-        { provide: EmployeeService, useValue: mockEmployeeService },
+        { provide: DepartmentService, useValue: departmentServiceSpy },
+        { provide: EmployeeService, useValue: employeeServiceSpy },
         { provide: MatDialog, useValue: mockDialog },
       ],
     }).compileComponents();
@@ -87,9 +81,9 @@ describe('EmployeeLocateComponent', () => {
     // GIVEN
     // WHEN
     // THEN
-    expect(component.dataSource.length).toBe(TEST_DEPARTMENTS.length);
-    expect(component.dataSource[0].name).toBe(TEST_DEPARTMENTS[0].name);
-    expect(component.dataSource[1].name).toBe(TEST_DEPARTMENTS[1].name);
+    expect(component.dataSource.length).toBe(testData.TEST_DEPARTMENTS.length);
+    expect(component.dataSource[0].name).toBe(testData.TEST_DEPARTMENTS[0].name);
+    expect(component.dataSource[1].name).toBe(testData.TEST_DEPARTMENTS[1].name);
     // Each department should have children groups for employees
     for (const departmentNode of component.dataSource) {
       expect(departmentNode.children?.length).toBeGreaterThanOrEqual(1);
@@ -104,7 +98,7 @@ describe('EmployeeLocateComponent', () => {
     // GIVEN
     // Spy on tree.expand
     component.tree = jasmine.createSpyObj('MatTree', ['expand']);
-    component.formControl.setValue(TEST_EMPLOYEE_FULL_NAME);
+    component.formControl.setValue(testData.TEST_EMPLOYEE_FULL_NAME);
     // WHEN
     component.locateEmployee();
     // THEN
@@ -135,7 +129,7 @@ describe('EmployeeLocateComponent', () => {
     // WHEN
     component.employeeNames?.pipe(skip(1), take(1)).subscribe((names) => {
       expect(Array.isArray(names)).toBeTrue();
-      expect(names.some((name) => name.startsWith(TEST_EMPLOYEE_FULL_NAME)));
+      expect(names.some((name) => name.startsWith(testData.TEST_EMPLOYEE_FULL_NAME)));
       done();
     });
     component.formControl.setValue('Cl');
@@ -147,7 +141,7 @@ describe('EmployeeLocateComponent', () => {
    */
   it('should return filtered names with filterNames', () => {
     // GIVEN
-    const namesArray = TEST_DEPARTMENTS.map(dep => dep.employees).flat().map(
+    const namesArray = testData.TEST_DEPARTMENTS.map(dep => dep.employees).flat().map(
       emp => `${emp.firstName} ${emp.lastName}`
     );
     // WHEN
@@ -167,11 +161,11 @@ describe('EmployeeLocateComponent', () => {
     // WHEN
     const path = component.findPath(
       component.dataSource,
-      TEST_EMPLOYEE_FULL_NAME,
+      testData.TEST_EMPLOYEE_FULL_NAME,
       []
     );
     // THEN
-    expect(path?.map((node) => node.name)).toContain(TEST_EMPLOYEE_FULL_NAME);
+    expect(path?.map((node) => node.name)).toContain(testData.TEST_EMPLOYEE_FULL_NAME);
   });
 
   /**
@@ -201,7 +195,7 @@ describe('EmployeeLocateComponent', () => {
     // WHEN
     const names = component.collectEmployeeNames(component.dataSource, []);
     // THEN
-    const expectedNames = TEST_DEPARTMENTS.map(dep => dep.employees).flat().map(
+    const expectedNames = testData.TEST_DEPARTMENTS.map(dep => dep.employees).flat().map(
       emp => `${emp.firstName} ${emp.lastName}`
     );
     expectedNames.forEach(name => expect(names).toContain(name));

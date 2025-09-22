@@ -4,7 +4,6 @@ import {
   fakeAsync,
   tick,
 } from '@angular/core/testing';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { By } from '@angular/platform-browser';
 import { ReactiveFormsModule } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
@@ -23,20 +22,16 @@ import { EmployeeService } from 'services/employee-service/employee.service';
 import { EmployeeTransferComponent } from './employee-transfer.component';
 import * as testData from 'testing/test-data';
 
-class MockDepartmentService {
-  getDepartments(): Department[] {
+let doneTransferFromLeftToRight = false;
+let doneTransferFromRightToLeft = false;
+const departmentServiceSpy = jasmine.createSpyObj('DepartmentService', ['getDepartments', 'transferEmployees']);
+departmentServiceSpy.getDepartments.and
+  .callFake((): Department[] => {
     return [...testData.TEST_DEPARTMENTS];
-  }
-  transferEmployees(
-    sourceDepartmentId: number,
-    targetDepartmentId: number,
-    employees: Employee[]
-  ) {
-    console.debug(sourceDepartmentId, targetDepartmentId, employees?.length);
-  }
-}
-class MockEmployeeService {
-  getEmployees(departmentId: number): Employee[] {
+  });
+const employeeServiceSpy = jasmine.createSpyObj('EmployeeService', ['getEmployees']);
+employeeServiceSpy.getEmployees.and
+  .callFake((departmentId: number): Employee[] => {
     if (doneTransferFromLeftToRight) {
       if (departmentId == testData.TEST_DEPARTMENTS[0].id) {
         return [];
@@ -56,18 +51,13 @@ class MockEmployeeService {
         return [...testData.TEST_DEPARTMENTS[1].employees];
       }
     }
-  }
-}
-let doneTransferFromLeftToRight = false;
-let doneTransferFromRightToLeft = false;
+  });
 /**
  * The tests of the EmployeeTransferComponent.
  */
 describe('EmployeeTransferComponent', () => {
   let component: EmployeeTransferComponent;
   let fixture: ComponentFixture<EmployeeTransferComponent>;
-  let departmentService: MockDepartmentService;
-  let employeeService: MockEmployeeService;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
@@ -82,33 +72,26 @@ describe('EmployeeTransferComponent', () => {
         MatSelectModule,
         MatListModule,
         MatIconModule,
-        BrowserAnimationsModule,
       ],
       providers: [
-        { provide: DepartmentService, useClass: MockDepartmentService },
-        { provide: EmployeeService, useClass: MockEmployeeService },
+        { provide: DepartmentService, useValue: departmentServiceSpy },
+        { provide: EmployeeService, useValue: employeeServiceSpy },
       ],
     })
-      .overrideComponent(EmployeeTransferComponent, {
-        set: {
-          providers: [
-            { provide: 'DepartmentService', useClass: MockDepartmentService },
-            { provide: 'EmployeeService', useClass: MockEmployeeService },
-          ],
-        },
-      })
       .compileComponents();
 
     doneTransferFromLeftToRight = false;
     doneTransferFromRightToLeft = false;
+    departmentServiceSpy.transferEmployees.calls.reset();
     fixture = TestBed.createComponent(EmployeeTransferComponent);
     component = fixture.componentInstance;
-    departmentService = TestBed.inject(DepartmentService);
-    employeeService = TestBed.inject(EmployeeService);
     fixture.detectChanges();
     await fixture.whenStable();
   });
-
+  /**
+   * Tests that the EmployeeTransferComponent compiles successfully.
+   * This is a basic test to ensure that the component can be created without errors.
+   */
   it('should compile', () => {
     // GIVEN
     // WHEN
@@ -116,7 +99,9 @@ describe('EmployeeTransferComponent', () => {
     expect(component).toBeTruthy();
     console.log('compile');
   });
-
+  /**
+   * Tests that  the department dropdowns are populated.
+   */
   it('should populate department dropdowns', async () => {
     // GIVEN
     fixture.detectChanges();
@@ -135,9 +120,9 @@ describe('EmployeeTransferComponent', () => {
     );
     console.log('should populate department dropdowns');
   });
-
-  // --- Parameterized tests ---
-  // 1. Should render employee tables for left and right sides
+  /**
+   * Tests that the employee tables for left and right sides are rendered.
+   */
   [
     {
       testName: 'should render left employee tables',
@@ -169,8 +154,9 @@ describe('EmployeeTransferComponent', () => {
       console.log(testName);
     })
   );
-
-  // 2. Should toggle selection for a row and update checkbox
+  /**
+   * Tests that the selection for a row and update checkbox are toggled.
+   */
   [
     {
       testName: 'should toggle selection for a left side row and update checkbox',
@@ -208,8 +194,9 @@ describe('EmployeeTransferComponent', () => {
       console.log(testName);
     })
   );
-
-  // 3. Should toggle all rows when header checkbox is clicked
+  /**
+   * Tests that all rows when header checkbox is clicked are toggled.
+   */
   [
     {
       testName: 'should toggle all rows on the left side when header checkbox is clicked',
@@ -244,8 +231,9 @@ describe('EmployeeTransferComponent', () => {
       console.log(testName);
     })
   );
-
-  // 4. Should transfer employee from left to right and right to left
+  /**
+   * Tests that employee from left to right and right to left is transfered.
+   */
   [
     {
       testName: 'should transfer employee from left to right',
@@ -291,8 +279,9 @@ describe('EmployeeTransferComponent', () => {
         console.log(testName);
       })
   );
-
-  // 5. Should provide correct checkbox labels
+  /**
+   * Tests that correct checkbox labels are provided.
+   */
   [
     {
       testName: 'should provide correct checkbox labels on the left side',
@@ -322,8 +311,9 @@ describe('EmployeeTransferComponent', () => {
       console.log(testName);
     })
   );
-
-  // 6. Should correctly report if all rows are selected
+  /**
+   * Tests that it correctly reports if all rows are selected.
+   */
   [
     {
       testName: 'should correctly report if all rows are selected on the left side',
@@ -352,8 +342,9 @@ describe('EmployeeTransferComponent', () => {
       console.log(testName);
     })
   );
-
-  // 7. Should update employees when department selection changes (left/right)
+  /**
+   * Tests that employees when department selection changes (left/right) are updated.
+   */
   [
     {
       testName: 'should update employees when department selection changes on the left side',

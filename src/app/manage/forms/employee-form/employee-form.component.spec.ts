@@ -1,15 +1,12 @@
-import { waitForAsync, ComponentFixture, TestBed } from '@angular/core/testing';
-import { NoopAnimationsModule } from '@angular/platform-browser/animations';
+import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { ActivatedRoute } from '@angular/router';
 import { of } from 'rxjs';
 
-import { DepartmentService } from 'services/department-service/department.service';
 import { EmployeeFormComponent } from './employee-form.component';
-import {
-  TEST_DEPARTMENTS,
-  TEST_DEPARTMENT_ID,
-  TEST_EMPLOYEE_ID,
-} from 'testing/test-data';
+import { Employee } from 'models/employee';
+import { EmployeeService } from 'services/employee-service/employee.service';
+import * as testData from 'testing/test-data';
+
 /**
  * Unit tests for the EmployeeFormComponent.
  * This component is part of the forms module and is used to manage employee-related forms.
@@ -18,32 +15,38 @@ import {
  */
 describe('EmployeeFormComponent', () => {
   let component: EmployeeFormComponent;
+  let employeeServiceSpy: jasmine.SpyObj<EmployeeService>;
   let fixture: ComponentFixture<EmployeeFormComponent>;
   /**
    * Sets up the testing module and compiles the component before each test.
-   * The NoopAnimationsModule is imported to avoid issues with animations during testing.
    */
-  beforeEach(waitForAsync(() => {
-    TestBed.configureTestingModule({
-      imports: [NoopAnimationsModule, EmployeeFormComponent],
+  beforeEach(async () => {
+    employeeServiceSpy = jasmine.createSpyObj('EmployeeService', [
+      'getEmployees', 'getEmployee', 'createEmployee', 'updateEmployee', 'deleteEmployee'
+    ]);
+    employeeServiceSpy.getEmployees.and
+      .callFake((departmentId: number): Employee[] => {
+        const department = testData.TEST_DEPARTMENTS.find(dep => dep.id === departmentId);
+        return department ? department.employees : [];
+      });
+    employeeServiceSpy.getEmployee.and
+      .callFake((departmentId: number, employeeId: number): Employee | undefined => {
+        return employeeServiceSpy.getEmployees(departmentId)
+          .find((emp: { id: number; }) => emp.id === employeeId);
+      });
+
+    await TestBed.configureTestingModule({
       providers: [
         {
           provide: ActivatedRoute,
           useValue: {
-            params: of({}), // mock route params as needed
+            params: of({}),
             snapshot: { paramMap: { get: () => null } },
           },
         },
+        { provide: EmployeeService, useValue: employeeServiceSpy }
       ],
     }).compileComponents();
-  }));
-  /**
-   * Initializes the component and its dependencies before each test.
-   */
-  beforeEach(() => {
-    // reseting data for tests
-    const departmentService = TestBed.inject(DepartmentService);
-    departmentService.setDepartments(TEST_DEPARTMENTS);
 
     fixture = TestBed.createComponent(EmployeeFormComponent);
     component = fixture.componentInstance;
@@ -64,7 +67,7 @@ describe('EmployeeFormComponent', () => {
     const route = TestBed.inject(ActivatedRoute);
     spyOn(route.snapshot.paramMap, 'get').and.callFake((key: string) => {
       if (key === 'operation') return 'CREATE';
-      if (key === 'departmentId') return TEST_DEPARTMENT_ID.toString();
+      if (key === 'departmentId') return testData.TEST_DEPARTMENT_ID.toString();
       return null;
     });
     // WHEN
@@ -73,7 +76,7 @@ describe('EmployeeFormComponent', () => {
     expect(component.operation).toBe('CREATE');
     expect(component.formTitle).toBe('Create Employee');
     expect(component.buttonLabel).toBe('Create');
-    expect(component.departmentId).toBe(TEST_DEPARTMENT_ID.toString());
+    expect(component.departmentId).toBe(testData.TEST_DEPARTMENT_ID.toString());
     expect(component.id).toBe('');
     expect(component.titles.length).toBe(3);
     expect(component.titles[0]).toBe('Manager');
@@ -101,12 +104,10 @@ describe('EmployeeFormComponent', () => {
    */
   it('should call createEmployee on submit for CREATE operation', () => {
     // GIVEN
-    const employeeService = (component as EmployeeFormComponent)
-      .employeeService;
-    spyOn(employeeService, 'createEmployee');
+    const employeeService = component.employeeService;
     component.operation = 'CREATE';
-    component.departmentId = TEST_DEPARTMENT_ID.toString();
-    const testEmployee = TEST_DEPARTMENTS[0].employees[0];
+    component.departmentId = testData.TEST_DEPARTMENT_ID.toString();
+    const testEmployee = testData.TEST_DEPARTMENTS[0].employees[0];
     component.employeeForm.controls['firstName'].setValue(testEmployee.firstName);
     component.employeeForm.controls['lastName'].setValue(testEmployee.lastName);
     component.employeeForm.controls['title'].setValue(testEmployee.title);
@@ -121,10 +122,10 @@ describe('EmployeeFormComponent', () => {
     // WHEN
     component.onSubmit();
     // THEN
-    const TEST_EMPLOYEE_CREATED = { ...testEmployee, id: -1 };
+    const actualCreatedEmployee = { ...testEmployee, id: -1, departmentId: testData.TEST_DEPARTMENT_ID };
     expect(employeeService.createEmployee).toHaveBeenCalledWith(
-      TEST_DEPARTMENT_ID,
-      jasmine.objectContaining(TEST_EMPLOYEE_CREATED)
+      testData.TEST_DEPARTMENT_ID,
+      jasmine.objectContaining(actualCreatedEmployee)
     );
   });
   /**
@@ -135,14 +136,11 @@ describe('EmployeeFormComponent', () => {
     const route = TestBed.inject(ActivatedRoute);
     spyOn(route.snapshot.paramMap, 'get').and.callFake((key: string) => {
       if (key === 'operation') return 'UPDATE';
-      if (key === 'departmentId') return TEST_DEPARTMENT_ID.toString();
-      if (key === 'id') return TEST_EMPLOYEE_ID.toString();
+      if (key === 'departmentId') return testData.TEST_DEPARTMENT_ID.toString();
+      if (key === 'id') return testData.TEST_EMPLOYEE_ID.toString();
       return null;
     });
-    // Mock employeeService.getEmployee
-    const employeeService = component.employeeService;
-    const testEmployee = TEST_DEPARTMENTS[0].employees[0];
-    spyOn(employeeService, 'getEmployee').and.returnValue(testEmployee);
+    const testEmployee = testData.TEST_DEPARTMENTS[0].employees[0];
     // WHEN
     component.ngOnInit();
     // THEN
@@ -168,11 +166,10 @@ describe('EmployeeFormComponent', () => {
   it('should call updateEmployee on submit for UPDATE operation', () => {
     // GIVEN
     const employeeService = component.employeeService;
-    spyOn(employeeService, 'updateEmployee');
     component.operation = 'UPDATE';
-    component.departmentId = TEST_DEPARTMENT_ID.toString();
-    component.id = TEST_EMPLOYEE_ID.toString();
-    const testEmployee = TEST_DEPARTMENTS[0].employees[0];
+    component.departmentId = testData.TEST_DEPARTMENT_ID.toString();
+    component.id = testData.TEST_EMPLOYEE_ID.toString();
+    const testEmployee = testData.TEST_DEPARTMENTS[0].employees[0];
     component.employeeForm.controls.departmentId.setValue(testEmployee.departmentId.toString());
     component.employeeForm.controls.firstName.setValue(testEmployee.firstName);
     component.employeeForm.controls.lastName.setValue(testEmployee.lastName);
@@ -188,9 +185,10 @@ describe('EmployeeFormComponent', () => {
     // WHEN
     component.onSubmit();
     // THEN
+    const actualUpdatedEmployee = { ...testEmployee, departmentId: testData.TEST_DEPARTMENT_ID };
     expect(employeeService.updateEmployee).toHaveBeenCalledWith(
-      TEST_DEPARTMENT_ID,
-      jasmine.objectContaining(testEmployee)
+      testData.TEST_DEPARTMENT_ID,
+      jasmine.objectContaining(actualUpdatedEmployee)
     );
   });
 
@@ -200,16 +198,15 @@ describe('EmployeeFormComponent', () => {
   it('should call deleteEmployee on submit for DELETE operation', () => {
     // GIVEN
     const employeeService = component.employeeService;
-    spyOn(employeeService, 'deleteEmployee');
     component.operation = 'DELETE';
-    component.departmentId = TEST_DEPARTMENT_ID.toString();
-    component.id = TEST_EMPLOYEE_ID.toString();
+    component.departmentId = testData.TEST_DEPARTMENT_ID.toString();
+    component.id = testData.TEST_EMPLOYEE_ID.toString();
     // WHEN
     component.onSubmit();
     // THEN
     expect(employeeService.deleteEmployee).toHaveBeenCalledWith(
-      TEST_DEPARTMENT_ID,
-      TEST_EMPLOYEE_ID
+      testData.TEST_DEPARTMENT_ID,
+      testData.TEST_EMPLOYEE_ID
     );
   });
 
@@ -222,13 +219,13 @@ describe('EmployeeFormComponent', () => {
     const route = TestBed.inject(ActivatedRoute);
     spyOn(component.employeeForm, 'reset');
     spyOn(router, 'navigate');
-    component.departmentId = TEST_DEPARTMENT_ID.toString();
+    component.departmentId = testData.TEST_DEPARTMENT_ID.toString();
     // WHEN
     component.onCancel();
     // THEN
     expect(component.employeeForm.reset).toHaveBeenCalled();
     expect(router.navigate).toHaveBeenCalledWith(
-      ['/employee-table', TEST_DEPARTMENT_ID.toString()],
+      ['/employee-table', testData.TEST_DEPARTMENT_ID.toString()],
       { relativeTo: route }
     );
   });
@@ -240,7 +237,7 @@ describe('EmployeeFormComponent', () => {
     // GIVEN
     component.employeeForm.reset();
     // WHEN
-    const testEmployee = TEST_DEPARTMENTS[0].employees[0];
+    const testEmployee = testData.TEST_DEPARTMENTS[0].employees[0];
     component.employeeForm.controls['firstName'].setValue(testEmployee.firstName);
     component.employeeForm.controls['lastName'].setValue(testEmployee.lastName);
     component.employeeForm.controls['title'].setValue(testEmployee.title);

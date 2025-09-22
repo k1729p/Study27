@@ -1,50 +1,57 @@
-import { waitForAsync, ComponentFixture, TestBed } from '@angular/core/testing';
-import { NoopAnimationsModule } from '@angular/platform-browser/animations';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { ActivatedRoute } from '@angular/router';
+import { provideNativeDateAdapter } from '@angular/material/core';
 import { of } from 'rxjs';
 
 import { DepartmentFormComponent } from './department-form.component';
-import {
-  TEST_DEPARTMENTS,
-  TEST_DEPARTMENT_ID,
-  SUGGESTION_KEYWORDS,
-  TEST_DAYS,
-} from 'testing/test-data';
+import { Department } from 'models/department';
+import { DepartmentService } from 'services/department-service/department.service';
+import * as testData from 'testing/test-data';
+
 /**
  * Unit tests for the DepartmentFormComponent.
  * This component is part of the forms module and is used to manage department-related forms.
  */
 describe('DepartmentFormComponent', () => {
   let component: DepartmentFormComponent;
+  let departmentServiceSpy: jasmine.SpyObj<DepartmentService>;
   let fixture: ComponentFixture<DepartmentFormComponent>;
   /**
    * Sets up the testing module and compiles the component before each test.
    * The NoopAnimationsModule is imported to avoid issues with animations during testing.
    */
   beforeEach(waitForAsync(() => {
+    departmentServiceSpy = jasmine.createSpyObj('DepartmentService', [
+      'getDepartments', 'getDepartment', 'createDepartment', 'updateDepartment', 'deleteDepartment'
+    ]);
+    departmentServiceSpy.getDepartments.and
+      .callFake((): Department[] => {
+        return [...testData.TEST_DEPARTMENTS];
+      });
+    departmentServiceSpy.getDepartment.and
+      .callFake((id: number): Department | undefined => {
+        return testData.TEST_DEPARTMENTS.find(dep => dep.id === id);
+      });
+
     TestBed.configureTestingModule({
-      imports: [NoopAnimationsModule],
       providers: [
+        provideNativeDateAdapter(),
         {
           provide: ActivatedRoute,
           useValue: {
-            params: of({}), // mock route params as needed
+            params: of({}),
             snapshot: { paramMap: { get: () => null } },
           },
         },
+        { provide: DepartmentService, useValue: departmentServiceSpy }
       ],
-    }).compileComponents();
-  }));
-  /**
-   * Initializes the component and fixture before each test.
-   * This is necessary to ensure that the component is ready
-   * for testing and that any changes are detected
-   */
-  beforeEach(() => {
+    })
+      .compileComponents();
+
     fixture = TestBed.createComponent(DepartmentFormComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
-  });
+  }));
   /**
    * Tests that the component is created successfully.
    * This is a basic test to ensure that the component can be instantiated without errors.
@@ -60,7 +67,6 @@ describe('DepartmentFormComponent', () => {
   it('should initialize form with default values for CREATE operation', () => {
     // GIVEN
     const route = TestBed.inject(ActivatedRoute);
-    // Mock ActivatedRoute for CREATE
     spyOn(route.snapshot.paramMap, 'get').and.callFake((key: string) => {
       if (key === 'operation') return 'CREATE';
       if (key === 'id') return null;
@@ -81,32 +87,31 @@ describe('DepartmentFormComponent', () => {
     // GIVEN
     const departmentService = (component as DepartmentFormComponent)
       .departmentService;
-    spyOn(departmentService, 'createDepartment');
     component.operation = 'CREATE';
     component.departmentForm.controls['name'].setValue(
-      TEST_DEPARTMENTS[0].name
+      testData.TEST_DEPARTMENTS[0].name
     );
     component.departmentForm.controls['startDate'].setValue(
-      TEST_DEPARTMENTS[0].startDate ?? null
+      testData.TEST_DEPARTMENTS[0].startDate ?? null
     );
     component.departmentForm.controls['endDate'].setValue(
-      TEST_DEPARTMENTS[0].endDate ?? null
+      testData.TEST_DEPARTMENTS[0].endDate ?? null
     );
     component.departmentForm.controls['notes'].setValue(
-      TEST_DEPARTMENTS[0].notes ?? null
+      testData.TEST_DEPARTMENTS[0].notes ?? null
     );
-    const KEYWORD = TEST_DEPARTMENTS[0].keywords ?? [];
+    const KEYWORD = testData.TEST_DEPARTMENTS[0].keywords ?? [];
     component.keywordsSignal.set(KEYWORD);
     // WHEN
     component.onSubmit();
     // THEN
     expect(departmentService.createDepartment).toHaveBeenCalledWith({
       id: -1,
-      name: TEST_DEPARTMENTS[0].name,
+      name: testData.TEST_DEPARTMENTS[0].name,
       employees: [],
-      startDate: TEST_DEPARTMENTS[0].startDate,
-      endDate: TEST_DEPARTMENTS[0].endDate,
-      notes: TEST_DEPARTMENTS[0].notes,
+      startDate: testData.TEST_DEPARTMENTS[0].startDate,
+      endDate: testData.TEST_DEPARTMENTS[0].endDate,
+      notes: testData.TEST_DEPARTMENTS[0].notes,
       keywords: KEYWORD,
     });
   });
@@ -119,33 +124,32 @@ describe('DepartmentFormComponent', () => {
     // GIVEN
     const departmentService = (component as DepartmentFormComponent)
       .departmentService;
-    spyOn(departmentService, 'updateDepartment');
     component.operation = 'UPDATE';
-    component.id = TEST_DEPARTMENT_ID.toString();
+    component.id = testData.TEST_DEPARTMENT_ID.toString();
     component.departmentForm.controls['name'].setValue(
-      TEST_DEPARTMENTS[0].name
+      testData.TEST_DEPARTMENTS[0].name
     );
     component.departmentForm.controls['startDate'].setValue(
-      TEST_DEPARTMENTS[0].startDate ?? null
+      testData.TEST_DEPARTMENTS[0].startDate ?? null
     );
     component.departmentForm.controls['endDate'].setValue(
-      TEST_DEPARTMENTS[0].endDate ?? null
+      testData.TEST_DEPARTMENTS[0].endDate ?? null
     );
     component.departmentForm.controls['notes'].setValue(
-      TEST_DEPARTMENTS[0].notes ?? null
+      testData.TEST_DEPARTMENTS[0].notes ?? null
     );
-    const KEYWORD = TEST_DEPARTMENTS[0].keywords ?? [];
+    const KEYWORD = testData.TEST_DEPARTMENTS[0].keywords ?? [];
     component.keywordsSignal.set(KEYWORD);
     // WHEN
     component.onSubmit();
     // THEN
     expect(departmentService.updateDepartment).toHaveBeenCalledWith({
-      id: TEST_DEPARTMENT_ID,
-      name: TEST_DEPARTMENTS[0].name,
+      id: testData.TEST_DEPARTMENT_ID,
+      name: testData.TEST_DEPARTMENTS[0].name,
       employees: [],
-      startDate: TEST_DEPARTMENTS[0].startDate,
-      endDate: TEST_DEPARTMENTS[0].endDate,
-      notes: TEST_DEPARTMENTS[0].notes,
+      startDate: testData.TEST_DEPARTMENTS[0].startDate,
+      endDate: testData.TEST_DEPARTMENTS[0].endDate,
+      notes: testData.TEST_DEPARTMENTS[0].notes,
       keywords: KEYWORD,
     });
   });
@@ -157,14 +161,13 @@ describe('DepartmentFormComponent', () => {
     // GIVEN
     const departmentService = (component as DepartmentFormComponent)
       .departmentService;
-    spyOn(departmentService, 'deleteDepartment');
     component.operation = 'DELETE';
-    component.id = TEST_DEPARTMENT_ID.toString();
+    component.id = testData.TEST_DEPARTMENT_ID.toString();
     // WHEN
     component.onSubmit();
     // THEN
     expect(departmentService.deleteDepartment).toHaveBeenCalledWith(
-      TEST_DEPARTMENT_ID
+      testData.TEST_DEPARTMENT_ID
     );
   });
   /**
@@ -173,14 +176,14 @@ describe('DepartmentFormComponent', () => {
    */
   it('should add a keyword if not present', () => {
     // GIVEN
-    component.keywordsSignal.set([SUGGESTION_KEYWORDS[0]]);
+    component.keywordsSignal.set([testData.SUGGESTION_KEYWORDS[0]]);
     // WHEN
     component.addKeyword({
-      value: SUGGESTION_KEYWORDS[1],
+      value: testData.SUGGESTION_KEYWORDS[1],
       input: null,
     } as never);
     // THEN
-    expect(component.keywordsSignal()).toContain(SUGGESTION_KEYWORDS[1]);
+    expect(component.keywordsSignal()).toContain(testData.SUGGESTION_KEYWORDS[1]);
   });
   /**
    * Tests that duplicate keywords are not added.
@@ -189,15 +192,15 @@ describe('DepartmentFormComponent', () => {
    */
   it('should not add duplicate keywords', () => {
     // GIVEN
-    component.keywordsSignal.set([SUGGESTION_KEYWORDS[0]]);
+    component.keywordsSignal.set([testData.SUGGESTION_KEYWORDS[0]]);
     // WHEN
     component.addKeyword({
-      value: SUGGESTION_KEYWORDS[0],
+      value: testData.SUGGESTION_KEYWORDS[0],
       input: null,
     } as never);
     // THEN
     expect(
-      component.keywordsSignal().filter((k) => k === SUGGESTION_KEYWORDS[0])
+      component.keywordsSignal().filter((k) => k === testData.SUGGESTION_KEYWORDS[0])
         .length
     ).toBe(1);
   });
@@ -208,22 +211,22 @@ describe('DepartmentFormComponent', () => {
    */
   it('should remove a keyword', () => {
     // GIVEN
-    component.keywordsSignal.set([...SUGGESTION_KEYWORDS]);
+    component.keywordsSignal.set([...testData.SUGGESTION_KEYWORDS]);
     // WHEN
-    component.removeKeyword(SUGGESTION_KEYWORDS[0]);
+    component.removeKeyword(testData.SUGGESTION_KEYWORDS[0]);
     // THEN
-    expect(component.keywordsSignal()).not.toContain(SUGGESTION_KEYWORDS[0]);
-    expect(component.keywordsSignal()).toContain(SUGGESTION_KEYWORDS[1]);
+    expect(component.keywordsSignal()).not.toContain(testData.SUGGESTION_KEYWORDS[0]);
+    expect(component.keywordsSignal()).toContain(testData.SUGGESTION_KEYWORDS[1]);
   });
   /**
    * Tests the addition of a selected keyword from autocomplete.
    */
   it('should add selected keyword from autocomplete', () => {
     // GIVEN
-    component.keywordsSignal.set([SUGGESTION_KEYWORDS[0]]);
+    component.keywordsSignal.set([testData.SUGGESTION_KEYWORDS[0]]);
     const event = {
       option: {
-        viewValue: SUGGESTION_KEYWORDS[1],
+        viewValue: testData.SUGGESTION_KEYWORDS[1],
         deselect: jasmine.createSpy('deselect'),
       },
       source: {}, // minimal mock to satisfy MatAutocompleteSelectedEvent interface
@@ -231,8 +234,8 @@ describe('DepartmentFormComponent', () => {
     // WHEN
     component.addSelectedKeyword(event);
     // THEN
-    expect(component.keywordsSignal()).toContain(SUGGESTION_KEYWORDS[0]);
-    expect(component.keywordsSignal()).toContain(SUGGESTION_KEYWORDS[1]);
+    expect(component.keywordsSignal()).toContain(testData.SUGGESTION_KEYWORDS[0]);
+    expect(component.keywordsSignal()).toContain(testData.SUGGESTION_KEYWORDS[1]);
     expect(component.keywordsSignal().length).toBe(2);
     expect(event.option.deselect).toHaveBeenCalled();
   });
@@ -241,11 +244,11 @@ describe('DepartmentFormComponent', () => {
    */
   it('should filter workdays correctly', () => {
     // Saturday
-    expect(component.workdaysFilter(TEST_DAYS[0])).toBeFalse();
+    expect(component.workdaysFilter(testData.TEST_DAYS[0])).toBeFalse();
     // Sunday
-    expect(component.workdaysFilter(TEST_DAYS[1])).toBeFalse();
+    expect(component.workdaysFilter(testData.TEST_DAYS[1])).toBeFalse();
     // Monday
-    expect(component.workdaysFilter(TEST_DAYS[2])).toBeTrue();
+    expect(component.workdaysFilter(testData.TEST_DAYS[2])).toBeTrue();
   });
   /**
    * Tests the cancellation of the form.
