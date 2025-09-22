@@ -152,10 +152,10 @@
 
   <p>Action:<br>
     <img alt="" src="images/orangeHR-500.png"><br>
-    <img alt="" src="images/orangeSquare.png">1. Use the batch file
+    <img alt="" src="images/orangeSquare.png"> 1. Use the batch file
     <a href="https://github.com/k1729p/Study27/blob/main/0_batch/01%20Angular%20on%20Docker%20build%20and%20run.bat">
       <i>"01 Angular on Docker build and run.bat"</i></a> to build the images and start the containers.<br>
-    <img alt="" src="images/orangeSquare.png">2. The web browser shortcut "11 Study27 on 8027.url" for Study27 application.<br>
+    <img alt="" src="images/orangeSquare.png"> 2. The web browser shortcut "11 Study27 on 8027.url" for the 'Study27' application.<br>
     <img alt="" src="images/orangeHR-500.png">
   </p>
   <p><img alt="" src="images/greenCircle.png">
@@ -173,14 +173,14 @@
   <h3 id="THREE">❸ Local build and test</h3>
   <p>Action:<br>
     <img alt="" src="images/orangeHR-500.png"><br>
-    <img alt="" src="images/orangeSquare.png">1. Use the batch file
+    <img alt="" src="images/orangeSquare.png"> 1. Use the batch file
     <a href="https://github.com/k1729p/Study27/blob/main/0_batch/02%20Angular%20on%20local%20build%20and%20run.bat">
-      <i>"02 Angular on local build and run.bat"</i></a> to build the images and start the containers.<br>
-    <img alt="" src="images/orangeSquare.png">2. Use the batch file
+      <i>"02 Angular on local build and run.bat"</i></a> to build and start the local application.<br>
+    <img alt="" src="images/orangeSquare.png"> 2. Use the batch file
     <a href="https://github.com/k1729p/Study27/blob/main/0_batch/03%20Angular%20lint%20and%20test.bat">
       <i>"03 Angular lint and test.bat"</i></a> to lint and start the Karma tests.<br>
-    <img alt="" src="images/orangeSquare.png">3. The web browser shortcut "12 Study27 on 4200.url"
-      for application on port 4200 started with 'ng serve'.<br>
+    <img alt="" src="images/orangeSquare.png"> 3. The web browser shortcut "12 Study27 on 4200.url"
+      for the application on port 4200 started with 'ng serve'.<br>
     <img alt="" src="images/orangeHR-500.png">
   </p>
 
@@ -190,7 +190,7 @@
 
   <p>Action:<br>
     <img alt="" src="images/orangeHR-500.png"><br>
-    <img alt="" src="images/orangeSquare.png">Use the batch file
+    <img alt="" src="images/orangeSquare.png"> Use the batch file
     <a href="https://github.com/k1729p/Study27/blob/main/0_batch/04%20Cypress%20tests.bat">
       <i>"04 Cypress tests.bat"</i></a> to start the Cypress tests.<br>
     <img alt="" src="images/orangeHR-500.png">
@@ -249,7 +249,7 @@
           <a href="https://m3.material.io/">Material Design 3</a>
         </td>
         <td>
-          This Angular Material project uses Material Design 2.
+          But this Angular Material project uses Material Design 2
         </td>
       </tr>
       <tr>
@@ -257,6 +257,7 @@
           <a href="https://material.angular.io/components/categories">Angular Material UI components</a>
         </td>
         <td>
+          These are UI components based on the Material Design specification
         </td>
       </tr>
       <tr>
@@ -264,6 +265,7 @@
           <a href="https://material.angular.io/cdk/categories">Angular Material CDK</a>
         </td>
         <td>
+          A set of behavior primitives for building UI components
         </td>
       </tr>
       <tr>
@@ -287,7 +289,7 @@
           <a href="https://fonts.google.com/icons?icon.size=24&icon.color=%231f1f1f">Google Icons</a>
         </td>
         <td>
-          Used in the Material menu
+          These icons are used in the Material menu
         </td>
       </tr>
       <tr>

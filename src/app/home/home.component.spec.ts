@@ -26,10 +26,12 @@ describe('HomeComponent', () => {
       'loadDepartmentsFromBackend',
       'postInitialDataToBackend'
     ]);
+
 initializationServiceSpy.postInitialDataToBackend.and
   .callFake(() => {
     console.log('################################################################');
   });    
+  
     TestBed.configureTestingModule({
       imports: [HomeComponent],
       providers: [
