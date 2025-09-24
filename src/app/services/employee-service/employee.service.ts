@@ -51,10 +51,10 @@ export class EmployeeService {
    * @returns an array of employees for the specified department
    */
   getEmployees(departmentId: number): Employee[] {
-    const json = this.storage.getItem('departments') ?? '';
-    const departments = JSON.parse(json) as Department[];
-    const department = departments.find(dep => dep.id === departmentId);
-    const employees = department ? department.employees : [];
+    const employees = (JSON.parse(this.storage.getItem('departments') ?? '') as Department[])
+      .find(dep => dep.id === departmentId)
+      ?.employees
+      .sort((emp1, emp2) => emp1.id - emp2.id) || [];
     console.log('EmployeeService.getEmployees(): department id[%s]', departmentId);
     return employees;
   }

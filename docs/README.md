@@ -33,7 +33,7 @@
   <hr>
   <h3 id="ONE">❶ Business Logic</h3>
   <p><img alt="" src="images/greenCircle.png">
-    1.1. The Business logic
+    1.1. The business logic
     <a href="https://github.com/k1729p/Study27/blob/main/docs/mermaid/flowchartBusinessLogic.md">diagram</a>.
     This diagram contains links to web page screenshots.
   </p>
