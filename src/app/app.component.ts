@@ -8,6 +8,47 @@ import { MatInputModule } from '@angular/material/input';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatIconModule } from "@angular/material/icon";
 /**
+ * Menu item definition for the navigation menu.
+ * Each menu item includes the icon name, label text, and route path.
+ */
+export interface MenuItem {
+  icon: string;
+  label: string;
+  path: string;
+}
+/**
+ * Object representing menu items, where each key is a item keyword
+ * and the value is a MenuItem object containing icon, label, and route path.
+ * Used to define the navigation menu in the application.
+ */
+export const MENU_ITEMS: Record<string, MenuItem> = {
+  Home: {
+    icon: 'home',
+    label: 'Home',
+    path: '/home'
+  },
+  ManageDepartments: {
+    icon: 'edit',
+    label: 'Manage Departments',
+    path: '/department-table'
+  },
+  TransferEmployees: {
+    icon: 'swap_horiz',
+    label: 'Transfer Employees',
+    path: '/employee-transfer'
+  },
+  LocateEmployees: {
+    icon: 'person_search',
+    label: 'Locate Employees',
+    path: '/employee-locate'
+  },
+  CreatePDFReports: {
+    icon: 'article',
+    label: 'Create PDF Reports',
+    path: '/report'
+  }
+};
+/**
  * Injection token for browser storage.
  * This token is used to inject the browser's localStorage into services that require it.
  */
@@ -43,48 +84,19 @@ export class AppComponent {
   storage = inject<Storage>(BROWSER_STORAGE);
   repositoryTypeName: string | null = null;
   title = 'Study27';
-  /**
-   * ActivatedRoute and Router injected using inject() function.
-   */
+  menuItems = MENU_ITEMS;
   private route = inject(ActivatedRoute);
   private router = inject(Router);
   /**
    * Handles menu item selection and navigation.
    * This function is called when a menu item is clicked.
    *
-   * @param id - The ID of the menu item that was clicked.
+   * @param menuItem - The menu item definition that was clicked.
    */
-  menuHandler(id: number) {
-    this.repositoryTypeName = id === 1 ? null : this.storage.getItem('repositoryType');
-
-    switch (id) {
-      case 1:
-        this.router.navigate(['/home'], {
-          relativeTo: this.route,
-        });
-        break;
-      case 2:
-        this.router.navigate(['/department-table'], {
-          relativeTo: this.route
-        });
-        break;
-      case 3:
-        this.router.navigate(['/employee-transfer'], {
-          relativeTo: this.route,
-        });
-        break;
-      case 4:
-        this.router.navigate(['/employee-locate'], {
-          relativeTo: this.route,
-        });
-        break;
-      case 5:
-        this.router.navigate(['/report'], {
-          relativeTo: this.route,
-        });
-        break;
-      default:
-        break;
-    }
+  menuHandler(menuItem: MenuItem) {
+    this.repositoryTypeName = menuItem === MENU_ITEMS['Home'] ? null : this.storage.getItem('repositoryType');
+    this.router.navigate([menuItem.path], {
+      relativeTo: this.route,
+    });
   }
 }

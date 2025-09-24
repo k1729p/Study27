@@ -7,7 +7,6 @@ import { of } from 'rxjs';
 import { HomeComponent } from './home.component';
 import { RepositoryType } from 'home/repository-type';
 import { InitializationService } from 'services/initialization-service/initialization-service';
-
 /**
  * Unit tests for the HomeComponent.
  * This file contains tests to ensure that the component compiles correctly and behaves as expected.
@@ -16,7 +15,6 @@ describe('HomeComponent', () => {
   let component: HomeComponent;
   let fixture: ComponentFixture<HomeComponent>;
   let initializationServiceSpy: jasmine.SpyObj<InitializationService>;
-
   /**
    * Set up the testing module for HomeComponent.
    * This function initializes the testing environment and compiles the component.
@@ -26,12 +24,6 @@ describe('HomeComponent', () => {
       'loadDepartmentsFromBackend',
       'postInitialDataToBackend'
     ]);
-
-initializationServiceSpy.postInitialDataToBackend.and
-  .callFake(() => {
-    console.log('################################################################');
-  });    
-  
     TestBed.configureTestingModule({
       imports: [HomeComponent],
       providers: [
@@ -50,15 +42,16 @@ initializationServiceSpy.postInitialDataToBackend.and
     component = fixture.componentInstance;
     fixture.detectChanges();
   });
-
   /**
    * Test to check if the HomeComponent compiles successfully.
    * This test ensures that the component can be instantiated without errors.
    */
   it('should compile', () => {
+    // GIVEN
+    // WHEN
+    // THEN
     expect(component).toBeTruthy();
   });
-
   /**
    * Test to check if the HomeComponent renders the page correctly.
    * This test ensures that key labels and options are present in the DOM.
@@ -75,12 +68,11 @@ initializationServiceSpy.postInitialDataToBackend.and
     expect(compiled.textContent).toContain('PostgreSQL database');
     expect(compiled.textContent).toContain('MongoDB database');
   });
-
   /**
    * Test to check if the initialiseRepository method is called when the button is clicked.
    * This test simulates a click on the "Initialise Selected Repository" button and checks the spy.
    */
-  it('should initialize selected repository', () => {
+  it('should initialize default local repository', () => {
     // GIVEN
     fixture.detectChanges();
     const button = fixture.debugElement.queryAll(By.css('button')).find(btn =>
@@ -90,17 +82,27 @@ initializationServiceSpy.postInitialDataToBackend.and
     // WHEN
     button!.nativeElement.click();
     // THEN
-    // For WebStorage, postInitialDataToBackend should NOT be called
     expect(initializationServiceSpy.postInitialDataToBackend).not.toHaveBeenCalled();
-    // Simulate selecting a backend repository and clicking again
-
-console.log('### RADIO ' + component.homeForm.controls['repositoryTypeSelect'].value);
-    component.homeForm.controls['repositoryTypeSelect'].setValue(RepositoryType.PostgreSQL);
-console.log('### RADIO ' + component.homeForm.controls['repositoryTypeSelect'].value);
-
-
+  });
+  /**
+   * Test to check if the initialiseRepository method is called when the button is clicked.
+   * This test simulates a click on the "Initialise Selected Repository" button and checks the spy.
+   */
+  it('should initialize selected external repository', () => {
+    // GIVEN
     fixture.detectChanges();
+    const button = fixture.debugElement.queryAll(By.css('button')).find(btn =>
+      btn.nativeElement.textContent.includes('Initialise Selected Repository')
+    );
+    expect(button).toBeTruthy();
+    component.homeForm.controls['repositoryTypeSelect'].setValue(RepositoryType.PostgreSQL);
+    window.localStorage.setItem('repositoryType', RepositoryType.PostgreSQL);
+    fixture.detectChanges();
+    // WHEN
     button!.nativeElement.click();
+    // THEN
     expect(initializationServiceSpy.postInitialDataToBackend).toHaveBeenCalled();
+    // reset storage
+    window.localStorage.setItem('repositoryType', RepositoryType.WebStorage);
   });
 });

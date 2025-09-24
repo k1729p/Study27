@@ -15,13 +15,9 @@
             </div>
             <div class="home-card-col">
                 <form [formGroup]="homeForm">
-                    <mat-radio-group
-                        formControlName="repositoryTypeSelect"
-                        (change)="setRepositoryType($event.value)">
+                    <mat-radio-group formControlName="repositoryTypeSelect" (change)="setRepositoryType($event.value)">
                         @for (repositoryType of repositoryTypeArray; track repositoryType) {
-                        <mat-radio-button
-                            [value]="repositoryType"
-                            style="display: block; margin-bottom: 8px;">
+                        <mat-radio-button [value]="repositoryType" style="display: block; margin-bottom: 8px;">
                             {{ describeRepositoryType(repositoryType) }}
                         </mat-radio-button>
                         }
