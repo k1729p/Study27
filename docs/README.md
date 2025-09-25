@@ -183,7 +183,10 @@
       for the application on port 4200 started with 'ng serve'.<br>
     <img alt="" src="images/orangeHR-500.png">
   </p>
-
+  <p><img  alt="" src="images/greenCircle.png">
+    3.1. The <a href="images/ScreenshotKarmaTests.jpg">screenshot</a>
+    shows the results of the Karma tests.
+  </p>
   <a href="#top">Back to the top of the page</a>
   <hr>
   <h3 id="FOUR">❹ Cypress End-to-End Tests</h3>

@@ -5,7 +5,7 @@ import { MatCardModule } from '@angular/material/card';
 import { MatRadioModule } from '@angular/material/radio';
 import { MatSelectModule } from '@angular/material/select';
 
-import { InitializationService } from 'services/initialization-service/initialization-service';
+import { InitializationService } from 'services/initialization-service/initialization.service';
 import { RepositoryType } from 'home/repository-type';
 import { INITIAL_DATA } from './initial-data';
 /**

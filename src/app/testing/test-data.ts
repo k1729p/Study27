@@ -1,6 +1,7 @@
 import { Department } from 'models/department';
 import { Employee } from 'models/employee';
 import { Title } from 'models/title';
+import { RepositoryType } from 'home/repository-type';
 /**
  * Test days.
  */
@@ -86,3 +87,7 @@ export const TEST_EMPLOYEE_FULL_NAME =
 export const TEST_EMPLOYEES_TRANSFERRED: Employee[] = [
   TEST_DEPARTMENTS[0].employees[0], TEST_DEPARTMENTS[1].employees[0],
 ];
+/**
+ * Test repository type.
+ */
+export const TEST_REPOSITORY_TYPE = RepositoryType.PostgreSQL;
