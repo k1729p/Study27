@@ -20,10 +20,18 @@
 
   <p><img alt="" src="images/ScreenshotFlowchartFull.jpg" /></p>
 
-<h3>
-  Live Angular application demo: <a href="https://k1729p.github.io/">Study27 (GitHub Pages)</a>
-</h3>
-<p>
+  <table>
+    <tbody>
+      <tr>
+        <td>Live Angular application demo</td>
+      </tr>
+      <tr>
+        <td><a href="https://k1729p.github.io/">Study27 (GitHub Pages)</a></td>
+      </tr>
+    </tbody>
+  </table>
+
+  <p>
     Project sections:
   </p>
   <ol>
