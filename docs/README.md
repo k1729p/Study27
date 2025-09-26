@@ -20,6 +20,9 @@
 
   <p><img alt="" src="images/ScreenshotFlowchartFull.jpg" /></p>
 
+  <h3>
+    This application running on GitHub Pages: <a href="https://ee-cs.github.io">Study27</a>
+  </h3>
   <p>
     Project sections:
   </p>
@@ -317,6 +320,14 @@
         </td>
         <td>
           The test runner 
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <a href="https://docs.github.com/en/pages/">GitHub Pages</a>
+        </td>
+        <td>
+          Creates a website directly from a repository on GitHub
         </td>
       </tr>
     </tbody>
