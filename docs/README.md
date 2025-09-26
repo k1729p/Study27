@@ -26,14 +26,20 @@
       <table>
         <tbody>
           <tr><td>
-            Live Angular application demo: <a href="https://k1729p.github.io/">Study27 (GitHub Pages)</a>
+            <table>
+              <tbody>
+                <tr><td>
+                  Live Angular application demo: <a href="https://k1729p.github.io/">Study27 (GitHub Pages)</a>
+                </td></tr>
+              </tbody>
+            </table>
           </td></tr>
         </tbody>
       </table>
       </td></tr>
     </tbody>
   </table>
-  
+
   <table>
     <tbody>
       <tr><td></td><td></td><td></td></tr>
