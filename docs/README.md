@@ -34,6 +34,11 @@
     </tbody>
   </table>
 
+<div style="width:60%;border:15px solid orange;background-color:lightyellow;margin:15px;padding:20px;font:20px arial,sans-serif;">
+  Live Angular application demo: <a href="https://k1729p.github.io/">Study27 (GitHub Pages)</a>
+</div>
+
+
   <p>
     Project sections:
   </p>
