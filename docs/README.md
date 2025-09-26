@@ -21,7 +21,7 @@
   <p><img alt="" src="images/ScreenshotFlowchartFull.jpg" /></p>
 
 <h3>
-  Live Angular application demo: <a href="https://ee-cs.github.io">Study27 (GitHub Pages)</a>
+  Live Angular application demo: <a href="https://k1729p.github.io/">Study27 (GitHub Pages)</a>
 </h3>
 <p>
     Project sections:
