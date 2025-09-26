@@ -22,12 +22,15 @@
 
   <table>
     <tbody>
-      <tr>
-        <td>Live Angular application demo</td>
-      </tr>
-      <tr>
-        <td><a href="https://k1729p.github.io/">Study27 (GitHub Pages)</a></td>
-      </tr>
+      <tr><td>
+      <table>
+        <tbody>
+          <tr><td>
+            Live Angular application demo: <a href="https://k1729p.github.io/">Study27 (GitHub Pages)</a>
+          </td></tr>
+        </tbody>
+      </table>
+      </td></tr>
     </tbody>
   </table>
 
