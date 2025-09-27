@@ -26,27 +26,28 @@
       <table>
         <tbody>
           <tr><td>
-            <table>
-              <tbody>
-                <tr><td>
-                  Live Angular application demo: <a href="https://k1729p.github.io/">Study27 (GitHub Pages)</a>
-                </td></tr>
-              </tbody>
-            </table>
+            Live Angular application demo: <a href="https://k1729p.github.io/Study27/">Study27 (GitHub Pages)</a>
           </td></tr>
         </tbody>
       </table>
       </td></tr>
     </tbody>
   </table>
-
   <table>
     <tbody>
-      <tr><td></td><td></td><td></td></tr>
+      <tr>
+        <td><img alt="" src="images/orangeSquare.png"></td>
+        <td><img alt="" src="images/orangeSquare.png"><img alt="" src="images/orangeSquare.png"><img alt="" src="images/orangeSquare.png"></td>
+        <td><img alt="" src="images/orangeSquare.png"></td>
+      </tr>
       <tr><td></td><td>
-        Live Angular application demo: <a href="https://k1729p.github.io/">Study27 (GitHub Pages)</a>
+        Live Angular application demo: <a href="https://k1729p.github.io/Study27/">Study27 (GitHub Pages)</a>
       </td><td></td></tr>
-      <tr><td></td><td></td><td></td></tr>
+      <tr>
+        <td><img alt="" src="images/orangeSquare.png"></td>
+        <td><img alt="" src="images/orangeSquare.png"><img alt="" src="images/orangeSquare.png"><img alt="" src="images/orangeSquare.png"></td>
+        <td><img alt="" src="images/orangeSquare.png"></td>
+      </tr>
     </tbody>
   </table>
 
