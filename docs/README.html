@@ -58,7 +58,21 @@
       </tr>
     </tbody>
   </table>
-
+<table>
+  <tr>
+    <td rowspan="3"><img alt="" src="images/yellowSquare.png"></td>
+    <td><img alt="" src="images/yellowHR-500.png "></td>
+    <td rowspan="3"><img alt="" src="images/yellowSquare.png"></td>
+  </tr>
+  <tr>
+    <td>
+      Live Angular application demo: <a href="https://k1729p.github.io/Study27/">Study27 (GitHub Pages)</a>
+    </td>
+  </tr>
+  <tr>
+    <td><img alt="" src="images/yellowHR-500.png "></td>
+  </tr>
+</table>
   <p>
     Project sections:
   </p>
