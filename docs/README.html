@@ -22,31 +22,39 @@
 
   <table>
     <tbody>
-      <tr><td>
-      <table>
-        <tbody>
-          <tr><td>
-            Live Angular application demo: <a href="https://k1729p.github.io/Study27/">Study27 (GitHub Pages)</a>
-          </td></tr>
-        </tbody>
-      </table>
-      </td></tr>
+      <tr>
+        <td>
+          <table>
+            <tbody>
+              <tr>
+                <td>
+                  Live Angular application demo: <a href="https://k1729p.github.io/Study27/">Study27 (GitHub Pages)</a>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </td>
+      </tr>
     </tbody>
   </table>
   <table>
     <tbody>
       <tr>
-        <td><img alt="" src="images/orangeSquare.png"></td>
-        <td><img alt="" src="images/orangeSquare.png"><img alt="" src="images/orangeSquare.png"><img alt="" src="images/orangeSquare.png"></td>
-        <td><img alt="" src="images/orangeSquare.png"></td>
+        <td><img alt="" src="images/yellowSquare.png"></td>
+        <td><img alt="" src="images/yellowHR-500.png "></td>
+        <td><img alt="" src="images/yellowSquare.png"></td>
       </tr>
-      <tr><td></td><td>
-        Live Angular application demo: <a href="https://k1729p.github.io/Study27/">Study27 (GitHub Pages)</a>
-      </td><td></td></tr>
       <tr>
-        <td><img alt="" src="images/orangeSquare.png"></td>
-        <td><img alt="" src="images/orangeSquare.png"><img alt="" src="images/orangeSquare.png"><img alt="" src="images/orangeSquare.png"></td>
-        <td><img alt="" src="images/orangeSquare.png"></td>
+        <td><img alt="" src="images/yellowSquare.png"></td>
+        <td>
+          Live Angular application demo: <a href="https://k1729p.github.io/Study27/">Study27 (GitHub Pages)</a>
+        </td>
+        <td><img alt="" src="images/yellowSquare.png"></td>
+      </tr>
+      <tr>
+        <td><img alt="" src="images/yellowSquare.png"></td>
+        <td><img alt="" src="images/yellowHR-500.png "></td>
+        <td><img alt="" src="images/yellowSquare.png"></td>
       </tr>
     </tbody>
   </table>
@@ -186,7 +194,8 @@
     <img alt="" src="images/orangeSquare.png"> 1. Use the batch file
     <a href="https://github.com/k1729p/Study27/blob/main/0_batch/01%20Angular%20on%20Docker%20build%20and%20run.bat">
       <i>"01 Angular on Docker build and run.bat"</i></a> to build the images and start the containers.<br>
-    <img alt="" src="images/orangeSquare.png"> 2. The web browser shortcut "11 Study27 on 8027.url" for the 'Study27' application.<br>
+    <img alt="" src="images/orangeSquare.png"> 2. The web browser shortcut "11 Study27 on 8027.url" for the 'Study27'
+    application.<br>
     <img alt="" src="images/orangeHR-500.png">
   </p>
   <p><img alt="" src="images/greenCircle.png">
@@ -211,10 +220,10 @@
     <a href="https://github.com/k1729p/Study27/blob/main/0_batch/03%20Angular%20lint%20and%20test.bat">
       <i>"03 Angular lint and test.bat"</i></a> to lint and start the Karma tests.<br>
     <img alt="" src="images/orangeSquare.png"> 3. The web browser shortcut "12 Study27 on 4200.url"
-      for the application on port 4200 started with 'ng serve'.<br>
+    for the application on port 4200 started with 'ng serve'.<br>
     <img alt="" src="images/orangeHR-500.png">
   </p>
-  <p><img  alt="" src="images/greenCircle.png">
+  <p><img alt="" src="images/greenCircle.png">
     3.1. The <a href="images/ScreenshotKarmaTests.jpg">screenshot</a>
     shows the results of the Karma tests.
   </p>
@@ -347,7 +356,7 @@
           <a href="https://karma-runner.github.io/">Karma</a>
         </td>
         <td>
-          The test runner 
+          The test runner
         </td>
       </tr>
       <tr>
