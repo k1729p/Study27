@@ -1,0 +1,54 @@
+<mat-card appearance="outlined">
+  <mat-card-header>
+    <mat-card-title>
+      <h4>Employees Location</h4>
+    </mat-card-title>
+  </mat-card-header>
+  <mat-card-content>
+    <div class="expansion-controls-row">
+      <div class="expansion-controls-group">
+        <span class="employee-name-label">Employee Name</span>
+        <form>
+          <mat-form-field appearance="outline">
+            <input type="text" placeholder="Type to search..." aria-label="Name" matInput [formControl]="formControl"
+              [matAutocomplete]="auto">
+            <mat-autocomplete autoActiveFirstOption #auto="matAutocomplete">
+              @for (name of employeeNames | async; track name) {
+              <mat-option [value]="name">{{name}}</mat-option>
+              }
+            </mat-autocomplete>
+          </mat-form-field>
+        </form>
+        <button mat-raised-button type="button" (click)="locateEmployee()">Locate Employee</button>
+      </div>
+      <div class="expansion-controls-group">
+        <button mat-raised-button type="button" (click)="tree.expandAll()">Expand all</button>
+        <button mat-raised-button type="button" (click)="tree.collapseAll()">Collapse all</button>
+      </div>
+    </div>
+  </mat-card-content>
+</mat-card>
+<div class="tree-scroll-container">
+  <mat-card appearance="outlined">
+    <mat-card-content>
+      <mat-tree #tree [dataSource]="dataSource" [childrenAccessor]="childrenAccessor">
+        <mat-tree-node *matTreeNodeDef="let node" matTreeNodePadding>
+          <button matIconButton>
+            <mat-icon class="type-icon">{{node.type}}</mat-icon>
+          </button>
+          {{node.name}}
+        </mat-tree-node>
+        <mat-tree-node *matTreeNodeDef="let node;when: hasChild" matTreeNodePadding matTreeNodeToggle
+          [cdkTreeNodeTypeaheadLabel]="node.name">
+          <button matIconButton matTreeNodeToggle>
+            <mat-icon class="type-icon">{{node.type}}</mat-icon>
+          </button>
+          {{node.name}}
+          <mat-icon class="type-icon">
+            {{tree.isExpanded(node) ? 'expand_more' : 'chevron_right'}}
+          </mat-icon>
+        </mat-tree-node>
+      </mat-tree>
+    </mat-card-content>
+  </mat-card>
+</div>

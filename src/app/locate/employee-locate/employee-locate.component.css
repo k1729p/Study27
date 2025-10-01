@@ -1,0 +1,25 @@
+.expansion-controls-row {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: 1em;
+  gap: 2em;
+}
+
+.expansion-controls-group {
+  display: flex;
+  align-items: center;
+  gap: 1em;
+}
+
+.employee-name-label {
+  font-size: 1.6rem;
+  font-weight: 500;
+}
+.tree-scroll-container {
+  max-height: 68%;
+  max-width: 40%;
+  overflow-y: auto;
+  padding-top: 0.5em;
+}

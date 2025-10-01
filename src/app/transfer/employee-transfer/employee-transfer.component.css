@@ -1,0 +1,49 @@
+.employee-card {
+  height: 100%;
+  min-height: 0;
+  display: flex;
+  flex-direction: column;
+}
+
+.employee-card-row {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  height: 100%;
+  min-height: 0;
+  margin-left: 8px;
+  margin-right: 8px;
+}
+
+.employee-card-col {
+  flex: 1;
+  display: flex;
+  min-height: 0;
+}
+
+.employee-card-col:last-child {
+  margin-left: 120px;
+  margin-bottom: 15px;
+}
+
+.transfer-title {
+  font-size: 1.75rem;
+  min-height: 40px;
+}
+
+.department-label {
+  padding-right: 1rem;
+  font-size: 1.6rem;
+  font-weight: 500;
+}
+
+.table-container {
+  flex: 1 1 auto;
+  min-height: 0;
+  max-height: 570px;
+  overflow-y: auto;
+}
+
+.employee-table {
+  width: 100%;
+}

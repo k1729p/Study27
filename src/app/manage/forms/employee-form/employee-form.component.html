@@ -1,0 +1,149 @@
+<form [formGroup]="employeeForm" novalidate (ngSubmit)="onSubmit()">
+  <mat-card appearance="outlined" class="employee-card">
+    <mat-card-header>
+      <mat-card-title>
+        <h4>{{formTitle}}</h4>
+      </mat-card-title>
+    </mat-card-header>
+    <mat-card-content>
+      @if ('DELETE' === this.operation) {
+      <div class="row">
+        <div class="col">
+          <mat-form-field class="employee-form-field" appearance="outline">
+            <mat-label>First Name</mat-label>
+            <input placeholder="first name" matInput formControlName="firstName" readonly>
+          </mat-form-field>
+        </div>
+        <div class="col">
+          <mat-form-field class="employee-form-field" appearance="outline">
+            <mat-label>Last Name</mat-label>
+            <input placeholder="last name" matInput formControlName="lastName" readonly>
+          </mat-form-field>
+        </div>
+      </div>
+      } @else {
+      <div class="row">
+        <div class="col">
+          <mat-form-field class="employee-form-field" appearance="outline">
+            <mat-label>First Name</mat-label>
+            <input placeholder="first name" matInput formControlName="firstName">
+            @if (employeeForm.controls['firstName'].hasError('required')) {
+            <mat-error>First Name is <strong>required</strong></mat-error>
+            }
+          </mat-form-field>
+        </div>
+        <div class="col">
+          <mat-form-field class="employee-form-field" appearance="outline">
+            <mat-label>Last Name</mat-label>
+            <input placeholder="last name" matInput formControlName="lastName">
+            @if (employeeForm.controls['lastName'].hasError('required')) {
+            <mat-error>Last Name is <strong>required</strong></mat-error>
+            }
+          </mat-form-field>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col">
+          <mat-label>Title</mat-label>
+          <mat-form-field class="employee-form-field" appearance="outline">
+            <mat-select formControlName="title">
+              @for (title of titles; track title) {
+              <mat-option [value]="title">{{ title }}</mat-option>
+              }
+            </mat-select>
+            @if (employeeForm.controls['title'].hasError('required')) {
+            <mat-error>Title is <strong>required</strong></mat-error>
+            }
+          </mat-form-field>
+        </div>
+        <div class="col">
+        </div>
+        <div class="col">
+        </div>
+      </div>
+      <div class="row">
+        <div class="col">
+          <mat-form-field class="employee-form-field" appearance="outline">
+            <mat-label>Phone</mat-label>
+            <input placeholder="phone" matInput formControlName="phone">
+            @if (employeeForm.controls['phone'].hasError('required')) {
+            <mat-error>Phone is <strong>required</strong></mat-error>
+            }
+          </mat-form-field>
+        </div>
+        <div class="col">
+        </div>
+        <div class="col">
+        </div>
+      </div>
+      <div class="row">
+        <div class="col">
+          <mat-form-field class="employee-form-field" appearance="outline">
+            <mat-label>Mail</mat-label>
+            <input placeholder="mail" matInput formControlName="mail">
+            @if (employeeForm.controls['mail'].hasError('required')) {
+            <mat-error>Email is <strong>required</strong></mat-error>
+            }
+            @if (employeeForm.controls['mail'].hasError('email')) {
+            <mat-error>Not a <strong>valid</strong> email</mat-error>
+            }
+          </mat-form-field>
+        </div>
+        <div class="col">
+        </div>
+        <div class="col">
+        </div>
+      </div>
+      <mat-expansion-panel [expanded]="true">
+        <mat-expansion-panel-header>
+          <mat-panel-title>Address</mat-panel-title>
+        </mat-expansion-panel-header>
+        <div class="row">
+          <div class="col">
+            <mat-form-field class="employee-form-field" appearance="outline">
+              <mat-label>Street Name</mat-label>
+              <input matInput placeholder="street name" formControlName="streetName">
+            </mat-form-field>
+          </div>
+          <div class="col">
+            <mat-form-field class="employee-form-field" appearance="outline">
+              <mat-label>House Number</mat-label>
+              <input matInput placeholder="house number" formControlName="houseNumber">
+            </mat-form-field>
+          </div>
+          <div class="col">
+            <mat-form-field class="employee-form-field" appearance="outline">
+              <mat-label>Postal Code</mat-label>
+              <input matInput placeholder="postal code" formControlName="postalCode">
+            </mat-form-field>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col">
+            <mat-form-field class="employee-form-field" appearance="outline">
+              <mat-label>Locality</mat-label>
+              <input matInput placeholder="locality" formControlName="locality">
+            </mat-form-field>
+          </div>
+          <div class="col">
+            <mat-form-field class="employee-form-field" appearance="outline">
+              <mat-label>Province</mat-label>
+              <input matInput placeholder="province" formControlName="province">
+            </mat-form-field>
+          </div>
+          <div class="col">
+            <mat-form-field class="employee-form-field" appearance="outline">
+              <mat-label>Country</mat-label>
+              <input matInput placeholder="country" formControlName="country">
+            </mat-form-field>
+          </div>
+        </div>
+      </mat-expansion-panel>
+      }
+    </mat-card-content>
+    <mat-card-actions align="end">
+      <button mat-stroked-button type="button" (click)="onCancel()">Cancel</button>
+      <button mat-stroked-button type="submit" [disabled]="!employeeForm.valid">{{buttonLabel}}</button>
+    </mat-card-actions>
+  </mat-card>
+</form>

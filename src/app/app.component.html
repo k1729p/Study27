@@ -1,0 +1,41 @@
+<main class="main">
+  <div class="content">
+    <button mat-button [matMenuTriggerFor]="menu">
+      <mat-icon>menu</mat-icon>
+      <span>Menu</span>
+    </button>
+
+    <mat-menu #menu="matMenu">
+      <button mat-menu-item (click)="menuHandler(menuItems['Home'])">
+        <mat-icon>{{menuItems['Home'].icon}}</mat-icon>
+        <span>{{menuItems['Home'].label}}</span>
+      </button>
+      <button mat-menu-item [matMenuTriggerFor]="childsMenu">
+        <mat-icon>menu</mat-icon>
+        <span>⏵⏵⏵</span>
+      </button>
+    </mat-menu>
+
+    <mat-menu #childsMenu="matMenu">
+      <button mat-menu-item (click)="menuHandler(menuItems['ManageDepartments'])">
+        <mat-icon>{{menuItems['ManageDepartments'].icon}}</mat-icon>
+        <span>{{menuItems['ManageDepartments'].label}}</span>
+      </button>
+      <button mat-menu-item (click)="menuHandler(menuItems['TransferEmployees'])">
+        <mat-icon>{{menuItems['TransferEmployees'].icon}}</mat-icon>
+        <span>{{menuItems['TransferEmployees'].label}}</span>
+      </button>
+      <button mat-menu-item (click)="menuHandler(menuItems['LocateEmployees'])">
+        <mat-icon>{{menuItems['LocateEmployees'].icon}}</mat-icon>
+        <span>{{menuItems['LocateEmployees'].label}}</span>
+      </button>
+      <button mat-menu-item (click)="menuHandler(menuItems['CreatePDFReports'])">
+        <mat-icon>{{menuItems['CreatePDFReports'].icon}}</mat-icon>
+        <span>{{menuItems['CreatePDFReports'].label}}</span>
+      </button>
+    </mat-menu>
+  </div>
+
+  <div class="repository-type-name">{{repositoryTypeName}}</div>
+</main>
+<router-outlet />
