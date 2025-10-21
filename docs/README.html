@@ -8,17 +8,6 @@
 </head>
 
 <body>
-<h1>TO DO !!!!</h1>
-add filter to HTML tables<br>
-move README from html to markdown file and add mermaid diagrams to it<br>
-ad Model Class Diagram<br>
-add State Diagram<br>
-add Emoji to Title display on HTML<br>
-change to UUID<br>
-
-<hr>
-
-
   <a href="https://github.com/k1729p/Study27/tree/main/docs" title="View Study27 docs on GitHub">
     <img alt="Color scheme for Study27 project" src="images/ColorScheme.png" height="25" width="800" />
   </a>

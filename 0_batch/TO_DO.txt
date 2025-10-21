@@ -1,0 +1,5 @@
+move README from html to markdown file and include Mermaid diagrams in it
+add Model Class Diagram
+add State Diagram
+add Emoji to 'Title' display on HTML
+change 'id' to UUID
