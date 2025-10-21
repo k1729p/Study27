@@ -5,6 +5,10 @@ import { MatCardModule } from '@angular/material/card';
 import { MatPaginatorModule, MatPaginator } from '@angular/material/paginator';
 import { MatSortModule, MatSort } from '@angular/material/sort';
 import { MatTableModule, MatTable } from '@angular/material/table';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatInputModule } from '@angular/material/input';
+import { MatIconModule } from '@angular/material/icon';
+import { FormsModule } from '@angular/forms';
 
 import { Department } from 'models/department';
 import { DepartmentDataSource } from './department-datasource';
@@ -26,6 +30,10 @@ import { DepartmentDataSource } from './department-datasource';
     MatSortModule,
     MatButtonModule,
     MatCardModule,
+    MatFormFieldModule,
+    MatInputModule,
+    MatIconModule,
+    FormsModule,
   ],
 })
 export class DepartmentTableComponent implements AfterViewInit {
@@ -37,6 +45,8 @@ export class DepartmentTableComponent implements AfterViewInit {
   @ViewChild(MatTable) table!: MatTable<Department>;
   dataSource = new DepartmentDataSource();
   displayedColumns = ['id', 'name', 'actions'];
+  /** Local input model for the search box */
+  filterText = '';
   /**
    * A component lifecycle hook method.
    * Runs once after the component's view has been initialized.
@@ -105,6 +115,14 @@ export class DepartmentTableComponent implements AfterViewInit {
    * Gets the length of the departments array.
    */
   get departmentsLength(): number {
-    return this.dataSource.departments?.length ?? 0;
+    return this.dataSource.filteredLength ?? this.dataSource.departments?.length ?? 0;
+  }
+  /**
+   * Apply a filter string to the datasource (search by name)
+   * @param value the value
+   */
+  applyFilter(value: string) {
+    this.filterText = value ?? '';
+    this.dataSource.setFilter(this.filterText);
   }
 }

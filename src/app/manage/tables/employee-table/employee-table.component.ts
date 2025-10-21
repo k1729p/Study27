@@ -5,6 +5,10 @@ import { MatCardModule } from '@angular/material/card';
 import { MatPaginatorModule, MatPaginator } from '@angular/material/paginator';
 import { MatSortModule, MatSort } from '@angular/material/sort';
 import { MatTableModule, MatTable } from '@angular/material/table';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatInputModule } from '@angular/material/input';
+import { MatIconModule } from '@angular/material/icon';
+import { FormsModule } from '@angular/forms';
 
 import { Employee } from 'models/employee';
 import { EmployeeDataSource } from './employee-datasource';
@@ -27,6 +31,10 @@ import { DepartmentService } from 'services/department-service/department.servic
     MatSortModule,
     MatButtonModule,
     MatCardModule,
+    MatFormFieldModule,
+    MatInputModule,
+    MatIconModule,
+    FormsModule,
   ],
 })
 export class EmployeeTableComponent implements AfterViewInit, OnInit {
@@ -41,6 +49,8 @@ export class EmployeeTableComponent implements AfterViewInit, OnInit {
   departmentName = '';
   dataSource = new EmployeeDataSource();
   displayedColumns = ['id', 'firstName', 'lastName', 'actions'];
+  /** Local input model for the search box */
+  filterText = '';
 
   /**
    * A component lifecycle hook method.
@@ -118,5 +128,19 @@ export class EmployeeTableComponent implements AfterViewInit, OnInit {
     this.router.navigate(['/department-table'], { 
       relativeTo: this.route
     });
+  }
+  /**
+   * Gets the length of the employees array.
+   */
+  get employeesLength(): number {
+    return this.dataSource.filteredLength ?? this.dataSource.employees?.length ?? 0;
+  }
+  /**
+   * Apply a filter string to the datasource (search by name)
+   * @param value the value
+   */
+  applyFilter(value: string) {
+    this.filterText = value ?? '';
+    this.dataSource.setFilter(this.filterText);
   }
 }

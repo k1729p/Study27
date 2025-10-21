@@ -2,8 +2,7 @@ import { inject } from '@angular/core';
 import { DataSource } from '@angular/cdk/collections';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
-import { Observable, of as observableOf, merge } from 'rxjs';
-import { map } from 'rxjs/operators';
+import { map, merge, Observable, startWith, BehaviorSubject } from 'rxjs';
 
 import { Department } from 'models/department';
 import { DepartmentService } from 'services/department-service/department.service';
@@ -17,6 +16,9 @@ export class DepartmentDataSource extends DataSource<Department> {
   departments: Department[] = [];
   paginator: MatPaginator | undefined;
   sort: MatSort | undefined;
+  filteredLength = 0;
+  private filterSubject = new BehaviorSubject<string>('');
+  private lastFilter = '';
   /**
    * Connect this data source to the table. The table will only update when
    * the returned stream emits new items.
@@ -30,9 +32,18 @@ export class DepartmentDataSource extends DataSource<Department> {
       throw Error(msg);
     }
     this.departments = this.departmentService.getDepartments();
-    return merge(observableOf(this.departments), this.paginator.page, this.sort.sortChange)
+    const paginator$ = this.paginator!.page;
+    const sort$ = this.sort!.sortChange;
+    const filter$ = this.filterSubject.asObservable();
+    return merge(paginator$, sort$, filter$)
       .pipe(
-        map(() => this.getPagedData(this.getSortedData([...this.departments])))
+        startWith({}),
+        map(() => {
+          const filtered = this.getFilteredData([...this.departments]);
+          this.filteredLength = filtered.length;
+          const sorted = this.getSortedData(filtered);
+          return this.getPagedData(sorted);
+        })
       );
   }
   /**
@@ -43,6 +54,31 @@ export class DepartmentDataSource extends DataSource<Department> {
    */
   disconnect(): void {
     // No resources to clean up in this implementation.
+  }
+  /**
+   * Set the filter string. Emits into the internal subject and stores the value
+   * for use during filtering.
+   */
+  setFilter(value: string) {
+    this.lastFilter = value ?? '';
+    this.filterSubject.next(this.lastFilter);
+    if (this.paginator) {
+      this.paginator.firstPage();
+    }
+  }
+  /**
+   * Filter the data by name (case-insensitive). If the filter is empty
+   * returns the original array.
+   */
+  private getFilteredData(departments: Department[]): Department[] {
+    const filter = this.lastFilter?.trim().toLowerCase() ?? '';
+    if (!filter) {
+      return departments;
+    }
+    return departments.filter(obj => {
+      const name = (obj.name ?? '').toLowerCase();
+      return name.includes(filter);
+    });
   }
   /**
    * Paginate the data (client-side). This method slices the data array based on the current

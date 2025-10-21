@@ -15,8 +15,7 @@ export const BROWSER_STORAGE = new InjectionToken<Storage>('Browser Storage', {
 });
 /**
  * Service for managing employee data.
- * This service provides methods to get, set, create, update, delete, and transfer employees
- * across departments.
+ * This service provides methods to get, set, create, update, and delete employees.
  */
 @Injectable({
   providedIn: 'root',

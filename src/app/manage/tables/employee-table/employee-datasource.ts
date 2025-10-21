@@ -2,8 +2,7 @@ import { inject } from '@angular/core';
 import { DataSource } from '@angular/cdk/collections';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
-import { Observable, of as observableOf, merge } from 'rxjs';
-import { map } from 'rxjs/operators';
+import { map, merge, Observable, startWith, BehaviorSubject } from 'rxjs';
 
 import { Employee } from 'models/employee';
 import { EmployeeService } from 'services/employee-service/employee.service';
@@ -17,8 +16,10 @@ export class EmployeeDataSource extends DataSource<Employee> {
   employees: Employee[] = [];
   paginator: MatPaginator | undefined;
   sort: MatSort | undefined;
+  filteredLength = 0;
   departmentId = 0;
-
+  private filterSubject = new BehaviorSubject<string>('');
+  private lastFilter = '';
   /**
    * Sets the department id.
    *
@@ -41,9 +42,18 @@ export class EmployeeDataSource extends DataSource<Employee> {
       console.log('EmployeeDataSource.connect(): departmentId[%d], ', this.departmentId, msg);
       throw Error(msg);
     }
-    return merge(observableOf(this.employees), this.paginator.page, this.sort.sortChange)
+    const paginator$ = this.paginator!.page;
+    const sort$ = this.sort!.sortChange;
+    const filter$ = this.filterSubject.asObservable();
+    return merge(paginator$, sort$, filter$)
       .pipe(
-        map(() => this.getPagedData(this.getSortedData([...this.employees])))
+        startWith({}),
+        map(() => {
+          const filtered = this.getFilteredData([...this.employees]);
+          this.filteredLength = filtered.length;
+          const sorted = this.getSortedData(filtered);
+          return this.getPagedData(sorted);
+        })
       );
   }
 
@@ -56,6 +66,32 @@ export class EmployeeDataSource extends DataSource<Employee> {
    */
   disconnect(): void {
     // No resources to clean up
+  }
+  /**
+   * Set the filter string. Emits into the internal subject and stores the value
+   * for use during filtering.
+   */
+  setFilter(value: string) {
+    this.lastFilter = value ?? '';
+    this.filterSubject.next(this.lastFilter);
+    if (this.paginator) {
+      this.paginator.firstPage();
+    }
+  }
+  /**
+   * Filter the data by first and last name (case-insensitive). If the filter is empty
+   * returns the original array.
+   */
+  private getFilteredData(employees: Employee[]): Employee[] {
+    const filter = this.lastFilter?.trim().toLowerCase() ?? '';
+    if (!filter) {
+      return employees;
+    }
+    return employees.filter(obj => {
+      const firstName = (obj.firstName ?? '').toLowerCase();
+      const lastName = (obj.lastName ?? '').toLowerCase();
+      return firstName.includes(filter) || lastName.includes(filter);
+    });
   }
 
   /**

@@ -233,7 +233,7 @@ describe('EmployeeFormComponent', () => {
   /**
    * Test form validation: should be valid if required fields are present.
    */
-  it('should be invalid if required fields are missing', () => {
+  it('should be valid if required fields are present', () => {
     // GIVEN
     component.employeeForm.reset();
     // WHEN
@@ -264,9 +264,9 @@ describe('EmployeeFormComponent', () => {
   });
 
   /**
-   * Test email validation: should valid if email is valid.
+   * Test email validation: should be valid if email is valid.
    */
-  it('should be invalid if email is not valid', () => {
+  it('should be valid if email is valid', () => {
     // GIVEN
     // WHEN
     component.employeeForm.controls['mail'].setValue('valid@email.com');
