@@ -29,7 +29,6 @@ export class EmployeeDataSource extends DataSource<Employee> {
     this.departmentId = departmentId;
     this.employees = this.employeeService.getEmployees(departmentId);
   }
-
   /**
    * Connect this data source to the table. The table will only update when
    * the returned stream emits new items.
@@ -56,7 +55,6 @@ export class EmployeeDataSource extends DataSource<Employee> {
         })
       );
   }
-
   /**
    * Called when the table is being destroyed. Use this function to clean up
    * any open connections or free any held resources that were set up during connect.
@@ -93,7 +91,6 @@ export class EmployeeDataSource extends DataSource<Employee> {
       return firstName.includes(filter) || lastName.includes(filter);
     });
   }
-
   /**
    * Paginates the data (client-side). If you're using server-side pagination,
    * this would be replaced by requesting the appropriate data from the server.
@@ -108,7 +105,6 @@ export class EmployeeDataSource extends DataSource<Employee> {
     const startIndex = this.paginator.pageIndex * this.paginator.pageSize;
     return employees.splice(startIndex, this.paginator.pageSize);
   }
-
   /**
    * Sorts the data (client-side). If you're using server-side sorting,
    * this would be replaced by requesting the appropriate data from the server.
