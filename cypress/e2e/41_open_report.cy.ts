@@ -19,7 +19,7 @@ describe('Create PDF Reports', () => {
       cy.get('button').contains('⏵⏵⏵').click();
       cy.get('button').contains('Create PDF Reports').click();
       /*
-       * Page "Employees Location"
+       * Page "Reports"
        */
       cy.contains(repository_type.name).should('be.visible');
       cy.contains('Reports').should('be.visible');

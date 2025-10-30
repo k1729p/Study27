@@ -20,8 +20,8 @@ import {
 import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
 import { MatTree, MatTreeModule } from '@angular/material/tree';
-import { Observable } from 'rxjs';
-import { map, startWith } from 'rxjs/operators';
+import { Observable, map, startWith } from 'rxjs';
+
 import { Department } from 'models/department';
 import { Employee } from 'models/employee';
 import { DepartmentService } from 'services/department-service/department.service';
