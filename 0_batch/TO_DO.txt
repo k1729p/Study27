@@ -1,5 +1,11 @@
 move README from html to markdown file and include Mermaid diagrams in it
+
+      https://mermaid.js.org/syntax/sequenceDiagram.html
 add Model Class Diagram
+      https://mermaid.js.org/syntax/classDiagram.html
 add State Diagram
-add Emoji for displaying object enum 'Title' on HTML page
+      https://mermaid.js.org/syntax/stateDiagram.html
+
 change 'id' to UUID
+
+🟥🟩🟦🟪🟨🟧🟫⬜⬛   🔴🟢🔵🟣🟡🟠🟤⚪⚫

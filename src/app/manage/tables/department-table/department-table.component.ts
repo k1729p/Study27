@@ -12,6 +12,7 @@ import { FormsModule } from '@angular/forms';
 
 import { Department } from 'models/department';
 import { DepartmentDataSource } from './department-datasource';
+import { AppTools } from '../../../app.tools';
 /**
  * DepartmentTableComponent is a component that displays a table of departments.
  * It uses Angular Material's table features to display, sort, and paginate the
@@ -44,6 +45,7 @@ export class DepartmentTableComponent implements AfterViewInit {
   @ViewChild(MatSort) sort!: MatSort;
   @ViewChild(MatTable) table!: MatTable<Department>;
   dataSource = new DepartmentDataSource();
+  appTools = new AppTools();
   displayedColumns = ['id', 'name', 'actions'];
   /** Local input model for the search box */
   filterText = '';
