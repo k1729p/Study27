@@ -134,6 +134,8 @@
         /models/title.ts</a></li>
   </ul>
   </p>
+  The class
+    <a href="https://github.com/k1729p/Study27/blob/main/docs/mermaid/classDiagram.md">diagram</a>.
   <p>
     1.3.7. Sources in the services <a href="https://github.com/k1729p/Study27/blob/main/src/app/services">
       directory</a>:
