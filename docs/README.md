@@ -1,0 +1,392 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+</head>
+
+<body>
+  <a href="https://github.com/k1729p/Study27/tree/main/docs" title="View Study27 docs on GitHub">
+    <img alt="Color scheme for Study27 project" src="images/ColorScheme.png" height="25" width="800" />
+  </a>
+  <h2 id="contents">Study27 README Contents</h2>
+
+  <h3 id="top">
+    Research on <a href="https://angular.dev/overview">Angular</a> with
+    <a href="https://material.angular.dev">Material Design</a>
+  </h3>
+
+  <p><img alt="" src="images/ScreenshotFlowchartFull.jpg" /></p>
+
+  <table>
+    <tr>
+      <td rowspan="3"><img alt="" src="images/borderLeft.png"></td>
+      <td><img alt="" src="images/borderHorizontal.png"></td>
+      <td rowspan="3"><img alt="" src="images/borderRight.png"></td>
+    </tr>
+    <tr>
+      <td>
+        Live Angular application demo&nbsp;&nbsp;➔&nbsp;&nbsp;
+        <a href="https://k1729p.github.io/Study27/">Study27 (GitHub Pages)</a>
+      </td>
+    </tr>
+    <tr>
+      <td><img alt="" src="images/borderHorizontal.png"></td>
+    </tr>
+  </table>
+
+  <p>
+    Project sections:
+  </p>
+  <ol>
+    <li><a href="#ONE"><b>Business Logic</b></a></li>
+    <li><a href="#TWO"><b>Docker Build</b></a></li>
+    <li><a href="#THREE"><b>Local Build and Test</b></a></li>
+    <li><a href="#FOUR"><b>Cypress End-to-End Tests</b></a></li>
+  </ol>
+  <a href="#top">Back to the top of the page</a>
+  <hr>
+  <h3 id="ONE">❶ Business Logic</h3>
+  <p><img alt="" src="images/greenCircle.png">
+    1.1. The business logic
+    <a href="https://github.com/k1729p/Study27/blob/main/docs/mermaid/flowchartBusinessLogic.md">diagram</a>.
+    This diagram contains links to web page screenshots.
+  </p>
+  <p><img alt="" src="images/greenCircle.png">
+    1.2. The backend repository.
+    Local web storage is used alone or together with a backend repository on an external Node.js Express server.</p>
+  <p>Available backend repositories:</p>
+  <ul>
+    <li>PostgreSQL database</li>
+    <li>MongoDB database</li>
+  </ul>
+
+  <p><img alt="" src="images/greenCircle.png">
+    1.3. The TypeScript sources are located in the <a href="https://github.com/k1729p/Study27/blob/main/src/app">app</a>
+    directory.
+  </p>
+  <p>
+    1.3.1. Sources in the 'Home' section <a href="https://github.com/k1729p/Study27/blob/main/src/app/home">
+      directory</a>:
+  <ul>
+    <li><a href="https://github.com/k1729p/Study27/blob/main/src/app/home/home.component.ts">
+        /home/home.component.ts</a></li>
+  </ul>
+  </p>
+  <p>
+    1.3.2. Sources in the 'Manage' section <a href="https://github.com/k1729p/Study27/blob/main/src/app/manage">
+      directory</a>:
+  <ul>
+    <li><a
+        href="https://github.com/k1729p/Study27/blob/main/src/app/manage/tables/department-table/department-table.component.ts">
+        /manage/tables/department-table/department-table.component.ts</a></li>
+    <li><a
+        href="https://github.com/k1729p/Study27/blob/main/src/app/manage/tables/department-table/department-datasource.ts">
+        /manage/tables/department-table/department-datasource.ts</a></li>
+    <li><a
+        href="https://github.com/k1729p/Study27/blob/main/src/app/manage/forms/department-form/department-form.component.ts">
+        /manage/forms/department-form/department-form.component.ts</a></li>
+    <li><a
+        href="https://github.com/k1729p/Study27/blob/main/src/app/manage/tables/employee-table/employee-table.component.ts">
+        /manage/tables/employee-table/employee-table.component.ts</a></li>
+    <li><a
+        href="https://github.com/k1729p/Study27/blob/main/src/app/manage/forms/employee-form/employee-form.component.ts">
+        /manage/forms/employee-form/employee-form.component.ts</a></li>
+  </ul>
+  </p>
+  <p>
+    1.3.3. Sources in the 'Transfer' section <a href="https://github.com/k1729p/Study27/blob/main/src/app/transfer">
+      directory</a>:
+  <ul>
+    <li><a
+        href="https://github.com/k1729p/Study27/blob/main/src/app/transfer/employee-transfer/employee-transfer.component.ts">
+        /transfer/employee-transfer/employee-transfer.component.ts</a></li>
+  </ul>
+  </p>
+  <p>
+    1.3.4. Sources in the 'Locate' section <a href="https://github.com/k1729p/Study27/blob/main/src/app/locate">
+      directory</a>:
+  <ul>
+    <li><a
+        href="https://github.com/k1729p/Study27/blob/main/src/app/locate/employee-locate/employee-locate.component.ts">
+        /locate/employee-locate/employee-locate.component.ts</a></li>
+  </ul>
+  </p>
+  <p>
+    1.3.5. Sources in the 'Report' section <a href="https://github.com/k1729p/Study27/blob/main/src/app/report">
+      directory</a>:
+  <ul>
+    <li><a href="https://github.com/k1729p/Study27/blob/main/src/app/report/report.component.ts">
+        /report/report.component.ts</a></li>
+  </ul>
+  </p>
+  <p>
+    1.3.6. Sources in the models <a href="https://github.com/k1729p/Study27/blob/main/src/app/models">
+      directory</a>:
+  <ul>
+    <li><a href="https://github.com/k1729p/Study27/blob/main/src/app/models/department.ts">
+        /models/department.ts</a></li>
+    <li><a href="https://github.com/k1729p/Study27/blob/main/src/app/models/employee.ts">
+        /models/employee.ts</a></li>
+    <li><a href="https://github.com/k1729p/Study27/blob/main/src/app/models/title.ts">
+        /models/title.ts</a></li>
+  </ul>
+  </p>
+  <p>
+    1.3.7. Sources in the services <a href="https://github.com/k1729p/Study27/blob/main/src/app/services">
+      directory</a>:
+  <ul>
+    <li><a href="https://github.com/k1729p/Study27/blob/main/src/app/services/department-service/department.service.ts">
+        /services/department-service/department.service.ts</a></li>
+    <li><a href="https://github.com/k1729p/Study27/blob/main/src/app/services/employee-service/employee.service.ts">
+        /services/employee-service/employee.service.ts</a></li>
+    <li><a
+        href="https://github.com/k1729p/Study27/blob/main/src/app/services/initialization-service/initialization.service.ts">
+        /services/initialization-service/initialization.service.ts</a></li>
+    <li><a href="https://github.com/k1729p/Study27/blob/main/src/app/services/backend-endpoints.constants.ts">
+        /services/backend-endpoints.constants.ts</a></li>
+  </ul>
+  </p>
+
+  <p><img alt="" src="images/greenCircle.png">
+    1.4. Reports are generated using 'pdfmake'. Example reports:
+  </p>
+  <ul>
+    <li>
+      <a href="https://github.com/k1729p/Study27/blob/main/docs/pdf_reports/file.pdf">
+        Departments and Employees Report</a>
+    </li>
+    <li>
+      <a href="https://github.com/k1729p/Study27/blob/main/docs/pdf_reports/file-1.pdf">
+        Comprehensive Report</a>
+    </li>
+  </ul>
+  <a href="#top">Back to the top of the page</a>
+  <hr>
+  <h3 id="TWO">❷ Docker Build</h3>
+
+  <p>Action:<br>
+    <img alt="" src="images/orangeHR-500.png"><br>
+    <img alt="" src="images/orangeSquare.png"> 1. Use the batch file
+    <a href="https://github.com/k1729p/Study27/blob/main/0_batch/01%20Angular%20on%20Docker%20build%20and%20run.bat">
+      <i>"01 Angular on Docker build and run.bat"</i></a> to build the images and start the containers.<br>
+    <img alt="" src="images/orangeSquare.png"> 2. Use the web browser shortcut "11 Study27 on 8027.url" for the
+    'Study27' application.<br>
+    <img alt="" src="images/orangeHR-500.png">
+  </p>
+  <p><img alt="" src="images/greenCircle.png">
+    2.1. Docker images are built using the following files:
+  </p>
+  <ul>
+    <li><a href="https://github.com/k1729p/Study27/blob/main/docker-config/Dockerfile">
+        <b>Dockerfile</b></a></li>
+    <li><a href="https://github.com/k1729p/Study27/blob/main/docker-config/compose.yaml">
+        <b>compose.yaml</b></a></li>
+  </ul>
+
+  <a href="#top">Back to the top of the page</a>
+  <hr>
+  <h3 id="THREE">❸ Local Build and Test</h3>
+  <p>Action:<br>
+    <img alt="" src="images/orangeHR-500.png"><br>
+    <img alt="" src="images/orangeSquare.png"> 1. Use the batch file
+    <a href="https://github.com/k1729p/Study27/blob/main/0_batch/02%20Angular%20on%20local%20build%20and%20run.bat">
+      <i>"02 Angular on local build and run.bat"</i></a> to build and start the local application.<br>
+    <img alt="" src="images/orangeSquare.png"> 2. Use the batch file
+    <a href="https://github.com/k1729p/Study27/blob/main/0_batch/03%20Angular%20lint%20and%20test.bat">
+      <i>"03 Angular lint and test.bat"</i></a> to lint and start the Karma tests.<br>
+    <img alt="" src="images/orangeSquare.png"> 3. Use the web browser shortcut "12 Study27 on 4200.url"
+    for the application on port 4200 started with 'ng serve'.<br>
+    <img alt="" src="images/orangeHR-500.png">
+  </p>
+  <p><img alt="" src="images/greenCircle.png">
+    3.1. The <a href="images/ScreenshotKarmaTests.jpg">screenshot</a>
+    shows the results of the Karma tests.
+  </p>
+  <a href="#top">Back to the top of the page</a>
+  <hr>
+  <h3 id="FOUR">❹ Cypress End-to-End Tests</h3>
+
+  <p>Action:<br>
+    <img alt="" src="images/orangeHR-500.png"><br>
+    <img alt="" src="images/orangeSquare.png"> Use the batch file
+    <a href="https://github.com/k1729p/Study27/blob/main/0_batch/04%20Cypress%20tests.bat">
+      <i>"04 Cypress tests.bat"</i></a> to start the Cypress tests.<br>
+    <img alt="" src="images/orangeHR-500.png">
+  </p>
+  <p><img alt="" src="images/greenCircle.png">
+    4.1. The test scripts <a href="https://github.com/k1729p/Study27/blob/main/cypress/e2e">directory</a>.
+  </p>
+  <p><img alt="" src="images/greenCircle.png">
+    4.2. Some test screenshots generated by Cypress:
+  </p>
+  <ul>
+    <li>
+      <a
+        href="https://html-preview.github.io/?url=https://github.com/k1729p/Study27/blob/main/docs/cypress_screenshots/11_read_department_and_employee.html">
+        Read department and employee</a> <i>(using the PostgreSQL repository)</i>
+    </li>
+    <li>
+      <a
+        href="https://html-preview.github.io/?url=https://github.com/k1729p/Study27/blob/main/docs/cypress_screenshots/12_create_department_and_employee.html">
+        Create department and employee</a> <i>(using the PostgreSQL repository)</i>
+    </li>
+    <li>
+      <a
+        href="https://html-preview.github.io/?url=https://github.com/k1729p/Study27/blob/main/docs/cypress_screenshots/13_update_department_and_employee.html">
+        Update department and employee</a> <i>(using the PostgreSQL repository)</i>
+    </li>
+    <li>
+      <a
+        href="https://html-preview.github.io/?url=https://github.com/k1729p/Study27/blob/main/docs/cypress_screenshots/14_delete_department_and_employee.html">
+        Delete department and employee</a> <i>(using the PostgreSQL repository)</i>
+    </li>
+    <li>
+      <a
+        href="https://html-preview.github.io/?url=https://github.com/k1729p/Study27/blob/main/docs/cypress_screenshots/21_transfer_employees.html">
+        Transfer employees</a> <i>(using the WebStorage repository)</i>
+    </li>
+    <li>
+      <a
+        href="https://html-preview.github.io/?url=https://github.com/k1729p/Study27/blob/main/docs/cypress_screenshots/31_locate_employee.html">
+        Locate employee</a> <i>(using the MongoDB repository)</i>
+    </li>
+    <li>
+      <a
+        href="https://html-preview.github.io/?url=https://github.com/k1729p/Study27/blob/main/docs/cypress_screenshots/41_open_report.html">
+        Open report</a> <i>(using the MongoDB repository)</i>
+    </li>
+  </ul>
+
+  <a href="#top">Back to the top of the page</a>
+  <hr>
+  <h3>Links</h3>
+  <table>
+    <tbody>
+      <tr>
+        <td>
+          <a href="https://m3.material.io/">Material Design 3</a>
+        </td>
+        <td>
+          However, this Angular Material project uses Material Design 2.
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <a href="https://material.angular.io/components/categories">Angular Material UI components</a>
+        </td>
+        <td>
+          These are UI components based on the Material Design specification.
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <a href="https://material.angular.io/cdk/categories">Angular Material CDK</a>
+        </td>
+        <td>
+          A set of behavioral primitives for building UI components.
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <a href="https://angular.dev/guide/http">HTTP Client</a>
+        </td>
+        <td>
+          The Angular HTTP Client service.
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <a href="https://pdfmake.github.io/docs/0.1/">pdfmake</a>
+        </td>
+        <td>
+          The PDF document generation library.
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <a href="https://fonts.google.com/icons?icon.size=24&icon.color=%231f1f1f">Google Icons</a>
+        </td>
+        <td>
+          These icons are used in the Material menu.
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <a href="https://angular.dev/tools/cli">Angular CLI</a>
+        </td>
+        <td>
+          The Angular CLI is a command-line interface tool.
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <a href="https://www.cypress.io/">Cypress</a>
+        </td>
+        <td>
+          The front-end testing tool.
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <a href="https://karma-runner.github.io/">Karma</a>
+        </td>
+        <td>
+          The test runner.
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <a href="https://docs.github.com/en/pages/">GitHub Pages</a>
+        </td>
+        <td>
+          Creates a website directly from a repository on GitHub.
+        </td>
+      </tr>
+    </tbody>
+  </table>
+
+  <h3>Acronyms</h3>
+  <table>
+    <tbody>
+      <tr>
+        <td>ARIA</td>
+        <td>Accessible Rich Internet Applications</td>
+      </tr>
+      <tr>
+        <td>CDK</td>
+        <td>Component Dev Kit</td>
+      </tr>
+      <tr>
+        <td>CSR</td>
+        <td>Client-side Rendering</td>
+      </tr>
+      <tr>
+        <td>ESM</td>
+        <td>ECMAScript Module</td>
+      </tr>
+      <tr>
+        <td>PWA</td>
+        <td>Progressive Web Application</td>
+      </tr>
+      <tr>
+        <td>SPA</td>
+        <td>Single Page Application</td>
+      </tr>
+      <tr>
+        <td>SSG</td>
+        <td>Static Site Generation</td>
+      </tr>
+      <tr>
+        <td>SSR</td>
+        <td>Server-Side Rendering</td>
+      </tr>
+    </tbody>
+  </table>
+  <a href="#top">Back to the top of the page</a>
+  <hr>
+</body>
+
+</html>

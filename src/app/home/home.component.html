@@ -1,0 +1,36 @@
+<mat-card class="home-card" appearance="outlined">
+    <mat-card-header>
+        <mat-card-title>
+            <div class="home-card-row">
+                <div class="home-title">
+                    Home
+                </div>
+            </div>
+        </mat-card-title>
+    </mat-card-header>
+    <mat-card-actions>
+        <div class="home-card-row">
+            <div class="home-card-col repository-type-label">
+                Backend Repository
+            </div>
+            <div class="home-card-col">
+                <form [formGroup]="homeForm">
+                    <mat-radio-group formControlName="repositoryTypeSelect" (change)="setRepositoryType($event.value)">
+                        @for (repositoryType of repositoryTypeArray; track repositoryType) {
+                        <mat-radio-button [value]="repositoryType" style="display: block; margin-bottom: 8px;">
+                            {{ describeRepositoryType(repositoryType) }}
+                        </mat-radio-button>
+                        }
+                    </mat-radio-group>
+                </form>
+            </div>
+            <div class="home-card-col">
+                <button matFab extended (click)="initialiseRepository()">
+                    Initialise Selected Repository
+                </button>
+            </div>
+        </div>
+    </mat-card-actions>
+    <mat-card-content>
+    </mat-card-content>
+</mat-card>
