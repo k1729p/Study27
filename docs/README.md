@@ -20,11 +20,6 @@
   </h3>
 
   <p><img alt="" src="images/ScreenshotFlowchartFull.jpg" /></p>
-  </p>
-    The sequence
-    <a href="https://github.com/k1729p/Study27/blob/main/docs/mermaid/sequenceDiagram.md">
-    diagram</a> for "Create Department" process.
-  <p>
 
   <table>
     <tr>
@@ -56,9 +51,19 @@
   <hr>
   <h3 id="ONE">❶ Business Logic</h3>
   <p><img alt="" src="images/greenCircle.png">
-    1.1. The business logic
-    <a href="https://github.com/k1729p/Study27/blob/main/docs/mermaid/flowchartBusinessLogic.md">diagram</a>.
-    This diagram contains links to web page screenshots.
+    1.1. Diagrams.
+  </p>
+  <p>
+    1.1.1. The <a href="https://github.com/k1729p/Study27/blob/main/docs/mermaid/flowchartBusinessLogic.md">
+    flowchart diagram</a> for  business logic.
+  </p>
+  <p>
+    1.1.2. The <a href="https://github.com/k1729p/Study27/blob/main/docs/mermaid/sequenceDiagram.md">
+    sequence diagram</a> for "Create Department" process.
+  </p>
+    <p>
+    1.1.3. The <a href="https://github.com/k1729p/Study27/blob/main/docs/mermaid/classDiagram.md">
+      class diagram</a> for Department, Employee, and Title models.
   </p>
   <p><img alt="" src="images/greenCircle.png">
     1.2. The backend repository.
@@ -140,8 +145,6 @@
         /models/title.ts</a></li>
   </ul>
   </p>
-  The class
-    <a href="https://github.com/k1729p/Study27/blob/main/docs/mermaid/classDiagram.md">diagram</a>.
   <p>
     1.3.7. Sources in the services <a href="https://github.com/k1729p/Study27/blob/main/src/app/services">
       directory</a>:

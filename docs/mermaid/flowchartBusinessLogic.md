@@ -1,3 +1,7 @@
+# Business Logic Flowchart Diagram
+
+This diagram contains links to web page screenshots.
+
 ```mermaid
 flowchart LR
   MENU((Menu))
