@@ -1,8 +1,14 @@
 move README from html to markdown file and include Mermaid diagrams in it
 
-      https://mermaid.js.org/syntax/sequenceDiagram.html
-add Model Class Diagram
-      https://mermaid.js.org/syntax/classDiagram.html
+https://mermaid.js.org/syntax/sequenceDiagram.html
+
+https://github.com/k1729p/Study11/blob/main/docs/mermaid/sequenceDiagram.md <--
+https://github.com/k1729p/Study20/blob/main/docs/mermaid/sequenceDiagram.md
+https://github.com/k1729p/Study21/blob/main/docs/mermaid/sequenceDiagram.md
+https://github.com/k1729p/Study22/blob/main/docs/mermaid/sequenceDiagram.md
+https://github.com/k1729p/Study26/blob/main/docs/mermaid/sequenceDiagram.md
+
+
 add State Diagram
       https://mermaid.js.org/syntax/stateDiagram.html
 

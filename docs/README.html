@@ -14,11 +14,17 @@
   <h2 id="contents">Study27 README Contents</h2>
 
   <h3 id="top">
-    Research on <a href="https://angular.dev/overview">Angular</a> with
+    Research on <img src="images/Angular.png" alt="Angular" width="16" height="17">
+    <a href="https://angular.dev/overview">Angular</a> with
     <a href="https://material.angular.dev">Material Design</a>
   </h3>
 
   <p><img alt="" src="images/ScreenshotFlowchartFull.jpg" /></p>
+  </p>
+    The sequence
+    <a href="https://github.com/k1729p/Study27/blob/main/docs/mermaid/sequenceDiagram.md">
+    diagram</a> for "Create Department" process.
+  <p>
 
   <table>
     <tr>
