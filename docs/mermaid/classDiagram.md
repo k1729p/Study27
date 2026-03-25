@@ -2,7 +2,7 @@
 
 ```mermaid
 classDiagram
-direction TD
+direction LR
 class Department {
   <<interface>>
   +id: number

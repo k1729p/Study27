@@ -41,19 +41,26 @@ Available backend repositories:
 ![greenCircle](images/greenCircle.png) 1.3. The TypeScript sources are located in the [app directory](https://github.com/k1729p/Study27/blob/main/src/app).
 
 <details>
-<summary>⭕ The business logic</summary>
-QWERTY
-</details>
-
+<summary>
 Sources in the 'Home' section [home directory](https://github.com/k1729p/Study27/blob/main/src/app/home):
+</summary>
+
 - [/home/home.component.ts](https://github.com/k1729p/Study27/blob/main/src/app/home/home.component.ts)
 
+</details>
+
+<details>
+<summary>
 Sources in the 'Manage' section [manage directory](https://github.com/k1729p/Study27/blob/main/src/app/manage):
+</summary>
+
 - [/manage/tables/department-table/department-table.component.ts](https://github.com/k1729p/Study27/blob/main/src/app/manage/tables/department-table/department-table.component.ts)
 - [/manage/tables/department-table/department-datasource.ts](https://github.com/k1729p/Study27/blob/main/src/app/manage/tables/department-table/department-datasource.ts)
 - [/manage/forms/department-form/department-form.component.ts](https://github.com/k1729p/Study27/blob/main/src/app/manage/forms/department-form/department-form.component.ts)
 - [/manage/tables/employee-table/employee-table.component.ts](https://github.com/k1729p/Study27/blob/main/src/app/manage/tables/employee-table/employee-table.component.ts)
 - [/manage/forms/employee-form/employee-form.component.ts](https://github.com/k1729p/Study27/blob/main/src/app/manage/forms/employee-form/employee-form.component.ts)
+
+</details>
 
 Sources in the 'Transfer' section [transfer directory](https://github.com/k1729p/Study27/blob/main/src/app/transfer):
 - [/transfer/employee-transfer/employee-transfer.component.ts](https://github.com/k1729p/Study27/blob/main/src/app/transfer/employee-transfer/employee-transfer.component.ts)
