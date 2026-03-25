@@ -148,9 +148,12 @@ See the [screenshot](images/ScreenshotKarmaTests.jpg) showing the results of the
 
 ## ❹ Cypress End-to-End Tests
 
-Action:
-
-1. Use the batch file ["04 Cypress tests.bat"](https://github.com/k1729p/Study27/blob/main/0_batch/04%20Cypress%20tests.bat) to start the Cypress tests.
+Action: \
+ ![orangeHR](images/orangeHR-500.png) \
+ ![orangeSqr](images/orangeSquare.png) Use the batch file
+["04 Cypress tests.bat"](https://github.com/k1729p/Study27/blob/main/0_batch/04%20Cypress%20tests.bat)
+to start the Cypress tests. \
+ ![orangeHR](images/orangeHR-500.png)
 
 The test scripts are in the [cypress/e2e](https://github.com/k1729p/Study27/blob/main/cypress/e2e) directory.
 
