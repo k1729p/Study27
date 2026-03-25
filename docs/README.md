@@ -12,10 +12,10 @@
 
 Project sections:
 
-1. [Business Logic](#❶-business-logic)
-2. [Docker Build](#❷-docker-build)
-3. [Local Build and Test](#❸-local-build-and-test)
-4. [Cypress End-to-End Tests](#❹-cypress-end-to-end-tests)
+1. [Business Logic](#-business-logic)
+2. [Docker Build](#-docker-build)
+3. [Local Build and Test](#-local-build-and-test)
+4. [Cypress End-to-End Tests](#-cypress-end-to-end-tests)
 
 [Back to the top of the page](#study27-readme-contents)
 
