@@ -71,3 +71,5 @@ sequenceDiagram
     PAGE -->>- USR: Redirect to 'Departments'
     deactivate USR
 ```
+
+---
