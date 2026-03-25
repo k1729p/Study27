@@ -110,10 +110,15 @@ Available backend repositories:
 
 ## ❷ Docker Build
 
-Action:
+Action: \
+![orangeHR](images/orangeHR-500.png)
 
-1. Use the batch file ["01 Angular on Docker build and run.bat"](https://github.com/k1729p/Study27/blob/main/0_batch/01%20Angular%20on%20Docker%20build%20and%20run.bat) to build the images and start the containers.  
-2. Use the web browser shortcut "11 Study27 on 8027.url" for the 'Study27' application.
+1. ![orangeSqr](images/orangeSquare.png)
+   Use the batch file ["01 Angular on Docker build and run.bat"](https://github.com/k1729p/Study27/blob/main/0_batch/01%20Angular%20on%20Docker%20build%20and%20run.bat) to build the images and start the containers.  
+2. ![orangeSqr](images/orangeSquare.png)
+   Use the web browser shortcut "11 Study27 on 8027.url" for the 'Study27' application.
+
+![orangeHR](images/orangeHR-500.png)
 
 Docker images are built using the following files:
 
@@ -140,8 +145,9 @@ See the [screenshot](images/ScreenshotKarmaTests.jpg) showing the results of the
 
 ## ❹ Cypress End-to-End Tests
 
-Action:  
-Use the batch file ["04 Cypress tests.bat"](https://github.com/k1729p/Study27/blob/main/0_batch/04%20Cypress%20tests.bat) to start the Cypress tests.
+Action:
+
+1. Use the batch file ["04 Cypress tests.bat"](https://github.com/k1729p/Study27/blob/main/0_batch/04%20Cypress%20tests.bat) to start the Cypress tests.
 
 The test scripts are in the [cypress/e2e](https://github.com/k1729p/Study27/blob/main/cypress/e2e) directory.
 
