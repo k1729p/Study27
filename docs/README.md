@@ -2,22 +2,20 @@
 
 [![Color scheme for Study27 project](images/ColorScheme.png)](https://github.com/k1729p/Study27/tree/main/docs "View Study27 docs on GitHub")
 
-top
-
 ## Research on ![icon](images/IconAngular.png) [Angular](https://angular.dev/overview) with ![icon](images/IconMaterialDesign.png) [Material Design](https://material.angular.dev)
 
-<sub>![borderH](images/borderHorizontal.png)</sub> \
-![borderL](images/borderLeft.png) Live Angular application demo ➔ [Study27 (GitHub Pages)](https://k1729p.github.io/Study27/) ![borderR](images/borderRight.png) \
-<sup>![borderH](images/borderHorizontal.png)</sup>
+<sub>![borderH](images/borderTop.gif)</sub> \
+![borderL](images/borderLeft.gif) Live Angular application demo ➔ [Study27 (GitHub Pages)](https://k1729p.github.io/Study27/) ![borderR](images/borderRight.gif) \
+<sup>![borderH](images/borderBottom.gif)</sup>
 
 ![ScreenshotFlowchartFull.jpg](images/ScreenshotFlowchartFull.jpg)
 
 Project sections:
 
-1. [Business Logic](#business-logic)
-2. [Docker Build](#docker-build)
-3. [Local Build and Test](#local-build-and-test)
-4. [Cypress End-to-End Tests](#cypress-end-to-end-tests)
+1. [Business Logic](#❶-business-logic)
+2. [Docker Build](#❷-docker-build)
+3. [Local Build and Test](#❸-local-build-and-test)
+4. [Cypress End-to-End Tests](#❹-cypress-end-to-end-tests)
 
 [Back to the top of the page](#study27-readme-contents)
 
