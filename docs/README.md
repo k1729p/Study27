@@ -111,12 +111,12 @@ Available backend repositories:
 ## ❷ Docker Build
 
 Action: \
-![orangeHR](images/orangeHR-500.png) \
-![orangeSqr](images/orangeSquare.png) 1. \
-Use the batch file ["01 Angular on Docker build and run.bat"](https://github.com/k1729p/Study27/blob/main/0_batch/01%20Angular%20on%20Docker%20build%20and%20run.bat) to build the images and start the containers. \
-![orangeSqr](images/orangeSquare.png) 2. \
-Use the web browser shortcut "11 Study27 on 8027.url" for the 'Study27' application. \
-![orangeHR](images/orangeHR-500.png)
+ ![orangeHR](images/orangeHR-500.png) \
+ ![orangeSqr](images/orangeSquare.png) 1. Use the batch file ["01 Angular on Docker build and run.bat"](https://github.com/k1729p/Study27/blob/main/0_batch/01%20Angular%20on%20Docker%20build%20and%20run.bat) 
+to build the images and start the containers. \
+ ![orangeSqr](images/orangeSquare.png) 2. Use the web browser shortcut "11 Study27 on 8027.url"
+for the 'Study27' application. \
+ ![orangeHR](images/orangeHR-500.png)
 
 Docker images are built using the following files:
 
@@ -129,11 +129,16 @@ Docker images are built using the following files:
 
 ## ❸ Local Build and Test
 
-Action:
-
-1. Use the batch file ["02 Angular on local build and run.bat"](https://github.com/k1729p/Study27/blob/main/0_batch/02%20Angular%20on%20local%20build%20and%20run.bat) to build and start the local application.  
-2. Use the batch file ["03 Angular lint and test.bat"](https://github.com/k1729p/Study27/blob/main/0_batch/03%20Angular%20lint%20and%20test.bat) to lint and start the Karma tests.  
-3. Use the web browser shortcut "12 Study27 on 4200.url" for the application on port 4200 started with 'ng serve'.
+Action: \
+ ![orangeHR](images/orangeHR-500.png) \
+ ![orangeSqr](images/orangeSquare.png) 1. Use the batch file ["02 Angular on local build and run.bat"](https://github.com/k1729p/Study27/blob/main/0_batch/02%20Angular%20on%20local%20build%20and%20run.bat)
+to build and start the local application. \
+ ![orangeSqr](images/orangeSquare.png) 2. Use the batch file
+["03 Angular lint and test.bat"](https://github.com/k1729p/Study27/blob/main/0_batch/03%20Angular%20lint%20and%20test.bat)
+to lint and start the Karma tests. \
+ ![orangeSqr](images/orangeSquare.png) 3. Use the web browser shortcut "12 Study27 on 4200.url"
+for the application on port 4200 started with 'ng serve'. \
+ ![orangeHR](images/orangeHR-500.png)
 
 See the [screenshot](images/ScreenshotKarmaTests.jpg) showing the results of the Karma tests.
 
