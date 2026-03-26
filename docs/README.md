@@ -2,21 +2,11 @@
 
 [![Color scheme for Study27 project](images/ColorScheme.png)](https://github.com/k1729p/Study27/tree/main/docs "View Study27 docs on GitHub")
 
-## Research on ![icon](images/IconAngular.png) [Angular](https://angular.dev/overview) with ![icon](images/IconMaterialDesign.png) [Material Design](https://material.angular.dev)
+## Research on ![icon](images/iconAngular.png) [Angular](https://angular.dev/overview) with ![icon](images/iconMaterialDesign.png) [Material Design](https://material.angular.dev)
 
 ![borderH](images/borderHorizontal.png) \
 ![liveD](images/LiveDemo.png) ➔ Study27 [GitHub Pages](https://k1729p.github.io/Study27/) \
 ![borderH](images/borderHorizontal.png)
-
-
-![borderH](images/borderHorizontal.png) \
-![liveD](images/LiveDemo1.png) ➔ Study27 [GitHub Pages](https://k1729p.github.io/Study27/) \
-![borderH](images/borderHorizontal.png)
-
-![borderH](images/borderHorizontal.png) \
-![liveD](images/LiveDemo2.png) ➔ Study27 [GitHub Pages](https://k1729p.github.io/Study27/) \
-![borderH](images/borderHorizontal.png)
-
 
 ![ScreenshotFlowchartFull.jpg](images/ScreenshotFlowchartFull.jpg)
 
