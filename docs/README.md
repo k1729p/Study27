@@ -17,8 +17,6 @@ Project sections:
 3. [Local Build and Test](#-local-build-and-test)
 4. [Cypress End-to-End Tests](#-cypress-end-to-end-tests)
 
-[Back to the top of the page](#study27-readme-contents)
-
 ---
 
 ## ❶ Business Logic
@@ -43,61 +41,66 @@ Available backend repositories:
 ![greenCircle](images/greenCircle.png) 1.3. The TypeScript sources are located in the [src/app](https://github.com/k1729p/Study27/blob/main/src/app) directory.
 
 <details>
-<summary>Sources in the 'Home' section:</summary>
+<summary>'**Home**' section:</summary>
 
 - [home](https://github.com/k1729p/Study27/blob/main/src/app/home) directory
-- [home/home.component.ts](https://github.com/k1729p/Study27/blob/main/src/app/home/home.component.ts)
+- HomeComponent \
+  [home/home.component.ts](https://github.com/k1729p/Study27/blob/main/src/app/home/home.component.ts)
 
 </details>
 <details>
-<summary>Sources in the 'Manage' section:</summary>
+<summary>'**Manage**' section:</summary>
 
-- [manage](https://github.com/k1729p/Study27/blob/main/src/app/manage) directory
-- [manage/tables/department-table/department-table.component.ts](https://github.com/k1729p/Study27/blob/main/src/app/manage/tables/department-table/department-table.component.ts)
-- [manage/tables/department-table/department-datasource.ts](https://github.com/k1729p/Study27/blob/main/src/app/manage/tables/department-table/department-datasource.ts)
-- [manage/forms/department-form/department-form.component.ts](https://github.com/k1729p/Study27/blob/main/src/app/manage/forms/department-form/department-form.component.ts)
-- [manage/tables/employee-table/employee-table.component.ts](https://github.com/k1729p/Study27/blob/main/src/app/manage/tables/employee-table/employee-table.component.ts)
-- [manage/forms/employee-form/employee-form.component.ts](https://github.com/k1729p/Study27/blob/main/src/app/manage/forms/employee-form/employee-form.component.ts)
-
-</details>
-<details>
-<summary>Sources in the 'Transfer' section:</summary>
-
-- [transfer](https://github.com/k1729p/Study27/blob/main/src/app/transfer) directory
-- [transfer/employee-transfer/employee-transfer.component.ts](https://github.com/k1729p/Study27/blob/main/src/app/transfer/employee-transfer/employee-transfer.component.ts)
+- [manage/tables/department-table](https://github.com/k1729p/Study27/blob/main/src/app/manage/tables/department-table) directory
+- DepartmentTableComponent \
+  [manage/tables/department-table/department-table.component.ts](https://github.com/k1729p/Study27/blob/main/src/app/manage/tables/department-table/department-table.component.ts)
+- [manage/forms/department-form](https://github.com/k1729p/Study27/blob/main/src/app/manage/forms/department-form) directory
+- DepartmentFormComponent [manage/forms/department-form/department-form.component.ts](https://github.com/k1729p/Study27/blob/main/src/app/manage/forms/department-form/department-form.component.ts)
+- [manage/tables/employee-table](https://github.com/k1729p/Study27/blob/main/src/app/manage/tables/employee-table) directory
+- EmployeeTableComponent [manage/tables/employee-table/employee-table.component.ts](https://github.com/k1729p/Study27/blob/main/src/app/manage/tables/employee-table/employee-table.component.ts)
+- [manage/forms/employee-form](https://github.com/k1729p/Study27/blob/main/src/app/manage/forms/employee-form) directory
+- EmployeeFormComponent [manage/forms/employee-form/employee-form.component.ts](https://github.com/k1729p/Study27/blob/main/src/app/manage/forms/employee-form/employee-form.component.ts)
 
 </details>
 <details>
-<summary>Sources in the 'Locate' section:</summary>
+<summary>'**Transfer**' section:</summary>
 
-- [locate](https://github.com/k1729p/Study27/blob/main/src/app/locate) directory
-- [locate/employee-locate/employee-locate.component.ts](https://github.com/k1729p/Study27/blob/main/src/app/locate/employee-locate/employee-locate.component.ts)
+- [transfer/employee-transfer](https://github.com/k1729p/Study27/blob/main/src/app/transfer/employee-transfer) directory
+- EmployeeTransferComponent [transfer/employee-transfer/employee-transfer.component.ts](https://github.com/k1729p/Study27/blob/main/src/app/transfer/employee-transfer/employee-transfer.component.ts)
 
 </details>
 <details>
-<summary>Sources in the 'Report' section:</summary>
+<summary>'**Locate**' section:</summary>
+
+- [locate/employee-locate](https://github.com/k1729p/Study27/blob/main/src/app/locate/employee-locate) directory
+- EmployeeLocateComponent [locate/employee-locate/employee-locate.component.ts](https://github.com/k1729p/Study27/blob/main/src/app/locate/employee-locate/employee-locate.component.ts)
+
+</details>
+<details>
+<summary>'**Report**' section:</summary>
 
 - [report](https://github.com/k1729p/Study27/blob/main/src/app/report) directory
-- [report/report.component.ts](https://github.com/k1729p/Study27/blob/main/src/app/report/report.component.ts)
+- ReportComponent [report/report.component.ts](https://github.com/k1729p/Study27/blob/main/src/app/report/report.component.ts)
 
 </details>
 <details>
-<summary>Sources in the 'Models' section:</summary>
+<summary>'**Models**' section:</summary>
 
 - [models](https://github.com/k1729p/Study27/blob/main/src/app/models) directory
-- [models/department.ts](https://github.com/k1729p/Study27/blob/main/src/app/models/department.ts)
-- [models/employee.ts](https://github.com/k1729p/Study27/blob/main/src/app/models/employee.ts)
-- [models/title.ts](https://github.com/k1729p/Study27/blob/main/src/app/models/title.ts)
+- Department [models/department.ts](https://github.com/k1729p/Study27/blob/main/src/app/models/department.ts)
+- Employee [models/employee.ts](https://github.com/k1729p/Study27/blob/main/src/app/models/employee.ts)
+- Title [models/title.ts](https://github.com/k1729p/Study27/blob/main/src/app/models/title.ts)
 
 </details>
 <details>
-<summary>Sources in the 'Services' section:</summary>
+<summary>'**Services**' section:</summary>
 
-- [services](https://github.com/k1729p/Study27/blob/main/src/app/services) directory
-- [services/department-service/department.service.ts](https://github.com/k1729p/Study27/blob/main/src/app/services/department-service/department.service.ts)
-- [services/employee-service/employee.service.ts](https://github.com/k1729p/Study27/blob/main/src/app/services/employee-service/employee.service.ts)
-- [services/initialization-service/initialization.service.ts](https://github.com/k1729p/Study27/blob/main/src/app/services/initialization-service/initialization.service.ts)
-- [services/backend-endpoints.constants.ts](https://github.com/k1729p/Study27/blob/main/src/app/services/backend-endpoints.constants.ts)
+- [services/department-service](https://github.com/k1729p/Study27/blob/main/src/app/services/department-service) directory
+- DepartmentService [services/department-service/department.service.ts](https://github.com/k1729p/Study27/blob/main/src/app/services/department-service/department.service.ts)
+- [services/employee-service](https://github.com/k1729p/Study27/blob/main/src/app/services/employee-service) directory
+- EmployeeService [services/employee-service/employee.service.ts](https://github.com/k1729p/Study27/blob/main/src/app/services/employee-service/employee.service.ts)
+- [services/initialization-service](https://github.com/k1729p/Study27/blob/main/src/app/services/initialization-service) directory
+- InitializationService [services/initialization-service/initialization.service.ts](https://github.com/k1729p/Study27/blob/main/src/app/services/initialization-service/initialization.service.ts)
 
 </details>
 
