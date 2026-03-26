@@ -45,7 +45,8 @@ Available backend repositories:
 
 ![greenCircle](images/greenCircle.png) 1.4. The TypeScript, HTML, and CSS sources are located in the directory [src/app](https://github.com/k1729p/Study27/blob/main/src/app).
 
-![orangeHR](images/aquaHR-500.png) \
+![aquaHR](images/aquaHR-500.png)
+
 <details>
 <summary>'App' section:</summary>
 
@@ -129,8 +130,9 @@ Available backend repositories:
   - InitializationService
     [initialization.service.ts](https://github.com/k1729p/Study27/blob/main/src/app/services/initialization-service/initialization.service.ts)
 
-</details> \
-![orangeHR](images/aquaHR-500.png)
+</details>
+
+![aquaHR](images/aquaHR-500.png)
 
 [Back to the top of the page](#study27-readme-contents)
 
