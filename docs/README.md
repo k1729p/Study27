@@ -10,8 +10,6 @@
 
 ---
 
-![ScreenshotFlowchartFull.jpg](images/ScreenshotFlowchartFull.jpg)
-
 Project sections:
 
 1. [Business Logic](#-business-logic)
@@ -24,6 +22,8 @@ Project sections:
 ---
 
 ## ❶ Business Logic
+
+![ScreenshotFlowchartFull.jpg](images/ScreenshotFlowchartFull.jpg)
 
 ![greenCircle](images/greenCircle.png) 1.1. Links to diagrams.
 
