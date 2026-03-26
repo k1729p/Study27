@@ -31,12 +31,12 @@ Project sections:
 - [Class diagram](https://github.com/k1729p/Study27/blob/main/docs/mermaid/classDiagram.md) for  models: Department, Employee, and Title.
 
 ![greenCircle](images/greenCircle.png) 1.2. The backend repository.
-Local web storage is used alone or together with a backend repository on an external Node.js Express server.
+Local web storage is used alone or together with a backend repository on an external **Node.js** **Express** server.
 
 Available backend repositories:
 
-- PostgreSQL database
-- MongoDB database
+- **PostgreSQL** database
+- **MongoDB** database
 
 ![greenCircle](images/greenCircle.png) 1.3. Reports are generated using 'pdfmake'. Example PDF reports:
 
@@ -45,11 +45,16 @@ Available backend repositories:
 
 ![greenCircle](images/greenCircle.png) 1.4. The TypeScript, HTML, and CSS sources are located in the directory [src/app](https://github.com/k1729p/Study27/blob/main/src/app).
 
+![orangeHR](images/aquaHR-500.png) \
+<details>
+<summary>'App' section:</summary>
+
 - AppComponent
   [app.component.ts](https://github.com/k1729p/Study27/blob/main/src/app/app.component.ts)
 - Routes
   [app.routes.ts](https://github.com/k1729p/Study27/blob/main/src/app/app.routes.ts)
 
+</details>
 <details>
 <summary>'Home' section:</summary>
 
@@ -124,7 +129,8 @@ Available backend repositories:
   - InitializationService
     [initialization.service.ts](https://github.com/k1729p/Study27/blob/main/src/app/services/initialization-service/initialization.service.ts)
 
-</details>
+</details> \
+![orangeHR](images/aquaHR-500.png)
 
 [Back to the top of the page](#study27-readme-contents)
 
@@ -140,7 +146,7 @@ to build the images and start the containers. \
 for the 'Study27' application. \
  ![orangeHR](images/orangeHR-500.png)
 
-![greenCircle](images/greenCircle.png) 2.1. Docker images are built using the following files:
+![greenCircle](images/greenCircle.png) 2.1. **Docker** images are built using the following files:
 
 - [Dockerfile](https://github.com/k1729p/Study27/blob/main/docker-config/Dockerfile)
 - [compose.yaml](https://github.com/k1729p/Study27/blob/main/docker-config/compose.yaml)
@@ -157,13 +163,13 @@ Action: \
 to build and start the local application. \
  ![orangeSqr](images/orangeSquare.png) 2. Use the batch file
 ["03 Angular lint and test.bat"](https://github.com/k1729p/Study27/blob/main/0_batch/03%20Angular%20lint%20and%20test.bat)
-to lint and start the Karma tests. \
+to lint and start the **Karma** tests. \
  ![orangeSqr](images/orangeSquare.png) 3. Use the web browser shortcut "12 Study27 on 4200.url"
 for the application on port 4200 started with 'ng serve'. \
  ![orangeHR](images/orangeHR-500.png)
 
 ![greenCircle](images/greenCircle.png) 3.1. See the [screenshot](images/ScreenshotKarmaTests.jpg)
-showing the results of the Karma tests.
+showing the results of the **Karma** tests.
 
 [Back to the top of the page](#study27-readme-contents)
 
@@ -175,7 +181,7 @@ Action: \
  ![orangeHR](images/orangeHR-500.png) \
  ![orangeSqr](images/orangeSquare.png) Use the batch file
 ["04 Cypress tests.bat"](https://github.com/k1729p/Study27/blob/main/0_batch/04%20Cypress%20tests.bat)
-to start the Cypress tests. \
+to start the **Cypress** tests. \
  ![orangeHR](images/orangeHR-500.png)
 
 ![greenCircle](images/greenCircle.png) 4.1. The test scripts are in the
