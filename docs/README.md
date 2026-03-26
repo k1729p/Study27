@@ -4,14 +4,9 @@
 
 ## Research on ![icon](images/IconAngular.png) [Angular](https://angular.dev/overview) with ![icon](images/IconMaterialDesign.png) [Material Design](https://material.angular.dev)
 
+![borderH](images/borderHorizontal.png) \
+![liveD](images/LiveDemo.png) ➔ Study27 [GitHub Pages](https://k1729p.github.io/Study27/) \
 ![borderH](images/borderHorizontal.png)
-![liveD](images/LiveDemo.png) ➔ Study27 [GitHub Pages](https://k1729p.github.io/Study27/)
-![borderH](images/borderHorizontal.png)
-
-
-<sub>![borderT](images/borderTop.gif)</sub> \
-![borderL](images/borderLeft.gif) Live Angular application demo ➔ [(GitHub Pages)]() ![borderR](images/borderRight.gif) \
-<sup>![borderB](images/borderBottom.gif)</sup>
 
 ![ScreenshotFlowchartFull.jpg](images/ScreenshotFlowchartFull.jpg)
 
