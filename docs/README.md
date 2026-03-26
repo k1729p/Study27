@@ -8,6 +8,16 @@
 ![liveD](images/LiveDemo.png) ➔ Study27 [GitHub Pages](https://k1729p.github.io/Study27/) \
 ![borderH](images/borderHorizontal.png)
 
+
+![borderH](images/borderHorizontal.png) \
+![liveD](images/LiveDemo1.png) ➔ Study27 [GitHub Pages](https://k1729p.github.io/Study27/) \
+![borderH](images/borderHorizontal.png)
+
+![borderH](images/borderHorizontal.png) \
+![liveD](images/LiveDemo2.png) ➔ Study27 [GitHub Pages](https://k1729p.github.io/Study27/) \
+![borderH](images/borderHorizontal.png)
+
+
 ![ScreenshotFlowchartFull.jpg](images/ScreenshotFlowchartFull.jpg)
 
 Project sections:
