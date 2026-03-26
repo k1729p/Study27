@@ -38,61 +38,71 @@ Available backend repositories:
 - PostgreSQL database
 - MongoDB database
 
-![greenCircle](images/greenCircle.png) 1.3. The TypeScript sources are located in the [src/app](https://github.com/k1729p/Study27/blob/main/src/app) directory.
+![greenCircle](images/greenCircle.png) 1.3. Reports are generated using 'pdfmake'. Example PDF reports:
+
+- [Departments and Employees Report](https://github.com/k1729p/Study27/blob/main/docs/pdf_reports/file.pdf)
+- [Comprehensive Report](https://github.com/k1729p/Study27/blob/main/docs/pdf_reports/file-1.pdf)
+
+![greenCircle](images/greenCircle.png) 1.4. The TypeScript, HTML, and CSS sources are located in the directory [src/app](https://github.com/k1729p/Study27/blob/main/src/app).
+
+- AppComponent
+  [app.component.ts](https://github.com/k1729p/Study27/blob/main/src/app/app.component.ts)
+- Routes
+  [app.routes.ts](https://github.com/k1729p/Study27/blob/main/src/app/app.routes.ts)
 
 <details>
 <summary>'Home' section:</summary>
 
-- [home](https://github.com/k1729p/Study27/blob/main/src/app/home) directory
-  - HomeComponent
+- directory [home](https://github.com/k1729p/Study27/blob/main/src/app/home)
+  - 🟧 HomeComponent
     [home.component.ts](https://github.com/k1729p/Study27/blob/main/src/app/home/home.component.ts)
 
 </details>
 <details>
 <summary>'Manage' section:</summary>
 
-- [manage/tables/department-table](https://github.com/k1729p/Study27/blob/main/src/app/manage/tables/department-table) directory
-  - DepartmentTableComponent
+- directory [manage/tables/department-table](https://github.com/k1729p/Study27/blob/main/src/app/manage/tables/department-table)
+  - 🟩 DepartmentTableComponent
     [department-table.component.ts](https://github.com/k1729p/Study27/blob/main/src/app/manage/tables/department-table/department-table.component.ts)
-- [manage/forms/department-form](https://github.com/k1729p/Study27/blob/main/src/app/manage/forms/department-form) directory
-  - DepartmentFormComponent
+- directory [manage/forms/department-form](https://github.com/k1729p/Study27/blob/main/src/app/manage/forms/department-form)
+  - 🟢 DepartmentFormComponent
     [department-form.component.ts](https://github.com/k1729p/Study27/blob/main/src/app/manage/forms/department-form/department-form.component.ts)
-- [manage/tables/employee-table](https://github.com/k1729p/Study27/blob/main/src/app/manage/tables/employee-table) directory
-  - EmployeeTableComponent
+- directory [manage/tables/employee-table](https://github.com/k1729p/Study27/blob/main/src/app/manage/tables/employee-table)
+  - 🟩 EmployeeTableComponent
     [employee-table.component.ts](https://github.com/k1729p/Study27/blob/main/src/app/manage/tables/employee-table/employee-table.component.ts)
-- [manage/forms/employee-form](https://github.com/k1729p/Study27/blob/main/src/app/manage/forms/employee-form) directory
-  - EmployeeFormComponent
+- directory [manage/forms/employee-form](https://github.com/k1729p/Study27/blob/main/src/app/manage/forms/employee-form)
+  - 🟢 EmployeeFormComponent
     [employee-form.component.ts](https://github.com/k1729p/Study27/blob/main/src/app/manage/forms/employee-form/employee-form.component.ts)
 
 </details>
 <details>
 <summary>'Transfer' section:</summary>
 
-- [transfer/employee-transfer](https://github.com/k1729p/Study27/blob/main/src/app/transfer/employee-transfer) directory
-  - EmployeeTransferComponent
+- directory [transfer/employee-transfer](https://github.com/k1729p/Study27/blob/main/src/app/transfer/employee-transfer)
+  - 🟦 EmployeeTransferComponent
     [employee-transfer.component.ts](https://github.com/k1729p/Study27/blob/main/src/app/transfer/employee-transfer/employee-transfer.component.ts)
 
 </details>
 <details>
 <summary>'Locate' section:</summary>
 
-- [locate/employee-locate](https://github.com/k1729p/Study27/blob/main/src/app/locate/employee-locate) directory
-  - EmployeeLocateComponent
+- directory [locate/employee-locate](https://github.com/k1729p/Study27/blob/main/src/app/locate/employee-locate)
+  - 🟪 EmployeeLocateComponent
     [employee-locate.component.ts](https://github.com/k1729p/Study27/blob/main/src/app/locate/employee-locate/employee-locate.component.ts)
 
 </details>
 <details>
 <summary>'Report' section:</summary>
 
-- [report](https://github.com/k1729p/Study27/blob/main/src/app/report) directory
-  - ReportComponent
+- directory [report](https://github.com/k1729p/Study27/blob/main/src/app/report)
+  - 🟨 ReportComponent
     [report.component.ts](https://github.com/k1729p/Study27/blob/main/src/app/report/report.component.ts)
 
 </details>
 <details>
 <summary>'Models' section:</summary>
 
-- [models](https://github.com/k1729p/Study27/blob/main/src/app/models) directory
+- directory [models](https://github.com/k1729p/Study27/blob/main/src/app/models)
   - Department
     [department.ts](https://github.com/k1729p/Study27/blob/main/src/app/models/department.ts)
   - Employee
@@ -104,22 +114,17 @@ Available backend repositories:
 <details>
 <summary>'Services' section:</summary>
 
-- [services/department-service](https://github.com/k1729p/Study27/blob/main/src/app/services/department-service) directory
+- directory [services/department-service](https://github.com/k1729p/Study27/blob/main/src/app/services/department-service)
   - DepartmentService
     [department.service.ts](https://github.com/k1729p/Study27/blob/main/src/app/services/department-service/department.service.ts)
-- [services/employee-service](https://github.com/k1729p/Study27/blob/main/src/app/services/employee-service) directory
+- directory [services/employee-service](https://github.com/k1729p/Study27/blob/main/src/app/services/employee-service)
   - EmployeeService
     [employee.service.ts](https://github.com/k1729p/Study27/blob/main/src/app/services/employee-service/employee.service.ts)
-- [services/initialization-service](https://github.com/k1729p/Study27/blob/main/src/app/services/initialization-service) directory
+- directory [services/initialization-service](https://github.com/k1729p/Study27/blob/main/src/app/services/initialization-service)
   - InitializationService
     [initialization.service.ts](https://github.com/k1729p/Study27/blob/main/src/app/services/initialization-service/initialization.service.ts)
 
 </details>
-
-![greenCircle](images/greenCircle.png) 1.4. Reports are generated using 'pdfmake'. Example reports:
-
-- [Departments and Employees Report](https://github.com/k1729p/Study27/blob/main/docs/pdf_reports/file.pdf)
-- [Comprehensive Report](https://github.com/k1729p/Study27/blob/main/docs/pdf_reports/file-1.pdf)
 
 [Back to the top of the page](#study27-readme-contents)
 
