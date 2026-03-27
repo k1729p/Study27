@@ -8,6 +8,10 @@
 ![liveD](images/LiveDemo.png) ➔ Study27 [GitHub Pages](https://k1729p.github.io/Study27/) \
 ![borderH](images/borderHorizontal.png)
 
+_Application on GitHub Pages:_ \
+◆ _has no access to external repositories and can only use local web storage_ \
+◆ _shows errors (e.g. in reports) because on GitHub Pages it is Angular 17, not Angular 21_
+
 ---
 
 Project sections:
