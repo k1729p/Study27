@@ -2,7 +2,7 @@ import { provideHttpClient } from '@angular/common/http';
 import { provideHttpClientTesting } from '@angular/common/http/testing';
 import { TestBed } from '@angular/core/testing';
 
-import { DepartmentService } from '../department-service/department.service';
+import { DepartmentService } from 'services/department-service/department.service';
 import { EmployeeService } from './employee.service';
 import { TEST_DEPARTMENTS, TEST_DEPARTMENT_ID, TEST_EMPLOYEE_ID } from 'testing/test-data';
 /**

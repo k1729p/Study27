@@ -5,7 +5,7 @@ import { By } from '@angular/platform-browser';
 import { of } from 'rxjs';
 
 import { HomeComponent } from './home.component';
-import { RepositoryType } from 'home/repository-type';
+import { RepositoryType } from './repository-type';
 import { InitializationService } from 'services/initialization-service/initialization.service';
 /**
  * Unit tests for the HomeComponent.

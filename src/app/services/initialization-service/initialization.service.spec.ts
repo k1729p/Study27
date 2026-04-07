@@ -7,7 +7,7 @@ import {
   TestRequest
 } from '@angular/common/http/testing';
 
-import { DepartmentService } from '../department-service/department.service';
+import { DepartmentService } from 'services/department-service/department.service';
 import { InitializationService, BROWSER_STORAGE } from './initialization.service';
 import { RepositoryType } from 'home/repository-type';
 import { ENDPOINTS } from 'services/backend-endpoints.constants';

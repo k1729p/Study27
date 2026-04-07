@@ -1,13 +1,13 @@
 import { Routes } from '@angular/router';
 
 import { HomeComponent } from 'home/home.component';
-import { DepartmentFormComponent } from './manage/forms/department-form/department-form.component';
-import { DepartmentTableComponent } from './manage/tables/department-table/department-table.component';
-import { EmployeeFormComponent } from './manage/forms/employee-form/employee-form.component';
-import { EmployeeTableComponent } from './manage/tables/employee-table/employee-table.component';
-import { EmployeeLocateComponent } from './locate/employee-locate/employee-locate.component';
-import { EmployeeTransferComponent } from './transfer/employee-transfer/employee-transfer.component';
-import { ReportComponent } from './report/report.component';
+import { DepartmentFormComponent } from 'manage/forms/department-form/department-form.component';
+import { DepartmentTableComponent } from 'manage/tables/department-table/department-table.component';
+import { EmployeeFormComponent } from 'manage/forms/employee-form/employee-form.component';
+import { EmployeeTableComponent } from 'manage/tables/employee-table/employee-table.component';
+import { EmployeeLocateComponent } from 'locate/employee-locate/employee-locate.component';
+import { EmployeeTransferComponent } from 'transfer/employee-transfer/employee-transfer.component';
+import { ReportComponent } from 'report/report.component';
 /**
  * Application routes for the Angular application.
  * This file defines the routes for the application, including paths for

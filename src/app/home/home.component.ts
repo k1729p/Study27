@@ -13,7 +13,7 @@ import { MatRadioModule } from '@angular/material/radio';
 import { MatSelectModule } from '@angular/material/select';
 
 import { InitializationService } from 'services/initialization-service/initialization.service';
-import { RepositoryType } from 'home/repository-type';
+import { RepositoryType } from './repository-type';
 import { INITIAL_DATA } from './initial-data';
 /**
  * Injection token for browser storage.

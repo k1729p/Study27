@@ -3,20 +3,37 @@
 {
   "compileOnSave": false,
   "compilerOptions": {
-    "baseUrl": "src/app",
     "paths": {
+      "app/*": [
+        "./src/app/*"
+      ],
+      "home/*": [
+        "./src/app/home/*"
+      ],
+      "locate/*": [
+        "./src/app/locate/*"
+      ],
+      "manage/*": [
+        "./src/app/manage/*"
+      ],
       "models/*": [
-        "models/*"
+        "./src/app/models/*"
+      ],
+      "report/*": [
+        "./src/app/report/*"
       ],
       "services/*": [
-        "services/*"
+        "./src/app/services/*"
       ],
       "settings/*": [
-        "settings/*"
+        "./src/app/settings/*"
       ],
       "testing/*": [
-        "testing/*"
-      ]
+        "./src/app/testing/*"
+      ],
+      "transfer/*": [
+        "./src/app/transfer/*"
+      ],
     },
     "outDir": "./dist/out-tsc",
     "strict": true,
