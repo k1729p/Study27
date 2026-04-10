@@ -10,9 +10,9 @@ import { MatInputModule } from '@angular/material/input';
 import { MatIconModule } from '@angular/material/icon';
 import { FormsModule } from '@angular/forms';
 
-import { Employee } from 'models/employee';
+import { Employee } from '@models/employee';
 import { EmployeeDataSource } from './employee-datasource';
-import { DepartmentService } from 'services/department-service/department.service';
+import { DepartmentService } from '@department-service/department.service';
 /**
  * EmployeeTableComponent is a component that displays a table of employees.
  * It uses Angular Material's table features to display, sort, and paginate the

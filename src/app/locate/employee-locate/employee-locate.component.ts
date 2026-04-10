@@ -22,10 +22,10 @@ import { MatInputModule } from '@angular/material/input';
 import { MatTree, MatTreeModule } from '@angular/material/tree';
 import { Observable, map, startWith } from 'rxjs';
 
-import { Department } from 'models/department';
-import { Employee } from 'models/employee';
-import { DepartmentService } from 'services/department-service/department.service';
-import { EmployeeService } from 'services/employee-service/employee.service';
+import { Department } from '@models/department';
+import { Employee } from '@models/employee';
+import { DepartmentService } from '@department-service/department.service';
+import { EmployeeService } from '@employee-service/employee.service';
 /**
  * Node for company structure
  */

@@ -4,36 +4,83 @@
   "compileOnSave": false,
   "compilerOptions": {
     "paths": {
-      "app/*": [
+      "@app/*": [
         "./src/app/*"
       ],
-      "home/*": [
+      "@home/*": [
         "./src/app/home/*"
       ],
-      "locate/*": [
-        "./src/app/locate/*"
+      "@employee-locate/*": [
+        "./src/app/locate/employee-locate/*"
       ],
-      "manage/*": [
-        "./src/app/manage/*"
+      "@department-form/*": [
+        "./src/app/manage/forms/department-form/*"
       ],
-      "models/*": [
+      "@employee-form/*": [
+        "./src/app/manage/forms/employee-form/*"
+      ],
+      "@department-table/*": [
+        "./src/app/manage/tables/department-table/*"
+      ],
+      "@employee-table/*": [
+        "./src/app/manage/tables/employee-table/*"
+      ],
+      "@models/*": [
         "./src/app/models/*"
       ],
-      "report/*": [
+      "@report/*": [
         "./src/app/report/*"
       ],
-      "services/*": [
+      "@services/*": [
         "./src/app/services/*"
       ],
-      "settings/*": [
-        "./src/app/settings/*"
+      "@department-service/*": [
+        "./src/app/services/department-service/*"
       ],
-      "testing/*": [
+      "@employee-service/*": [
+        "./src/app/services/employee-service/*"
+      ],
+      "@initialization-service/*": [
+        "./src/app/services/initialization-service/*"
+      ],
+      "@testing/*": [
         "./src/app/testing/*"
       ],
-      "transfer/*": [
-        "./src/app/transfer/*"
+      "@employee-transfer/*": [
+        "./src/app/transfer/employee-transfer/*"
       ],
+                                                                          /*
+                                                                          "app/*": [
+                                                                            "./src/app/*"
+                                                                          ],
+                                                                          "home/*": [
+                                                                            "./src/app/home/*"
+                                                                          ],
+                                                                          "locate/*": [
+                                                                            "./src/app/locate/*"
+                                                                          ],
+                                                                          "manage/*": [
+                                                                            "./src/app/manage/*"
+                                                                          ],
+                                                                          "models/*": [
+                                                                            "./src/app/models/*"
+                                                                          ],
+                                                                          "report/*": [
+                                                                            "./src/app/report/*"
+                                                                          ],
+                                                                          "services/*": [
+                                                                            "./src/app/services/*"
+                                                                          ],
+                                                                          "settings/*": [
+                                                                            "./src/app/settings/*"
+                                                                          ],
+                                                                          "testing/*": [
+                                                                            "./src/app/testing/*"
+                                                                          ],
+                                                                          "transfer/*": [
+                                                                            "./src/app/transfer/*"
+                                                                          ],
+                                                                          */
     },
     "outDir": "./dist/out-tsc",
     "strict": true,

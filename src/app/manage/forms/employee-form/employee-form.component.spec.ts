@@ -3,9 +3,9 @@ import { ActivatedRoute } from '@angular/router';
 import { of } from 'rxjs';
 
 import { EmployeeFormComponent } from './employee-form.component';
-import { Employee } from 'models/employee';
-import { EmployeeService } from 'services/employee-service/employee.service';
-import * as testData from 'testing/test-data';
+import { Employee } from '@models/employee';
+import { EmployeeService } from '@employee-service/employee.service';
+import * as testData from '@testing/test-data';
 
 /**
  * Unit tests for the EmployeeFormComponent.

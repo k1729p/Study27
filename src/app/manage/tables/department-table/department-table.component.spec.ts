@@ -2,9 +2,9 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { ActivatedRoute, Router } from '@angular/router';
 
 import { DepartmentTableComponent } from './department-table.component';
-import { Department } from 'models/department';
-import { DepartmentService } from 'services/department-service/department.service';
-import * as testData from 'testing/test-data';
+import { Department } from '@models/department';
+import { DepartmentService } from '@department-service/department.service';
+import * as testData from '@testing/test-data';
 
 const departmentServiceSpy = jasmine.createSpyObj('DepartmentService', ['getDepartments']);
 departmentServiceSpy.getDepartments.and

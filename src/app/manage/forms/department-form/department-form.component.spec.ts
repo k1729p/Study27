@@ -4,9 +4,9 @@ import { provideNativeDateAdapter } from '@angular/material/core';
 import { of } from 'rxjs';
 
 import { DepartmentFormComponent } from './department-form.component';
-import { Department } from 'models/department';
-import { DepartmentService } from 'services/department-service/department.service';
-import * as testData from 'testing/test-data';
+import { Department } from '@models/department';
+import { DepartmentService } from '@department-service/department.service';
+import * as testData from '@testing/test-data';
 
 /**
  * Unit tests for the DepartmentFormComponent.

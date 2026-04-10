@@ -7,11 +7,11 @@ import {
   TestRequest
 } from '@angular/common/http/testing';
 
-import { DepartmentService } from 'services/department-service/department.service';
+import { DepartmentService } from '@department-service/department.service';
 import { InitializationService, BROWSER_STORAGE } from './initialization.service';
-import { RepositoryType } from 'home/repository-type';
-import { ENDPOINTS } from 'services/backend-endpoints.constants';
-import { TEST_REPOSITORY_TYPE, TEST_DEPARTMENTS } from 'testing/test-data';
+import { RepositoryType } from '@home/repository-type';
+import { ENDPOINTS } from '@services/backend-endpoints.constants';
+import { TEST_REPOSITORY_TYPE, TEST_DEPARTMENTS } from '@testing/test-data';
 /**
  * Unit tests for the {@link InitializationService}.
  *

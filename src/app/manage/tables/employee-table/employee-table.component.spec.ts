@@ -3,11 +3,11 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { of } from 'rxjs';
 
 import { EmployeeTableComponent } from './employee-table.component';
-import { Department } from 'models/department';
-import { Employee } from 'models/employee';
-import { DepartmentService } from 'services/department-service/department.service';
-import { EmployeeService } from 'services/employee-service/employee.service';
-import * as testData from 'testing/test-data';
+import { Department } from '@models/department';
+import { Employee } from '@models/employee';
+import { DepartmentService } from '@department-service/department.service';
+import { EmployeeService } from '@employee-service/employee.service';
+import * as testData from '@testing/test-data';
 
 const departmentServiceSpy = jasmine.createSpyObj('DepartmentService', ['getDepartment']);
 departmentServiceSpy.getDepartment.and

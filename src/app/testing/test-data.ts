@@ -1,7 +1,7 @@
-import { Department } from 'models/department';
-import { Employee } from 'models/employee';
-import { Title } from 'models/title';
-import { RepositoryType } from 'home/repository-type';
+import { Department } from '@models/department';
+import { Employee } from '@models/employee';
+import { Title } from '@models/title';
+import { RepositoryType } from '@home/repository-type';
 /**
  * Test days.
  */

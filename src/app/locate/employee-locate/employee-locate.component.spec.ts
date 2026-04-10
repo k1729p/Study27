@@ -3,12 +3,12 @@ import { ActivatedRoute } from '@angular/router';
 import { MatDialog } from '@angular/material/dialog';
 import { of, skip, take } from 'rxjs';
 
-import { Department } from 'models/department';
-import { Employee } from 'models/employee';
-import { DepartmentService } from 'services/department-service/department.service';
-import { EmployeeService } from 'services/employee-service/employee.service';
+import { Department } from '@models/department';
+import { Employee } from '@models/employee';
+import { DepartmentService } from '@department-service/department.service';
+import { EmployeeService } from '@employee-service/employee.service';
 import { EmployeeLocateComponent } from './employee-locate.component';
-import * as testData from 'testing/test-data';
+import * as testData from '@testing/test-data';
 
 const departmentServiceSpy = jasmine.createSpyObj('DepartmentService', ['getDepartments']);
 departmentServiceSpy.getDepartments.and

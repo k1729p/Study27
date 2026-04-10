@@ -7,9 +7,9 @@ import { of } from 'rxjs';
 import pdfMake from 'pdfmake/build/pdfmake';
 
 import { ReportComponent } from './report.component';
-import * as testData from 'testing/test-data';
-import { DepartmentService } from 'services/department-service/department.service';
-import { EmployeeService } from 'services/employee-service/employee.service';
+import * as testData from '@testing/test-data';
+import { DepartmentService } from '@department-service/department.service';
+import { EmployeeService } from '@employee-service/employee.service';
 /**
  * Unit tests for the ReportComponent.
  * This file contains tests to ensure that the component compiles correctly.

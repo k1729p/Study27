@@ -1,10 +1,10 @@
 import { Injectable, InjectionToken, inject } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 
-import { Employee } from 'models/employee';
-import { Department } from 'models/department';
-import { RepositoryType } from 'home/repository-type';
-import { ENDPOINTS } from 'services/backend-endpoints.constants';
+import { Employee } from '@models/employee';
+import { Department } from '@models/department';
+import { RepositoryType } from '@home/repository-type';
+import { ENDPOINTS } from '@services/backend-endpoints.constants';
 /**
  * Injection token for browser storage.
  * This token is used to inject the browser's localStorage into services that require it.

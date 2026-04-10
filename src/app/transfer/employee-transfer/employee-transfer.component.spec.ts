@@ -15,12 +15,12 @@ import { MatListModule } from '@angular/material/list';
 import { MatSelectModule } from '@angular/material/select';
 import { MatTableModule } from '@angular/material/table';
 
-import { Department } from 'models/department';
-import { Employee } from 'models/employee';
-import { DepartmentService } from 'services/department-service/department.service';
-import { EmployeeService } from 'services/employee-service/employee.service';
+import { Department } from '@models/department';
+import { Employee } from '@models/employee';
+import { DepartmentService } from '@department-service/department.service';
+import { EmployeeService } from '@employee-service/employee.service';
 import { EmployeeTransferComponent } from './employee-transfer.component';
-import * as testData from 'testing/test-data';
+import * as testData from '@testing/test-data';
 
 let doneTransferFromLeftToRight = false;
 let doneTransferFromRightToLeft = false;

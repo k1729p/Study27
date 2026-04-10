@@ -7,9 +7,9 @@ import { MatExpansionModule } from '@angular/material/expansion';
 import { MatInputModule } from '@angular/material/input';
 import { MatSelectModule } from '@angular/material/select';
 
-import { Employee } from 'models/employee';
-import { Title } from 'models/title';
-import { EmployeeService } from 'services/employee-service/employee.service';
+import { Employee } from '@models/employee';
+import { Title } from '@models/title';
+import { EmployeeService } from '@employee-service/employee.service';
 /**
  * EmployeeFormComponent is an Angular component that provides a form for creating, updating, or deleting an employee.
  * It uses Angular Material components for UI elements and Reactive Forms for form handling.

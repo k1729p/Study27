@@ -10,9 +10,9 @@ import { MatInputModule } from '@angular/material/input';
 import { MatIconModule } from '@angular/material/icon';
 import { FormsModule } from '@angular/forms';
 
-import { Department } from 'models/department';
+import { Department } from '@models/department';
 import { DepartmentDataSource } from './department-datasource';
-import { AppTools } from 'app/app.tools';
+import { AppTools } from '@app/app.tools';
 /**
  * DepartmentTableComponent is a component that displays a table of departments.
  * It uses Angular Material's table features to display, sort, and paginate the

@@ -29,8 +29,8 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
 import { MatSelectModule } from '@angular/material/select';
 
-import { Department } from 'models/department';
-import { DepartmentService } from 'services/department-service/department.service';
+import { Department } from '@models/department';
+import { DepartmentService } from '@department-service/department.service';
 
 /**
  * DepartmentFormComponent is an Angular component that provides a form for creating, updating, or deleting a department.

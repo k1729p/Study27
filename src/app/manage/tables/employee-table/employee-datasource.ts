@@ -4,8 +4,8 @@ import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { map, merge, Observable, startWith, BehaviorSubject } from 'rxjs';
 
-import { Employee } from 'models/employee';
-import { EmployeeService } from 'services/employee-service/employee.service';
+import { Employee } from '@models/employee';
+import { EmployeeService } from '@employee-service/employee.service';
 /**
  * Data source for the Employee Table view and Form view. This class should
  * encapsulate all logic for fetching and manipulating the displayed data

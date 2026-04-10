@@ -6,7 +6,7 @@ import { of } from 'rxjs';
 
 import { HomeComponent } from './home.component';
 import { RepositoryType } from './repository-type';
-import { InitializationService } from 'services/initialization-service/initialization.service';
+import { InitializationService } from '@initialization-service/initialization.service';
 /**
  * Unit tests for the HomeComponent.
  * This file contains tests to ensure that the component compiles correctly and behaves as expected.

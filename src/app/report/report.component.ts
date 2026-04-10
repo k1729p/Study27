@@ -6,9 +6,9 @@ import { MatTabsModule } from '@angular/material/tabs';
 import pdfMake from 'pdfmake/build/pdfmake';
 import pdfFonts from 'pdfmake/build/vfs_fonts';
 
-import { Department } from 'models/department';
-import { DepartmentService } from 'services/department-service/department.service';
-import { EmployeeService } from 'services/employee-service/employee.service';
+import { Department } from '@models/department';
+import { DepartmentService } from '@department-service/department.service';
+import { EmployeeService } from '@employee-service/employee.service';
 /**
  * ReportComponent is an Angular component that creates reports.
  */
