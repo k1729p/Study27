@@ -49,38 +49,6 @@
       "@employee-transfer/*": [
         "./src/app/transfer/employee-transfer/*"
       ],
-                                                                          /*
-                                                                          "app/*": [
-                                                                            "./src/app/*"
-                                                                          ],
-                                                                          "home/*": [
-                                                                            "./src/app/home/*"
-                                                                          ],
-                                                                          "locate/*": [
-                                                                            "./src/app/locate/*"
-                                                                          ],
-                                                                          "manage/*": [
-                                                                            "./src/app/manage/*"
-                                                                          ],
-                                                                          "models/*": [
-                                                                            "./src/app/models/*"
-                                                                          ],
-                                                                          "report/*": [
-                                                                            "./src/app/report/*"
-                                                                          ],
-                                                                          "services/*": [
-                                                                            "./src/app/services/*"
-                                                                          ],
-                                                                          "settings/*": [
-                                                                            "./src/app/settings/*"
-                                                                          ],
-                                                                          "testing/*": [
-                                                                            "./src/app/testing/*"
-                                                                          ],
-                                                                          "transfer/*": [
-                                                                            "./src/app/transfer/*"
-                                                                          ],
-                                                                          */
     },
     "outDir": "./dist/out-tsc",
     "strict": true,
