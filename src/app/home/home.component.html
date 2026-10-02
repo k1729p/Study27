@@ -1,0 +1,50 @@
+<mat-card appearance="outlined">
+  <mat-card-header>
+    <mat-card-title>
+      <div class="home-title">
+        Home
+      </div>
+    </mat-card-title>
+  </mat-card-header>
+</mat-card>
+
+<mat-card appearance="outlined">
+  <mat-card-header>
+    <mat-card-title>
+      <h4>Backend Repository</h4>
+    </mat-card-title>
+  </mat-card-header>
+  <mat-card-content>
+    <form [formGroup]="homeForm">
+      <mat-radio-group formControlName="repositoryTypeSelect" (change)="setRepositoryType($event.value)">
+        <div class="repository-type-row">
+          <div class="repository-type-col">
+            <mat-radio-button [value]="repositoryTypeArray[0]" class="repository-type-radio">
+              {{ describeRepositoryType(repositoryTypeArray[0]) }}
+            </mat-radio-button>
+          </div>
+          <div class="repository-type-col">
+            @for (repositoryType of repositoryTypeArray.slice(1, 6); track repositoryType) {
+            <mat-radio-button [value]="repositoryType" class="repository-type-radio">
+              {{ describeRepositoryType(repositoryType) }}
+            </mat-radio-button>
+            }
+          </div>
+          <div class="repository-type-col">
+            @for (repositoryType of repositoryTypeArray.slice(6, 11); track repositoryType) {
+            <mat-radio-button [value]="repositoryType" class="repository-type-radio">
+              {{ describeRepositoryType(repositoryType) }}
+            </mat-radio-button>
+            }
+          </div>
+        </div>
+      </mat-radio-group>
+    </form>
+  </mat-card-content>
+</mat-card>
+
+<mat-card appearance="outlined">
+  <mat-card-actions align="end">
+    <button mat-stroked-button (click)="initialiseRepository()">Initialise Selected Repository</button>
+  </mat-card-actions>
+</mat-card>

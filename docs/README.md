@@ -1,0 +1,261 @@
+# Study27 README Contents
+
+[![Color scheme for Study27 project](images/ColorScheme.png)](https://github.com/k1729p/Study27/tree/main/docs "View Study27 docs on GitHub")
+
+## Research on ![icon](images/IconAngular.png) [Angular](https://angular.dev/overview) with ![icon](images/IconMaterialDesign.png) [Material Design](https://material.angular.dev)
+
+![borderH](images/borderHorizontal.png) \
+![liveD](images/LiveDemo.png) ➔ Study27 on [GitHub Pages](https://k1729p.github.io/Study27/) \
+![borderH](images/borderHorizontal.png)
+
+_The application on GitHub Pages:_ \
+◆ _has no access to external repositories and can only use local web storage_ \
+◆ _might display errors because GitHub Pages hosts an Angular 17 build, not Angular 22_
+
+---
+
+Project sections:
+
+1. [Business Logic](#-business-logic)
+2. [Docker Build](#-docker-build)
+3. [Local Build and Test](#-local-build-and-test)
+4. [Cypress End-to-End Tests](#-cypress-end-to-end-tests)
+
+---
+
+## ❶ Business Logic
+
+![Screenshot of the business logic flowchart](images/ScreenshotFlowchartFull.jpg)
+
+![greenCircle](images/greenCircle.png) 1.1. Links to diagrams.
+
+- [Flowchart diagram](https://github.com/k1729p/Study27/blob/main/docs/mermaid/flowchartBusinessLogic.md)
+  (with web page screenshots) for the business logic.
+- [Sequence diagram](https://github.com/k1729p/Study27/blob/main/docs/mermaid/sequenceDiagram.md) for the "Create Department" process.
+- [Class diagram](https://github.com/k1729p/Study27/blob/main/docs/mermaid/classDiagram.md) for the models: Department, Employee, and Title.
+
+![greenCircle](images/greenCircle.png) 1.2. The backend repositories.
+Local web storage can be used alone or together with a backend repository on an external **Node.js** with **Express** server (project [Study28](https://github.com/k1729p/Study28/)).
+
+Available backend database repositories:
+
+| [Cassandra] | [Chroma] | [Elasticsearch] | [MongoDB] | [MySQL] |
+| :--- | :--- | :--- | :--- | :--- |
+| **[Neo4j]** | **[Oracle]** | **[PostgreSQL]** | **[Redis]** | **[SQL Server]** |
+| ![-](images/spacer-130.png) | ![-](images/spacer-130.png) | ![-](images/spacer-130.png) | ![-](images/spacer-130.png) | ![-](images/spacer-130.png) |
+
+[Cassandra]: <https://cassandra.apache.org/_/index.html> "Apache Cassandra"
+[Chroma]: <https://www.trychroma.com/> "Chroma"
+[Elasticsearch]: <https://www.elastic.co/elasticsearch> "Elasticsearch"
+[MongoDB]: <https://www.mongodb.com/products/platform/atlas-database> "MongoDB Atlas"
+[MySQL]: <https://www.mysql.com/> "Oracle MySQL"
+[Neo4j]: <https://neo4j.com/product/neo4j-graph-database/> "Neo4j"
+[Oracle]: <https://www.oracle.com/database/free/> "Oracle AI Database 26ai"
+[PostgreSQL]: <https://www.postgresql.org/> "PostgreSQL"
+[Redis]: <https://redis.io/> "Redis"
+[SQL Server]: <https://www.microsoft.com/en-us/sql-server> "Microsoft SQL Server"
+
+![greenCircle](images/greenCircle.png) 1.3. Reports are generated using **pdfmake**. Example PDF reports:
+
+- [Departments and Employees Report](https://github.com/k1729p/Study27/blob/main/docs/pdf_reports/file.pdf)
+- [Comprehensive Report](https://github.com/k1729p/Study27/blob/main/docs/pdf_reports/file-1.pdf)
+
+![greenCircle](images/greenCircle.png) 1.4. The TypeScript, HTML, and CSS sources are located in the [src/app](https://github.com/k1729p/Study27/blob/main/src/app) directory.
+
+![aquaHR](images/aquaHR-500.png)
+
+<details>
+<summary>'App' section:</summary>
+
+- AppComponent
+  [app.component.ts](https://github.com/k1729p/Study27/blob/main/src/app/app.component.ts)
+- Routes
+  [app.routes.ts](https://github.com/k1729p/Study27/blob/main/src/app/app.routes.ts)
+
+</details>
+<details>
+<summary>'Home' section:</summary>
+
+- directory [home](https://github.com/k1729p/Study27/blob/main/src/app/home)
+  - 🟧 HomeComponent
+    [home.component.ts](https://github.com/k1729p/Study27/blob/main/src/app/home/home.component.ts)
+
+</details>
+<details>
+<summary>'Manage' section:</summary>
+
+- directory [manage/tables/department-table](https://github.com/k1729p/Study27/blob/main/src/app/manage/tables/department-table)
+  - 🟩 DepartmentTableComponent
+    [department-table.component.ts](https://github.com/k1729p/Study27/blob/main/src/app/manage/tables/department-table/department-table.component.ts)
+- directory [manage/forms/department-form](https://github.com/k1729p/Study27/blob/main/src/app/manage/forms/department-form)
+  - 🟢 DepartmentFormComponent
+    [department-form.component.ts](https://github.com/k1729p/Study27/blob/main/src/app/manage/forms/department-form/department-form.component.ts)
+- directory [manage/tables/employee-table](https://github.com/k1729p/Study27/blob/main/src/app/manage/tables/employee-table)
+  - 🟩 EmployeeTableComponent
+    [employee-table.component.ts](https://github.com/k1729p/Study27/blob/main/src/app/manage/tables/employee-table/employee-table.component.ts)
+- directory [manage/forms/employee-form](https://github.com/k1729p/Study27/blob/main/src/app/manage/forms/employee-form)
+  - 🟢 EmployeeFormComponent
+    [employee-form.component.ts](https://github.com/k1729p/Study27/blob/main/src/app/manage/forms/employee-form/employee-form.component.ts)
+
+</details>
+<details>
+<summary>'Transfer' section:</summary>
+
+- directory [transfer/employee-transfer](https://github.com/k1729p/Study27/blob/main/src/app/transfer/employee-transfer)
+  - 🟦 EmployeeTransferComponent
+    [employee-transfer.component.ts](https://github.com/k1729p/Study27/blob/main/src/app/transfer/employee-transfer/employee-transfer.component.ts)
+
+</details>
+<details>
+<summary>'Locate' section:</summary>
+
+- directory [locate/employee-locate](https://github.com/k1729p/Study27/blob/main/src/app/locate/employee-locate)
+  - 🟪 EmployeeLocateComponent
+    [employee-locate.component.ts](https://github.com/k1729p/Study27/blob/main/src/app/locate/employee-locate/employee-locate.component.ts)
+
+</details>
+<details>
+<summary>'Report' section:</summary>
+
+- directory [report](https://github.com/k1729p/Study27/blob/main/src/app/report)
+  - 🟨 ReportComponent
+    [report.component.ts](https://github.com/k1729p/Study27/blob/main/src/app/report/report.component.ts)
+
+</details>
+<details>
+<summary>'Models' section:</summary>
+
+- directory [models](https://github.com/k1729p/Study27/blob/main/src/app/models)
+  - Department
+    [department.ts](https://github.com/k1729p/Study27/blob/main/src/app/models/department.ts)
+  - Employee
+    [employee.ts](https://github.com/k1729p/Study27/blob/main/src/app/models/employee.ts)
+  - Title
+    [title.ts](https://github.com/k1729p/Study27/blob/main/src/app/models/title.ts)
+
+</details>
+<details>
+<summary>'Services' section:</summary>
+
+- directory [services/department-service](https://github.com/k1729p/Study27/blob/main/src/app/services/department-service)
+  - DepartmentService
+    [department.service.ts](https://github.com/k1729p/Study27/blob/main/src/app/services/department-service/department.service.ts)
+- directory [services/employee-service](https://github.com/k1729p/Study27/blob/main/src/app/services/employee-service)
+  - EmployeeService
+    [employee.service.ts](https://github.com/k1729p/Study27/blob/main/src/app/services/employee-service/employee.service.ts)
+- directory [services/initialization-service](https://github.com/k1729p/Study27/blob/main/src/app/services/initialization-service)
+  - InitializationService
+    [initialization.service.ts](https://github.com/k1729p/Study27/blob/main/src/app/services/initialization-service/initialization.service.ts)
+
+</details>
+
+![aquaHR](images/aquaHR-500.png)
+
+[Back to the top of the page](#study27-readme-contents)
+
+---
+
+## ❷ Docker Build
+
+Action: \
+ ![orangeHR](images/orangeHR-500.png) \
+ ![orangeSqr](images/orangeSquare.png) 1. Use the batch file ["01 Angular on Docker build and run.bat"](https://github.com/k1729p/Study27/blob/main/0_batch/01%20Angular%20on%20Docker%20build%20and%20run.bat)
+to build the images and start the containers. \
+ ![orangeSqr](images/orangeSquare.png) 2. Use the web browser shortcut "11 Study27 on 8027.url"
+to open the 'Study27' application. \
+ ![orangeHR](images/orangeHR-500.png)
+
+![greenCircle](images/greenCircle.png) 2.1. **Docker** images are built using the following files:
+
+- [Dockerfile](https://github.com/k1729p/Study27/blob/main/docker-config/Dockerfile)
+- [compose.yaml](https://github.com/k1729p/Study27/blob/main/docker-config/compose.yaml)
+
+[Back to the top of the page](#study27-readme-contents)
+
+---
+
+## ❸ Local Build and Test
+
+Action: \
+ ![orangeHR](images/orangeHR-500.png) \
+ ![orangeSqr](images/orangeSquare.png) 1. Use the batch file ["02 Angular on local build and run.bat"](https://github.com/k1729p/Study27/blob/main/0_batch/02%20Angular%20on%20local%20build%20and%20run.bat)
+to build and start the local application. \
+ ![orangeSqr](images/orangeSquare.png) 2. Use the batch file
+["03 Angular lint and test.bat"](https://github.com/k1729p/Study27/blob/main/0_batch/03%20Angular%20lint%20and%20test.bat)
+to lint the code and start the **Karma** tests. \
+ ![orangeSqr](images/orangeSquare.png) 3. Use the web browser shortcut "12 Study27 on 4200.url" to open \
+ ![orangeSqr](images/orangeSquare.png) &nbsp;&nbsp;&nbsp; the application running on port 4200, started with 'ng serve'. \
+ ![orangeHR](images/orangeHR-500.png)
+
+![greenCircle](images/greenCircle.png) 3.1. The [screenshot](images/ScreenshotKarmaTests.jpg) of the **Karma** test results.
+
+[Back to the top of the page](#study27-readme-contents)
+
+---
+
+## ❹ Cypress End-to-End Tests
+
+Action: \
+ ![orangeHR](images/orangeHR-500.png) \
+ ![orangeSqr](images/orangeSquare.png) Use the batch file
+["04 Cypress tests.bat"](https://github.com/k1729p/Study27/blob/main/0_batch/04%20Cypress%20tests.bat)
+to start the **Cypress** tests. \
+ ![orangeHR](images/orangeHR-500.png)
+
+![greenCircle](images/greenCircle.png) 4.1. The test scripts are in the
+[cypress/e2e](https://github.com/k1729p/Study27/blob/main/cypress/e2e) directory.
+
+![greenCircle](images/greenCircle.png) 4.2. The test set was executed against local web storage and against 10 databases running in Docker containers. \
+All test screenshots generated by **Cypress** are in the
+[cypress/screenshots](https://github.com/k1729p/Study27/tree/main/cypress/screenshots) directory.
+
+<details>
+<summary>Selected test screenshots:</summary>
+
+- 🟩 [Read department and employee](https://html-preview.github.io/?url=https://github.com/k1729p/Study27/blob/main/docs/cypress_screenshots/11_read_department_and_employee.html) (using the PostgreSQL repository)
+- 🟩 [Create department and employee](https://html-preview.github.io/?url=https://github.com/k1729p/Study27/blob/main/docs/cypress_screenshots/12_create_department_and_employee.html) (using the PostgreSQL repository)
+- 🟩 [Update department and employee](https://html-preview.github.io/?url=https://github.com/k1729p/Study27/blob/main/docs/cypress_screenshots/13_update_department_and_employee.html) (using the PostgreSQL repository)
+- 🟩 [Delete department and employee](https://html-preview.github.io/?url=https://github.com/k1729p/Study27/blob/main/docs/cypress_screenshots/14_delete_department_and_employee.html) (using the PostgreSQL repository)
+- 🟦 [Transfer employees](https://html-preview.github.io/?url=https://github.com/k1729p/Study27/blob/main/docs/cypress_screenshots/21_transfer_employees.html) (using the WebStorage repository)
+- 🟪 [Locate employee](https://html-preview.github.io/?url=https://github.com/k1729p/Study27/blob/main/docs/cypress_screenshots/31_locate_employee.html) (using the MongoDB repository)
+- 🟨 [Open report](https://html-preview.github.io/?url=https://github.com/k1729p/Study27/blob/main/docs/cypress_screenshots/41_open_report.html) (using the MongoDB repository)
+
+</details>
+
+[Back to the top of the page](#study27-readme-contents)
+
+---
+
+## Links
+
+| Resource | Description |
+| :--- | :--- |
+| [Material Design 3](https://m3.material.io/) | However, this Angular Material project uses Material Design 2. |
+| [Angular Material UI components](https://material.angular.dev/components/categories) | UI components based on the Material Design specification. |
+| [Angular Material CDK](https://material.angular.dev/cdk/categories) | A set of behavioral primitives for building UI components. |
+| [HTTP Client](https://angular.dev/guide/http) | The Angular HTTP Client service. |
+| [pdfmake](https://pdfmake.github.io/docs/0.1/) | PDF document generation library. |
+| [Google Icons](https://fonts.google.com/icons?icon.size=24&icon.color=%231f1f1f) | Icons used in the Material menu. |
+| [Angular CLI](https://angular.dev/tools/cli) | The Angular command-line interface tool. |
+| [Cypress](https://www.cypress.io/) | The front-end testing tool. |
+| [Karma](https://karma-runner.github.io/) | The test runner. |
+| [GitHub Pages](https://docs.github.com/en/pages/) | Hosts websites directly from a GitHub repository. |
+
+---
+
+## Acronyms
+
+| Acronym | Meaning |
+| :--- | :--- |
+| ARIA | Accessible Rich Internet Applications |
+| CDK | Component Dev Kit |
+| CSR | Client-Side Rendering |
+| ESM | ECMAScript Module |
+| PWA | Progressive Web Application |
+| SPA | Single-Page Application |
+| SSG | Static Site Generation |
+| SSR | Server-Side Rendering |
+
+[Back to the top of the page](#study27-readme-contents)
+
+---

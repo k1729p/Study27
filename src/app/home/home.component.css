@@ -1,0 +1,24 @@
+.home-title {
+  font-size: 1.75rem;
+  min-height: 40px;
+}
+
+.repository-type-row {
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+  margin-left: 8px;
+  margin-right: 8px;
+  margin-bottom: 8px;
+}
+
+.repository-type-col {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+}
+
+.repository-type-radio {
+  display: block;
+  margin-bottom: 8px;
+}
